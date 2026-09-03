@@ -34,7 +34,7 @@ const HeroBanner = () => {
                     />
                     <div className='absolute w-full h-full top-0 left-0'
                         style={{
-                            background: 'radial-gradient(ellipse 95% 95% at 60% 0%, rgba(255, 175, 40, 0.28) 0%, rgba(0, 0, 0, 0.5) 90%, rgba(10, 10, 10, 0.95) 100%), linear-gradient(180deg, rgba(10, 10, 10, 0.4) 90%, rgba(10, 10, 10, 0.3) 100%)',
+                            background: 'radial-gradient(ellipse 95% 95% at 60% 0%, rgba(73, 186, 166, 0.28) 0%, rgba(0, 0, 0, 0.5) 90%, rgba(10, 10, 10, 0.95) 100%), linear-gradient(180deg, rgba(10, 10, 10, 0.4) 90%, rgba(10, 10, 10, 0.3) 100%)',
                         }}
                     />
                 </div>
