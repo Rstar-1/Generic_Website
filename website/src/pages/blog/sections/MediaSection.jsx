@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import Container from '../../../components/common/Container';
 import Image from '../../../components/common/Image';
 import Icon from '../../../components/common/Icon';
+import Button from '../../../components/common/Button';
+import Fields from '../../../components/forms/Fields';
 
 const blogPosts = [
     {
@@ -43,18 +45,21 @@ const recentPosts = [
     {
         id: 1,
         title: 'How To Stay Ahead Of The Business World',
+        desc: 'How To Stay Ahead Of The Business World',
         date: 'March 05, 2025',
         image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=200&q=80'
     },
     {
         id: 2,
         title: 'How Digital Twin Shaping The Workplace',
+        desc: 'How To Stay Ahead Of The Business World',
         date: 'March 03, 2025',
         image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=200&q=80'
     },
     {
         id: 3,
         title: 'How To Sustainability Into Your Strategy',
+        desc: 'How To Stay Ahead Of The Business World',
         date: 'March 01, 2025',
         image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=200&q=80'
     }
@@ -69,310 +74,160 @@ const MediaSection = () => {
     const [searchQuery, setSearchQuery] = useState('');
 
     return (
-        <section style={{ backgroundColor: '#F3EFEE', paddingTop: '60px', paddingBottom: '80px' }}>
-            <Container version="v2">
-                <div style={{ display: 'flex', gap: '32px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
-                    {/* Left Column - Main Blog Posts */}
-                    <div style={{ flex: '1 1 65%', minWidth: '300px', display: 'flex', flexDirection: 'column', gap: '48px' }}>
-                        {blogPosts.map((post) => (
-                            <article
-                                key={post.id}
-                                style={{
-                                    display: 'flex',
-                                    flexDirection: 'column'
-                                }}
+        <Container>
+            <div className='flex items-start gap-12 w-full py-60'>
+                <div className='w-70 pr-10 sm-pr-1'>
+                    {blogPosts.map((post) => (
+                        <article
+                            key={post.id}
+                            className='mb-40'
+                        >
+                            <div
+                                onClick={() => navigate('/blog-detail')}
+                                className='w-full h-450 rounded-10 overflow-hidden mb-20 cursor-pointer'
                             >
-                                {/* Featured Image */}
-                                <div
+                                <Image
+                                    src={post.image}
+                                    alt={post.title}
+                                    className='flex object-cover h-full w-full'
+                                    onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.03)')}
+                                    onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
+                                />
+                            </div>
+
+                            <div className='flex items-center gap-12'>
+                                <div className='flex items-center gap-6'>
+                                    <Icon name="Customers" width="14" height="14" stroke="#666666" />
+                                    <p className='small-text text-gray font-500'>{post.date}</p>
+                                </div>
+                                <div className='flex items-center gap-6 ml-10'>
+                                    <Icon name="WhatsApp" width="14" height="14" stroke="#666666" />
+                                    <p className='small-text text-gray font-500'>{post.comments}</p>
+                                </div>
+                            </div>
+
+                            <h2
+                                onClick={() => navigate('/blog-detail')}
+                                className='text-dark font-600 head-text mt-2 line-clamp1 cursor-pointer'
+                            >
+                                {post.title}
+                            </h2>
+
+                            <p
+                                className='text-gray font-400 small-text mt-14'
+                            >
+                                {post.excerpt}
+                            </p>
+                            <div className="mt-12">
+                                <Button
+                                    text="Read More"
+                                    version="v2"
+                                    bg="primary"
+                                    color="white"
+                                    icon="ArrowUpRight"
+                                    iconPosition="right"
+                                    className="rounded-30"
                                     onClick={() => navigate('/blog-detail')}
-                                    style={{
-                                        width: '100%',
-                                        height: '380px',
-                                        borderRadius: '20px',
-                                        overflow: 'hidden',
-                                        marginBottom: '20px',
-                                        cursor: 'pointer'
-                                    }}
-                                >
-                                    <Image
-                                        src={post.image}
-                                        alt={post.title}
-                                        style={{
-                                            width: '100%',
-                                            height: '100%',
-                                            objectFit: 'cover',
-                                            transition: 'transform 0.3s ease'
-                                        }}
-                                        onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.03)')}
-                                        onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
-                                    />
-                                </div>
+                                />
+                            </div>
+                        </article>
+                    ))}
+                </div>
 
-                                {/* Post Meta */}
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '12px' }}>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: '#666666', fontWeight: '500' }}>
-                                        <Icon name="Calendar" width="14" height="14" stroke="#666666" />
-                                        <span>{post.date}</span>
-                                    </div>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: '#666666', fontWeight: '500' }}>
-                                        <Icon name="MessageSquare" width="14" height="14" stroke="#666666" />
-                                        <span>{post.comments}</span>
-                                    </div>
-                                </div>
-
-                                {/* Post Title */}
-                                <h2
-                                    onClick={() => navigate('/blog-detail')}
-                                    style={{
-                                        fontSize: '24px',
-                                        fontWeight: '700',
-                                        color: '#141414',
-                                        lineHeight: '1.35',
-                                        marginBottom: '12px',
-                                        cursor: 'pointer',
-                                        transition: 'color 0.2s ease'
-                                    }}
-                                    onMouseEnter={(e) => (e.currentTarget.style.color = '#FF4D00')}
-                                    onMouseLeave={(e) => (e.currentTarget.style.color = '#141414')}
-                                >
-                                    {post.title}
-                                </h2>
-
-                                {/* Post Excerpt */}
-                                <p
-                                    style={{
-                                        fontSize: '14px',
-                                        lineHeight: '1.65',
-                                        color: '#666666',
-                                        marginBottom: '24px'
-                                    }}
-                                >
-                                    {post.excerpt}
-                                </p>
-
-                                {/* Read More Button */}
-                                <div>
-                                    <button
-                                        onClick={() => navigate('/blog-detail')}
-                                        style={{
-                                            backgroundColor: '#FF4D00',
-                                            color: '#FFFFFF',
-                                            borderRadius: '30px',
-                                            padding: '12px 28px',
-                                            fontSize: '14px',
-                                            fontWeight: '600',
-                                            border: 'none',
-                                            cursor: 'pointer',
-                                            display: 'inline-flex',
-                                            alignItems: 'center',
-                                            gap: '8px',
-                                            transition: 'transform 0.2s ease, backgroundColor 0.2s ease'
-                                        }}
-                                        onMouseEnter={(e) => {
-                                            e.currentTarget.style.transform = 'translateY(-2px)';
-                                            e.currentTarget.style.backgroundColor = '#E04400';
-                                        }}
-                                        onMouseLeave={(e) => {
-                                            e.currentTarget.style.transform = 'translateY(0)';
-                                            e.currentTarget.style.backgroundColor = '#FF4D00';
-                                        }}
-                                    >
-                                        <span>Read More</span>
-                                        <Icon name="ArrowUpRight" width="14" height="14" stroke="#FFFFFF" />
-                                    </button>
-                                </div>
-                            </article>
-                        ))}
+                <div className='w-30 pl-10 sm-pl-1'>
+                    <div className='mb-25 bg-forth rounded-5 p-16'>
+                        <h4 className='text-dark mid-text font-600 mb-10'>
+                            Search
+                        </h4>
+                        <Fields
+                            type="input"
+                            placeholder="Search here..."
+                            value={searchQuery}
+                            onChange={(val) => setSearchQuery(val)}
+                            icon="Search"
+                            iconPosition="right"
+                        />
                     </div>
 
-                    {/* Right Column - Sidebar Widgets */}
-                    <div style={{ flex: '1 1 30%', minWidth: '280px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                        {/* Widget 1: Search */}
-                        <div
-                            style={{
-                                backgroundColor: '#FFFFFF',
-                                borderRadius: '16px',
-                                padding: '24px'
-                            }}
-                        >
-                            <h4 style={{ fontSize: '18px', fontWeight: '700', color: '#141414', marginBottom: '16px' }}>
-                                Search
-                            </h4>
-                            <div style={{ display: 'flex', gap: '8px' }}>
-                                <input
-                                    type="text"
-                                    placeholder="Search here..."
-                                    value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                    style={{
-                                        flex: 1,
-                                        backgroundColor: '#F3EFEE',
-                                        border: 'none',
-                                        borderRadius: '8px',
-                                        padding: '12px 16px',
-                                        fontSize: '14px',
-                                        color: '#141414',
-                                        outline: 'none'
-                                    }}
-                                />
-                                <button
-                                    style={{
-                                        width: '44px',
-                                        height: '44px',
-                                        borderRadius: '8px',
-                                        backgroundColor: '#FF4D00',
-                                        border: 'none',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        cursor: 'pointer',
-                                        flexShrink: 0
-                                    }}
+                    <div className='mb-25'>
+                        <h4 className='text-dark mid-text font-600'>
+                            All Categories
+                        </h4>
+                        <div className='grid-cols-1 gap-10 mt-15'>
+                            {categories.map((cat, idx) => (
+                                <div
+                                    key={idx}
+                                    className='bg-forth rounded-5 p-15 flex justify-between items-center'
                                 >
-                                    <Icon name="Search" width="18" height="18" stroke="#FFFFFF" />
-                                </button>
-                            </div>
+                                    <h5 className='text-dark headmini-text font-500'>{cat.name}</h5>
+                                    <p className='text-light mini-text font-500'>({cat.count})</p>
+                                </div>
+                            ))}
                         </div>
+                    </div>
 
-                        {/* Widget 2: All Categories */}
-                        <div
-                            style={{
-                                backgroundColor: '#FFFFFF',
-                                borderRadius: '16px',
-                                padding: '24px'
-                            }}
-                        >
-                            <h4 style={{ fontSize: '18px', fontWeight: '700', color: '#141414', marginBottom: '16px' }}>
-                                All Categories
-                            </h4>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                                {categories.map((cat, idx) => (
-                                    <div
-                                        key={idx}
-                                        style={{
-                                            backgroundColor: '#F3EFEE',
-                                            borderRadius: '8px',
-                                            padding: '12px 16px',
-                                            display: 'flex',
-                                            justifyContent: 'space-between',
-                                            alignItems: 'center',
-                                            fontSize: '14px',
-                                            fontWeight: '600',
-                                            color: '#141414',
-                                            cursor: 'pointer',
-                                            transition: 'backgroundColor 0.2s ease'
-                                        }}
-                                        onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#EAE4E2')}
-                                        onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#F3EFEE')}
-                                    >
-                                        <span>{cat.name}</span>
-                                        <span style={{ fontSize: '13px', color: '#666666', fontWeight: '500' }}>({cat.count})</span>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Widget 3: Recent Posts */}
-                        <div
-                            style={{
-                                backgroundColor: '#FFFFFF',
-                                borderRadius: '16px',
-                                padding: '24px'
-                            }}
-                        >
-                            <h4 style={{ fontSize: '18px', fontWeight: '700', color: '#141414', marginBottom: '16px' }}>
-                                Recent Post
-                            </h4>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                                {recentPosts.map((post) => (
-                                    <div
-                                        key={post.id}
-                                        onClick={() => navigate('/blog-detail')}
-                                        style={{
-                                            display: 'flex',
-                                            gap: '14px',
-                                            alignItems: 'center',
-                                            cursor: 'pointer'
-                                        }}
-                                    >
+                    <div className='mb-25'>
+                        <h4 className='text-dark mid-text font-600'>
+                            Recent Post
+                        </h4>
+                        <div className='mt-15 grid-cols-1 gap-12'>
+                            {recentPosts.map((post) => (
+                                <div
+                                    key={post.id}
+                                    onClick={() => navigate('/blog-detail')}
+                                    className='flex items-center gap-12 mb-10'
+                                >
+                                    <div className='w-35'>
                                         <Image
                                             src={post.image}
                                             alt={post.title}
-                                            style={{
-                                                width: '64px',
-                                                height: '64px',
-                                                borderRadius: '8px',
-                                                objectFit: 'cover',
-                                                flexShrink: 0
-                                            }}
+                                            className='w-full h-100px object-cover flex rounded-10'
                                         />
-                                        <div>
-                                            <h5
-                                                style={{
-                                                    fontSize: '14px',
-                                                    fontWeight: '600',
-                                                    color: '#141414',
-                                                    lineHeight: '1.3',
-                                                    marginBottom: '4px',
-                                                    transition: 'color 0.2s ease'
-                                                }}
-                                                onMouseEnter={(e) => (e.currentTarget.style.color = '#FF4D00')}
-                                                onMouseLeave={(e) => (e.currentTarget.style.color = '#141414')}
-                                            >
-                                                {post.title}
-                                            </h5>
-                                            <span style={{ fontSize: '12px', color: '#888888' }}>
-                                                {post.date}
-                                            </span>
-                                        </div>
                                     </div>
-                                ))}
-                            </div>
+                                    <div className='w-65'>
+                                        <h5
+                                            className='text-dark mid-text font-600 line-clamp1'
+                                        >
+                                            {post.title}
+                                        </h5>
+                                        <p className='text-gray mt-2 small-text font-500 line-clamp2'>
+                                            {post.desc}
+                                        </p>
+                                        <p className='text-gray mt-4 mini-text font-400'>
+                                            {post.date}
+                                        </p>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
+                    </div>
 
-                        {/* Widget 4: Popular Tags */}
-                        <div
-                            style={{
-                                backgroundColor: '#FFFFFF',
-                                borderRadius: '16px',
-                                padding: '24px'
-                            }}
-                        >
-                            <h4 style={{ fontSize: '18px', fontWeight: '700', color: '#141414', marginBottom: '16px' }}>
-                                Popular Tags
-                            </h4>
-                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                                {popularTags.map((tag, idx) => (
-                                    <span
-                                        key={idx}
-                                        style={{
-                                            backgroundColor: '#F3EFEE',
-                                            borderRadius: '6px',
-                                            padding: '6px 14px',
-                                            fontSize: '13px',
-                                            fontWeight: '600',
-                                            color: '#141414',
-                                            cursor: 'pointer',
-                                            transition: 'backgroundColor 0.2s ease, color 0.2s ease'
-                                        }}
-                                        onMouseEnter={(e) => {
-                                            e.currentTarget.style.backgroundColor = '#FF4D00';
-                                            e.currentTarget.style.color = '#FFFFFF';
-                                        }}
-                                        onMouseLeave={(e) => {
-                                            e.currentTarget.style.backgroundColor = '#F3EFEE';
-                                            e.currentTarget.style.color = '#141414';
-                                        }}
-                                    >
-                                        {tag}
-                                    </span>
-                                ))}
-                            </div>
+                    <div>
+                        <h4 className='text-dark mid-text font-600'>
+                            Popular Tags
+                        </h4>
+                        <div className='flex items-center gap-8 flex-wrap mt-12 bg-forth rounded-5 p-16'>
+                            {popularTags.map((tag, idx) => (
+                                <p
+                                    key={idx}
+                                    className='text-dark bg-white mini-text font-500 px-15 py-6 rounded-5'
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.backgroundColor = '#FF4D00';
+                                        e.currentTarget.style.color = '#FFFFFF';
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.backgroundColor = '#F3EFEE';
+                                        e.currentTarget.style.color = '#141414';
+                                    }}
+                                >
+                                    {tag}
+                                </p>
+                            ))}
                         </div>
                     </div>
                 </div>
-            </Container>
-        </section>
+            </div>
+        </Container >
     );
 };
 

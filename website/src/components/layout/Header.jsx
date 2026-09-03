@@ -102,8 +102,8 @@ const Header = () => {
       }}
     >
       <div className="w-full">
-        <Container version="v0" className="sm-hidden md-hidden bg-primary">
-          <div className="px-12 py-10">
+        <Container className="sm-hidden md-hidden bg-primary">
+          <div className="py-10 w-full">
             <div className="w-full flex items-center justify-between">
               <div className="flex items-center gap-12">
                 <div className="flex items-center gap-6 font-400">
@@ -151,8 +151,7 @@ const Header = () => {
           </div>
         </Container>
 
-        {/* Main Header Nav */}
-        <div className="container2 mx-auto">
+        <Container>
           <div
             className="flex items-center justify-between mx-auto w-full"
             style={{ height: "70px" }}
@@ -425,7 +424,7 @@ const Header = () => {
               />
             </div>
           </div>
-        </div>
+        </Container>
 
         {mobileMenu}
       </div>

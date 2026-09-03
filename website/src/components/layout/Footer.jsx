@@ -7,7 +7,7 @@ const Footer = () => {
   const { features, newsletter, columns, bottom } = footerData;
 
   return (
-    <Container version="v2" style={{ background: 'var(--forth)' }}>
+    <Container style={{ background: 'var(--forth)' }}>
       <div className='py-50 w-full'>
         <div
           className='grid-cols-4 gap-12'

@@ -3,162 +3,64 @@ import counterBg from '../../../assets/counter-bg.jpg';
 import Container from '../../../components/common/Container';
 import Icon from '../../../components/common/Icon';
 
+const stats = [
+    {
+        id: 1,
+        value: '30',
+        symbol: '+',
+        label: 'Personalization At Seems Ultimate Scale.'
+    },
+    {
+        id: 2,
+        value: '8K',
+        symbol: '+',
+        label: 'Personalization At Seems Ultimate Scale.'
+    },
+    {
+        id: 3,
+        value: '20',
+        symbol: 'X',
+        label: 'Personalization At Seems Ultimate Scale.'
+    }
+];
+
 const PatchSection = () => {
     return (
-        <Container version="v2" className="relative z-10"
+        <Container
+            className="relative z-10"
             style={{
-                background: `linear-gradient(90deg, rgba(10, 15, 25, 0.94) 0%, rgba(10, 15, 25, 0.82) 50%, rgba(10, 15, 25, 0.45) 100%), url(${counterBg}) center/cover no-repeat`,
-
-            }}>
+                background: `linear-gradient(90deg, rgba(10, 15, 25, 0.94) 0%, rgba(10, 15, 25, 0.82) 50%, rgba(10, 15, 25, 0.45) 100%), url(${counterBg}) center/cover no-repeat`
+            }}
+        >
             <div className='w-full py-100'>
-                <div className="flex items-center">
-                    <div
-                        style={{
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '8px',
-                            padding: '8px 18px',
-                            borderRadius: '30px',
-                            border: '1px solid rgba(255, 255, 255, 0.2)',
-                            backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                            backdropFilter: 'blur(4px)',
-                            fontSize: '12px',
-                            fontWeight: '600',
-                            letterSpacing: '0.6px',
-                            textTransform: 'uppercase',
-                            color: '#FFFFFF'
-                        }}
-                    >
-                        <span style={{ color: 'var(--primary)', display: 'flex' }}>
-                            <Icon name="Settings" width="14" height="14" stroke="var(--primary)" />
-                        </span>
+                <div className="mt-30 w-50">
+                    <p className="mini-text text-dark bg-white w-max px-18 py-6 rounded-20 flex items-center gap-8 font-700 uppercase mb-18">
+                        <Icon name="Settings" width="14" height="14" className="text-primary" />
                         NO.1 SOFTWARE COMPANY COMPANY
-                    </div>
-                </div>
-
-                {/* Main Headline & Paragraph */}
-                <div style={{ maxWidth: '680px' }} className="mt-30">
-                    <h2
-                        className="text-white font-600"
-                        style={{
-                            fontSize: '48px',
-                            lineHeight: '1.2',
-                            margin: 0,
-                            letterSpacing: '-0.5px'
-                        }}
-                    >
+                    </p>
+                    <h3 className='text-white large-text font-600'>
                         Delivering Innovative IT solutions Empower In Businesses.
-                    </h2>
+                    </h3>
 
-                    <p
-                        style={{
-                            fontSize: '16px',
-                            lineHeight: '1.6',
-                            color: 'rgba(255, 255, 255, 0.75)',
-                            marginTop: '20px',
-                            maxWidth: '520px'
-                        }}
-                    >
+                    <p className='text-white para-text text-muted font-500 mt-18'>
                         Empowering enterprises with tailored financial insights and measurable growth strategies.
                     </p>
                 </div>
 
-                {/* Divider Line & Stats Row */}
-                <div
-                    style={{
-                        marginTop: '80px',
-                        paddingTop: '40px',
-                        borderTop: '1px solid rgba(255, 255, 255, 0.15)',
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-                        gap: '30px',
-                        alignItems: 'center'
-                    }}
-                >
-                    {/* Stat 1 */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                        <div
-                            style={{
-                                fontSize: '68px',
-                                fontWeight: '700',
-                                color: '#FFFFFF',
-                                lineHeight: '1',
-                                letterSpacing: '-2px'
-                            }}
-                        >
-                            30<sup style={{ fontSize: '42px', fontWeight: '500', top: '-0.3em' }}>+</sup>
+                <div className='mt-60 bordh grid-cols-3 gap-12 pt-30'>
+                    {stats.map((item) => (
+                        <div className='mx-auto' key={item.id}>
+                            <h3 className='largehead-text text-white font-600 text-center'>
+                                {item.value}<sup className='font-500'>{item.symbol}</sup>
+                            </h3>
+                            <p className='para-text text-white font-400 w-90 sm-w-full mt-6 mx-auto text-center'>
+                                {item.label}
+                            </p>
                         </div>
-                        <p
-                            style={{
-                                fontSize: '14px',
-                                lineHeight: '1.4',
-                                color: 'rgba(255, 255, 255, 0.8)',
-                                margin: 0,
-                                maxWidth: '160px',
-                                fontWeight: '500'
-                            }}
-                        >
-                            Personalization At Seems Ultimate Scale.
-                        </p>
-                    </div>
-
-                    {/* Stat 2 */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                        <div
-                            style={{
-                                fontSize: '68px',
-                                fontWeight: '700',
-                                color: '#FFFFFF',
-                                lineHeight: '1',
-                                letterSpacing: '-2px'
-                            }}
-                        >
-                            8k<sup style={{ fontSize: '42px', fontWeight: '500', top: '-0.3em' }}>+</sup>
-                        </div>
-                        <p
-                            style={{
-                                fontSize: '14px',
-                                lineHeight: '1.4',
-                                color: 'rgba(255, 255, 255, 0.8)',
-                                margin: 0,
-                                maxWidth: '160px',
-                                fontWeight: '500'
-                            }}
-                        >
-                            Personalization At Seems Ultimate Scale.
-                        </p>
-                    </div>
-
-                    {/* Stat 3 */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                        <div
-                            style={{
-                                fontSize: '68px',
-                                fontWeight: '700',
-                                color: '#FFFFFF',
-                                lineHeight: '1',
-                                letterSpacing: '-2px'
-                            }}
-                        >
-                            20<sup style={{ fontSize: '42px', fontWeight: '500', top: '-0.3em', textTransform: 'uppercase' }}>X</sup>
-                        </div>
-                        <p
-                            style={{
-                                fontSize: '14px',
-                                lineHeight: '1.4',
-                                color: 'rgba(255, 255, 255, 0.8)',
-                                margin: 0,
-                                maxWidth: '160px',
-                                fontWeight: '500'
-                            }}
-                        >
-                            Personalization At Seems Ultimate Scale.
-                        </p>
-                    </div>
+                    ))}
                 </div>
             </div>
         </Container>
-
     );
 };
 
