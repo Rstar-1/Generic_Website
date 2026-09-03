@@ -1,25 +1,23 @@
 import React from 'react';
 import Banner from '../../components/layout/generic/Banner';
-import DetailSection from './sections/DetailSection';
+import Enquiry from './sections/Enquiry';
 import PatchSection from '../home/sections/PatchSection';
-import OfferSection from '../home/sections/OfferSection';
 
-const About = () => {
+const Connect = () => {
     return (
         <>
             <Banner
-                title="About Us"
-                desc="About Our Story"
+                title="Connect Us"
+                desc="Get In Touch With Us"
                 breadcrumbs={[
                     { label: 'Home', path: '/home' },
-                    { label: 'About Us', path: '/about' }
+                    { label: 'Connect Us', path: '/connect' }
                 ]}
             />
-            <DetailSection />
+            <Enquiry />
             <PatchSection />
-            <OfferSection />
         </>
     );
 };
 
-export default About;
+export default Connect;

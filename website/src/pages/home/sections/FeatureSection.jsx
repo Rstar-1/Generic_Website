@@ -1,0 +1,287 @@
+import React, { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Container from '../../../components/common/Container';
+import Icon from '../../../components/common/Icon';
+import Image from '../../../components/common/Image';
+import Button from '../../../components/common/Button';
+import slider1 from '../../../assets/collection-slider-1.jpg';
+import slider2 from '../../../assets/collection-slider-2.jpg';
+import slider3 from '../../../assets/collection-slider-3.jpg';
+import Heading from '../../../components/layout/generic/Heading';
+
+const products = [
+    {
+        id: 1,
+        badge: { text: 'Sale', color: '#C8281E' },
+        category: 'TABLES',
+        name: 'Cross Table Bark',
+        price: '$170.00',
+        originalPrice: '$200.00',
+        image: slider1,
+        colors: ['#A06236']
+    },
+    {
+        id: 2,
+        badge: { text: 'Sale', color: '#C8281E' },
+        category: 'RACK WALL',
+        name: 'Axis Storage System',
+        price: '$135.00',
+        originalPrice: '$185.00',
+        image: slider2,
+        colors: ['#B0997B']
+    },
+    {
+        id: 3,
+        badge: { text: 'Sale', color: '#C8281E' },
+        category: 'CHAIRS',
+        name: 'Task Chair Luxe',
+        price: '$559.00',
+        originalPrice: '$599.00',
+        image: slider3,
+        colors: ['#5A3A1E']
+    },
+    {
+        id: 4,
+        badge: { text: 'Sale', color: '#C8281E' },
+        category: 'CHAIRS',
+        name: 'Cross Chair Heritage',
+        price: '$589.00',
+        originalPrice: '$600.00',
+        image: 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=500&q=80',
+        colors: ['#D9D0C3', '#4A3525']
+    },
+    {
+        id: 5,
+        badge: { text: 'New', color: '#0F8354' },
+        category: 'BAR STOOLS',
+        name: 'Plush Stool',
+        price: '$219.00',
+        originalPrice: null,
+        image: 'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&w=500&q=80',
+        colors: ['#E5E5E5']
+    },
+    {
+        id: 6,
+        badge: { text: 'Sale', color: '#C8281E' },
+        category: 'ACCESSORIES',
+        name: 'Grind Vessel',
+        price: '$65.00',
+        originalPrice: '$100.00',
+        image: 'https://images.unsplash.com/photo-1616046229478-9901c5536a45?auto=format&fit=crop&w=500&q=80',
+        colors: ['#2B3856', '#D6C5B3']
+    }
+];
+
+const featureSections = [1, 2];
+
+const ProductCard = ({ item, onClick }) => (
+    <div
+        onClick={onClick}
+        style={{ minWidth: '270px', maxWidth: '270px', cursor: 'pointer' }}
+    >
+        <div className="h-250 w-full overflow-hidden rounded-10 relative">
+            {item.badge && (
+                <span
+                    style={{
+                        position: 'absolute',
+                        top: '12px',
+                        left: '12px',
+                        backgroundColor: item.badge.color,
+                        color: '#FFFFFF',
+                        fontSize: '11px',
+                        fontWeight: '600',
+                        padding: '4px 12px',
+                        borderRadius: '20px',
+                        zIndex: 2
+                    }}
+                >
+                    {item.badge.text}
+                </span>
+            )}
+            <Image
+                src={item.image}
+                alt={item.name}
+                className="flex w-full h-250 object-cover"
+            />
+            {item.ticker && (
+                <div
+                    style={{
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        backgroundColor: '#FFFFFF',
+                        padding: '6px 0',
+                        fontSize: '11px',
+                        fontWeight: '700',
+                        color: '#141414',
+                        textAlign: 'center',
+                        borderTop: '1px solid rgba(0,0,0,0.06)'
+                    }}
+                >
+                    {item.ticker}
+                </div>
+            )}
+        </div>
+
+        <span
+            style={{
+                fontSize: '11px',
+                fontWeight: '600',
+                color: '#777777',
+                letterSpacing: '0.6px',
+                textTransform: 'uppercase',
+                marginTop: '14px',
+                display: 'block'
+            }}
+        >
+            {item.category}
+        </span>
+
+        <h3 style={{ fontSize: '15px', fontWeight: '600', color: '#141414', marginTop: '4px', marginBottom: '4px' }}>
+            {item.name}
+        </h3>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span style={{ color: '#C8281E', fontSize: '15px', fontWeight: '600' }}>
+                {item.price}
+            </span>
+            {item.originalPrice && (
+                <span style={{ color: '#888888', fontSize: '13px', textDecoration: 'line-through' }}>
+                    {item.originalPrice}
+                </span>
+            )}
+        </div>
+
+        {item.colors && (
+            <div style={{ display: 'flex', gap: '6px', marginTop: '10px' }}>
+                {item.colors.map((color, cIdx) => (
+                    <span
+                        key={cIdx}
+                        style={{
+                            width: '14px',
+                            height: '14px',
+                            borderRadius: '3px',
+                            backgroundColor: color,
+                            border: '1px solid rgba(0,0,0,0.15)'
+                        }}
+                    />
+                ))}
+            </div>
+        )}
+    </div>
+);
+
+const ProductSliderSection = ({ products, onProductClick }) => {
+    const scrollRef = useRef(null);
+    const [scrollProgress, setScrollProgress] = useState(25);
+
+    const handleScroll = () => {
+        if (scrollRef.current) {
+            const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+            const maxScroll = scrollWidth - clientWidth;
+            if (maxScroll > 0) {
+                const progress = Math.min(100, Math.max(25, ((scrollLeft / maxScroll) * 75) + 25));
+                setScrollProgress(progress);
+            }
+        }
+    };
+
+    const scroll = (direction) => {
+        if (scrollRef.current) {
+            const scrollAmount = direction === 'left' ? -300 : 300;
+            scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+    };
+
+    return (
+        <div className='mt-40'>
+            <div
+                ref={scrollRef}
+                onScroll={handleScroll}
+                style={{
+                    scrollBehavior: 'smooth',
+                    scrollbarWidth: 'none',
+                    msOverflowStyle: 'none'
+                }}
+                className="flex gap-12 overflow-auto"
+            >
+                {products.map((item) => (
+                    <ProductCard
+                        key={item.id}
+                        item={item}
+                        onClick={onProductClick}
+                    />
+                ))}
+            </div>
+
+            <div className='flex items-center justify-between mt-20'>
+                <div style={{ height: '3px' }} className='w-80 bg-tertiary relative'>
+                    <div
+                        style={{
+                            height: '3px',
+                            width: `${scrollProgress}%`,
+                            transition: 'width 0.2s ease'
+                        }}
+                        className='top-0 left-0 bg-primary absolute'
+                    />
+                </div>
+
+                <div className='flex items-center gap-12'>
+                    <Button
+                        aria-label="Previous Products"
+                        onClick={() => scroll('left')}
+                        icon="ArrowLeft"
+                        iconWidth="18"
+                        iconHeight="18"
+                        iconStrokeWidth="2"
+                        variant="outline"
+                        version="icon"
+                        color='primary'
+                        className="border-primary rounded-30 p-12"
+                    />
+                    <Button
+                        aria-label="Next Products"
+                        onClick={() => scroll('right')}
+                        icon="ArrowRight"
+                        iconWidth="18"
+                        iconHeight="18"
+                        iconStrokeWidth="2"
+                        variant="outline"
+                        version="icon"
+                        color='primary'
+                        className="border-primary rounded-30 p-12"
+                    />
+                </div>
+            </div>
+        </div>
+    );
+};
+
+const FeatureSection = () => {
+    const navigate = useNavigate();
+
+    return (
+        <Container style={{ background: 'var(--forth)' }}>
+            <div className="w-full py-50">
+                <Heading
+                    version="v2"
+                    tag="SPECIAL OFFERS FOR YOU"
+                    title="Featured Products & Popular Designs"
+                    actionText="Shop All Products"
+                    actionLink="/products"
+                />
+
+                {featureSections.map((sectionId) => (
+                    <ProductSliderSection
+                        key={sectionId}
+                        products={products}
+                        onProductClick={() => navigate('/product-detail')}
+                    />
+                ))}
+            </div>
+        </Container>
+    );
+};
+
+export default FeatureSection;

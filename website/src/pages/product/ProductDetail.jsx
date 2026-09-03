@@ -1,25 +1,22 @@
 import React from 'react';
 import Banner from '../../components/layout/generic/Banner';
 import DetailSection from './sections/DetailSection';
-import PatchSection from '../home/sections/PatchSection';
-import OfferSection from '../home/sections/OfferSection';
 
-const About = () => {
+const ProductDetail = () => {
     return (
         <>
             <Banner
-                title="About Us"
-                desc="About Our Story"
+                title="Product Detail"
+                desc="Arc Chair Limited"
                 breadcrumbs={[
                     { label: 'Home', path: '/home' },
-                    { label: 'About Us', path: '/about' }
+                    { label: 'Products', path: '/products' },
+                    { label: 'Arc Chair Limited', path: '/product-detail' }
                 ]}
             />
             <DetailSection />
-            <PatchSection />
-            <OfferSection />
         </>
     );
 };
 
-export default About;
+export default ProductDetail;

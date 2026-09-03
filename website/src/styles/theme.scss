@@ -1,7 +1,7 @@
 /* ======================= Start-Color ======================= */
 
 :root {
-    --primary: #fb7d40 !important;
+    --primary: #49baa6 !important;
     --secondary: #1f5ac0 !important;
     --tertiary: #edf2f7d6 !important;
     --forth: #fafafa !important;
@@ -238,10 +238,9 @@ input,
 
 /* ======================= Start-Fontsize ======================= */
 .largehead-text {
-    font-size: 84px !important;
+    font-size: 80px !important;
     margin: 0px !important;
-    line-height: 90px !important;
-    font-weight: 500 !important;
+    line-height: 86px !important;
 
     @media (max-width: 640px) {
         font-size: 42px !important;
@@ -280,10 +279,9 @@ input,
 }
 
 .title-text {
-    font-size: 22px !important;
+    font-size: 28px !important;
     margin: 0px !important;
-    font-weight: 500 !important;
-    line-height: 29px !important;
+    line-height: 36px !important;
 
     @media (max-width: 640px) {
         font-size: 20px !important;
@@ -293,14 +291,14 @@ input,
 
 .mid-text {
     font-size: 17px !important;
-    line-height: 29px !important;
+    line-height: 22px !important;
     margin: 0px !important;
     font-weight: 500 !important;
 }
 
 .headmini-text {
     font-size: 14px !important;
-    line-height: 22px !important;
+    line-height: 18px !important;
     margin: 0px !important;
     font-weight: 500 !important;
 }

@@ -1,8 +1,21 @@
 import React from 'react'
+import HeroBanner from './sections/HeroBanner'
+import CategorySection from './sections/CategorySection'
+import AboutSection from './sections/AboutSection'
+import FeatureSection from './sections/FeatureSection'
+import OfferSection from './sections/OfferSection'
+import PatchSection from './sections/PatchSection'
 
 const Home = () => {
     return (
-        <div className='h-100'>Home</div>
+        <>
+            <HeroBanner />
+            <CategorySection />
+            <FeatureSection />
+            <AboutSection />
+            <PatchSection />
+            <OfferSection />
+        </>
     )
 }
 

@@ -11,25 +11,18 @@ const Cursor = () => {
     const isHoveredRef = useRef(false);
 
     useEffect(() => {
-        // Disable on touch devices without fine hover pointers
-        if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(hover: none)').matches) {
-            return;
-        }
+        const checkMobile = () => typeof window !== 'undefined' && (
+            window.matchMedia('(hover: none), (pointer: coarse)').matches || window.innerWidth <= 1024
+        );
 
-        const handleMouseMove = (e) => {
+        if (checkMobile()) return;
+
+        const onMouseMove = (e) => {
             mouseRef.current = { x: e.clientX, y: e.clientY };
-            setIsVisible(true);
+            if (!isVisible) setIsVisible(true);
         };
 
-        const handleMouseLeave = () => {
-            setIsVisible(false);
-        };
-
-        const handleMouseEnter = () => {
-            setIsVisible(true);
-        };
-
-        const handleMouseOver = (e) => {
+        const onMouseOver = (e) => {
             const target = e.target;
             if (!target) return;
             const isInteractive = !!target.closest(
@@ -41,39 +34,40 @@ const Cursor = () => {
             }
         };
 
-        window.addEventListener('mousemove', handleMouseMove, { passive: true });
-        document.addEventListener('mouseleave', handleMouseLeave);
-        document.addEventListener('mouseenter', handleMouseEnter);
-        window.addEventListener('mouseover', handleMouseOver, { passive: true });
+        const onMouseLeave = () => setIsVisible(false);
+        const onMouseEnter = () => !checkMobile() && setIsVisible(true);
 
-        let animationFrameId;
+        window.addEventListener('mousemove', onMouseMove, { passive: true });
+        window.addEventListener('mouseover', onMouseOver, { passive: true });
+        document.addEventListener('mouseleave', onMouseLeave);
+        document.addEventListener('mouseenter', onMouseEnter);
+
+        let rafId;
         const animate = () => {
-            // Lerp ring position towards mouse position
-            const lerp = 0.18;
-            ringPosRef.current.x += (mouseRef.current.x - ringPosRef.current.x) * lerp;
-            ringPosRef.current.y += (mouseRef.current.y - ringPosRef.current.y) * lerp;
+            ringPosRef.current.x += (mouseRef.current.x - ringPosRef.current.x) * 0.18;
+            ringPosRef.current.y += (mouseRef.current.y - ringPosRef.current.y) * 0.18;
 
-            const scaleRing = isHoveredRef.current ? 1.6 : 1;
+            const scaleRing = isHoveredRef.current ? 1.5 : 1;
             const scaleDot = isHoveredRef.current ? 0.6 : 1;
 
             if (ringRef.current) {
-                ringRef.current.style.transform = `translate3d(${ringPosRef.current.x}px, ${ringPosRef.current.y}px, 0px) translate(-50%, -50%) scale(${scaleRing})`;
+                ringRef.current.style.transform = `translate3d(${ringPosRef.current.x}px, ${ringPosRef.current.y}px, 0) translate(-50%, -50%) scale(${scaleRing})`;
             }
             if (dotRef.current) {
-                dotRef.current.style.transform = `translate3d(${mouseRef.current.x}px, ${mouseRef.current.y}px, 0px) translate(-50%, -50%) scale(${scaleDot})`;
+                dotRef.current.style.transform = `translate3d(${mouseRef.current.x}px, ${mouseRef.current.y}px, 0) translate(-50%, -50%) scale(${scaleDot})`;
             }
 
-            animationFrameId = requestAnimationFrame(animate);
+            rafId = requestAnimationFrame(animate);
         };
 
-        animationFrameId = requestAnimationFrame(animate);
+        rafId = requestAnimationFrame(animate);
 
         return () => {
-            window.removeEventListener('mousemove', handleMouseMove);
-            document.removeEventListener('mouseleave', handleMouseLeave);
-            document.removeEventListener('mouseenter', handleMouseEnter);
-            window.removeEventListener('mouseover', handleMouseOver);
-            cancelAnimationFrame(animationFrameId);
+            window.removeEventListener('mousemove', onMouseMove);
+            window.removeEventListener('mouseover', onMouseOver);
+            document.removeEventListener('mouseleave', onMouseLeave);
+            document.removeEventListener('mouseenter', onMouseEnter);
+            cancelAnimationFrame(rafId);
         };
     }, []);
 
@@ -81,6 +75,7 @@ const Cursor = () => {
 
     return (
         <div
+            className="sm-hidden md-hidden"
             style={{
                 pointerEvents: 'none',
                 position: 'fixed',
@@ -92,7 +87,7 @@ const Cursor = () => {
                 overflow: 'hidden'
             }}
         >
-            {/* Trailing Large Soft Ring */}
+            {/* Trailing Soft Ring */}
             <div
                 ref={ringRef}
                 style={{
@@ -101,13 +96,12 @@ const Cursor = () => {
                     left: 0,
                     width: '44px',
                     height: '44px',
-                    backgroundColor: isHovered ? 'rgba(255, 81, 0, 0.25)' : 'rgba(228, 162, 146, 0.45)',
-                    border: isHovered ? '1.5px solid #FF5100' : '1px solid rgba(217, 68, 54, 0.3)',
+                    backgroundColor: isHovered ? 'rgba(73, 186, 166, 0.25)' : 'rgba(73, 186, 166, 0.12)',
                     borderRadius: '50%',
                     pointerEvents: 'none',
                     zIndex: 999999,
                     willChange: 'transform',
-                    transition: 'opacity 0.3s ease, background-color 0.3s ease, border-color 0.3s ease'
+                    transition: 'background-color 0.3s ease, border-color 0.3s ease'
                 }}
             />
 
@@ -120,7 +114,7 @@ const Cursor = () => {
                     left: 0,
                     width: '12px',
                     height: '12px',
-                    backgroundColor: isHovered ? '#FF5100' : '#D94436',
+                    backgroundColor: 'var(--primary)',
                     borderRadius: '50%',
                     pointerEvents: 'none',
                     zIndex: 1000000,

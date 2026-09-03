@@ -2,10 +2,15 @@ import { useState, forwardRef } from "react";
 
 const isVideoSrc = (url) => {
     if (!url) return false;
-    return typeof url === "string" && (
-        url.toLowerCase().endsWith(".mp4") ||
-        url.toLowerCase().endsWith(".webm") ||
-        url.toLowerCase().endsWith(".ogg")
+    if (typeof url !== "string") return false;
+    const cleanUrl = url.split("?")[0].split("#")[0].toLowerCase();
+    return (
+        cleanUrl.endsWith(".mp4") ||
+        cleanUrl.endsWith(".webm") ||
+        cleanUrl.endsWith(".ogg") ||
+        cleanUrl.includes(".mp4") ||
+        cleanUrl.includes(".webm") ||
+        cleanUrl.includes(".ogg")
     );
 };
 

@@ -1,91 +1,98 @@
 {
-  "brand": {
-    "logo": "⚙️",
-    "name": "Ashmita Enterprises",
-    "description": "Leading importer and wholesaler of high-quality PVC Strip Curtains, PVC Rolls, Clear PVC Sheets, and Mounting Brackets based in Mumbai, Maharashtra.",
-    "socials": [
-      {
-        "platform": "facebook",
-        "iconName": "Facebook",
-        "url": "#"
-      },
-      {
-        "platform": "instagram",
-        "iconName": "Instagram",
-        "url": "#"
-      },
-      {
-        "platform": "whatsapp",
-        "iconName": "WhatsApp",
-        "url": "#"
-      }
-    ]
-  },
-  "columns": [
+  "features": [
     {
-      "title": "Quick Links",
-      "links": [
-        {
-          "label": "Home",
-          "path": "/home"
-        },
-        {
-          "label": "About Us",
-          "path": "/about"
-        },
-        {
-          "label": "Products",
-          "path": "/products"
-        },
-        {
-          "label": "Blogs",
-          "path": "/blog"
-        },
-        {
-          "label": "Connect",
-          "path": "/connect"
-        }
-      ]
+      "id": "service",
+      "icon": "Headset",
+      "title": "Customer Service",
+      "text": "Mon-Sat, 9am-6pm EST.",
+      "type": "text"
     },
     {
-      "title": "Commissioning Support",
-      "links": [
-        {
-          "label": "About Group",
-          "path": "/about"
-        },
-        {
-          "label": "Contact Desk",
-          "path": "/contact"
-        },
-        {
-          "label": "Engineering Insights",
-          "path": "/blog"
-        },
-        {
-          "label": "RFQ Portal",
-          "path": "/contact"
-        }
-      ]
+      "id": "call",
+      "icon": "Phone",
+      "title": "Call Us",
+      "text": "+1 888-234-1234 (tool-free)",
+      "type": "text"
+    },
+    {
+      "id": "touch",
+      "icon": "Send",
+      "title": "Get in Touch",
+      "text": "touch@garacestore.com",
+      "link": "mailto:touch@garacestore.com",
+      "type": "link"
+    },
+    {
+      "id": "address",
+      "icon": "MapPin",
+      "title": "Address",
+      "text": "382 NE 191st St # 87394 Miami",
+      "type": "text"
     }
   ],
   "newsletter": {
-    "title": "Product Updates",
-    "description": "Get product updates, new catalog releases, and price lists.",
-    "placeholder": "Corporate email...",
-    "buttonText": "Subscribe"
+    "title": "Join Our Newsletter",
+    "description": "Sign up to our newsletter & receive 10% off your first order.",
+    "placeholder": "Enter your email",
+    "buttonText": "Sign Up",
+    "disclaimer": {
+      "prefix": "By subscribing you agree to the ",
+      "termsLabel": "Terms of Services",
+      "termsUrl": "#terms",
+      "middle": " and ",
+      "privacyLabel": "Privacy Policy",
+      "privacyUrl": "#privacy",
+      "suffix": "."
+    }
   },
+  "columns": [
+    {
+      "title": "Company",
+      "links": [
+        { "label": "About us", "url": "#about-us" },
+        { "label": "Contact", "url": "#contact" },
+        { "label": "FAQs", "url": "#faqs" },
+        { "label": "Blog", "url": "#blog" },
+        { "label": "Find a Store", "url": "#find-a-store" }
+      ]
+    },
+    {
+      "title": "Collection",
+      "links": [
+        { "label": "Tables", "url": "#tables" },
+        { "label": "Bow Chairs", "url": "#bow-chairs" },
+        { "label": "Turn Table", "url": "#turn-table" },
+        { "label": "Turn Chair", "url": "#turn-chair" },
+        { "label": "Cross Bar Chair", "url": "#cross-bar-chair" }
+      ]
+    },
+    {
+      "title": "Shop",
+      "links": [
+        { "label": "Sofas", "url": "#sofas" },
+        { "label": "Outdoor", "url": "#outdoor" },
+        { "label": "Seating", "url": "#seating" },
+        { "label": "Lighting", "url": "#lighting" },
+        { "label": "Accessories", "url": "#accessories" }
+      ]
+    }
+  ],
   "bottom": {
-    "copyright": "© 2026 Ashmita Enterprises. All rights reserved. Importer & Wholesaler.",
-    "links": [
-      {
-        "label": "Privacy Policy",
-        "url": "#"
-      },
-      {
-        "label": "Terms & Conditions",
-        "url": "#"
-      }
+    "region": {
+      "flag": "🇺🇸",
+      "label": "United States (USD $)"
+    },
+    "paymentBadges": ["VISA", "MC", "AMEX", "PAYPAL", "DINERS", "DISCOVER"],
+    "socials": [
+      { "platform": "facebook", "iconName": "Facebook", "url": "#facebook" },
+      { "platform": "x", "iconName": "X", "url": "#x" },
+      { "platform": "instagram", "iconName": "Instagram", "url": "#instagram" },
+      { "platform": "github", "iconName": "GitHub", "url": "#github" }
+    ],
+    "copyright": "© 2026 Hyper Garace. Powered by Shopify",
+    "legalLinks": [
+      { "label": "Terms of Service", "url": "#terms" },
+      { "label": "Privacy Policy", "url": "#privacy" }
     ]
   }
 }
