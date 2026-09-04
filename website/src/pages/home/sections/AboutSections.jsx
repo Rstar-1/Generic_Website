@@ -59,7 +59,7 @@ const AboutSections = () => {
                             ))}
                         </div>
 
-                        <div className='flex items-center gap-12 mt-24'>
+                        <div className='flex items-center gap-12 mt-34'>
                             <Button
                                 text="Learn More"
                                 icon="ArrowUpRight"

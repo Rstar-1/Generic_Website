@@ -8,6 +8,7 @@ import slider1 from '../../../assets/collection-slider-1.jpg';
 import slider2 from '../../../assets/collection-slider-2.jpg';
 import slider3 from '../../../assets/collection-slider-3.jpg';
 import Heading from '../../../components/layout/generic/Heading';
+import { useCart } from '../../../context/CartContext';
 
 const products = [
     {
@@ -74,25 +75,49 @@ const products = [
 
 const featureSections = [1, 2];
 
-const ProductCard = ({ item, onClick }) => (
-    <div
-        onClick={onClick}
-        style={{ minWidth: '270px', maxWidth: '270px', cursor: 'pointer' }}
-    >
-        <div className="h-250 w-full overflow-hidden rounded-10 relative">
-            {item.badge && (
-                <div className='top-0 left-0 absolute'>
-                    <p className='m-12 bg-danger px-12 py-1 mini-text font-400 rounded-20 text-white'>
-                        {item.badge.text}
-                    </p>
+const ProductCard = ({ item, onClick }) => {
+    const { addToCart } = useCart();
+
+    return (
+        <div
+            onClick={onClick}
+            className='cursor-pointer'
+            style={{ minWidth: '270px', maxWidth: '270px' }}
+        >
+            <div className="h-300 w-full overflow-hidden rounded-10 relative product-card">
+                {item.badge && (
+                    <div className='top-0 left-0 absolute'>
+                        <p className='m-12 bg-danger px-12 py-1 mini-text font-400 rounded-20 text-white'>
+                            {item.badge.text}
+                        </p>
+                    </div>
+                )}
+                <Image
+                    src={item.image}
+                    alt={item.name}
+                    className="flex w-full h-full object-cover"
+                />
+                <div className='product-btn w-full absolute bottom-0 left-0'>
+                    <div className='p-18'>
+                        <Button
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                addToCart(item);
+                            }}
+                            text="Add to Cart"
+                            icon="Cart"
+                            iconWidth="18"
+                            iconHeight="18"
+                            iconStrokeWidth="2"
+                            iconPosition='left'
+                            version="v3"
+                            bg="primary"
+                            color="white"
+                            className='rounded-30 w-full'
+                        />
+                    </div>
                 </div>
-            )}
-            <Image
-                src={item.image}
-                alt={item.name}
-                className="flex w-full h-full object-cover"
-            />
-        </div>
+            </div>
 
         <p className='text-gray font-500 uppercase mini-text mt-5'
         >
@@ -131,7 +156,8 @@ const ProductCard = ({ item, onClick }) => (
             </div>
         )}
     </div>
-);
+    );
+};
 
 const ProductSliderSection = ({ products, onProductClick }) => {
     const scrollRef = useRef(null);
@@ -225,6 +251,26 @@ const FeatureSection = () => {
     return (
         <Container>
             <div className="w-full py-50">
+                <style>{`
+                    .product-card .product-btn {
+                        opacity: 0;
+                        visibility: hidden;
+                        transform: translateY(12px);
+                        transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.3s;
+                    }
+                    .product-card:hover .product-btn {
+                        opacity: 1;
+                        visibility: visible;
+                        transform: translateY(0);
+                    }
+                    .product-card img {
+                        transition: transform 0.5s ease;
+                    }
+                    .product-card:hover img {
+                        transform: scale(1.04);
+                    }
+                `}</style>
+
                 <Heading
                     version="v2"
                     tag="SPECIAL OFFERS FOR YOU"

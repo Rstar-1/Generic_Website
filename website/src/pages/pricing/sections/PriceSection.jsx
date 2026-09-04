@@ -93,12 +93,12 @@ const PriceSection = () => {
                             style={plan.isPopular ? { border: '2px solid var(--primary)' } : {}}
                         >
                             {plan.isPopular && (
-                                <span
-                                    className="absolute bg-primary text-white mini-text font-500 uppercase px-12 py-4 rounded-20"
+                                <p
+                                    className="absolute bg-primary text-white mini-text font-400 uppercase px-12 py-3 rounded-20"
                                     style={{ top: '-14px', right: '20px' }}
                                 >
                                     Popular
-                                </span>
+                                </p>
                             )}
                             <div>
                                 <p className="mid-text font-600 text-dark mb-5 uppercase">
@@ -130,14 +130,14 @@ const PriceSection = () => {
                                     color="white"
                                 />
 
-                                <p className="mini-text font-600 text-gray uppercase mt-28 mb-16 m-0" style={{ color: '#888888', letterSpacing: '0.02em' }}>
+                                <p className="mini-text font-500 text-gray uppercase mt-28 mb-16 m-0" style={{ color: '#888888', letterSpacing: '0.02em' }}>
                                     Includes:
                                 </p>
 
                                 <div className="grid-cols-1 gap-12">
                                     {plan.features.map((feature, idx) => (
                                         <div key={idx} className="flex items-center gap-10">
-                                            <Icon name="ArrowUpRight" width="16" height="16" stroke="var(--warning)" />
+                                            <Icon name="ArrowUpRight" width="16" height="16" stroke="var(--primary)" />
                                             <p className="small-text font-500 text-dark text-muted m-0">
                                                 {feature}
                                             </p>
