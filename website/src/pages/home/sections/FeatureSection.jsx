@@ -81,80 +81,41 @@ const ProductCard = ({ item, onClick }) => (
     >
         <div className="h-250 w-full overflow-hidden rounded-10 relative">
             {item.badge && (
-                <span
-                    style={{
-                        position: 'absolute',
-                        top: '12px',
-                        left: '12px',
-                        backgroundColor: item.badge.color,
-                        color: '#FFFFFF',
-                        fontSize: '11px',
-                        fontWeight: '600',
-                        padding: '4px 12px',
-                        borderRadius: '20px',
-                        zIndex: 2
-                    }}
-                >
-                    {item.badge.text}
-                </span>
+                <div className='top-0 left-0 absolute'>
+                    <p className='m-12 bg-danger px-12 py-1 mini-text font-400 rounded-20 text-white'>
+                        {item.badge.text}
+                    </p>
+                </div>
             )}
             <Image
                 src={item.image}
                 alt={item.name}
-                className="flex w-full h-250 object-cover"
+                className="flex w-full h-full object-cover"
             />
-            {item.ticker && (
-                <div
-                    style={{
-                        position: 'absolute',
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        backgroundColor: '#FFFFFF',
-                        padding: '6px 0',
-                        fontSize: '11px',
-                        fontWeight: '700',
-                        color: '#141414',
-                        textAlign: 'center',
-                        borderTop: '1px solid rgba(0,0,0,0.06)'
-                    }}
-                >
-                    {item.ticker}
-                </div>
-            )}
         </div>
 
-        <span
-            style={{
-                fontSize: '11px',
-                fontWeight: '600',
-                color: '#777777',
-                letterSpacing: '0.6px',
-                textTransform: 'uppercase',
-                marginTop: '14px',
-                display: 'block'
-            }}
+        <p className='text-gray font-500 uppercase mini-text mt-5'
         >
             {item.category}
-        </span>
+        </p>
 
-        <h3 style={{ fontSize: '15px', fontWeight: '600', color: '#141414', marginTop: '4px', marginBottom: '4px' }}>
+        <h3 className='headmini-text text-dark uppercase font-600 mt-2'>
             {item.name}
         </h3>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span style={{ color: '#C8281E', fontSize: '15px', fontWeight: '600' }}>
+        <div className='flex items-center gap-6 mt-2'>
+            <p className='mini-text text-danger font-600'>
                 {item.price}
-            </span>
+            </p>
             {item.originalPrice && (
-                <span style={{ color: '#888888', fontSize: '13px', textDecoration: 'line-through' }}>
+                <p className='mini-text text-gray font-400 line-through'>
                     {item.originalPrice}
-                </span>
+                </p>
             )}
         </div>
 
         {item.colors && (
-            <div style={{ display: 'flex', gap: '6px', marginTop: '10px' }}>
+            <div className='flex items-center gap-8 mt-6'>
                 {item.colors.map((color, cIdx) => (
                     <span
                         key={cIdx}
@@ -262,7 +223,7 @@ const FeatureSection = () => {
     const navigate = useNavigate();
 
     return (
-        <Container style={{ background: 'var(--forth)' }}>
+        <Container>
             <div className="w-full py-50">
                 <Heading
                     version="v2"

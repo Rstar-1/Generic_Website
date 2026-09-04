@@ -6,9 +6,7 @@
     --tertiary: #edf2f7d6 !important;
     --forth: #fafafa !important;
     --success: #4bb543 !important;
-    --successtext: #25771fbc !important;
     --warning: #fb5711 !important;
-    --warningtext: #ff5722 !important;
     --danger: #c21b1bdb !important;
     --info: #2378bdb7 !important;
     --white: #fff !important;
@@ -119,11 +117,11 @@
 }
 
 .text-success {
-    color: var(--successtext);
+    color: var(--success);
 }
 
 .text-warning {
-    color: var(--warningtext);
+    color: var(--warning);
 }
 
 .text-danger {
@@ -253,7 +251,7 @@ input,
 .large-text {
     font-size: 52px !important;
     margin: 0px !important;
-    line-height: 65px !important;
+    line-height: 56px !important;
     font-weight: 500 !important;
 
     @media (max-width: 640px) {
@@ -279,9 +277,9 @@ input,
 }
 
 .title-text {
-    font-size: 28px !important;
+    font-size: 25px !important;
     margin: 0px !important;
-    line-height: 36px !important;
+    line-height: 29px !important;
 
     @media (max-width: 640px) {
         font-size: 20px !important;

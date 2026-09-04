@@ -17,6 +17,8 @@ const Header = () => {
   const [hoveredIcon, setHoveredIcon] = useState(null);
   const [cartQty, setCartQty] = useState(1);
 
+  const isEcom = import.meta.env.VITE_ECOM === 'true';
+
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -210,194 +212,197 @@ const Header = () => {
                   bg={isScrolled ? "var(--primary)" : "none"}
                   className="border-primary rounded-30 p-12"
                 />
-                <Modal
-                  type="sidebar"
-                  placement="right"
-                  size="sm"
-                  title={`Your cart (${cartQty})`}
-                  footer={null}
-                  trigger={
-                    <Button
-                      aria-label="Cart"
-                      icon="ShoppingCart"
-                      iconWidth="18"
-                      iconHeight="18"
-                      iconStrokeWidth="2"
-                      variant="outline"
-                      iconStroke={isScrolled ? "var(--primary)" : "var(--white)"}
-                      version="icon"
-                      bg={isScrolled ? "var(--primary)" : "none"}
-                      className="border-primary rounded-30 p-12"
-                    />
-                  }
-                >
-                  <div style={{ display: 'flex', flexDirection: 'column', height: '100%', paddingBottom: '10px' }}>
-                    {/* Top Free Shipping Notice */}
-                    <div
-                      style={{
-                        backgroundColor: '#1E40AF',
-                        color: '#FFFFFF',
-                        padding: '10px 14px',
-                        borderRadius: '8px',
-                        fontSize: '13px',
-                        fontWeight: '600',
-                        textAlign: 'center',
-                        marginBottom: '20px'
-                      }}
-                    >
-                      ✌️ Free Express Shipping on orders $500!
-                    </div>
 
-                    {/* Progress Bar */}
-                    <div style={{ marginBottom: '24px' }}>
-                      <p style={{ fontSize: '14px', fontWeight: '500', color: '#0F172A', marginBottom: '8px' }}>
-                        Spend <span style={{ color: '#059669', fontWeight: '700' }}>$435.00</span> more to reach free shipping!
-                      </p>
-                      <div style={{ width: '100%', height: '6px', backgroundColor: '#E5E7EB', borderRadius: '4px', overflow: 'hidden' }}>
-                        <div style={{ width: '20%', height: '100%', backgroundColor: '#059669', borderRadius: '4px' }} />
+                {isEcom && (
+                  <Modal
+                    type="sidebar"
+                    placement="right"
+                    size="sm"
+                    title={`Your cart (${cartQty})`}
+                    footer={null}
+                    trigger={
+                      <Button
+                        aria-label="Cart"
+                        icon="ShoppingCart"
+                        iconWidth="18"
+                        iconHeight="18"
+                        iconStrokeWidth="2"
+                        variant="outline"
+                        iconStroke={isScrolled ? "var(--primary)" : "var(--white)"}
+                        version="icon"
+                        bg={isScrolled ? "var(--primary)" : "none"}
+                        className="border-primary rounded-30 p-12"
+                      />
+                    }
+                  >
+                    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', paddingBottom: '10px' }}>
+                      {/* Top Free Shipping Notice */}
+                      <div
+                        style={{
+                          backgroundColor: '#1E40AF',
+                          color: '#FFFFFF',
+                          padding: '10px 14px',
+                          borderRadius: '8px',
+                          fontSize: '13px',
+                          fontWeight: '600',
+                          textAlign: 'center',
+                          marginBottom: '20px'
+                        }}
+                      >
+                        ✌️ Free Express Shipping on orders $500!
                       </div>
-                    </div>
 
-                    {/* Cart Item Row */}
-                    {cartQty > 0 ? (
-                      <div style={{ display: 'flex', gap: '16px', alignItems: 'center', paddingBottom: '20px', borderBottom: '1px solid #F1F5F9' }}>
-                        <div style={{ width: '80px', height: '80px', borderRadius: '12px', backgroundColor: '#F3F4F6', overflow: 'hidden', flexShrink: 0 }}>
-                          <Image
-                            src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=200&q=80"
-                            alt="Grind Vessel"
-                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                          />
+                      {/* Progress Bar */}
+                      <div style={{ marginBottom: '24px' }}>
+                        <p style={{ fontSize: '14px', fontWeight: '500', color: '#0F172A', marginBottom: '8px' }}>
+                          Spend <span style={{ color: '#059669', fontWeight: '700' }}>$435.00</span> more to reach free shipping!
+                        </p>
+                        <div style={{ width: '100%', height: '6px', backgroundColor: '#E5E7EB', borderRadius: '4px', overflow: 'hidden' }}>
+                          <div style={{ width: '20%', height: '100%', backgroundColor: '#059669', borderRadius: '4px' }} />
                         </div>
+                      </div>
 
-                        <div style={{ flex: 1 }}>
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                            <h4 style={{ fontSize: '15px', fontWeight: '700', color: '#0F172A', margin: 0 }}>Grind Vessel</h4>
-                            <button
-                              onClick={() => setCartQty(0)}
-                              style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#64748B', fontSize: '16px', padding: 0 }}
+                      {/* Cart Item Row */}
+                      {cartQty > 0 ? (
+                        <div style={{ display: 'flex', gap: '16px', items: 'center', paddingBottom: '20px', borderBottom: '1px solid #F1F5F9' }}>
+                          <div style={{ width: '80px', height: '80px', borderRadius: '12px', backgroundColor: '#F3F4F6', overflow: 'hidden', flexShrink: 0 }}>
+                            <Image
+                              src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=200&q=80"
+                              alt="Grind Vessel"
+                              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                            />
+                          </div>
+
+                          <div style={{ flex: 1 }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                              <h4 style={{ fontSize: '15px', fontWeight: '700', color: '#0F172A', margin: 0 }}>Grind Vessel</h4>
+                              <button
+                                onClick={() => setCartQty(0)}
+                                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#64748B', fontSize: '16px', padding: 0 }}
+                              >
+                                ×
+                              </button>
+                            </div>
+                            <p style={{ fontSize: '13px', color: '#64748B', margin: '4px 0 12px 0' }}>Navy Blue</p>
+
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                              <div style={{ display: 'inline-flex', alignItems: 'center', border: '1px solid #E2E8F0', borderRadius: '20px', padding: '2px 10px', gap: '12px' }}>
+                                <button
+                                  onClick={() => setCartQty(Math.max(1, cartQty - 1))}
+                                  style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '14px', fontWeight: '600', color: '#0F172A' }}
+                                >
+                                  −
+                                </button>
+                                <span style={{ fontSize: '13px', fontWeight: '600' }}>{cartQty}</span>
+                                <button
+                                  onClick={() => setCartQty(cartQty + 1)}
+                                  style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '14px', fontWeight: '600', color: '#0F172A' }}
+                                >
+                                  +
+                                </button>
+                              </div>
+
+                              <span style={{ fontSize: '16px', fontWeight: '700', color: '#0F172A' }}>
+                                ${(65 * cartQty).toFixed(2)}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <div style={{ padding: '40px 0', textAlign: 'center', color: '#64748B' }}>
+                          <p style={{ fontSize: '14px' }}>Your cart is currently empty.</p>
+                        </div>
+                      )}
+
+                      {/* Pair Well With */}
+                      <div style={{ marginTop: '24px', marginBottom: '20px' }}>
+                        <h4 style={{ fontSize: '16px', fontWeight: '700', color: '#0F172A', marginBottom: '12px' }}>Pair Well With</h4>
+                        <div style={{ display: 'flex', gap: '12px', overflowX: 'auto', paddingBottom: '8px' }}>
+                          {[
+                            { name: 'Ceramic Mug', price: '$24.00', img: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=150&q=80' },
+                            { name: 'Wooden Spoon', price: '$12.00', img: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=150&q=80' }
+                          ].map((item, idx) => (
+                            <div key={idx} style={{ minWidth: '140px', backgroundColor: '#F8FAFC', borderRadius: '12px', padding: '10px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                              <div style={{ height: '80px', borderRadius: '8px', overflow: 'hidden' }}>
+                                <Image src={item.img} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                              </div>
+                              <span style={{ fontSize: '12px', fontWeight: '600', color: '#0F172A' }}>{item.name}</span>
+                              <span style={{ fontSize: '12px', color: '#059669', fontWeight: '700' }}>{item.price}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Footer Drawer Action Bar */}
+                      <div style={{ marginTop: 'auto', borderTop: '1px solid #F1F5F9', paddingTop: '16px' }}>
+                        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '16px' }}>
+                          {['Order Note >', 'Estimate Shipping >', 'Coupon >'].map((label, idx) => (
+                            <span
+                              key={idx}
+                              style={{
+                                backgroundColor: '#F1F5F9',
+                                borderRadius: '20px',
+                                padding: '6px 14px',
+                                fontSize: '12px',
+                                fontWeight: '600',
+                                color: '#0F172A',
+                                cursor: 'pointer'
+                              }}
                             >
-                              ×
-                            </button>
-                          </div>
-                          <p style={{ fontSize: '13px', color: '#64748B', margin: '4px 0 12px 0' }}>Navy Blue</p>
-
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <div style={{ display: 'inline-flex', alignItems: 'center', border: '1px solid #E2E8F0', borderRadius: '20px', padding: '2px 10px', gap: '12px' }}>
-                              <button
-                                onClick={() => setCartQty(Math.max(1, cartQty - 1))}
-                                style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '14px', fontWeight: '600', color: '#0F172A' }}
-                              >
-                                −
-                              </button>
-                              <span style={{ fontSize: '13px', fontWeight: '600' }}>{cartQty}</span>
-                              <button
-                                onClick={() => setCartQty(cartQty + 1)}
-                                style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '14px', fontWeight: '600', color: '#0F172A' }}
-                              >
-                                +
-                              </button>
-                            </div>
-
-                            <span style={{ fontSize: '16px', fontWeight: '700', color: '#0F172A' }}>
-                              ${(65 * cartQty).toFixed(2)}
+                              {label}
                             </span>
-                          </div>
+                          ))}
                         </div>
-                      </div>
-                    ) : (
-                      <div style={{ padding: '40px 0', textAlign: 'center', color: '#64748B' }}>
-                        <p style={{ fontSize: '14px' }}>Your cart is currently empty.</p>
-                      </div>
-                    )}
 
-                    {/* Pair Well With */}
-                    <div style={{ marginTop: '24px', marginBottom: '20px' }}>
-                      <h4 style={{ fontSize: '16px', fontWeight: '700', color: '#0F172A', marginBottom: '12px' }}>Pair Well With</h4>
-                      <div style={{ display: 'flex', gap: '12px', overflowX: 'auto', paddingBottom: '8px' }}>
-                        {[
-                          { name: 'Ceramic Mug', price: '$24.00', img: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=150&q=80' },
-                          { name: 'Wooden Spoon', price: '$12.00', img: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=150&q=80' }
-                        ].map((item, idx) => (
-                          <div key={idx} style={{ minWidth: '140px', backgroundColor: '#F8FAFC', borderRadius: '12px', padding: '10px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                            <div style={{ height: '80px', borderRadius: '8px', overflow: 'hidden' }}>
-                              <Image src={item.img} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                            </div>
-                            <span style={{ fontSize: '12px', fontWeight: '600', color: '#0F172A' }}>{item.name}</span>
-                            <span style={{ fontSize: '12px', color: '#059669', fontWeight: '700' }}>{item.price}</span>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
+                          <div>
+                            <h4 style={{ fontSize: '16px', fontWeight: '800', color: '#0F172A', margin: 0 }}>Estimated total</h4>
+                            <p style={{ fontSize: '11px', color: '#64748B', margin: '2px 0 0 0' }}>Taxes and shipping calculated at checkout</p>
                           </div>
-                        ))}
-                      </div>
-                    </div>
+                          <span style={{ fontSize: '18px', fontWeight: '800', color: '#0F172A' }}>
+                            ${(65 * cartQty).toFixed(2)} USD
+                          </span>
+                        </div>
 
-                    {/* Footer Drawer Action Bar */}
-                    <div style={{ marginTop: 'auto', borderTop: '1px solid #F1F5F9', paddingTop: '16px' }}>
-                      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '16px' }}>
-                        {['Order Note >', 'Estimate Shipping >', 'Coupon >'].map((label, idx) => (
-                          <span
-                            key={idx}
+                        <div style={{ display: 'flex', gap: '12px' }}>
+                          <button
+                            onClick={() => navigate('/product-detail')}
                             style={{
+                              flex: 1,
                               backgroundColor: '#F1F5F9',
-                              borderRadius: '20px',
-                              padding: '6px 14px',
-                              fontSize: '12px',
-                              fontWeight: '600',
                               color: '#0F172A',
+                              borderRadius: '30px',
+                              padding: '12px 20px',
+                              fontSize: '14px',
+                              fontWeight: '700',
+                              border: 'none',
                               cursor: 'pointer'
                             }}
                           >
-                            {label}
-                          </span>
-                        ))}
-                      </div>
+                            View Cart
+                          </button>
 
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
-                        <div>
-                          <h4 style={{ fontSize: '16px', fontWeight: '800', color: '#0F172A', margin: 0 }}>Estimated total</h4>
-                          <p style={{ fontSize: '11px', color: '#64748B', margin: '2px 0 0 0' }}>Taxes and shipping calculated at checkout</p>
+                          <button
+                            onClick={() => alert('Proceeding to checkout...')}
+                            style={{
+                              flex: 1,
+                              backgroundColor: '#000000',
+                              color: '#FFFFFF',
+                              borderRadius: '30px',
+                              padding: '12px 20px',
+                              fontSize: '14px',
+                              fontWeight: '700',
+                              border: 'none',
+                              cursor: 'pointer'
+                            }}
+                          >
+                            Check Out
+                          </button>
                         </div>
-                        <span style={{ fontSize: '18px', fontWeight: '800', color: '#0F172A' }}>
-                          ${(65 * cartQty).toFixed(2)} USD
-                        </span>
-                      </div>
-
-                      <div style={{ display: 'flex', gap: '12px' }}>
-                        <button
-                          onClick={() => navigate('/product-detail')}
-                          style={{
-                            flex: 1,
-                            backgroundColor: '#F1F5F9',
-                            color: '#0F172A',
-                            borderRadius: '30px',
-                            padding: '12px 20px',
-                            fontSize: '14px',
-                            fontWeight: '700',
-                            border: 'none',
-                            cursor: 'pointer'
-                          }}
-                        >
-                          View Cart
-                        </button>
-
-                        <button
-                          onClick={() => alert('Proceeding to checkout...')}
-                          style={{
-                            flex: 1,
-                            backgroundColor: '#000000',
-                            color: '#FFFFFF',
-                            borderRadius: '30px',
-                            padding: '12px 20px',
-                            fontSize: '14px',
-                            fontWeight: '700',
-                            border: 'none',
-                            cursor: 'pointer'
-                          }}
-                        >
-                          Check Out
-                        </button>
                       </div>
                     </div>
-                  </div>
-                </Modal>
+                  </Modal>
+                )}
 
                 <Button
                   text="Get In Touch"
@@ -428,7 +433,7 @@ const Header = () => {
 
         {mobileMenu}
       </div>
-    </Container >
+    </Container>
   );
 };
 

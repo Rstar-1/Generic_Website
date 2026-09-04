@@ -1,10 +1,30 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import Banner from '../../components/layout/generic/Banner';
-import DetailSection from './sections/DetailSection';
-import PatchSection from '../home/sections/PatchSection';
-import OfferSection from '../home/sections/OfferSection';
+import Loader from '../../components/common/generic/Loader';
+
+const DetailSection = lazy(() => import('./sections/DetailSection'));
+const PatchSection = lazy(() => import('../home/sections/PatchSection'));
+const OfferSection = lazy(() => import('../home/sections/OfferSection'));
+const FeedSection = lazy(() => import('../home/sections/FeedSection'));
+const FeatureSections = lazy(() => import('../home/sections/FeatureSections'));
+
+const ecomSections = [
+    DetailSection,
+    PatchSection,
+    OfferSection,
+];
+
+const standardSections = [
+    DetailSection,
+    PatchSection,
+    FeedSection,
+    FeatureSections
+];
 
 const About = () => {
+    const isEcom = import.meta.env.VITE_ECOM === 'true';
+    const activeSections = isEcom ? ecomSections : standardSections;
+
     return (
         <>
             <Banner
@@ -15,9 +35,11 @@ const About = () => {
                     { label: 'About Us', path: '/about' }
                 ]}
             />
-            <DetailSection />
-            <PatchSection />
-            <OfferSection />
+            <Suspense fallback={<Loader />}>
+                {activeSections.map((Component, index) => (
+                    <Component key={index} />
+                ))}
+            </Suspense>
         </>
     );
 };

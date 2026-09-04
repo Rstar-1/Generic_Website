@@ -35,7 +35,7 @@ const Heading = ({
                 return (
                     <div className={`w-full ${className}`}>
                         {renderTag()}
-                        <div className="flex items-center justify-between gap-12 flex-wrap">
+                        <div className="flex items-center justify-between gap-12">
                             <div>
                                 {title && <h2 className="text-dark font-600 head-text capitalize">{title}</h2>}
                                 {subtitle && <p className="small-text text-gray mt-4">{subtitle}</p>}

@@ -6,13 +6,13 @@ import Heading from '../../../components/layout/generic/Heading';
 
 const AboutSection = () => {
     return (
-        <Container>
+        <Container style={{ background: 'var(--forth)' }}>
             <div className='w-full py-50'>
                 <Heading
                     version="v1"
                     tag="ABOUT US"
                     title="Expert Innovative And Deliver Exceptional For NOT Solution Now."
-                    align='left'
+                    align='center'
                 />
 
                 <div className='flex items-start mt-70' style={{ gap: '20px' }}>

@@ -21,11 +21,28 @@
     },
     {
       "href": "/blog",
-      "label": "News & Media"
+      "label": "News & Media",
+      "ecomOnly": true
     },
     {
       "href": "/products",
-      "label": "Products"
+      "label": "Products",
+      "ecomOnly": true
+    },
+    {
+      "href": "/blog",
+      "label": "Blogs",
+      "ecomOnly": false
+    },
+    {
+      "href": "/service",
+      "label": "Services",
+      "ecomOnly": false
+    },
+    {
+      "href": "/pricing",
+      "label": "Pricing",
+      "ecomOnly": false
     },
     {
       "href": "/connect",
