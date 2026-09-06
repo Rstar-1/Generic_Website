@@ -264,7 +264,7 @@ const FilterSection = () => {
                         </div>
                     )}
 
-                    <div className={viewMode ? 'w-80 sm-w-full pl-20 sm-pl-1' : 'w-full'}>
+                    <div className={viewMode ? 'w-full pl-20 sm-pl-1' : 'w-80 sm-w-full'}>
                         <div
                             className="grid-cols-4 sm-grid-cols-2 gap-12"
                         >
