@@ -34,8 +34,8 @@ const TrendingSection = () => {
     return (
         <Container style={{ background: 'var(--forth)' }}>
             <div className='w-full py-50'>
-                <div className='grid-cols-2 gap-12'>
-                    <div className='overflow-hidden bg-forth rounded-10 relative' style={{ height: '612px' }}
+                <div className='grid-cols-2 sm-grid-cols-1 gap-12'>
+                    <div className='overflow-hidden bg-forth rounded-10 relative sm-h-400' style={{ height: '612px' }}
                     >    <Image
                             src="https://hyper-theme-demo.myshopify.com/cdn/shop/files/slider-w-multi-slide1-v2.jpg?v=1750667763&width=1100"
                             alt="Dining & Kitchen"
@@ -61,7 +61,7 @@ const TrendingSection = () => {
 
                     <div className='grid-cols-2 gap-12'>
                         {trendingProducts.map((item) => (
-                            <div className='h-300 overflow-hidden bg-forth rounded-10 relative'
+                            <div className='h-300 sm-h-250 overflow-hidden bg-forth rounded-5 relative'
                                 key={item.id}
                             >    <Image
                                     src={item.image}
@@ -69,7 +69,7 @@ const TrendingSection = () => {
                                     className='h-full w-full object-cover flex'
                                 />
                                 <div className='absolute bottom-0 left-0 w-full text-center'>
-                                    <div className='p-14'>
+                                    <div className='p-14 sm-p-5'>
                                         <h4 className='mid-text text-dark font-600 '>
                                             {item.title}
                                         </h4>

@@ -6,7 +6,6 @@ import Icon from '../../../components/common/Icon';
 
 const badges = [
     'All Eco-Certified',
-    'Product Protection',
     'Make It Yours',
     'Unique Tailored'
 ];
@@ -48,24 +47,23 @@ const ServiceSection = () => {
                     title="This approach resulted in the beautiful structure"
                 />
 
-                {/* Badges */}
                 <div className='flex items-center justify-center gap-10 flex-wrap mt-20 mb-40'>
                     {badges.map((badge, idx) => (
                         <p
-                            key={idx} className='mini-text text-white bg-primary w-max px-14 py-4 rounded-20 flex items-center gap-8 font-500 uppercase mb-8'>
+                            key={idx} className='small-text text-white bg-primary w-max px-14 py-4 rounded-20 flex items-center gap-8 font-500 uppercase mb-8'>
                             <Icon name='Box' width="14" height="14" className="text-white" />
                             {badge}
                         </p>
                     ))}
                 </div>
 
-                <div className='grid-cols-4 gap-12 w-90 mx-auto'>
+                <div className='grid-cols-4 sm-grid-cols-2 w-85 sm-w-full mx-auto' style={{ gap: '16px' }}>
                     {services.map((item) => (
                         <div key={item.id} className='w-full'>
                             <Image
                                 src={item.image}
                                 alt={item.title}
-                                className='w-full h-250 object-cover flex rounded-5'
+                                className='w-full h-250 sm-h-200 object-cover flex rounded-10'
                             />
                             <h3 className='mid-text text-dark font-600 mt-12'>
                                 {item.title}

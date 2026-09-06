@@ -34,7 +34,7 @@ const Header = () => {
     if (!isMobileOpen) return null;
     return (
       <div className="relative left-0 w-full bg-white h-600 overflow-auto z-99 top-0 bordh hidden md-hidden sm-grid-cols-1">
-        <div className="px-8">
+        <div className="px-18">
           <div className="grid-cols-1 w-full">
             {header.navLinks?.map((item, i) => {
               const isActive = location.pathname === item.href;
@@ -240,12 +240,13 @@ const Header = () => {
                         />
                         {cartQty > 0 && (
                           <p
-                            className="bg-primary mini-text flex items-center justify-center rounded-full text-white absolute"
+                            className="bg-primary flex items-center justify-center rounded-full text-white absolute"
                             style={{
                               top: '-8px',
                               right: '-8px',
                               width: '24px',
                               height: '24px',
+                              fontSize: '10px'
                             }}
                           >
                             {cartQty}
@@ -267,10 +268,10 @@ const Header = () => {
                                 />
                               </div>
                               <div className="w-65">
-                                <h4 className="headmini-text text-dark font-600">{item.name}</h4>
                                 <p className="mini-text text-gray font-400">{item.category}</p>
+                                <h4 className="headmini-text text-dark font-600">{item.name}</h4>
 
-                                <div className="flex items-center justify-between mt-3">
+                                <div className="flex items-center justify-between mt-5">
                                   <Fields
                                     type="quantity"
                                     value={item.quantity}
@@ -286,7 +287,7 @@ const Header = () => {
                                 name="Close"
                                 width="16"
                                 height="16"
-                                stroke="var(--gray)"
+                                stroke="var(--danger)"
                                 onClick={() => removeFromCart(item.id)}
                                 className="absolute top-0 right-0 z-20 cursor-pointer"
                               />
@@ -299,7 +300,7 @@ const Header = () => {
                         </div>
                       )}
                     </div>
-                    <div className="absolute fixed bottom-0 left-0 w-full bg-forth">
+                    <div className="fixed bottom-0 left-0 w-full bg-forth">
                       <div className="p-15">
                         <div className="flex items-end w-full">
                           <div className="w-80">
@@ -310,7 +311,7 @@ const Header = () => {
                         </div>
                         <div className="grid-cols-2 gap-12 mt-12">
                           <Button
-                            text="View Cart"
+                            text="Explore More"
                             onClick={() => {
                               setIsCartOpen(false);
                               navigate('/product-detail');
@@ -322,7 +323,7 @@ const Header = () => {
                           />
 
                           <Button
-                            text="Check Out"
+                            text="Send Enquiry"
                             onClick={() => alert('Proceeding to checkout...')}
                             version="v3"
                             bg="dark"

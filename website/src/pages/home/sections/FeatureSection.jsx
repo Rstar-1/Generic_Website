@@ -119,43 +119,43 @@ const ProductCard = ({ item, onClick }) => {
                 </div>
             </div>
 
-        <p className='text-gray font-500 uppercase mini-text mt-5'
-        >
-            {item.category}
-        </p>
-
-        <h3 className='headmini-text text-dark uppercase font-600 mt-2'>
-            {item.name}
-        </h3>
-
-        <div className='flex items-center gap-6 mt-2'>
-            <p className='mini-text text-danger font-600'>
-                {item.price}
+            <p className='text-gray font-500 uppercase mini-text mt-5'
+            >
+                {item.category}
             </p>
-            {item.originalPrice && (
-                <p className='mini-text text-gray font-400 line-through'>
-                    {item.originalPrice}
+
+            <h3 className='headmini-text text-dark uppercase font-600 mt-2'>
+                {item.name}
+            </h3>
+
+            <div className='flex items-center gap-6 mt-2'>
+                <p className='mini-text text-danger font-600'>
+                    {item.price}
                 </p>
+                {item.originalPrice && (
+                    <p className='mini-text text-gray font-400 line-through'>
+                        {item.originalPrice}
+                    </p>
+                )}
+            </div>
+
+            {item.colors && (
+                <div className='flex items-center gap-8 mt-6'>
+                    {item.colors.map((color, cIdx) => (
+                        <span
+                            key={cIdx}
+                            style={{
+                                width: '14px',
+                                height: '14px',
+                                borderRadius: '3px',
+                                backgroundColor: color,
+                                border: '1px solid rgba(0,0,0,0.15)'
+                            }}
+                        />
+                    ))}
+                </div>
             )}
         </div>
-
-        {item.colors && (
-            <div className='flex items-center gap-8 mt-6'>
-                {item.colors.map((color, cIdx) => (
-                    <span
-                        key={cIdx}
-                        style={{
-                            width: '14px',
-                            height: '14px',
-                            borderRadius: '3px',
-                            backgroundColor: color,
-                            border: '1px solid rgba(0,0,0,0.15)'
-                        }}
-                    />
-                ))}
-            </div>
-        )}
-    </div>
     );
 };
 
@@ -203,7 +203,7 @@ const ProductSliderSection = ({ products, onProductClick }) => {
             </div>
 
             <div className='flex items-center justify-between mt-20'>
-                <div style={{ height: '3px' }} className='w-80 bg-tertiary relative'>
+                <div style={{ height: '3px' }} className='w-80 sm-w-60 bg-tertiary relative'>
                     <div
                         style={{
                             height: '3px',
@@ -225,7 +225,7 @@ const ProductSliderSection = ({ products, onProductClick }) => {
                         variant="outline"
                         version="icon"
                         color='primary'
-                        className="border-primary rounded-30 p-12"
+                        className="border-primary rounded-30"
                     />
                     <Button
                         aria-label="Next Products"
@@ -237,7 +237,7 @@ const ProductSliderSection = ({ products, onProductClick }) => {
                         variant="outline"
                         version="icon"
                         color='primary'
-                        className="border-primary rounded-30 p-12"
+                        className="border-primary rounded-30"
                     />
                 </div>
             </div>

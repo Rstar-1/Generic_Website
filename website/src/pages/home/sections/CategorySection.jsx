@@ -81,7 +81,7 @@ const CategorySection = () => {
                 />
 
                 <div
-                    className='grid-cols-6 mt-30 border-ec'
+                    className='grid-cols-6 sm-grid-cols-3 mt-30 border-ec'
                 >
                     {categories.map((item, index) => {
                         const isLastInRow = (index + 1) % 6 === 0;
@@ -94,13 +94,13 @@ const CategorySection = () => {
                                     borderRight: isLastInRow ? 'none' : '1px solid #EBEBEB',
                                     borderBottom: isTopRow ? '1px solid #EBEBEB' : 'none'
                                 }}
-                                className='p-25 grid-cols-1'
+                                className='p-25 sm-p-14 grid-cols-1'
                             >
                                 <Image
                                     src={item.image}
                                     alt={item.title}
-                                    width='90px'
-                                    height='90px'
+                                    width='80px'
+                                    height='80px'
                                     className="rounded-full object-cover flex mx-auto"
                                 />
                                 <p

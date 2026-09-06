@@ -71,11 +71,10 @@ const FeedSection = () => {
                     version="v2"
                     tag="Product Protection"
                     title="Delivering Innovative IT"
-                    subtitle="Empowering enterprises with tailored financial insights and measurable growth strategies."
                     actionText='Show All'
                 />
 
-                <div className='grid-cols-4 gap-12 mt-30'>
+                <div className='grid-cols-4 sm-grid-cols-1 gap-12 mt-30'>
                     {feedItems.map((item) => (
                         <div
                             key={item.id}

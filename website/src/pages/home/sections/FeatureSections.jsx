@@ -59,10 +59,10 @@ const FeatureSections = () => {
     }, []);
 
     return (
-        <Container className='relative h-550 overflow-hidden' style={{ background: 'var(--dark)' }}>
+        <Container className='relative h-550 sm-h-400 overflow-hidden' style={{ background: 'var(--dark)' }}>
             <div className="flex items-center h-full">
-                <div className="w-50 relative z-20">
-                    <p className="mini-text text-dark bg-white w-max px-18 py-6 rounded-20 flex items-center gap-8 font-700 uppercase mb-18">
+                <div className="w-50 sm-w-full relative z-20">
+                    <p className="mini-text text-dark bg-white w-max px-18 py-6 rounded-20 flex items-center gap-8 font-600 uppercase mb-18">
                         <Icon name="Settings" width="14" height="14" className="text-primary" />
                         NO.1 SOFTWARE COMPANY
                     </p>
@@ -74,9 +74,9 @@ const FeatureSections = () => {
                     </p>
                 </div>
 
-                <div className="absolute top-0 right-0 h-full w-55 z-10">
+                <div className="absolute top-0 right-0 h-full w-60 sm-w-full z-10">
                     <div
-                        className="flex gap-12 absolute -top-180 -right-20 w-110"
+                        className="flex gap-12"
                         style={{
                             transform: 'rotate(-20deg) scale(1.15)',
                             transformOrigin: 'top right'
@@ -90,11 +90,11 @@ const FeatureSections = () => {
                                 style={{ willChange: 'transform' }}
                             >
                                 {column.map((img, imgIdx) => (
-                                    <div key={imgIdx} className="relative overflow-hidden h-250">
+                                    <div key={imgIdx} className="relative overflow-hidden h-250 sm-h-200">
                                         <Image
                                             src={img}
                                             alt="Feature Showcase"
-                                            className="w-full h-full object-cover flex filter-b6"
+                                            className="w-full h-full object-cover flex filter-b4"
                                         />
                                     </div>
                                 ))}

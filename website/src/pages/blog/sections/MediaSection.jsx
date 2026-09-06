@@ -75,8 +75,8 @@ const MediaSection = () => {
 
     return (
         <Container>
-            <div className='flex items-start gap-12 w-full py-60'>
-                <div className='w-70 pr-10 sm-pr-1'>
+            <div className='flex sm-grid-cols-1 items-start gap-12 w-full py-60'>
+                <div className='w-70 sm-w-full pr-10 sm-pr-1'>
                     {blogPosts.map((post) => (
                         <article
                             key={post.id}
@@ -84,7 +84,7 @@ const MediaSection = () => {
                         >
                             <div
                                 onClick={() => navigate('/blog-detail')}
-                                className='w-full h-450 rounded-10 overflow-hidden mb-20 cursor-pointer'
+                                className='w-full h-450 sm-h-250 rounded-10 overflow-hidden mb-20 cursor-pointer'
                             >
                                 <Image
                                     src={post.image}
@@ -114,27 +114,25 @@ const MediaSection = () => {
                             </h2>
 
                             <p
-                                className='text-gray font-400 small-text mt-14'
+                                className='text-gray font-400 small-text mt-14 sm-mt-6'
                             >
                                 {post.excerpt}
                             </p>
-                            <div className="mt-12">
-                                <Button
-                                    text="Read More"
-                                    version="v2"
-                                    bg="primary"
-                                    color="white"
-                                    icon="ArrowUpRight"
-                                    iconPosition="right"
-                                    className="rounded-30"
-                                    onClick={() => navigate('/blog-detail')}
-                                />
-                            </div>
+                            <Button
+                                text="Read More"
+                                version="v2"
+                                bg="primary"
+                                color="white"
+                                icon="ArrowUpRight"
+                                iconPosition="right"
+                                className="rounded-30 mt-12"
+                                onClick={() => navigate('/blog-detail')}
+                            />
                         </article>
                     ))}
                 </div>
 
-                <div className='w-30 pl-10 sm-pl-1'>
+                <div className='w-30 sm-w-full pl-10 sm-pl-1'>
                     <div className='mb-25 bg-forth rounded-5 p-16'>
                         <h4 className='text-dark mid-text font-600 mb-10'>
                             Search

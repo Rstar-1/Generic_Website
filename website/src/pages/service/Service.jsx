@@ -4,6 +4,7 @@ import Loader from '../../components/common/generic/Loader';
 
 const ServiceDetailSection = lazy(() => import('./sections/ServiceDetailSection'));
 const FeatureSections = lazy(() => import('../home/sections/FeatureSections'));
+const FeedSection = lazy(() => import('../home/sections/FeedSection'));
 
 const Service = () => {
     return (
@@ -18,6 +19,7 @@ const Service = () => {
             />
             <Suspense fallback={<Loader />}>
                 <ServiceDetailSection />
+                <FeedSection />
                 <FeatureSections />
             </Suspense>
         </>

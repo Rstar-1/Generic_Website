@@ -90,12 +90,12 @@ const MediaDetailSection = () => {
 
     return (
         <Container>
-            <div className="flex items-start gap-12 w-full py-60">
-                <div className="w-70 pr-10 sm-pr-1">
+            <div className="flex sm-grid-cols-1 items-start gap-12 w-full py-60">
+                <div className="w-70 sm-w-full pr-10 sm-pr-1">
                     <Image
                         src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80"
                         alt="Main Article"
-                        className="flex rounded-10 h-450 w-full object-cover mb-20"
+                        className="flex rounded-10 h-450 sm-h-300 w-full object-cover mb-20"
                     />
 
                     <div>
@@ -110,7 +110,7 @@ const MediaDetailSection = () => {
                             </div>
                         </div>
 
-                        <h3 className="text-dark font-600 head-text mt-2 mb-16">
+                        <h3 className="text-dark font-600 head-text mt-2 mb-16 sm-mb-6">
                             Unlocking Business Growth with Innovative Solutions
                         </h3>
 
@@ -121,7 +121,7 @@ const MediaDetailSection = () => {
                         </p>
                     </div>
 
-                    <div className="border-primary rounded-10 p-16 relative mb-20">
+                    <div className="border-primary rounded-10 p-16 relative mb-20 sm-mb-14">
                         <p className="para-text font-500 text-dark">
                             "Pellentesque Sollicitudin Congue Dolor Iner Aliquam. Morbi Volutpat, Nisi Vel Molestie Ulnas Condimentum, Dapibus Aliquam Lacerat Tortor, Quis Egestas Nisl Ipsum Eu Risus. Praesent Eleifend Erat Et Amet Car Vehicula."
                         </p>
@@ -131,25 +131,25 @@ const MediaDetailSection = () => {
                         Lorem ipsum dolor sit amet consectetur adipiscing elit ut id nisl hendrerit orci. Pellentesque et erat sapien fringilla, mattis ligula consectetuer. Morbi orci mauris, maximus vitae ligula cursus, rhoncus eleifend augue. Morbi vel auctor mi ut hendrerit risus.
                     </p>
 
-                    <div className="grid-cols-2 gap-12 mb-26">
+                    <div className="grid-cols-2 gap-12 mb-26 sm-mb-14">
                         <Image
                             src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=600&q=80"
                             alt="Office Discussion"
-                            className="w-full h-250 rounded-10 object-cover flex"
+                            className="w-full h-250 sm-h-150 rounded-10 object-cover flex"
                         />
 
                         <Image
                             src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80"
                             alt="Partnership Handshake"
-                            className="w-full h-250 rounded-10 object-cover flex"
+                            className="w-full h-250 sm-h-150 rounded-10 object-cover flex"
                         />
                     </div>
 
-                    <p className="text-gray font-400 small-text mb-24">
+                    <p className="text-gray font-400 small-text mb-24 sm-mb-14">
                         Nunc lacinia et nisi non eleifend. Sed et erat eleifend lacus scelerisque molestie nec id libero. Suspendisse potenti. Vivamus vitae justo nunc. Aliquam erat volutpat. Ut sit amet justo nisl.
                     </p>
 
-                    <div className="flex justify-between items-center py-16 mb-40 border-y">
+                    <div className="flex justify-between items-center mb-40 border-y">
                         <div className="flex gap-8 items-center flex-wrap">
                             {['News', 'Business', 'Marketing'].map((tag) => (
                                 <p
@@ -183,18 +183,18 @@ const MediaDetailSection = () => {
                         <div className="grid-cols-1 gap-12">
                             {commentsList.map((c) => (
                                 <div key={c.id} className="flex gap-12 items-start bordb pb-20">
-                                    <div className="w-15">
+                                    <div className="w-15 sm-w-25">
                                         <Image src={c.avatar} alt={c.name} width="100px" height="100px" className="object-cover flex rounded-full" />
                                     </div>
 
-                                    <div className="w-85">
+                                    <div className="w-85 sm-w-75">
                                         <h5 className="text-dark mid-text font-600">
                                             {c.name}
                                         </h5>
                                         <p className="mini-text text-gray">{c.date}</p>
                                         <p className="text-warning para-text">★★★★★</p>
 
-                                        <p className="small-text text-gray font-400 mt-4">
+                                        <p className="small-text text-gray font-400 mt-4 sm-mt-2">
                                             {c.text}
                                         </p>
                                     </div>
@@ -203,7 +203,7 @@ const MediaDetailSection = () => {
                         </div>
                     </div>
 
-                    <div className="bg-forth rounded-10 p-20">
+                    <div className="bg-forth rounded-10 p-20 sm-p-14">
                         <h3 className="text-dark mid-text font-600 mb-20">
                             Leave A Comment
                         </h3>
@@ -221,7 +221,7 @@ const MediaDetailSection = () => {
                     </div>
                 </div>
 
-                <div className="w-30 pl-10 sm-pl-1">
+                <div className="w-30 sm-w-full pl-10 sm-pl-1">
                     <div className="mb-25 bg-forth rounded-5 p-16">
                         <h4 className="text-dark mid-text font-600 mb-10">
                             Search

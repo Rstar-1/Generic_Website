@@ -23,7 +23,7 @@ const Heading = ({
     };
 
     const renderTag = (extraClass = "") => tag ? (
-        <p className={`mini-text text-dark border-ec w-max px-18 py-6 rounded-20 flex items-center gap-8 font-700 uppercase mb-8 ${extraClass}`}>
+        <p className={`mini-text text-dark border-ec w-max px-18 py-6 rounded-20 flex items-center gap-8 font-600 uppercase mb-8 ${extraClass}`}>
             {tagIcon && <Icon name={tagIcon} width="14" height="14" className="text-primary" />}
             {tag}
         </p>
@@ -35,7 +35,7 @@ const Heading = ({
                 return (
                     <div className={`w-full ${className}`}>
                         {renderTag()}
-                        <div className="flex items-center justify-between gap-12">
+                        <div className="flex sm-grid-cols-1 items-center justify-between gap-12">
                             <div>
                                 {title && <h2 className="text-dark font-600 head-text capitalize">{title}</h2>}
                                 {subtitle && <p className="small-text text-gray mt-4">{subtitle}</p>}
@@ -63,7 +63,7 @@ const Heading = ({
                             </div>
                         )}
                         {title && (
-                            <h2 className={`text-dark font-600 large-text uppercase ${align === 'center' ? 'w-80 mx-auto' : ''}`}>
+                            <h2 className={`text-dark font-600 large-text uppercase ${align === 'center' ? 'w-80 sm-w-full mx-auto' : ''}`}>
                                 {title}
                             </h2>
                         )}

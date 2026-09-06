@@ -85,11 +85,11 @@ const PriceSection = () => {
                     align="center"
                 />
 
-                <div className="grid-cols-4 sm-grid-cols-1 gap-12 mt-40 sm-mt-20">
+                <div className="grid-cols-4 sm-grid-cols-1 mt-40 sm-mt-20" style={{ gap: '24px' }}>
                     {pricingPlans?.map((plan) => (
                         <div
                             key={plan.id}
-                            className="bg-white rounded-10 p-25 b-shadow relative flex flex-column justify-between"
+                            className="bg-white rounded-10 p-25 sm-p-30 b-shadow relative flex flex-column justify-between"
                             style={plan.isPopular ? { border: '2px solid var(--primary)' } : {}}
                         >
                             {plan.isPopular && (

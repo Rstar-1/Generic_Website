@@ -41,8 +41,8 @@ const Enquiry = () => {
 
     return (
         <Container>
-            <div className="flex items-start gap-12 py-60">
-                <div className="w-65 pr-20 sm-pr-1 bordr">
+            <div className="flex sm-grid-cols-1 items-start gap-12 py-60">
+                <div className="w-65 sm-w-full pr-20 sm-pr-1 bordr">
                     <h3 className="text-dark head-text font-600">
                         Contact Us
                     </h3>
@@ -64,7 +64,7 @@ const Enquiry = () => {
                     </div>
                 </div>
 
-                <div className="w-35 pl-20 sm-pl-1">
+                <div className="w-35 sm-w-full pl-20 sm-pl-1">
                     <h3 className="text-dark head-text font-600">
                         Need Help?
                     </h3>

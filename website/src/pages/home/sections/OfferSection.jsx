@@ -87,14 +87,14 @@ const OfferSection = () => {
     return (
         <Container>
             <div className="w-full py-50 overflow-hidden">
-                <div className="grid-cols-2 md-grid-1 gap-12">
+                <div className="grid-cols-2 sm-grid-cols-1 gap-12">
                     {offerBanners.map((banner) => (
                         <div
                             key={banner.id}
                             style={{
                                 backgroundColor: banner.bgColor,
                             }}
-                            className='flex items-center gap-12 p-25 rounded-10'
+                            className='flex items-center gap-12 p-25 sm-p-16 rounded-10'
                         >
                             <div className='w-50'>
                                 <h2 className='text-dark head-text font-600'>
@@ -132,7 +132,7 @@ const OfferSection = () => {
                                 <Image
                                     src={banner.image}
                                     alt={banner.title}
-                                    className='w-full h-250 object-cover flex rounded-10'
+                                    className='w-full h-250 sm-h-200 object-cover flex rounded-10'
                                 />
                             </div>
                         </div>

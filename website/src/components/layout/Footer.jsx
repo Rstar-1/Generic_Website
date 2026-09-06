@@ -10,7 +10,7 @@ const Footer = () => {
     <Container style={{ background: 'var(--forth)' }}>
       <div className='py-50 w-full'>
         <div
-          className='grid-cols-4 gap-12'
+          className='grid-cols-4 sm-grid-cols-1 gap-12'
         >
           {features.map((item, index) => (
             <div
@@ -39,16 +39,16 @@ const Footer = () => {
         </div>
 
         <div
-          className='flex w-full py-40 bordb'
+          className='flex sm-grid-cols-1 w-full py-40 sm-py-25 bordb'
         >
-          <div className='w-45'>
+          <div className='w-45 sm-w-full'>
             <h3 className='head-text text-dark font-600'>
               {newsletter.title}
             </h3>
             <p className='small-text text-gray font-400 mt-4'>
               {newsletter.description}
             </p>
-            <div className='flex items-center gap-12 w-90 mt-30'>
+            <div className='flex items-center gap-12 w-90 sm-w-full sm-mt-20 mt-30'>
               <input
                 type="email"
                 placeholder={newsletter.placeholder}
@@ -97,7 +97,7 @@ const Footer = () => {
             )}
           </div>
 
-          <div className='w-55 grid-cols-3 gap-12 pl-80'>
+          <div className='w-55 sm-w-full grid-cols-3 gap-12 pl-8 sm-pl-1 sm-mt-12'>
             {columns.map((col, cIdx) => (
               <div key={col.title || cIdx}>
                 <h4 className='mid-text text-dark font-600'>
@@ -142,7 +142,7 @@ const Footer = () => {
           </div>
         )}
 
-        <div className='flex items-center justify-between mt-12'>
+        <div className='flex sm-grid-cols-1 items-center justify-between mt-12'>
           <p className='mini-text text-gray'>{bottom.copyright}</p>
           {bottom.legalLinks && (
             <div className='flex items-center gap-12'>

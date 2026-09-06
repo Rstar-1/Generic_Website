@@ -30,7 +30,7 @@ const AboutSections = () => {
     return (
         <Container>
             <div className='w-full py-50'>
-                <div className='grid-cols-2 gap-12 items-center'>
+                <div className='grid-cols-2 sm-grid-cols-1 gap-12 items-center'>
                     <div className='pr-10 sm-pr-0'>
                         <p className='mini-text text-primary border-primary w-max px-14 py-4 rounded-20 flex items-center gap-8 font-500 uppercase mb-8'>
                             <Icon name='Box' width="14" height="14" className="text-primary" />
@@ -86,9 +86,9 @@ const AboutSections = () => {
                         </div>
                     </div>
 
-                    <div className='pl-10 sm-pl-0'>
+                    <div className='pl-10 sm-pl-0 sm-mt-20'>
                         <div
-                            className='bg-mask w-full h-600 relative overflow-hidden flex'
+                            className='bg-mask w-full h-600 sm-h-350 relative overflow-hidden flex'
                             style={maskStyles}
                         >
                             <Image

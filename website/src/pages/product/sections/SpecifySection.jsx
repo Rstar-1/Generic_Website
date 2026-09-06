@@ -14,81 +14,24 @@ const SpecifySection = ({
         <Container version="v2">
             <div className="w-full pb-60">
                 <div
-                    style={{
-                        backgroundColor: '#F7F7F7',
-                        borderRadius: '20px',
-                        padding: '40px 48px',
-                        transition: 'all 0.3s ease'
-                    }}
+                    className='bg-forth p-40 sm-p-18 rounded-10'
                 >
-                    <h3
-                        style={{
-                            fontSize: '24px',
-                            fontWeight: '700',
-                            color: '#141414',
-                            marginBottom: '20px'
-                        }}
+                    <h3 className='title-text text-dark font-600'
                     >
                         {title}
                     </h3>
 
-                    <p
-                        style={{
-                            fontSize: '14px',
-                            lineHeight: '1.7',
-                            color: '#555555',
-                            marginBottom: '16px'
-                        }}
+                    <p className={`${isExpanded ? '' : 'line-clamp4'} text-gray small-text font-400 mt-5`}
                     >
                         {contentParagraphs[0]}
                     </p>
 
-                    {isExpanded ? (
-                        <p
-                            style={{
-                                fontSize: '14px',
-                                lineHeight: '1.7',
-                                color: '#555555',
-                                marginBottom: '16px',
-                                transition: 'opacity 0.3s ease'
-                            }}
-                        >
-                            {contentParagraphs[1]}
-                        </p>
-                    ) : (
-                        <p
-                            style={{
-                                fontSize: '14px',
-                                lineHeight: '1.7',
-                                color: '#999999',
-                                marginBottom: '16px',
-                                overflow: 'hidden',
-                                display: '-webkit-box',
-                                WebkitLineClamp: 2,
-                                WebkitBoxOrient: 'vertical',
-                                opacity: 0.6
-                            }}
-                        >
-                            {contentParagraphs[1]}
-                        </p>
-                    )}
-
-                    <button
+                    <p
                         onClick={() => setIsExpanded(!isExpanded)}
-                        style={{
-                            background: 'none',
-                            border: 'none',
-                            padding: 0,
-                            fontSize: '14px',
-                            fontWeight: '700',
-                            color: '#141414',
-                            borderBottom: '2px solid #141414',
-                            cursor: 'pointer',
-                            marginTop: '8px'
-                        }}
+                        className='text-dark small-text font-600 underline mt-10'
                     >
                         {isExpanded ? 'View Less' : 'View More'}
-                    </button>
+                    </p>
                 </div>
             </div>
         </Container>

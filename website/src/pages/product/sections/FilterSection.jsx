@@ -155,14 +155,12 @@ const FilterSection = () => {
     };
 
     return (
-        <Container version="v2" style={{ backgroundColor: '#FFFFFF' }}>
+        <Container>
             <div className="w-full py-40">
-                {/* Header Controls Bar */}
                 <div
-                    className='flex items-center w-full gap-12 justify-between'
+                    className='flex sm-grid-cols-1 items-center w-full gap-12 justify-between'
                 >
-                    {/* Left Controls */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                    <div className='flex items-center gap-12'>
                         <button
                             onClick={() => setIsFilterVisible(!isFilterVisible)}
                             style={{
@@ -185,8 +183,7 @@ const FilterSection = () => {
                         <span style={{ fontSize: '14px', color: '#64748B' }}>14 products</span>
                     </div>
 
-                    {/* Right Controls */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap' }}>
+                    <div className='flex items-center flex-wrap' style={{ gap: '20px' }}>
                         {/* Compare Toggle */}
                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                             <span style={{ fontSize: '14px', fontWeight: '500', color: '#0F172A' }}>Compare:</span>
@@ -281,9 +278,9 @@ const FilterSection = () => {
                     </div>
                 </div>
 
-                <div className='mt-30 flex items-start gap-12'>
+                <div className='mt-30 flex sm-grid-cols-1 items-start gap-12'>
                     {isFilterVisible && (
-                        <div className='w-20'>
+                        <div className='w-20 sm-w-full'>
                             {/* Availability Filter */}
                             <div style={{ borderBottom: '1px solid #F1F5F9', paddingBottom: '24px', marginBottom: '24px' }}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
@@ -386,27 +383,27 @@ const FilterSection = () => {
                         </div>
                     )}
 
-                    <div className={viewMode ? 'w-80 pl-20' : 'w-full'}>
+                    <div className={viewMode ? 'w-80 sm-w-full pl-20 sm-pl-1' : 'w-full'}>
                         <div
-                            className="grid-cols-4 gap-12"
+                            className="grid-cols-4 sm-grid-cols-2 gap-12"
                         >
                             {initialProducts.map((item) => {
                                 if (item.isBanner) {
                                     return (
                                         <div
                                             key={item.id}
-                                            className='h-350 overflow-hidden rounded-10 relative'
+                                            className='h-350 sm-h-250 overflow-hidden rounded-10 relative'
                                         >
                                             <Image
                                                 src={item.image}
                                                 alt={item.title}
-                                                className='h-350 object-cover flex w-full filter-b5'
+                                                className='h-350 sm-h-250 object-cover flex w-full filter-b4'
                                             />
                                             <div className='absolute bottom-0 left-0 px-10 py-20'>
-                                                <p className='text-white font-500 mini-text text-muted'>
+                                                <p className='text-primary font-500 small-text'>
                                                     {item.subtitle}
                                                 </p>
-                                                <h3 className='text-white font-600 mid-text'>
+                                                <h3 className='text-white font-600 title-text mt-5'>
                                                     {item.title}
                                                 </h3>
                                             </div>
@@ -422,14 +419,14 @@ const FilterSection = () => {
                                     >
                                         {/* Product Card Box */}
                                         <div
-                                            className='h-250 rounded-10 overflow-hidden'
+                                            className='h-250 sm-h-150 rounded-10 overflow-hidden'
                                             onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-4px)')}
                                             onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateY(0)')}
                                         >
                                             <Image
                                                 src={item.image}
                                                 alt={item.name}
-                                                className='h-250 w-full flex object-cover'
+                                                className='h-250 sm-h-150 w-full flex object-cover'
                                             />
                                         </div>
 

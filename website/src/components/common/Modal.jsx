@@ -48,7 +48,7 @@ const Modal = ({
         : {};
 
     const cardClass = isSidebar
-        ? `bg-white relative z-999 b-shadow border-ec p-0 overflow-auto ${placement === "right" ? "animate-sidebar-right" : "animate-sidebar-left"}`
+        ? `bg-white relative z-999 b-shadow border-ec p-0 overflow-auto h-100 ${placement === "right" ? "animate-sidebar-right" : "animate-sidebar-left"}`
         : "bg-white relative z-999 rounded-10 b-shadow border-ec p-0 overflow-auto animate-modal-scale";
 
     return (
@@ -104,7 +104,7 @@ const Modal = ({
                         {/* Modal Body */}
                         <div
                             className="overflow-auto w-full"
-                            style={isSidebar ? { height: "100%" } : { height: bodyHeight || "auto", maxHeight: bodyHeight ? undefined : "400px" }}
+                            style={isSidebar ? { height: "90vh" } : { height: bodyHeight || "auto", maxHeight: bodyHeight ? undefined : "400px" }}
                         >
                             <div className="px-20 py-10">
                                 {children}

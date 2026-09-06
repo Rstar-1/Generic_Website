@@ -61,10 +61,10 @@ const ProductDetailContent = () => {
 
     return (
         <Container>
-            <div className='py-50 w-full grid-cols-2 gap-12'>
+            <div className='py-50 w-full grid-cols-2 sm-grid-cols-1 gap-12'>
                 <div className='pr-10 sm-pr-1'>
                     <div className='flex items-start gap-12'>
-                        <div className='w-15 grid-cols-1 gap-12'>
+                        <div className='w-15 sm-w-25 grid-cols-1 gap-12'>
                             {productImages.map((img, idx) => (
                                 <div
                                     key={idx}
@@ -79,11 +79,11 @@ const ProductDetailContent = () => {
                                 </div>
                             ))}
                         </div>
-                        <div className='w-85'>
+                        <div className='w-85 sm-w-75'>
                             <Image
                                 src={productImages[selectedImgIdx]}
                                 alt="Main Product"
-                                className='w-full h-500 object-cover flex rounded-10'
+                                className='w-full h-500 sm-h-350 object-cover flex rounded-10'
                             />
                         </div>
                     </div>
@@ -102,7 +102,7 @@ const ProductDetailContent = () => {
                     </div>
                 </div>
 
-                <div className='pl-10 sm-pl-1 w-90'>
+                <div className='pl-10 sm-pl-1 w-90 sm-w-full'>
                     <h2 className='head-text text-dark font-600 capitalize'>
                         Arc Chair Limited
                     </h2>
@@ -173,7 +173,7 @@ const ProductDetailContent = () => {
                         </div>
                     </div>
 
-                    <div className='mt-12 w-80'>
+                    <div className='mt-12 w-80 sm-w-90'>
                         <p className='mini-text text-dark font-500 uppercase mb-4'>Quantity</p>
                         <Fields
                             type="quantity"
@@ -248,7 +248,7 @@ const ProductDetailContent = () => {
                                         <Image
                                             src={p.image}
                                             alt={p.name}
-                                            className='w-full h-200 rounded-10 object-cover flex'
+                                            className='w-full h-200 sm-h-150 rounded-10 object-cover flex'
                                         />
                                     </div>
                                     <h4 className='mid-text text-dark font-600 mt-10'>
