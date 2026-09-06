@@ -314,7 +314,7 @@ const Header = () => {
                             text="Explore More"
                             onClick={() => {
                               setIsCartOpen(false);
-                              navigate('/product-detail');
+                              navigate('/products');
                             }}
                             version="v3"
                             bg="tertiary"

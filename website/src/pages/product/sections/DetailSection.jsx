@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Container from '../../../components/common/Container';
 import Image from '../../../components/common/Image';
 import Icon from '../../../components/common/Icon';
 import Button from '../../../components/common/Button';
 import Accordion from '../../../components/common/Accordion';
 import Fields from '../../../components/forms/Fields';
+import { useCart } from '../../../context/CartContext';
+import { useParams, useLocation } from 'react-router-dom';
+import productsData from '../../../data/product.json';
 
-const productImages = [
-    'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1519947486511-46149fa0a254?auto=format&fit=crop&w=800&q=80'
+let defaultImages = [
+    'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=800&q=80'
 ];
 
 const accordionItems = [
@@ -53,11 +54,53 @@ const crossSellProducts = [
 ];
 
 const ProductDetailContent = () => {
+    const { id } = useParams();
+    const location = useLocation();
+
     const [selectedImgIdx, setSelectedImgIdx] = useState(0);
     const [selectedColor, setSelectedColor] = useState('Black');
     const [selectedMaterial, setSelectedMaterial] = useState('Oak');
     const [quantity, setQuantity] = useState(1);
     const [customNote, setCustomNote] = useState('');
+    const { addToCart } = useCart();
+
+    const [product, setProduct] = useState(null);
+    const [productImages, setProductImages] = useState(defaultImages);
+
+    const handleAddToCart = () => {
+        if (!product) return;
+
+        const payload = {
+            id: product.id || Date.now(),
+            name: product.name || product.title || 'Product',
+            price: product.priceFormatted || (product.price ? `$${product.price}` : '$0.00'),
+            image: productImages[selectedImgIdx] || product.image,
+            color: selectedColor,
+            material: selectedMaterial,
+            quantity,
+            note: customNote
+        };
+
+        addToCart(payload);
+    };
+
+    useEffect(() => {
+        // Try location.state first, then route param id, then fallback to first product
+        const fromState = location.state && location.state.product;
+        let p = fromState || null;
+
+        if (!p && id) {
+            p = productsData.find((x) => String(x.id) === String(id));
+        }
+
+        if (!p) {
+            p = productsData[0];
+        }
+
+        setProduct(p);
+        setProductImages(p.images && p.images.length ? p.images : (p.image ? [p.image] : defaultImages));
+        setSelectedColor(p.colors && p.colors.length ? p.colors[0] : selectedColor);
+    }, [id, location.state]);
 
     return (
         <Container>
@@ -104,13 +147,13 @@ const ProductDetailContent = () => {
 
                 <div className='pl-10 sm-pl-1 w-90 sm-w-full'>
                     <h2 className='head-text text-dark font-600 capitalize'>
-                        Arc Chair Limited
+                        {product ? (product.name || product.title) : 'Product'}
                     </h2>
                     <p className='text-gray mini-text font-400'>
-                        Vendor: <span className='text-primary font-600'>FoxEcom</span> | Type: <span className='text-primary font-600'>Chairs</span>
+                        Vendor: <span className='text-primary font-600'>{product?.vendor || 'FoxEcom'}</span> | Type: <span className='text-primary font-600'>{product?.type || 'Chairs'}</span>
                     </p>
                     <p className='text-dark headpara-text font-700 mt-12'>
-                        $699.00
+                        {product?.priceFormatted || (product?.price ? `$${product.price}` : '$0.00')}
                     </p>
 
                     <div className='mt-16 flex items-center gap-12'>
@@ -130,10 +173,10 @@ const ProductDetailContent = () => {
 
                     <div className='mt-4'>
                         <p className='mini-text text-primary font-500'>
-                            Hurry up, only 8 items left in stock.
+                            {product?.stockCount ? `Hurry up, only ${product.stockCount} items left in stock.` : 'In stock'}
                         </p>
                         <div style={{ width: '100%', height: '4px', backgroundColor: '#E5E7EB', borderRadius: '4px', overflow: 'hidden' }} className='mt-8'>
-                            <div style={{ width: '35%', height: '100%', backgroundColor: '#10B981' }} />
+                            <div style={{ width: `${Math.min(100, Math.round((product?.stockCount || 10) / 30 * 100))}%`, height: '100%', backgroundColor: '#10B981' }} />
                         </div>
                     </div>
 
@@ -146,30 +189,22 @@ const ProductDetailContent = () => {
                             Color: <span className='text-gray font-400 ml-2'>{selectedColor}</span>
                         </p>
                         <div className='flex items-center gap-8 mt-6'>
-                            <div
-                                onClick={() => setSelectedColor('Black')}
-                                style={{
-                                    width: '28px',
-                                    height: '28px',
-                                    borderRadius: '6px',
-                                    backgroundColor: '#141414',
-                                    cursor: 'pointer',
-                                    outline: selectedColor === 'Black' ? '2px solid #141414' : 'none',
-                                    outlineOffset: '2px'
-                                }}
-                            />
-                            <div
-                                onClick={() => setSelectedColor('Wood')}
-                                style={{
-                                    width: '28px',
-                                    height: '28px',
-                                    borderRadius: '6px',
-                                    backgroundColor: '#A0522D',
-                                    cursor: 'pointer',
-                                    outline: selectedColor === 'Wood' ? '2px solid #141414' : 'none',
-                                    outlineOffset: '2px'
-                                }}
-                            />
+                            {product?.colors && product.colors.map((c, idx) => (
+                                <div
+                                    key={idx}
+                                    onClick={() => setSelectedColor(c)}
+                                    title={c}
+                                    style={{
+                                        width: '28px',
+                                        height: '28px',
+                                        borderRadius: '6px',
+                                        backgroundColor: c,
+                                        cursor: 'pointer',
+                                        outline: selectedColor === c ? '2px solid #141414' : 'none',
+                                        outlineOffset: '2px'
+                                    }}
+                                />
+                            ))}
                         </div>
                     </div>
 
@@ -185,6 +220,7 @@ const ProductDetailContent = () => {
 
                     <div className='grid-cols-2 gap-12 w-80 mt-12'>
                         <Button
+                            onClick={handleAddToCart}
                             text="Add To Cart"
                             version="v3"
                             bg="tertiary"

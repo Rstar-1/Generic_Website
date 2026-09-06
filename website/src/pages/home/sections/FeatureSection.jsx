@@ -197,7 +197,7 @@ const ProductSliderSection = ({ products, onProductClick }) => {
                     <ProductCard
                         key={item.id}
                         item={item}
-                        onClick={onProductClick}
+                        onClick={() => onProductClick(item)}
                     />
                 ))}
             </div>
@@ -283,7 +283,7 @@ const FeatureSection = () => {
                     <ProductSliderSection
                         key={sectionId}
                         products={products}
-                        onProductClick={() => navigate('/product-detail')}
+                        onProductClick={(item) => navigate(`/product/${item.id}`, { state: { product: item } })}
                     />
                 ))}
             </div>

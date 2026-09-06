@@ -3,128 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import Container from '../../../components/common/Container';
 import Image from '../../../components/common/Image';
 import Icon from '../../../components/common/Icon';
+import products from '../../../data/product.json';
 
-const initialProducts = [
-    {
-        id: 1,
-        isBanner: true,
-        title: 'Saving $30 for Lighting',
-        subtitle: 'Home & Decor',
-        buttonText: 'Shop Now',
-        image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&q=80'
-    },
-    {
-        id: 2,
-        name: 'Loop Sofa Armrest',
-        category: 'SOFA',
-        price: 3289.00,
-        originalPrice: 3369.00,
-        badges: [{ text: 'Sale', bg: '#C8281E' }],
-        colors: ['#8096A6', '#ADC5D6'],
-        image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80',
-        inStock: true
-    },
-    {
-        id: 3,
-        name: 'Spoke Sofa TonePlay',
-        category: 'SOFAS',
-        price: 3429.00,
-        badges: [
-            { text: 'Best Choice!', bg: '#1D4ED8' },
-            { text: 'New', bg: '#15803D' }
-        ],
-        colors: ['#E6DFD5'],
-        image: 'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=600&q=80',
-        inStock: true
-    },
-    {
-        id: 4,
-        name: 'Feast Chair',
-        category: 'CHAIRS',
-        price: 390.00,
-        colors: ['#C4A484'],
-        image: 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=600&q=80',
-        inStock: true
-    },
-    {
-        id: 5,
-        name: 'Shell Velvet Armchair',
-        category: 'CHAIRS',
-        price: 480.00,
-        badges: [{ text: 'Best Choice!', bg: '#1D4ED8' }],
-        colors: ['#4682B4'],
-        image: 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=600&q=80',
-        inStock: true
-    },
-    {
-        id: 6,
-        name: 'Leather Dining Chair',
-        category: 'CHAIRS',
-        price: 290.00,
-        colors: ['#5C4033'],
-        image: 'https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=600&q=80',
-        inStock: true
-    },
-    {
-        id: 7,
-        name: 'Minimal Yellow Chair',
-        category: 'CHAIRS',
-        price: 180.00,
-        badges: [{ text: 'New', bg: '#15803D' }],
-        colors: ['#FACC15'],
-        image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=600&q=80',
-        inStock: true
-    },
-    {
-        id: 8,
-        name: 'Cross Wooden Chair',
-        category: 'CHAIRS',
-        price: 320.00,
-        originalPrice: 380.00,
-        badges: [{ text: 'Sale', bg: '#C8281E' }],
-        colors: ['#A0522D', '#2F4F4F'],
-        image: 'https://images.unsplash.com/photo-1519947486511-46149fa0a254?auto=format&fit=crop&w=600&q=80',
-        inStock: true
-    },
-    {
-        id: 4,
-        name: 'Feast Chair',
-        category: 'CHAIRS',
-        price: 390.00,
-        colors: ['#C4A484'],
-        image: 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=600&q=80',
-        inStock: true
-    },
-    {
-        id: 5,
-        name: 'Shell Velvet Armchair',
-        category: 'CHAIRS',
-        price: 480.00,
-        badges: [{ text: 'Best Choice!', bg: '#1D4ED8' }],
-        colors: ['#4682B4'],
-        image: 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=600&q=80',
-        inStock: true
-    },
-    {
-        id: 6,
-        name: 'Leather Dining Chair',
-        category: 'CHAIRS',
-        price: 290.00,
-        colors: ['#5C4033'],
-        image: 'https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=600&q=80',
-        inStock: true
-    },
-    {
-        id: 7,
-        name: 'Minimal Yellow Chair',
-        category: 'CHAIRS',
-        price: 180.00,
-        badges: [{ text: 'New', bg: '#15803D' }],
-        colors: ['#FACC15'],
-        image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=600&q=80',
-        inStock: true
-    }
-];
+const initialProducts = products;
 
 const colorFilters = [
     { name: 'Blue', color: '#60A5FA', count: 3 },
@@ -414,7 +295,7 @@ const FilterSection = () => {
                                 return (
                                     <div
                                         key={item.id}
-                                        onClick={() => navigate('/product-detail')}
+                                        onClick={() => navigate(`/product/${item.id}`, { state: { product: item } })}
                                         style={{ display: 'flex', flexDirection: 'column', cursor: 'pointer' }}
                                     >
                                         {/* Product Card Box */}
