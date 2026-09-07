@@ -129,26 +129,6 @@ const Header = () => {
                   <Icon name="Clock" width="14" height="14" stroke="var(--white)" />
                   <p className="mini-text text-white font-400">{header.topBar?.timing || "Mon–Fri 09:00 AM – 06:00 PM"}</p>
                 </div>
-
-                <div className="flex items-center gap-12">
-                  {header.topBar?.socials?.map((social, i) => (
-                    <a
-                      key={i}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={social.name}
-                    >
-                      <Icon
-                        name={social.name}
-                        width="16"
-                        height="16"
-                        stroke="var(--white)"
-                        fill="var(--white)"
-                      />
-                    </a>
-                  ))}
-                </div>
               </div>
             </div>
           </div>

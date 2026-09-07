@@ -27,6 +27,36 @@ const enquiryFields = [
         validation: { required: true }
     },
     {
+        name: 'tradeRole',
+        label: 'Your Trade Chain Role',
+        type: 'select',
+        defaultValue: 'Manufacturer',
+        options: [
+            'Manufacturer',
+            'Company / Brand Owner',
+            'Distributor / Wholesaler',
+            'Stockist / Regional Hub',
+            'Trader / Merchant',
+            'Retailer / Vendor'
+        ],
+        validation: { required: true }
+    },
+    {
+        name: 'primaryObjective',
+        label: 'Primary Objective',
+        type: 'select',
+        defaultValue: 'Full 8-Node Trade Chain Automation',
+        options: [
+            'Full 8-Node Trade Chain Automation',
+            'Agency Website Development',
+            'E-Commerce Storefront Engine',
+            'Meta Paid Advertising & Scaling',
+            'SEO / AEO / GEO AI Search Optimization',
+            'Real-time Regional Visibility Tracking Radar'
+        ],
+        validation: { required: true }
+    },
+    {
         name: 'message',
         label: 'Your message',
         type: 'textarea',

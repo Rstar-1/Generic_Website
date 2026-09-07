@@ -763,14 +763,13 @@ const Fields = ({
                 return (
                     <div
                         className={`dropdown-box ${clsBox}`}
-                        tabIndex={0}
-                        onBlur={!isMulti ? () => setTimeout(() => setIsOpen(false), 100) : undefined}
+                        style={{ position: "relative", zIndex: isOpen ? 50 : 1 }}
                     >
                         <div
                             className="flex items-center justify-between px-8 cursor-pointer h-select rounded-5"
                             onClick={() => setIsOpen(!isOpen)}
                         >
-                            <p className="mini-text text-gray line-clamp1 capitalize">{showValue}</p>
+                            <p className="mini-text text-gray line-clamp1">{showValue}</p>
 
                             {isMulti && value?.length ? (
                                 <svg
@@ -803,37 +802,48 @@ const Fields = ({
 
                         {isOpen && (
                             <div
-                                className="absolute z-10 mt-4 w-full bg-white rounded-5 overflow-auto"
-                                style={{ maxHeight: 200 }}
+                                className="absolute z-10 mt-4 w-full bg-white rounded-5 overflow-auto shadow-md"
+                                style={{ maxHeight: 220, border: '1px solid #e5e7eb', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
                             >
                                 {options.map((opt) => {
                                     const optVal = getOptValue(opt);
                                     const optLabel = getOptLabel(opt);
-                                    const isChecked = isMulti ? (value || []).includes(optVal) : value === optVal;
+                                    const isChecked = isMulti
+                                        ? (Array.isArray(value) ? value.includes(optVal) : false)
+                                        : value === optVal;
+
+                                    const handleSelect = () => {
+                                        setError("");
+                                        if (isMulti) {
+                                            const currentValues = Array.isArray(value) ? value : (value ? [value] : []);
+                                            const nextValues = currentValues.includes(optVal)
+                                                ? currentValues.filter((v) => v !== optVal)
+                                                : [...currentValues, optVal];
+                                            onChange?.(nextValues);
+                                        } else {
+                                            onChange?.(optVal);
+                                            setIsOpen(false);
+                                        }
+                                    };
 
                                     return (
-                                        <label
+                                        <div
                                             key={optVal}
-                                            className="flex items-center gap-6 p-12 cursor-pointer mini-text text-gray bordb capitalize"
+                                            className="flex items-center gap-8 p-12 cursor-pointer mini-text text-gray bordb"
+                                            style={{ userSelect: "none", transition: "background-color 0.15s ease" }}
+                                            onClick={handleSelect}
+                                            onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#f9fafb"; }}
+                                            onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; }}
                                         >
                                             <input
                                                 type="checkbox"
                                                 checked={isChecked}
-                                                onChange={() => {
-                                                    if (isMulti) {
-                                                        const currentValues = value || [];
-                                                        const nextValues = currentValues.includes(optVal)
-                                                            ? currentValues.filter((v) => v !== optVal)
-                                                            : [...currentValues, optVal];
-                                                        onChange?.(nextValues);
-                                                    } else {
-                                                        onChange?.(optVal);
-                                                        setIsOpen(false);
-                                                    }
-                                                }}
+                                                onChange={handleSelect}
+                                                onClick={(e) => e.stopPropagation()}
+                                                className="cursor-pointer"
                                             />
-                                            {optLabel}
-                                        </label>
+                                            <span className="flex-1 cursor-pointer">{optLabel}</span>
+                                        </div>
                                     );
                                 })}
                             </div>

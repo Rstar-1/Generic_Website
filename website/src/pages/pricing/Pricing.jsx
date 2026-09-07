@@ -1,9 +1,10 @@
 import React, { lazy, Suspense } from 'react';
 import Banner from '../../components/layout/generic/Banner';
 import Loader from '../../components/common/generic/Loader';
+import bannerImg from '../../assets/about-banner.jpg';
 
 const PriceSection = lazy(() => import('./sections/PriceSection'));
-const FeatureSections = lazy(() => import('../home/sections/FeatureSections'));
+const PatchSection = lazy(() => import('../home/sections/PatchSection'));
 
 const Pricing = () => {
     return (
@@ -11,6 +12,7 @@ const Pricing = () => {
             <Banner
                 title="Pricing Plan"
                 desc="Flexible Pricing for Your Business Growth"
+                bgImage={bannerImg}
                 breadcrumbs={[
                     { label: 'Home', path: '/home' },
                     { label: 'Pricing', path: '/pricing' }
@@ -18,7 +20,7 @@ const Pricing = () => {
             />
             <Suspense fallback={<Loader />}>
                 <PriceSection />
-                <FeatureSections />
+                <PatchSection />
             </Suspense>
         </>
     );

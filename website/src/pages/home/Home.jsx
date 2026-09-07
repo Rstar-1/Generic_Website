@@ -29,13 +29,13 @@ const ecomSections = [
 
 const standardSections = [
     HeroSections,
-    ServiceSection,
-    MarqueeSection,
     AboutSections,
+    // MarqueeSection,
+    ServiceSection,
     FeedSection,
-    PatchSection,
     BlogSection,
-    FeatureSections,
+    PatchSection,
+    // FeatureSections,
 ];
 
 const Home = () => {

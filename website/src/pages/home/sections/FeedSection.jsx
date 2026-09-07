@@ -40,7 +40,7 @@ const feedItems = [
 
 const FeedSection = () => {
     return (
-        <Container style={{ background: 'var(--forth)' }}>
+        <Container>
             <div className='w-full py-50'>
                 <style>{`
                     .feed-card .shop-look-btn-wrapper {

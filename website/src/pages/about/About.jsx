@@ -1,12 +1,12 @@
 import React, { lazy, Suspense } from 'react';
 import Banner from '../../components/layout/generic/Banner';
 import Loader from '../../components/common/generic/Loader';
+import aboutBanner from '../../assets/about-banner.jpg';
 
 const DetailSection = lazy(() => import('./sections/DetailSection'));
 const PatchSection = lazy(() => import('../home/sections/PatchSection'));
 const OfferSection = lazy(() => import('../home/sections/OfferSection'));
 const FeedSection = lazy(() => import('../home/sections/FeedSection'));
-const FeatureSections = lazy(() => import('../home/sections/FeatureSections'));
 
 const ecomSections = [
     DetailSection,
@@ -16,9 +16,8 @@ const ecomSections = [
 
 const standardSections = [
     DetailSection,
-    PatchSection,
     FeedSection,
-    FeatureSections
+    PatchSection
 ];
 
 const About = () => {
@@ -30,6 +29,7 @@ const About = () => {
             <Banner
                 title="About Us"
                 desc="About Our Story"
+                bgImage={aboutBanner}
                 breadcrumbs={[
                     { label: 'Home', path: '/home' },
                     { label: 'About Us', path: '/about' }

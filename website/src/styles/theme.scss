@@ -1,17 +1,21 @@
 /* ======================= Start-Color ======================= */
 
 :root {
-    --primary: #49baa6 !important;
+    --primary: #db5e1f !important;
     --secondary: #1f5ac0 !important;
     --tertiary: #edf2f7d6 !important;
     --forth: #fafafa !important;
     --success: #4bb543 !important;
     --warning: #fb5711 !important;
     --danger: #c21b1bdb !important;
-    --info: #2378bdb7 !important;
+    --info: #1877F2 !important;
     --white: #fff !important;
     --dark: #0f1623 !important;
     --gray: #585a63c0 !important;
+    --insta: linear-gradient(135deg,
+            #c13584 0%,
+            #e1306c 50%,
+            #f77737 100%) !important;
 }
 
 .dark-mode {
@@ -74,6 +78,10 @@
 
 .bg-dark {
     background: var(--dark);
+}
+
+.bg-insta {
+    background: var(--insta);
 }
 
 .bg-light-primary {
@@ -236,9 +244,9 @@ input,
 
 /* ======================= Start-Fontsize ======================= */
 .largehead-text {
-    font-size: 80px !important;
+    font-size: 130px !important;
     margin: 0px !important;
-    line-height: 86px !important;
+    line-height: 130px !important;
 
     @media (max-width: 640px) {
         font-size: 42px !important;
@@ -276,9 +284,9 @@ input,
 }
 
 .title-text {
-    font-size: 25px !important;
+    font-size: 23px !important;
     margin: 0px !important;
-    line-height: 29px !important;
+    line-height: 30px !important;
 
     @media (max-width: 640px) {
         font-size: 20px !important;

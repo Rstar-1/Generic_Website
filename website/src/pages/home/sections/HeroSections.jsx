@@ -1,39 +1,58 @@
 import React from 'react';
+import agencyVideo from '../../../assets/agency.mp4';
 import Container from '../../../components/common/Container';
-import Icon from '../../../components/common/Icon';
 import Image from '../../../components/common/Image';
-import Button from '../../../components/common/Button';
 
 const HeroSections = () => {
-    return (
-        <Container style={{ background: 'var(--dark)' }} className='relative h-700 sm-h-full'>
-            <div className="grid-cols-2 sm-grid-cols-1 items-center gap-12 w-full">
-                <div className="sm-py-100 sm-relative z-50">
-                    <h3 className='text-white large-text font-600'>
-                        Delivering Innovative IT solutions Empower In Businesses.
-                    </h3>
 
-                    <p className='text-white para-text text-muted font-400 mt-18 sm-mt-6'>
-                        Empowering enterprises with tailored financial insights and measurable growth strategies.
-                    </p>
-                    <Button
-                        text="Get In Touch"
-                        onClick={() => navigate("/connect")}
-                        icon="ArrowUpRight"
-                        iconPosition="right"
-                        iconWidth="16"
-                        iconHeight="16"
-                        version="v2"
-                        className="rounded-20 mt-25 sm-mt-12"
+    return (
+        <Container version='v0'>
+            <div className='relative py-100 w-full'>
+                <div className='absolute top-0 left-0 w-full h-full overflow-hidden z-10'>
+                    <Image
+                        src={agencyVideo}
+                        alt="Agency Hero Background Video"
+                        className='w-full h-full'
+                        style={{
+                            objectFit: 'cover',
+                            opacity: 0.55,
+                            filter: 'brightness(0.75) contrast(1.1)'
+                        }}
+                    />
+                    <div className='absolute w-full h-full top-0 left-0'
+                        style={{
+                            background: 'radial-gradient(ellipse 85% 75% at 70% 0%, rgba(255, 175, 40, 0.28) 0%, rgba(0, 0, 0, 0.5) 90%, rgba(10, 10, 10, 0.95) 100%), linear-gradient(180deg, rgba(10, 10, 10, 0.6) 90%, rgba(10, 10, 10, 0.9) 100%)',
+                        }}
                     />
                 </div>
-            </div>
-            <div className="w-50 h-full sm-w-full absolute bottom-0 right-0">
-                <Image
-                    src="https://infitech.ex-coders.com/wp-content/uploads/2026/08/hero.jpg"
-                    alt="Software Developer Working on Laptop"
-                    className="w-full h-full object-cover flex sm-filter-b4"
-                />
+                <div className='relative z-10 text-center sm-text-left w-full py-30'>
+                    <h1 className='largehead-text text-white'>
+                        A NEW
+                        <br />
+                        GENERATION
+                        <br />
+                        <span className='text-primary'>COMMUNICATION</span>
+                    </h1>
+                    <div className='flex sm-grid-cols-1 items-center justify-center gap-12 w-full mt-10'>
+                        <p
+                            style={{
+                                maxWidth: '250px'
+                            }}
+                            className='mini-text text-right text-white'
+                        >
+                            Are You Struggling To Turn Your Ideas Into Something Users Love? Pixelr Designs Digital Products.
+                        </p>
+                        <h2 className='largehead-text text-white'>AGENCY</h2>
+                        <p
+                            style={{
+                                maxWidth: '250px'
+                            }}
+                            className='mini-text text-left text-white'
+                        >
+                            Are You Struggling To Turn Your Ideas Into Something Users Love? Pixelr Designs Digital Products.
+                        </p>
+                    </div>
+                </div>
             </div>
         </Container>
     );

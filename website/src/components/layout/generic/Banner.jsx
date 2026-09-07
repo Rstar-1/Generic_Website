@@ -2,13 +2,20 @@ import React from "react";
 import Container from "../../common/Container";
 import Breadcrumb from "../../common/Breadcrumb";
 import Skeleton from "../../common/Skeleton";
+import defaultBannerImg from "../../../assets/about-banner.jpg";
 
-const Banner = ({ title, desc, style, breadcrumbs, productData, loading }) => {
+const Banner = ({ title, desc, style, breadcrumbs, productData, loading, bgImage, image, backgroundImage }) => {
     if (loading) {
         return <Skeleton variant="banner" style={style} />;
     }
 
     const mainHeading = desc || title || "Banner";
+    const bannerImg = bgImage || backgroundImage || image || defaultBannerImg;
+    const bannerBackground = bannerImg
+        ? (bannerImg.includes('gradient') || bannerImg.startsWith('url(')
+            ? bannerImg
+            : `linear-gradient(rgba(10, 15, 25, 0.75), rgba(10, 15, 25, 0.85)), url(${bannerImg}) center/cover no-repeat`)
+        : 'radial-gradient(ellipse at 50% 50%, #2e0f06ff 0%, #6b3620ff 55%, #311106ff 100%)';
 
     const itemsList = productData
         ? [
@@ -27,24 +34,23 @@ const Banner = ({ title, desc, style, breadcrumbs, productData, loading }) => {
 
         <Container className="relative"
             style={{
-                background: 'radial-gradient(ellipse at 50% 50%, #0d322c 0%, #081d1a 55%, #040e0c 100%)',
+                background: bannerBackground,
                 padding: '80px 0px',
-                borderRadius: '0 0 25px 25px',
                 ...style
             }}>
-            <div
+            {/* <div
                 style={{
                     position: 'absolute',
-                    bottom: '-30%',
+                    bottom: '-20%',
                     left: '50%',
                     transform: 'translateX(-50%)',
                     width: '90%',
                     height: '450px',
-                    background: 'radial-gradient(circle, rgba(73, 186, 166, 0.22) 0%, rgba(0, 0, 0, 0) 70%)',
+                    background: 'radial-gradient(circle, rgba(219, 94, 31, 0.24) 0%, rgba(0, 0, 0, 0) 70%)',
                     pointerEvents: 'none',
                     borderRadius: '50%'
                 }}
-            />
+            /> */}
             <div className="relative w-full py-60 text-center">
                 <h2 className="text-white font-600 large-text text-center mt-40">
                     {mainHeading}

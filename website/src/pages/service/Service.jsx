@@ -1,9 +1,10 @@
 import React, { lazy, Suspense } from 'react';
 import Banner from '../../components/layout/generic/Banner';
 import Loader from '../../components/common/generic/Loader';
+import bannerImg from '../../assets/about-banner.jpg';
 
 const ServiceDetailSection = lazy(() => import('./sections/ServiceDetailSection'));
-const FeatureSections = lazy(() => import('../home/sections/FeatureSections'));
+const PatchSection = lazy(() => import('../home/sections/PatchSection'));
 const FeedSection = lazy(() => import('../home/sections/FeedSection'));
 
 const Service = () => {
@@ -12,6 +13,7 @@ const Service = () => {
             <Banner
                 title="Our Services"
                 desc="What We Offer"
+                bgImage={bannerImg}
                 breadcrumbs={[
                     { label: 'Home', path: '/home' },
                     { label: 'Services', path: '/service' }
@@ -20,7 +22,7 @@ const Service = () => {
             <Suspense fallback={<Loader />}>
                 <ServiceDetailSection />
                 <FeedSection />
-                <FeatureSections />
+                <PatchSection />
             </Suspense>
         </>
     );

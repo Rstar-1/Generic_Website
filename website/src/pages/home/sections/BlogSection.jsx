@@ -41,8 +41,8 @@ const secondaryPosts = [
 
 const BlogSection = () => {
     return (
-        <Container>
-            <div className='w-full py-50'>
+        <Container style={{ background: 'var(--forth)' }}>
+            <div className='w-full py-40'>
 
                 <Heading
                     version="v2"
