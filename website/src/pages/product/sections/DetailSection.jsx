@@ -112,7 +112,7 @@ const ProductDetailContent = () => {
                                 <div
                                     key={idx}
                                     onClick={() => setSelectedImgIdx(idx)}
-                                    className=''
+                                    className={`cursor-pointer rounded-10 overflow-hidden ${selectedImgIdx === idx ? 'border-primary' : 'border-ec opacity-70'}`}
                                 >
                                     <Image
                                         src={img}
