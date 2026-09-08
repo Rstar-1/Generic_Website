@@ -12,8 +12,6 @@ const TrendingSection = lazy(() => import('./sections/TrendingSection'));
 const AboutSections = lazy(() => import('./sections/AboutSections'));
 const BlogSection = lazy(() => import('./sections/BlogSection'));
 const FeedSection = lazy(() => import('./sections/FeedSection'));
-const MarqueeSection = lazy(() => import('./sections/MarqueeSection'));
-const FeatureSections = lazy(() => import('./sections/FeatureSections'));
 const HeroSections = lazy(() => import('./sections/HeroSections'));
 
 const ecomSections = [
@@ -30,12 +28,10 @@ const ecomSections = [
 const standardSections = [
     HeroSections,
     AboutSections,
-    // MarqueeSection,
     ServiceSection,
     FeedSection,
     BlogSection,
     PatchSection,
-    // FeatureSections,
 ];
 
 const Home = () => {

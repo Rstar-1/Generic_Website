@@ -1,48 +1,44 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
 import Container from '../../../components/common/Container';
 import Image from '../../../components/common/Image';
 import Button from '../../../components/common/Button';
 import Icon from '../../../components/common/Icon';
 import Heading from '../../../components/layout/generic/Heading';
-
-const feedItems = [
-    {
-        id: 1,
-        image: 'https://concept-theme-tech.myshopify.com/cdn/shop/files/headphone-speaker-insta.webp?v=1739932634&width=720',
-        products: [
-            'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=100&q=80',
-            'https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=100&q=80'
-        ]
-    },
-    {
-        id: 2,
-        image: 'https://concept-theme-tech.myshopify.com/cdn/shop/files/earphones-insta.webp?v=1739932644&width=720',
-        products: [
-            'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=100&q=80'
-        ]
-    },
-    {
-        id: 3,
-        image: 'https://concept-theme-tech.myshopify.com/cdn/shop/files/headphones-insta.webp?v=1739932687&width=720',
-        products: [
-            'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=100&q=80',
-            'https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=100&q=80'
-        ]
-    },
-    {
-        id: 4,
-        image: 'https://concept-theme-tech.myshopify.com/cdn/shop/files/speaker2-insta.webp?v=1739932683&width=720',
-        products: [
-            'https://images.unsplash.com/photo-1608156639585-b3a032ef9689?auto=format&fit=crop&w=100&q=80'
-        ]
-    }
-];
+import { feedCMS } from '../../../utils/apiData';
 
 const FeedSection = () => {
+    const prevRef = useRef(null);
+    const nextRef = useRef(null);
+
     return (
         <Container>
             <div className='w-full py-50'>
                 <style>{`
+                    .feed-swiper {
+                        padding-bottom: 36px !important;
+                    }
+                    .feed-swiper .swiper-pagination {
+                        bottom: 0px !important;
+                    }
+                    .feed-swiper .swiper-pagination-bullet {
+                        background: var(--gray);
+                        opacity: 0.35;
+                        width: 8px;
+                        height: 8px;
+                        transition: all 0.3s ease;
+                    }
+                    .feed-swiper .swiper-pagination-bullet-active {
+                        background: var(--primary);
+                        opacity: 1;
+                        width: 22px;
+                        border-radius: 4px;
+                    }
                     .feed-card .shop-look-btn-wrapper {
                         max-height: 0;
                         opacity: 0;
@@ -65,62 +61,128 @@ const FeedSection = () => {
                     .feed-card:hover img {
                         transform: scale(1.04);
                     }
+                    .feed-nav-btn {
+                        width: 38px;
+                        height: 38px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 50%;
+                        border: 1px solid var(--border-color, #e2e8f0);
+                        background: var(--white);
+                        cursor: pointer;
+                        transition: all 0.2s ease;
+                    }
+                    .feed-nav-btn:hover {
+                        background: var(--primary);
+                        color: #ffffff;
+                        border-color: var(--primary);
+                    }
                 `}</style>
 
-                <Heading
-                    version="v2"
-                    tag="Product Protection"
-                    title="Delivering Innovative IT"
-                    actionText='Show All'
-                />
-
-                <div className='grid-cols-4 sm-grid-cols-1 gap-12 mt-30'>
-                    {feedItems.map((item) => (
-                        <div
-                            key={item.id}
-                            className='feed-card relative rounded-10 overflow-hidden h-400 cursor-pointer'
+                <div className="flex items-end justify-between gap-12">
+                    <div className="w-full">
+                        <Heading
+                            version="v2"
+                            tag={feedCMS.heading.tag}
+                            title={feedCMS.heading.title}
+                        // actionText={feedCMS.heading.actionText}
+                        />
+                    </div>
+                    <div className="flex items-center gap-8 sm-hidden mb-4">
+                        <button
+                            ref={prevRef}
+                            aria-label="Previous Slide"
+                            className="feed-nav-btn"
                         >
-                            {/* Main Background Image */}
-                            <Image
-                                src={item.image}
-                                alt="Instagram Feed Post"
-                                className="feed-img w-full h-full object-cover flex"
-                            />
+                            <Icon name="ChevronLeft" width="18" height="18" />
+                        </button>
+                        <button
+                            ref={nextRef}
+                            aria-label="Next Slide"
+                            className="feed-nav-btn"
+                        >
+                            <Icon name="ChevronRight" width="18" height="18" />
+                        </button>
+                    </div>
+                </div>
 
-                            <div className='absolute top-0 right-0'>
-                                <div className='bg-white rounded-full icon-lg m-15'>
-                                    <Icon name="Instagram" width="18" height="18" className="text-danger" />
-                                </div>
-                            </div>
+                <div className='mt-30'>
+                    <Swiper
+                        modules={[Autoplay, Navigation, Pagination]}
+                        spaceBetween={16}
+                        slidesPerView={1.2}
+                        loop={feedCMS.feedItems && feedCMS.feedItems.length > 4}
+                        autoplay={{
+                            delay: 3500,
+                            disableOnInteraction: false,
+                            pauseOnMouseEnter: true,
+                        }}
+                        pagination={{
+                            clickable: true,
+                        }}
+                        navigation={{
+                            prevEl: prevRef.current,
+                            nextEl: nextRef.current,
+                        }}
+                        onBeforeInit={(swiper) => {
+                            swiper.params.navigation.prevEl = prevRef.current;
+                            swiper.params.navigation.nextEl = nextRef.current;
+                        }}
+                        breakpoints={{
+                            480: { slidesPerView: 1.8, spaceBetween: 16 },
+                            640: { slidesPerView: 2.2, spaceBetween: 16 },
+                            768: { slidesPerView: 3, spaceBetween: 16 },
+                            1024: { slidesPerView: 4, spaceBetween: 16 },
+                        }}
+                        className="feed-swiper"
+                    >
+                        {feedCMS.feedItems.map((item) => (
+                            <SwiperSlide key={item.id}>
+                                <div className='feed-card relative rounded-10 overflow-hidden h-400 cursor-pointer'>
+                                    {/* Main Background Image */}
+                                    <Image
+                                        src={item.image}
+                                        alt="Instagram Feed Post"
+                                        className="feed-img w-full h-full object-cover flex"
+                                    />
 
-                            <div className='absolute bottom-0 left-0 w-full'>
-                                <div className='p-15'>
-                                    <div className='flex items-center gap-12'>
-                                        {item.products.map((prodImg, idx) => (
-                                            <div key={idx} className='bg-white p-2 rounded-5 shadow-sm'>
-                                                <Image
-                                                    src={prodImg}
-                                                    alt="Tagged Product"
-                                                    width='50px'
-                                                    height='50px'
-                                                    className="flex object-cover rounded-5"
+                                    <div className='absolute top-0 right-0'>
+                                        <div className='bg-white rounded-full icon-lg m-15'>
+                                            <Icon name="Instagram" width="18" height="18" className="text-danger" />
+                                        </div>
+                                    </div>
+
+                                    <div className='absolute bottom-0 left-0 w-full'>
+                                        <div className='p-15'>
+                                            <div className='flex items-center gap-12'>
+                                                {item.products.map((prodImg, idx) => (
+                                                    <div key={idx} className='bg-white p-2 rounded-5 shadow-sm'>
+                                                        <Image
+                                                            src={prodImg}
+                                                            alt="Tagged Product"
+                                                            width='50px'
+                                                            height='50px'
+                                                            className="flex object-cover rounded-5"
+                                                        />
+                                                    </div>
+                                                ))}
+                                            </div>
+                                            <div className='shop-look-btn-wrapper w-full'>
+                                                <Button
+                                                    text={feedCMS.buttonText}
+                                                    version="v3"
+                                                    bg="white"
+                                                    color="dark"
+                                                    className='rounded-30'
                                                 />
                                             </div>
-                                        ))}
-                                    </div>
-                                    <div className='shop-look-btn-wrapper w-full'>
-                                        <Button
-                                            text="Shop the Look"
-                                            version="v3"
-                                            bg="white"
-                                            color="dark"
-                                            className='rounded-30'
-                                        />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    ))}
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
                 </div>
             </div>
         </Container>

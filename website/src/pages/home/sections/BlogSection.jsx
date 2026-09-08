@@ -4,51 +4,19 @@ import Image from '../../../components/common/Image';
 import Button from '../../../components/common/Button';
 import Icon from '../../../components/common/Icon';
 import Heading from '../../../components/layout/generic/Heading';
-
-const featuredPost = {
-    id: 1,
-    tag: 'Speakers',
-    tagBg: '#548722',
-    date: 'October 9, 2023',
-    comments: '0 comments',
-    title: 'Eco-Audio - Sustainable Sound',
-    description: 'The realm of audio has witnessed incredible advancements over the past decade. As we venture further into this era of technological marvels, the way we experience and interact with sound continues to evolve.',
-    image: 'https://concept-theme-tech.myshopify.com/cdn/shop/articles/page-header_1229a8ee-7b9c-4589-9d89-91d97b2a9cf3.webp?v=1709613414&width=1600'
-};
-
-const secondaryPosts = [
-    {
-        id: 2,
-        tag: 'Headphones',
-        tagBg: '#EE6A2B',
-        date: 'October 9, 2023',
-        comments: '0 comments',
-        title: 'Inside In-Ear Excellence',
-        description: "In the audio tech world, there's always room for innovation. But, there are few moments when a product not only meets expectations but also redefines them.",
-        image: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=500&q=80'
-    },
-    {
-        id: 3,
-        tag: 'News & Events',
-        tagBg: '#F54848',
-        date: 'October 9, 2023',
-        comments: '0 comments',
-        title: 'The International Sound Artistry Conference Recap',
-        description: "This year's AudioTech Expo in Los Angeles was nothing short of sensational. As enthusiasts and professionals from around the globe congregated, the air buzzed with anticipation and excitement.",
-        image: 'https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&w=500&q=80'
-    }
-];
+import { blogCMS } from '../../../utils/apiData';
 
 const BlogSection = () => {
+    const { heading, featuredPost, secondaryPosts } = blogCMS;
+
     return (
         <Container style={{ background: 'var(--forth)' }}>
             <div className='w-full py-40'>
-
                 <Heading
                     version="v2"
-                    tag="Make It Yours"
-                    title="Latest Stories"
-                    actionText='Show All'
+                    tag={heading.tag}
+                    title={heading.title}
+                    actionText={heading.actionText}
                 />
 
                 <div className='flex sm-grid-cols-1 items-start gap-12 w-full mt-30'>
@@ -88,7 +56,7 @@ const BlogSection = () => {
                                 </p>
 
                                 <Button
-                                    text="Shop the Look"
+                                    text={featuredPost.buttonText || "Shop the Look"}
                                     version="v2"
                                     bg="white"
                                     color="dark"
@@ -139,7 +107,7 @@ const BlogSection = () => {
                                     </p>
 
                                     <Button
-                                        text="Read more"
+                                        text={post.buttonText || "Read more"}
                                         version="v0"
                                         bg="dark"
                                         color="white"
