@@ -2,8 +2,10 @@ import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import { CartProvider } from '../../context/CartContext';
-import Icon from '../common/Icon';
 import Button from '../common/Button';
+
+// const rawPhone = import.meta.env.VITE_SOCIAL_PHONE || (import.meta.env.VITE_PHONE ? `tel:${import.meta.env.VITE_PHONE}` : 'tel:+1234567890');
+// const phoneUrl = rawPhone.startsWith('tel:') ? rawPhone : `tel:${rawPhone}`;
 
 const socialLinks = [
     {
@@ -13,7 +15,7 @@ const socialLinks = [
         width: '20',
         height: '20',
         fill: 'var(--white)',
-        url: 'https://www.instagram.com/inraclick/',
+        url: import.meta.env.VITE_SOCIAL_INSTAGRAM || 'https://www.instagram.com/inraclick/',
         bg: 'insta',
         ariaLabel: 'Instagram'
     },
@@ -24,7 +26,7 @@ const socialLinks = [
         width: '20',
         height: '20',
         fill: 'var(--white)',
-        url: 'https://www.youtube.com/@INRACLICK',
+        url: import.meta.env.VITE_SOCIAL_YOUTUBE || 'https://www.youtube.com/@INRACLICK',
         bg: 'danger',
         ariaLabel: 'YouTube'
     },
@@ -35,7 +37,7 @@ const socialLinks = [
         width: '20',
         height: '20',
         fill: 'var(--white)',
-        url: 'https://www.facebook.com/share/p/1EhdBQaRw4/',
+        url: import.meta.env.VITE_SOCIAL_FACEBOOK || 'https://www.facebook.com/share/p/1EhdBQaRw4/',
         bg: 'info',
         ariaLabel: 'Facebook'
     },
@@ -46,7 +48,7 @@ const socialLinks = [
         width: '20',
         height: '20',
         fill: 'var(--white)',
-        url: 'https://whatsapp.com/channel/0029VbD28RpKgsNusSLyup2i',
+        url: import.meta.env.VITE_SOCIAL_WHATSAPP || 'https://whatsapp.com/channel/0029VbD28RpKgsNusSLyup2i',
         bg: 'success',
         ariaLabel: 'WhatsApp'
     },
@@ -57,7 +59,7 @@ const socialLinks = [
     //     width: '20',
     //     height: '20',
     //     fill: 'var(--white)',
-    //     url: 'https://linkedin.com',
+    //     url: import.meta.env.VITE_SOCIAL_LINKEDIN || 'https://linkedin.com',
     //     bg: 'info',
     //     ariaLabel: 'LinkedIn'
     // },
@@ -68,7 +70,7 @@ const socialLinks = [
     //     width: '20',
     //     height: '20',
     //     fill: 'var(--white)',
-    //     url: 'tel:+1234567890',
+    //     url: phoneUrl,
     //     bg: 'info',
     //     ariaLabel: 'Call Us'
     // }
@@ -83,7 +85,7 @@ const Layout = () => (
 
         <aside
             aria-label="Social and Contact Bar"
-            style={{ top: '40%', }}
+            style={{ top: '40%' }}
             className='fixed right-0 z-99 overflow-hidden mx-5'
         >
             <div className='grid-cols-1 gap-6'>
@@ -94,6 +96,7 @@ const Layout = () => (
                         bg={item.bg}
                         aria-label={item.ariaLabel}
                         onClick={() => {
+                            if (!item.url) return;
                             if (item.url.startsWith('http')) {
                                 window.open(item.url, '_blank', 'noopener,noreferrer');
                             } else {

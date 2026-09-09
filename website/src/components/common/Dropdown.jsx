@@ -30,12 +30,17 @@ const Dropdown = ({
 
   if (!isOpen) return null;
 
+  const alignStyle = align === "full"
+    ? { left: 0, right: 0, width: "100%" }
+    : align === "center"
+    ? { left: "50%", transform: "translateX(-50%)", minWidth }
+    : { [align]: 0, minWidth };
+
   const baseStyle = {
     position: "absolute",
     top: "100%",
-    [align]: 0,
+    ...alignStyle,
     padding: padding,
-    minWidth: minWidth,
     zIndex: 1000,
     ...style,
   };

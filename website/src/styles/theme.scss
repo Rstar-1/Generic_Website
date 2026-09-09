@@ -255,10 +255,22 @@ input,
     }
 }
 
+.largemid-text {
+    font-size: 80px !important;
+    margin: 0px !important;
+    line-height: 85px !important;
+
+    @media (max-width: 640px) {
+        font-size: 42px !important;
+        margin: 0px !important;
+        line-height: 48px !important;
+    }
+}
+
 .large-text {
     font-size: 52px !important;
     margin: 0px !important;
-    line-height: 56px !important;
+    line-height: 60px !important;
     font-weight: 500 !important;
 
     @media (max-width: 640px) {
@@ -350,7 +362,7 @@ input,
 }
 
 .mini-text {
-    font-size: 13px !important;
+    font-size: 12px !important;
     line-height: 20px !important;
     font-weight: 400 !important;
 

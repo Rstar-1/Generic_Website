@@ -72,7 +72,8 @@ export const CartProvider = ({ children }) => {
                 setIsCartOpen,
                 addToCart,
                 removeFromCart,
-                updateQuantity
+                updateQuantity,
+                setExactQuantity: updateQuantity
             }}
         >
             {children}

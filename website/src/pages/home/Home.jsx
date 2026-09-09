@@ -3,7 +3,6 @@ import Loader from '../../components/common/generic/Loader';
 
 const HeroBanner = lazy(() => import('./sections/HeroBanner'));
 const CategorySection = lazy(() => import('./sections/CategorySection'));
-const AboutSection = lazy(() => import('./sections/AboutSection'));
 const FeatureSection = lazy(() => import('./sections/FeatureSection'));
 const OfferSection = lazy(() => import('./sections/OfferSection'));
 const PatchSection = lazy(() => import('./sections/PatchSection'));
@@ -18,11 +17,9 @@ const ecomSections = [
     HeroBanner,
     CategorySection,
     FeatureSection,
-    TrendingSection,
-    AboutSection,
     ServiceSection,
-    PatchSection,
-    OfferSection,
+    TrendingSection,
+    OfferSection
 ];
 
 const standardSections = [

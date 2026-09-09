@@ -43,6 +43,27 @@ const Fields = ({
         return !isNaN(parsed.getTime()) ? parsed.getFullYear() : new Date().getFullYear();
     });
 
+    const [internalQty, setInternalQty] = useState(() => {
+        if (value !== undefined && value !== null && value !== "") {
+            const num = Number(value);
+            return !isNaN(num) ? num : 1;
+        }
+        if (props.defaultValue !== undefined && props.defaultValue !== null && props.defaultValue !== "") {
+            const num = Number(props.defaultValue);
+            return !isNaN(num) ? num : 1;
+        }
+        return 1;
+    });
+
+    useEffect(() => {
+        if (value !== undefined && value !== null && value !== "") {
+            const num = Number(value);
+            if (!isNaN(num)) {
+                setInternalQty(num);
+            }
+        }
+    }, [value]);
+
     const clsInput = `${outline && !error && !isFocused ? "border-ec" : border ? "border-forth" : "border-0"
         } h-input rounded-5 text-gray w-full mini-text`;
 
@@ -853,17 +874,73 @@ const Fields = ({
             }
 
             case "quantity": {
-                const quantityValue = value || 1;
+                const min = props.min !== undefined ? Number(props.min) : 1;
+                const max = props.max !== undefined ? Number(props.max) : Infinity;
+                const step = props.step !== undefined ? Math.max(1, Number(props.step)) : 1;
+                const disabled = Boolean(props.disabled);
+
+                const currentVal = value !== undefined && value !== null && value !== ""
+                    ? (Number(value) || 0)
+                    : internalQty;
+
+                const handleUpdate = (nextVal) => {
+                    const clamped = Math.min(max, Math.max(min, nextVal));
+                    setInternalQty(clamped);
+                    onChange?.(clamped);
+                };
+
+                const handleDecrement = (e) => {
+                    e?.preventDefault?.();
+                    e?.stopPropagation?.();
+                    if (disabled || currentVal <= min) return;
+                    handleUpdate(currentVal - step);
+                };
+
+                const handleIncrement = (e) => {
+                    e?.preventDefault?.();
+                    e?.stopPropagation?.();
+                    if (disabled || currentVal >= max) return;
+                    handleUpdate(currentVal + step);
+                };
+
+                const handleInputChange = (e) => {
+                    const raw = e.target.value.replace(/[^0-9]/g, "");
+                    if (raw === "") {
+                        setInternalQty("");
+                        onChange?.("");
+                        return;
+                    }
+                    const num = parseInt(raw, 10);
+                    if (!isNaN(num)) {
+                        handleUpdate(num);
+                    }
+                };
+
+                const handleInputBlur = () => {
+                    const num = Number(currentVal);
+                    if (isNaN(num) || num < min) {
+                        handleUpdate(min);
+                    } else if (num > max) {
+                        handleUpdate(max);
+                    }
+                };
+
                 return (
                     <div
-                        className="flex items-center justify-between bg-white border-ec rounded-5 px-5 h-select"
-                        style={{ width: "130px" }}
+                        className={`flex items-center justify-between bg-white border-ec rounded-5 px-5 h-select ${className || ""}`}
+                        style={{ width: "130px", ...style }}
                     >
                         <button
                             type="button"
-                            onClick={() => onChange?.(Math.max(1, Number(quantityValue) - 1))}
+                            onClick={handleDecrement}
+                            disabled={disabled || currentVal <= min}
                             className="center-div text-white rounded-5 bg-primary cursor-pointer border-0"
-                            style={{ transition: "background-color 0.15s ease", flexShrink: 0 }}
+                            style={{
+                                transition: "background-color 0.15s ease, opacity 0.15s ease",
+                                flexShrink: 0,
+                                opacity: disabled || currentVal <= min ? 0.6 : 1,
+                                cursor: disabled || currentVal <= min ? "not-allowed" : "pointer"
+                            }}
                             aria-label="Decrease quantity"
                         >
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round">
@@ -872,8 +949,13 @@ const Fields = ({
                         </button>
 
                         <input
-                            readOnly
-                            value={quantityValue}
+                            type="text"
+                            inputMode="numeric"
+                            pattern="[0-9]*"
+                            value={currentVal}
+                            disabled={disabled}
+                            onChange={handleInputChange}
+                            onBlur={handleInputBlur}
                             className="mini-text text-dark font-600 text-center border-0"
                             style={{ outline: "none", background: "transparent", width: "100%", minWidth: "0" }}
                             aria-label="Quantity"
@@ -881,9 +963,15 @@ const Fields = ({
 
                         <button
                             type="button"
-                            onClick={() => onChange?.(Number(quantityValue) + 1)}
+                            onClick={handleIncrement}
+                            disabled={disabled || currentVal >= max}
                             className="center-div text-white rounded-5 bg-primary cursor-pointer border-0"
-                            style={{ transition: "background-color 0.15s ease", flexShrink: 0 }}
+                            style={{
+                                transition: "background-color 0.15s ease, opacity 0.15s ease",
+                                flexShrink: 0,
+                                opacity: disabled || currentVal >= max ? 0.6 : 1,
+                                cursor: disabled || currentVal >= max ? "not-allowed" : "pointer"
+                            }}
                             aria-label="Increase quantity"
                         >
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round">
@@ -1057,6 +1145,10 @@ const Fields = ({
                 return null;
         }
     };
+
+    if (type === "quantity" && !label && !error) {
+        return renderField();
+    }
 
     return (
         <div className="w-full grid-cols-1">

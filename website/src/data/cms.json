@@ -9,84 +9,181 @@
   },
   "AboutSections": {
     "heading": {
-      "tag": "Design for Every Team",
-      "title": "One-Size Fits None Catering to All Devs with SDKs and UIKits"
+      "tag": "Design & Engineering Excellence",
+      "title": "Bespoke Digital Products Crafted for Category-Defining Leaders"
     },
     "crafter": {
-      "title": "For Crafters",
-      "subtitle": "Fully customized with SDKs",
-      "buttonText": "< Start building />",
+      "title": "Bespoke Solutions",
+      "subtitle": "Tailored from conception to deployment",
+      "buttonText": "< Discover our craft />",
       "features": [
         {
-          "title": "Supreme integration flexibility",
-          "description": "Enable complete customization of functionalities by seamlessly integrating any SDK or API without constraints using our SDK."
+          "title": "Design Systems & Token Architecture",
+          "description": "Establish cohesive visual languages across Figma and code with accessible, tokenized design systems that speed up product iteration by 4x."
         },
         {
-          "title": "Boundless UI/UX customization potential",
-          "description": "Craft singularly impressive UI experiences tailored to your product's distinctive look and brand identity, unrestrained by API limitations."
+          "title": "Modern Frontend & Full-Stack Tech",
+          "description": "Build lightning-fast web applications using Next.js 15, React 19, TypeScript, and serverless edge functions for sub-second global response times."
         },
         {
-          "title": "Low-level control and adaptability",
-          "description": "Gain unrestricted low-level API access to tailor fully customized experiences for your unique product, with seamless extensibility as needs evolve."
+          "title": "Conversion & Performance Optimization",
+          "description": "Architected for Lighthouse 100 performance scores, seamless micro-interactions, WCAG AA accessibility, and maximum user conversion."
         }
       ]
     },
-    "platforms": ["Android", "iOS", "Web", "Flutter", "React"],
+    "platforms": ["Next.js", "React", "TypeScript", "Tailwind", "Mobile"],
     "codeSnippets": {
-      "Android": [
-        { "num": 1, "code": "val engine = ZegoExpressEngine.createEngine(...)" },
-        { "num": 2, "code": "engine.loginRoom(roomID, user)" },
-        { "num": 3, "code": "engine.startPublishingStream(streamID)" },
-        { "num": 4, "code": "engine.startPlayingStream(streamID, ZegoCanvas...)" },
-        { "num": 5, "code": "engine.logoutRoom(roomID)" }
-      ],
-      "iOS": [
-        { "num": 1, "code": "let engine = ZegoExpressEngine.createEngine(...)" },
-        { "num": 2, "code": "engine.loginRoom(roomID, user: user)" },
-        { "num": 3, "code": "engine.startPublishingStream(streamID)" },
-        { "num": 4, "code": "engine.startPlayingStream(streamID, canvas: canvas)" },
-        { "num": 5, "code": "engine.logoutRoom(roomID)" }
-      ],
-      "Web": [
-        { "num": 1, "code": "const zg = new ZegoExpressEngine(appID)" },
-        { "num": 2, "code": "await zg.loginRoom(roomID, token)" },
-        { "num": 3, "code": "const stream = await zg.createStream()" },
-        { "num": 4, "code": "zg.startPublishingStream(streamID, stream)" },
-        { "num": 5, "code": "zg.logoutRoom(roomID)" }
-      ],
-      "Flutter": [
-        { "num": 1, "code": "ZegoExpressEngine.createEngineWithProfile(...)" },
-        { "num": 2, "code": "ZegoExpressEngine.instance.loginRoom(roomID)" },
-        { "num": 3, "code": "ZegoExpressEngine.instance.startPublishingStream(...)" },
-        { "num": 4, "code": "ZegoExpressEngine.instance.startPlayingStream(...)" },
-        { "num": 5, "code": "ZegoExpressEngine.instance.logoutRoom(roomID)" }
+      "Next.js": [
+        {
+          "num": 1,
+          "code": "const studio = await createDigitalExperience({ brand: 'NextGen' })"
+        },
+        {
+          "num": 2,
+          "code": "const designTokens = await studio.injectThemeTokens(customTheme)"
+        },
+        {
+          "num": 3,
+          "code": "const page = studio.renderDynamicCanvas({ ssr: true, edge: true })"
+        },
+        {
+          "num": 4,
+          "code": "await studio.optimizeCoreWebVitals({ targetScore: 100 })"
+        },
+        {
+          "num": 5,
+          "code": "export default studio.deployToEdgeCluster(productionEnv)"
+        }
       ],
       "React": [
-        { "num": 1, "code": "ZegoExpressEngine.createEngineWithProfile(...)" },
-        { "num": 2, "code": "ZegoExpressEngine.instance().loginRoom(roomID)" },
-        { "num": 3, "code": "ZegoExpressEngine.instance().startPublishing(...)" },
-        { "num": 4, "code": "ZegoExpressEngine.instance().startPlaying(...)" },
-        { "num": 5, "code": "ZegoExpressEngine.instance().logoutRoom(roomID)" }
+        {
+          "num": 1,
+          "code": "const { themeTokens, setMode } = useAgencyDesignSystem()"
+        },
+        {
+          "num": 2,
+          "code": "const motionCanvas = await initCreativeMotion(heroCanvasRef)"
+        },
+        {
+          "num": 3,
+          "code": "const analytics = trackConversionFunnel({ goal: 'Onboarding' })"
+        },
+        {
+          "num": 4,
+          "code": "await motionCanvas.bindViewportScroll({ smooth: true, fps: 120 })"
+        },
+        {
+          "num": 5,
+          "code": "return <InteractiveStudioCanvas experience={motionCanvas} />"
+        }
+      ],
+      "TypeScript": [
+        {
+          "num": 1,
+          "code": "interface DigitalProductConfig<T = BrandIdentity> {"
+        },
+        {
+          "num": 2,
+          "code": "const agencyEngine = new CreativeEngine({ apiVersion: 'v2' })"
+        },
+        {
+          "num": 3,
+          "code": "const project = await agencyEngine.buildDesignSystem(brief)"
+        },
+        {
+          "num": 4,
+          "code": "const deliverables = await project.compileProductionBundle()"
+        },
+        {
+          "num": 5,
+          "code": "return project.launchZeroDowntimeRelease(deliverables)"
+        }
+      ],
+      "Tailwind": [
+        {
+          "num": 1,
+          "code": "const designTokens = extendTailwindTheme({ brandPrimary: '#3b82f6' })"
+        },
+        {
+          "num": 2,
+          "code": "const componentKit = buildUtilityVariants({ glassmorphism: true })"
+        },
+        {
+          "num": 3,
+          "code": "const responsiveGrid = compileFluidLayout({ columns: 12 })"
+        },
+        {
+          "num": 4,
+          "code": "await syncFigmaVariablesWithCssTokens(designTokens)"
+        },
+        {
+          "num": 5,
+          "code": "export default defineDesignSystemConfig(componentKit)"
+        }
+      ],
+      "Mobile": [
+        {
+          "num": 1,
+          "code": "const mobileApp = await createCrossPlatformApp({ framework: 'Native' })"
+        },
+        {
+          "num": 2,
+          "code": "await mobileApp.loadFluidGestureNavigation(fluidRoutes)"
+        },
+        {
+          "num": 3,
+          "code": "const offlineSync = mobileApp.enableOptimisticStateCache()"
+        },
+        {
+          "num": 4,
+          "code": "await mobileApp.registerPushNotifications({ priority: 'high' })"
+        },
+        {
+          "num": 5,
+          "code": "return mobileApp.publishToAppStores({ automatedReview: true })"
+        }
+      ],
+      "Android": [
+        {
+          "num": 1,
+          "code": "const studio = await createDigitalExperience({ brand: 'NextGen' })"
+        },
+        {
+          "num": 2,
+          "code": "const designTokens = await studio.injectThemeTokens(customTheme)"
+        },
+        {
+          "num": 3,
+          "code": "const page = studio.renderDynamicCanvas({ ssr: true, edge: true })"
+        },
+        {
+          "num": 4,
+          "code": "await studio.optimizeCoreWebVitals({ targetScore: 100 })"
+        },
+        {
+          "num": 5,
+          "code": "export default studio.deployToEdgeCluster(productionEnv)"
+        }
       ]
     },
     "racers": [
       {
         "id": 1,
-        "title": "For Racers",
-        "subtitle": "Easier and faster with UIKits",
-        "description": "Accelerate app delivery with pre-built UIKits and UI Components - pre-designed UI assets enabling rapid app development without starting from scratch."
+        "title": "Rapid MVP Sprints",
+        "subtitle": "Idea to market-ready product in 4 weeks",
+        "description": "Validate assumptions rapidly with high-fidelity interactive prototypes, verified user interviews, and scalable MVP engineering that impresses investors and customers alike."
       },
       {
         "id": 2,
-        "title": "For Racers",
-        "subtitle": "Easier and faster with UIKits",
-        "description": "Accelerate app delivery with pre-built UIKits and UI Components - pre-designed UI assets enabling rapid app development without starting from scratch."
+        "title": "Brand Identity & Motion",
+        "subtitle": "Iconic visual storytelling that captivates",
+        "description": "From dynamic brand identities and 3D web animations to distinctive typography and art direction, we create digital impressions that turn casual visitors into loyal brand advocates."
       },
       {
         "id": 3,
-        "title": "For Racers",
-        "subtitle": "Easier and faster with UIKits",
-        "description": "Accelerate app delivery with pre-built UIKits and UI Components - pre-designed UI assets enabling rapid app development without starting from scratch."
+        "title": "Growth & CRO Engine",
+        "subtitle": "Data-driven UX optimization",
+        "description": "Continuously elevate your KPIs through heuristic UX evaluations, high-impact A/B experimentation, intelligent onboarding funnels, and enterprise analytics integrations."
       }
     ]
   },
@@ -95,435 +192,599 @@
       {
         "id": "product-design",
         "step": 1,
-        "tag": "Product Design",
+        "tag": "01 / Discovery & UI/UX Design",
         "color": "#3b82f6",
         "glowColor": "rgba(59, 130, 246, 0.48)",
         "icon": "Feather",
-        "headingMain": "Industry-Specific Playbooks Unlocking",
-        "headingHighlight": "Transformative Growth",
-        "description": "Tailored multi-tier solutions driving operational efficiency, transparent pipeline tracking, and rapid scaling across enterprise nodes.",
-        "ctaText": "Case studies",
+        "headingMain": "Human-Centric Digital Products &",
+        "headingHighlight": "Award-Winning UX",
+        "description": "We blend deep strategic research with boundary-pushing visual craft to create intuitive, memorable, and high-converting web and mobile experiences.",
+        "ctaText": "Explore design case studies",
         "ctaLink": "/services",
         "hasTopCta": true,
         "tabs": [
-          { "label": "Manufacturer", "value": "Manufacturer" },
-          { "label": "Company", "value": "Company" },
-          { "label": "Sector", "value": "Sector" },
-          { "label": "Distributor", "value": "Distributor" },
-          { "label": "Stockist", "value": "Stockist" },
-          { "label": "Trader", "value": "Trader" },
-          { "label": "Retailer", "value": "Retailer" },
-          { "label": "End User", "value": "End User" }
+          { "label": "SaaS & Cloud", "value": "SaaS" },
+          { "label": "FinTech & Banking", "value": "Fintech" },
+          { "label": "E-Commerce & D2C", "value": "Ecommerce" },
+          { "label": "AI & DeepTech", "value": "AI" },
+          { "label": "HealthTech", "value": "HealthTech" },
+          { "label": "Media & Streaming", "value": "Media" },
+          { "label": "Enterprise Portals", "value": "Enterprise" },
+          { "label": "Web3 & Crypto", "value": "Web3" }
         ],
         "collaboration": {
-          "title": "Collaborate with our experts to turn requirements into solutions, bridging gaps with industry knowledge and hands-on experience, advancing towards achievement.",
-          "titleHighlight": "to turn requirements into solutions",
+          "title": "Collaborate with our senior design leads and product architects to turn complex business logic into frictionless user interfaces that accelerate customer adoption.",
+          "titleHighlight": "to turn complex business logic into frictionless user interfaces",
           "items": [
-            "Industry research",
-            "Solution proposals",
-            "Pain point analysis",
-            "1-on-1 communication"
+            "User personas & journey mapping",
+            "Interactive Figma prototypes",
+            "Design systems & token libraries",
+            "Usability testing & audits"
           ],
-          "buttonText": "Schedule a call",
-          "linkText": "Learn more about support plans"
+          "buttonText": "Schedule a design sprint",
+          "linkText": "Learn about our discovery methodology"
         }
       },
       {
         "id": "development",
         "step": 2,
-        "tag": "Development",
+        "tag": "02 / Full-Stack Engineering",
         "color": "#22c55e",
         "glowColor": "rgba(34, 197, 94, 0.48)",
         "icon": "Code",
-        "headingMain": "SDKs, APIs, Resources, and Supportive Tech Guidance",
-        "headingHighlight": "Developer-Friendly",
-        "description": "Venture into the developer hub to unleash the full potential of real-time capabilities. Expedite your projects using custom-tailored learning resources and one-on-one expert mentorship.",
-        "ctaText": "Go to developer hub",
+        "headingMain": "Production-Ready Architecture, Clean Code, and Edge Speed",
+        "headingHighlight": "Modern Tech Stack",
+        "description": "We develop resilient, accessible, and hyper-optimized web applications using cutting-edge technologies. Zero technical debt, maximum developer ergonomics, and rock-solid scalability.",
+        "ctaText": "View tech capabilities",
         "ctaLink": "/services",
         "hasTopCta": true,
-        "codeIntro": "Embed real-time voice and video with a few lines of code:_",
+        "codeIntro": "Architect and deploy high-performance web applications with modular code:_",
         "tools": [
-          { "label": "Learning Tube", "icon": "YouTube", "href": "/services" },
-          { "label": "Documentation", "icon": "Clipboard", "href": "/services" },
-          { "label": "Demo Apps", "icon": "Box", "href": "/services" },
-          { "label": "Tech Support", "icon": "Headphones", "href": "/services" }
+          { "label": "Clean Architecture", "icon": "Box", "href": "/services" },
+          { "label": "API & GraphQL", "icon": "Layers", "href": "/services" },
+          {
+            "label": "Interactive Demos",
+            "icon": "Builder",
+            "href": "/services"
+          },
+          {
+            "label": "Enterprise Support",
+            "icon": "Headphones",
+            "href": "/services"
+          }
         ]
       },
       {
         "id": "launch",
         "step": 3,
-        "tag": "Launch",
+        "tag": "03 / Cloud Deployment & Scaling",
         "color": "#db5e1f",
         "glowColor": "rgba(219, 94, 31, 0.48)",
         "icon": "PaperPlane",
-        "headingMain": "Robust Platform Fortifying Business Expansion, Backed by",
-        "headingHighlight": "Proven Security",
-        "description": "Scale with the ZEGOCLOUD Independent Hosting RTC Services. Our infrastructure comprises a robust global multi-cloud communication network, ensuring superior audiovisual communication experiences and service stability for all devices, across any network, worldwide.",
+        "headingMain": "Global Edge Infrastructure, Automated CI/CD, and",
+        "headingHighlight": "Ironclad Security",
+        "description": "We deploy your products onto distributed global edge networks with automated testing, multi-region redundancy, real-time APM monitoring, and automated threat mitigation.",
         "ctaText": "",
         "ctaLink": "",
         "hasTopCta": false
       }
     ],
     "industryTabsData": {
-      "Manufacturer": {
-        "title": "Empower modern",
-        "keyword": "manufacturing",
-        "titleEnd": "with smart tracking & supply intelligence",
-        "description": "Streamline raw material procurement, real-time production line monitoring, and factory-to-depot logistics workflows.",
+      "SaaS": {
+        "title": "Scale modern",
+        "keyword": "SaaS platforms",
+        "titleEnd": "with frictionless user onboarding & high retention",
+        "description": "We re-architect complex multi-tenant B2B dashboards into intuitive, self-serve workflows that slash time-to-value and drive viral expansion.",
         "bullets": [
-          "Automated inventory sync",
-          "Factory floor IoT telemetry",
-          "Raw material tracking",
-          "Batch dispatch verification"
+          "Intuitive onboarding funnels",
+          "Modular component libraries",
+          "Self-serve billing portals",
+          "Real-time analytics dashboards"
         ],
-        "cta": "Explore manufacturing solutions",
-        "badge": "Smart Factory",
-        "image": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80"
+        "cta": "View SaaS case study",
+        "badge": "B2B SaaS",
+        "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80"
       },
-      "Company": {
-        "title": "Centralize enterprise",
-        "keyword": "operations",
-        "titleEnd": "with end-to-end multi-tier visibility",
-        "description": "Bridge enterprise planning with distributed nodes, providing executive dashboards, financial auditing, and unified pipeline controls.",
+      "Fintech": {
+        "title": "Architect next-generation",
+        "keyword": "FinTech apps",
+        "titleEnd": "with bank-grade security and intuitive simplicity",
+        "description": "Deliver frictionless payment gateways, wealth management portals, and automated compliance flows with sub-second biometric authentication.",
         "bullets": [
-          "Executive overview suite",
-          "Enterprise ERP sync",
-          "Multi-tier node governance",
-          "Automated compliance reporting"
+          "PCI-DSS compliant flows",
+          "Biometric auth & KYC",
+          "Real-time ledger visualizations",
+          "Multi-currency payment gateways"
         ],
-        "cta": "Explore enterprise solutions",
-        "badge": "Enterprise Hub",
-        "image": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80"
+        "cta": "View Fintech case study",
+        "badge": "FinTech Core",
+        "image": "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=600&q=80"
       },
-      "Sector": {
-        "title": "Optimize industry-wide",
-        "keyword": "sectors",
-        "titleEnd": "with unified ecosystem coordination",
-        "description": "Connect market verticals with standardized data protocols, regulatory compliance, and cross-sector trade facilitation.",
+      "Ecommerce": {
+        "title": "Supercharge modern",
+        "keyword": "E-Commerce brands",
+        "titleEnd": "with headless speed & conversion-first design",
+        "description": "Transform Shopify Plus and custom headless stores with instant page transitions, dynamic bundle builders, and 1-click checkout flows.",
         "bullets": [
-          "Cross-sector analytics",
-          "Regulatory compliance audits",
-          "Trade corridor integration",
-          "Market index benchmarking"
+          "Sub-second page load times",
+          "Dynamic 1-click checkouts",
+          "Interactive 3D product previews",
+          "Personalized recommendation engines"
         ],
-        "cta": "Explore sector solutions",
-        "badge": "Sector Grid",
-        "image": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=600&q=80"
-      },
-      "Distributor": {
-        "title": "Accelerate regional",
-        "keyword": "distribution",
-        "titleEnd": "with smart routing & dispatch speed",
-        "description": "Coordinate high-volume fulfillment centers with automated consignment dispatch, dynamic routing, and instant invoice clearance.",
-        "bullets": [
-          "Dynamic fleet dispatch",
-          "Cold-chain telemetry",
-          "Multi-depot balancing",
-          "Automated billing reconciliations"
-        ],
-        "cta": "Explore distributor tools",
-        "badge": "Distribution Hub",
-        "image": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=600&q=80"
-      },
-      "Stockist": {
-        "title": "Maintain optimal",
-        "keyword": "stocking",
-        "titleEnd": "with automated replenishment intelligence",
-        "description": "Eliminate stockouts and excess buffer with AI-driven inventory forecasting, tiered storage allocations, and batch expiration alerts.",
-        "bullets": [
-          "Predictive reorder triggers",
-          "SKU turnover optimization",
-          "FIFO batch management",
-          "Consignment escrow locks"
-        ],
-        "cta": "Explore stockist tools",
-        "badge": "Stock Depot",
-        "image": "https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=600&q=80"
-      },
-      "Trader": {
-        "title": "Maximize trade",
-        "keyword": "liquidity",
-        "titleEnd": "with low-latency settlement engines",
-        "description": "Execute high-frequency purchase bids, commodity trading, and arbitrage with instant multi-currency margin clearing.",
-        "bullets": [
-          "Real-time bid-ask matching",
-          "Automated margin alerts",
-          "Cross-border currency clearing",
-          "Trade dispute mitigation"
-        ],
-        "cta": "Explore trading platform",
-        "badge": "Trade Exchange",
-        "image": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=600&q=80"
-      },
-      "Retailer": {
-        "title": "Elevate local",
-        "keyword": "retailers",
-        "titleEnd": "with omnichannel sync & POS agility",
-        "description": "Empower brick-and-mortar and digital store owners with real-time catalog feeds, one-click reordering, and direct consumer loyalty rewards.",
-        "bullets": [
-          "Omnichannel inventory sync",
-          "Next-day restocking requests",
-          "POS system integration",
-          "Dynamic store pricing"
-        ],
-        "cta": "Explore retail playbooks",
-        "badge": "Retail Store",
+        "cta": "Explore E-Commerce work",
+        "badge": "D2C Commerce",
         "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=600&q=80"
       },
-      "End User": {
-        "title": "Deliver frictionless",
-        "keyword": "consumer",
-        "titleEnd": "fulfillment & transparent tracking",
-        "description": "Provide consumers with transparent product provenance, instant delivery milestones, and seamless digital warranty activation.",
+      "AI": {
+        "title": "Design groundbreaking",
+        "keyword": "AI interfaces",
+        "titleEnd": "that make intelligent agents feel human",
+        "description": "Build conversational canvases, copilot interfaces, and generative workflow tooling that transform complex LLM capabilities into effortless user value.",
         "bullets": [
-          "Direct provenance verification",
-          "Live courier tracking",
-          "Digital warranty cards",
-          "Direct consumer feedback loop"
+          "Streaming LLM responses",
+          "Contextual copilot sidebars",
+          "Prompt engineering sandboxes",
+          "Real-time agentic canvas UI"
         ],
-        "cta": "Explore consumer solutions",
-        "badge": "Consumer Touchpoint",
-        "image": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80"
+        "cta": "Discover AI UX projects",
+        "badge": "Generative AI",
+        "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80"
+      },
+      "HealthTech": {
+        "title": "Deliver accessible",
+        "keyword": "HealthTech solutions",
+        "titleEnd": "with patient-centric care and privacy",
+        "description": "HIPAA-compliant telemedicine interfaces, automated clinical triage scheduling, and wearable health data dashboards engineered for care providers.",
+        "bullets": [
+          "HIPAA & GDPR compliance",
+          "Real-time tele-health video",
+          "FHIR / EHR interoperability",
+          "Accessible patient portals"
+        ],
+        "cta": "View HealthTech case study",
+        "badge": "Digital Health",
+        "image": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80"
+      },
+      "Media": {
+        "title": "Craft immersive",
+        "keyword": "Media & Streaming",
+        "titleEnd": "experiences for millions of fans",
+        "description": "Ultra-low latency content delivery, interactive live streams, personalized feed algorithms, and gamified community engagement modules.",
+        "bullets": [
+          "Ultra-low latency HLS/DASH",
+          "Dynamic content curation",
+          "Multi-device responsive sync",
+          "Subscriber monetisation models"
+        ],
+        "cta": "Explore media solutions",
+        "badge": "Media Platform",
+        "image": "https://images.unsplash.com/photo-1516251193007-45ef944ab0c6?auto=format&fit=crop&w=600&q=80"
+      },
+      "Enterprise": {
+        "title": "Modernize legacy",
+        "keyword": "Enterprise systems",
+        "titleEnd": "into unified, agile digital workplaces",
+        "description": "Replace fragmented legacy portals with unified employee workspaces, automated workflow approvals, and single sign-on enterprise security.",
+        "bullets": [
+          "Custom ERP/CRM integrations",
+          "Role-based access & SSO",
+          "Automated approval pipelines",
+          "Enterprise compliance tracking"
+        ],
+        "cta": "Explore enterprise case study",
+        "badge": "Enterprise Suite",
+        "image": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80"
+      },
+      "Web3": {
+        "title": "Pioneer intuitive",
+        "keyword": "Web3 & dApps",
+        "titleEnd": "with frictionless wallet onboarding",
+        "description": "Eliminate blockchain friction with account abstraction, gasless transactions, secure smart contract audits, and visually stunning NFT marketplaces.",
+        "bullets": [
+          "Social login & wallet abstraction",
+          "Gasless transaction relayers",
+          "Interactive token minting",
+          "Multi-chain asset tracking"
+        ],
+        "cta": "View Web3 case study",
+        "badge": "Decentralized Web",
+        "image": "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=600&q=80"
+      },
+      "Manufacturer": {
+        "title": "Scale modern",
+        "keyword": "SaaS platforms",
+        "titleEnd": "with frictionless user onboarding & high retention",
+        "description": "We re-architect complex multi-tenant B2B dashboards into intuitive, self-serve workflows that slash time-to-value and drive viral expansion.",
+        "bullets": [
+          "Intuitive onboarding funnels",
+          "Modular component libraries",
+          "Self-serve billing portals",
+          "Real-time analytics dashboards"
+        ],
+        "cta": "View SaaS case study",
+        "badge": "B2B SaaS",
+        "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80"
+      },
+      "Company": {
+        "title": "Modernize legacy",
+        "keyword": "Enterprise systems",
+        "titleEnd": "into unified, agile digital workplaces",
+        "description": "Replace fragmented legacy portals with unified employee workspaces, automated workflow approvals, and single sign-on enterprise security.",
+        "bullets": [
+          "Custom ERP/CRM integrations",
+          "Role-based access & SSO",
+          "Automated approval pipelines",
+          "Enterprise compliance tracking"
+        ],
+        "cta": "Explore enterprise case study",
+        "badge": "Enterprise Suite",
+        "image": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80"
       },
       "Social": {
-        "title": "Build engaging",
-        "keyword": "social",
-        "titleEnd": "apps where users love to stay and connect",
-        "description": "Fuel your growth with high-quality real-time voice and video services and social app best practices.",
+        "title": "Craft immersive",
+        "keyword": "Media & Streaming",
+        "titleEnd": "experiences for millions of fans",
+        "description": "Ultra-low latency content delivery, interactive live streams, personalized feed algorithms, and gamified community engagement modules.",
         "bullets": [
-          "Social live streaming",
-          "Live audio room",
-          "1-on-1 paid video call",
-          "Mini-game center"
+          "Ultra-low latency HLS/DASH",
+          "Dynamic content curation",
+          "Multi-device responsive sync",
+          "Subscriber monetisation models"
         ],
-        "cta": "Learn more",
-        "badge": "Social Live",
-        "badgeCoins": "🪙 116",
-        "hostName": "Sarah Jenkins",
-        "hostStats": "12.4k viewers",
-        "image": "https://images.unsplash.com/photo-1516251193007-45ef944ab0c6?auto=format&fit=crop&w=600&q=80",
-        "hostAvatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80"
-      },
-      "Gaming": {
-        "title": "Power immersive",
-        "keyword": "gaming",
-        "titleEnd": "experiences with crystal-clear voice chat",
-        "description": "Deliver ultra-low latency game voice chat, spatial audio, and seamless stream gameplay for esports and casual games.",
-        "bullets": [
-          "In-game voice chat",
-          "Spatial 3D audio",
-          "Game live streaming",
-          "Squad comms & AI denoise"
-        ],
-        "cta": "Explore gaming SDKs",
-        "badge": "Game Arena",
-        "badgeCoins": "🎮 2.4k",
-        "hostName": "Alex Rivers",
-        "hostStats": "28.1k viewers",
-        "image": "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80",
-        "hostAvatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80"
-      },
-      "Education": {
-        "title": "Transform digital",
-        "keyword": "classrooms",
-        "titleEnd": "with real-time interactive learning",
-        "description": "Empower virtual classes with multi-party HD video, interactive whiteboards, screen sharing, and breakout rooms.",
-        "bullets": [
-          "Interactive whiteboard",
-          "Large-scale webinars",
-          "1-on-1 online tutoring",
-          "Screen share & recording"
-        ],
-        "cta": "Discover education tools",
-        "badge": "Live Class",
-        "badgeCoins": "📚 Grade A",
-        "hostName": "Dr. Emily Chen",
-        "hostStats": "1,420 students",
-        "image": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=600&q=80",
-        "hostAvatar": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=100&q=80"
-      },
-      "Live commerce": {
-        "title": "Drive instant",
-        "keyword": "sales",
-        "titleEnd": "with interactive live shopping shows",
-        "description": "Boost conversion rates with real-time live auction bidding, co-host PK battles, and synchronous product drop cards.",
-        "bullets": [
-          "Flash sale countdowns",
-          "Co-hosting & PK battles",
-          "Ultra-low latency bidding",
-          "Product carousel showcase"
-        ],
-        "cta": "See live shopping playbooks",
-        "badge": "Flash Shop",
-        "badgeCoins": "🔥 Hot Sale",
-        "hostName": "Chloe Bennett",
-        "hostStats": "45.8k buyers",
-        "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=600&q=80",
-        "hostAvatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80"
-      },
-      "Telehealth": {
-        "title": "Deliver secure",
-        "keyword": "telehealth",
-        "titleEnd": "consultations and remote care",
-        "description": "HIPAA-compliant, high-definition video consultations with secure EHR integration, patient queues, and chat attachments.",
-        "bullets": [
-          "HIPAA-compliant video",
-          "EHR & triage integration",
-          "Virtual waiting rooms",
-          "Encrypted diagnostics share"
-        ],
-        "cta": "Explore telehealth solutions",
-        "badge": "TeleClinic",
-        "badgeCoins": "🔒 Encrypted",
-        "hostName": "Dr. Marcus Vance",
-        "hostStats": "Verified Specialist",
-        "image": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80",
-        "hostAvatar": "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=100&q=80"
-      },
-      "Virtual collaboration": {
-        "title": "Elevate remote",
-        "keyword": "collaboration",
-        "titleEnd": "and persistent team workspaces",
-        "description": "Host fluid hybrid team syncs, dynamic breakout rooms, and virtual office spaces powered by AI noise reduction.",
-        "bullets": [
-          "Dynamic breakout rooms",
-          "AI voice & echo cancellation",
-          "Multi-stream screen sharing",
-          "Instant meeting summaries"
-        ],
-        "cta": "Learn more about workspaces",
-        "badge": "Team Room",
-        "badgeCoins": "⚡ 34 Online",
-        "hostName": "David & Lisa",
-        "hostStats": "Design Review Sync",
-        "image": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80",
-        "hostAvatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80"
-      },
-      "Astrology": {
-        "title": "Create mystical",
-        "keyword": "astrology",
-        "titleEnd": "readings and 1-on-1 consultations",
-        "description": "Connect seekers with astrologers and tarot readers through private video calls, animated virtual gifts, and live queueing.",
-        "bullets": [
-          "1-on-1 private reading rooms",
-          "Live tarot & zodiac broadcasts",
-          "Virtual tipping & animated gifts",
-          "Automated queue & token billing"
-        ],
-        "cta": "Discover astrology solutions",
-        "badge": "Astro Live",
-        "badgeCoins": "✨ Star Level 5",
-        "hostName": "Celeste Moon",
-        "hostStats": "8.9k seekers",
-        "image": "https://images.unsplash.com/photo-1532767153582-b1a0e5145009?auto=format&fit=crop&w=600&q=80",
-        "hostAvatar": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=100&q=80"
+        "cta": "Explore media solutions",
+        "badge": "Media Platform",
+        "image": "https://images.unsplash.com/photo-1516251193007-45ef944ab0c6?auto=format&fit=crop&w=600&q=80"
       }
     },
     "platformCodeSnippets": {
+      "Next.js": [
+        {
+          "num": 1,
+          "code": "const digitalStudio = await initEnterpriseApp({ locale: 'en-US' })"
+        },
+        {
+          "num": 2,
+          "code": "const { designTokens } = await digitalStudio.loadDesignSystem()"
+        },
+        {
+          "num": 3,
+          "code": "const page = digitalStudio.renderServerComponents({ revalidate: 60 })"
+        },
+        {
+          "num": 4,
+          "code": "await digitalStudio.prefetchEdgeRoutes(['/services', '/case-studies'])"
+        },
+        {
+          "num": 5,
+          "code": "export default digitalStudio.deployToVercelEnterprise()"
+        }
+      ],
+      "React": [
+        {
+          "num": 1,
+          "code": "const { currentTheme, toggleMode } = useDesignEngineTheme()"
+        },
+        {
+          "num": 2,
+          "code": "const motionScene = await initializeStudioMotionCanvas(canvasRef)"
+        },
+        {
+          "num": 3,
+          "code": "const tracker = trackConversionEvent({ event: 'Portfolio_Click' })"
+        },
+        {
+          "num": 4,
+          "code": "await motionScene.renderSmoothParallax({ velocity: 1.2 })"
+        },
+        {
+          "num": 5,
+          "code": "return <AgencyShowcaseComponent experience={motionScene} />"
+        }
+      ],
+      "TypeScript": [
+        {
+          "num": 1,
+          "code": "type AgencyProjectBrief = { client: string; scope: 'Web' | 'Brand' }"
+        },
+        {
+          "num": 2,
+          "code": "const clientInstance = new DigitalAgencyClient({ secureAuth: true })"
+        },
+        {
+          "num": 3,
+          "code": "const deliverables = await clientInstance.buildDeliverables(brief)"
+        },
+        {
+          "num": 4,
+          "code": "await clientInstance.runLighthouseAudit({ minScore: 98 })"
+        },
+        {
+          "num": 5,
+          "code": "return clientInstance.publishProductionRelease(deliverables)"
+        }
+      ],
+      "Node.js": [
+        {
+          "num": 1,
+          "code": "const server = createMicroservice({ port: 8080, rateLimit: 1000 })"
+        },
+        {
+          "num": 2,
+          "code": "server.use(corsMiddleware({ origin: 'https://studio.agency' }))"
+        },
+        {
+          "num": 3,
+          "code": "server.registerGraphQLSchema(agencySchemaDefinitions)"
+        },
+        {
+          "num": 4,
+          "code": "await server.connectGlobalDatabaseCluster({ replicas: 3 })"
+        },
+        { "num": 5, "code": "export default server.listen()" }
+      ],
+      "Tailwind": [
+        {
+          "num": 1,
+          "code": "const agencyTheme = defineCustomTokens({ brandAccent: '#3b82f6' })"
+        },
+        {
+          "num": 2,
+          "code": "const fluidType = generateTypographyScale({ rootPx: 16 })"
+        },
+        {
+          "num": 3,
+          "code": "const glassStyles = createBackdropBlurVariants({ blur: '20px' })"
+        },
+        { "num": 4, "code": "await compileStaticCssBundle({ minify: true })" },
+        {
+          "num": 5,
+          "code": "export const designSystem = freezeTokens(agencyTheme)"
+        }
+      ],
       "Android": [
-        { "num": 1, "code": "val engine = ZegoExpressEngine.createEngine(yourAppID, yourAppSign)" },
-        { "num": 2, "code": "engine.loginRoom(roomID, user)" },
-        { "num": 3, "code": "engine.startPublishingStream(streamID)" },
-        { "num": 4, "code": "engine.startPlayingStream(streamID, ZegoCanvas(play_view))" },
-        { "num": 5, "code": "engine.logoutRoom(roomID)" }
+        {
+          "num": 1,
+          "code": "const digitalStudio = await initEnterpriseApp({ locale: 'en-US' })"
+        },
+        {
+          "num": 2,
+          "code": "const { designTokens } = await digitalStudio.loadDesignSystem()"
+        },
+        {
+          "num": 3,
+          "code": "const page = digitalStudio.renderServerComponents({ revalidate: 60 })"
+        },
+        {
+          "num": 4,
+          "code": "await digitalStudio.prefetchEdgeRoutes(['/services', '/case-studies'])"
+        },
+        {
+          "num": 5,
+          "code": "export default digitalStudio.deployToVercelEnterprise()"
+        }
       ],
       "iOS": [
-        { "num": 1, "code": "let profile = ZegoEngineProfile(); profile.appID = yourAppID" },
-        { "num": 2, "code": "let engine = ZegoExpressEngine.createEngine(with: profile, eventHandler: self)" },
-        { "num": 3, "code": "engine.loginRoom(roomID, user: ZegoUser(userID: userID))" },
-        { "num": 4, "code": "engine.startPublishingStream(streamID)" },
-        { "num": 5, "code": "engine.startPlayingStream(streamID, canvas: canvas)" }
+        {
+          "num": 1,
+          "code": "const digitalStudio = await initEnterpriseApp({ locale: 'en-US' })"
+        },
+        {
+          "num": 2,
+          "code": "const { designTokens } = await digitalStudio.loadDesignSystem()"
+        },
+        {
+          "num": 3,
+          "code": "const page = digitalStudio.renderServerComponents({ revalidate: 60 })"
+        },
+        {
+          "num": 4,
+          "code": "await digitalStudio.prefetchEdgeRoutes(['/services', '/case-studies'])"
+        },
+        {
+          "num": 5,
+          "code": "export default digitalStudio.deployToVercelEnterprise()"
+        }
       ],
       "Web": [
-        { "num": 1, "code": "const zg = new ZegoExpressEngine(appID, server);" },
-        { "num": 2, "code": "await zg.loginRoom(roomID, token, { userID });" },
-        { "num": 3, "code": "const stream = await zg.createStream();" },
-        { "num": 4, "code": "zg.startPublishingStream(streamID, stream);" },
-        { "num": 5, "code": "zg.startPlayingStream(streamID);" }
+        {
+          "num": 1,
+          "code": "const digitalStudio = await initEnterpriseApp({ locale: 'en-US' })"
+        },
+        {
+          "num": 2,
+          "code": "const { designTokens } = await digitalStudio.loadDesignSystem()"
+        },
+        {
+          "num": 3,
+          "code": "const page = digitalStudio.renderServerComponents({ revalidate: 60 })"
+        },
+        {
+          "num": 4,
+          "code": "await digitalStudio.prefetchEdgeRoutes(['/services', '/case-studies'])"
+        },
+        {
+          "num": 5,
+          "code": "export default digitalStudio.deployToVercelEnterprise()"
+        }
       ],
       "Flutter": [
-        { "num": 1, "code": "await ZegoExpressEngine.createEngineWithProfile(profile);" },
-        { "num": 2, "code": "await ZegoExpressEngine.instance.loginRoom(roomID, user);" },
-        { "num": 3, "code": "await ZegoExpressEngine.instance.startPublishingStream(streamID);" },
-        { "num": 4, "code": "await ZegoExpressEngine.instance.startPlayingStream(streamID);" },
-        { "num": 5, "code": "await ZegoExpressEngine.instance.logoutRoom(roomID);" }
+        {
+          "num": 1,
+          "code": "const digitalStudio = await initEnterpriseApp({ locale: 'en-US' })"
+        },
+        {
+          "num": 2,
+          "code": "const { designTokens } = await digitalStudio.loadDesignSystem()"
+        },
+        {
+          "num": 3,
+          "code": "const page = digitalStudio.renderServerComponents({ revalidate: 60 })"
+        },
+        {
+          "num": 4,
+          "code": "await digitalStudio.prefetchEdgeRoutes(['/services', '/case-studies'])"
+        },
+        {
+          "num": 5,
+          "code": "export default digitalStudio.deployToVercelEnterprise()"
+        }
       ],
       "React Native": [
-        { "num": 1, "code": "const engine = await ZegoExpressEngine.createEngine(appID, appSign, true, 0);" },
-        { "num": 2, "code": "await engine.loginRoom(roomID, { userID, userName });" },
-        { "num": 3, "code": "await engine.startPublishingStream(streamID);" },
-        { "num": 4, "code": "await engine.startPlayingStream(streamID);" },
-        { "num": 5, "code": "await engine.logoutRoom(roomID);" }
+        {
+          "num": 1,
+          "code": "const digitalStudio = await initEnterpriseApp({ locale: 'en-US' })"
+        },
+        {
+          "num": 2,
+          "code": "const { designTokens } = await digitalStudio.loadDesignSystem()"
+        },
+        {
+          "num": 3,
+          "code": "const page = digitalStudio.renderServerComponents({ revalidate: 60 })"
+        },
+        {
+          "num": 4,
+          "code": "await digitalStudio.prefetchEdgeRoutes(['/services', '/case-studies'])"
+        },
+        {
+          "num": 5,
+          "code": "export default digitalStudio.deployToVercelEnterprise()"
+        }
       ],
       "Windows": [
-        { "num": 1, "code": "auto engine = ZegoExpressEngine::createEngine(profile, nullptr);" },
-        { "num": 2, "code": "engine->loginRoom(roomID, user);" },
-        { "num": 3, "code": "engine->startPublishingStream(streamID);" },
-        { "num": 4, "code": "engine->startPlayingStream(streamID, canvas);" },
-        { "num": 5, "code": "engine->logoutRoom(roomID);" }
+        {
+          "num": 1,
+          "code": "const digitalStudio = await initEnterpriseApp({ locale: 'en-US' })"
+        },
+        {
+          "num": 2,
+          "code": "const { designTokens } = await digitalStudio.loadDesignSystem()"
+        },
+        {
+          "num": 3,
+          "code": "const page = digitalStudio.renderServerComponents({ revalidate: 60 })"
+        },
+        {
+          "num": 4,
+          "code": "await digitalStudio.prefetchEdgeRoutes(['/services', '/case-studies'])"
+        },
+        {
+          "num": 5,
+          "code": "export default digitalStudio.deployToVercelEnterprise()"
+        }
       ],
       "macOS": [
-        { "num": 1, "code": "ZegoEngineProfile *profile = [[ZegoEngineProfile alloc] init];" },
-        { "num": 2, "code": "profile.appID = yourAppID; profile.appSign = yourAppSign;" },
-        { "num": 3, "code": "engine = [ZegoExpressEngine createEngineWithProfile:profile eventHandler:self];" },
-        { "num": 4, "code": "[engine loginRoom:roomID user:user];" },
-        { "num": 5, "code": "[engine startPublishingStream:streamID];" }
+        {
+          "num": 1,
+          "code": "const digitalStudio = await initEnterpriseApp({ locale: 'en-US' })"
+        },
+        {
+          "num": 2,
+          "code": "const { designTokens } = await digitalStudio.loadDesignSystem()"
+        },
+        {
+          "num": 3,
+          "code": "const page = digitalStudio.renderServerComponents({ revalidate: 60 })"
+        },
+        {
+          "num": 4,
+          "code": "await digitalStudio.prefetchEdgeRoutes(['/services', '/case-studies'])"
+        },
+        {
+          "num": 5,
+          "code": "export default digitalStudio.deployToVercelEnterprise()"
+        }
       ],
       "Electron": [
-        { "num": 1, "code": "const zg = new ZegoExpressEngine(appID, appSign);" },
-        { "num": 2, "code": "zg.loginRoom(roomID, user);" },
-        { "num": 3, "code": "zg.startPublishingStream(streamID);" },
-        { "num": 4, "code": "zg.startPlayingStream(streamID, view);" },
-        { "num": 5, "code": "zg.logoutRoom(roomID);" }
+        {
+          "num": 1,
+          "code": "const digitalStudio = await initEnterpriseApp({ locale: 'en-US' })"
+        },
+        {
+          "num": 2,
+          "code": "const { designTokens } = await digitalStudio.loadDesignSystem()"
+        },
+        {
+          "num": 3,
+          "code": "const page = digitalStudio.renderServerComponents({ revalidate: 60 })"
+        },
+        {
+          "num": 4,
+          "code": "await digitalStudio.prefetchEdgeRoutes(['/services', '/case-studies'])"
+        },
+        {
+          "num": 5,
+          "code": "export default digitalStudio.deployToVercelEnterprise()"
+        }
       ]
     },
     "securityCard": {
-      "title": "Data Security and User Privacy",
-      "description": "We've implemented industry-standard security measures and obtained recognized certifications, ensuring your data remains secure and compliant",
-      "ctaText": "More about security"
+      "title": "Enterprise Security, GDPR & SOC-2 Compliance",
+      "description": "We implement industry-standard encryption protocols, zero-trust cloud architecture, and regular penetration audits, ensuring your digital products stay secure and compliant.",
+      "ctaText": "Explore security standards"
     },
     "businessMetricsCard": {
-      "title": "Trusted by 4,000 businesses",
-      "ctaText": "More about security",
+      "title": "Trusted by 250+ High-Growth Brands",
+      "ctaText": "View client success stories",
       "metrics": [
-        { "value": "500+ Million", "label": "End users annually" },
-        { "value": "3+ Billion", "label": "Daily call minutes" },
-        { "value": "212+", "label": "countries and regions" }
+        { "value": "250+", "label": "Digital Products" },
+        { "value": "$1.4B+", "label": "Client valuation" },
+        { "value": "99.4%", "label": "Client retention rate" }
       ]
     },
     "bottomStatCapsules": [
-      { "value": "500", "plus": "+", "label": "Global nodes", "icon": "Globe" },
-      { "value": "99.99", "plus": "%", "label": "Service uptime", "icon": "Clock" },
-      { "value": "79", "plus": "ms", "label": "The lowest latency", "icon": "Zap" },
-      { "value": "99.99", "plus": "%", "label": "Service uptime", "icon": "Clock" }
+      {
+        "value": "45",
+        "plus": "+",
+        "label": "Design Awards",
+        "icon": "Award"
+      },
+      {
+        "value": "99.98",
+        "plus": "%",
+        "label": "Production",
+        "icon": "Clock"
+      },
+      {
+        "value": "120",
+        "plus": "ms",
+        "label": "Global Edge",
+        "icon": "Zap"
+      },
+      {
+        "value": "4.2",
+        "plus": "x",
+        "label": "Average Conversion",
+        "icon": "TrendingUp"
+      }
     ]
   },
   "FeedSection": {
     "heading": {
-      "tag": "Product Protection",
-      "title": "Delivering Innovative IT",
-      "actionText": "Show All"
+      "tag": "Featured Work & Social Feed",
+      "title": "Recent Work & Creative Highlights",
+      "actionText": "View All Work"
     },
-    "buttonText": "Shop the Look",
+    "buttonText": "View Case Study",
     "feedItems": [
       {
         "id": 1,
-        "image": "https://concept-theme-tech.myshopify.com/cdn/shop/files/headphone-speaker-insta.webp?v=1739932634&width=720",
+        "image": "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=720&q=80",
         "products": [
-          "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=100&q=80",
-          "https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=100&q=80"
+          "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=100&q=80",
+          "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=100&q=80"
         ]
       },
       {
         "id": 2,
-        "image": "https://concept-theme-tech.myshopify.com/cdn/shop/files/earphones-insta.webp?v=1739932644&width=720",
+        "image": "https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=720&q=80",
         "products": [
-          "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=100&q=80"
+          "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=100&q=80"
         ]
       },
       {
         "id": 3,
-        "image": "https://concept-theme-tech.myshopify.com/cdn/shop/files/headphones-insta.webp?v=1739932687&width=720",
+        "image": "https://images.unsplash.com/photo-1542744094-3a31f272c490?auto=format&fit=crop&w=720&q=80",
         "products": [
           "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=100&q=80",
           "https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=100&q=80"
@@ -531,91 +792,91 @@
       },
       {
         "id": 4,
-        "image": "https://concept-theme-tech.myshopify.com/cdn/shop/files/speaker2-insta.webp?v=1739932683&width=720",
+        "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=720&q=80",
         "products": [
           "https://images.unsplash.com/photo-1608156639585-b3a032ef9689?auto=format&fit=crop&w=100&q=80"
         ]
       },
       {
         "id": 5,
-        "image": "https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&w=720&q=80",
+        "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=720&q=80",
         "products": [
           "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=100&q=80"
         ]
       },
       {
         "id": 6,
-        "image": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=720&q=80",
+        "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=720&q=80",
         "products": [
-          "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=100&q=80"
+          "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=100&q=80"
         ]
       }
     ]
   },
   "BlogSection": {
     "heading": {
-      "tag": "Make It Yours",
-      "title": "Latest Stories",
-      "actionText": "Show All"
+      "tag": "Insights & Thought Leadership",
+      "title": "Latest Stories & Design Articles",
+      "actionText": "Explore All Articles"
     },
     "featuredPost": {
       "id": 1,
-      "tag": "Speakers",
-      "tagBg": "#548722",
-      "date": "October 9, 2023",
-      "comments": "0 comments",
-      "title": "Eco-Audio - Sustainable Sound",
-      "description": "The realm of audio has witnessed incredible advancements over the past decade. As we venture further into this era of technological marvels, the way we experience and interact with sound continues to evolve.",
-      "image": "https://concept-theme-tech.myshopify.com/cdn/shop/articles/page-header_1229a8ee-7b9c-4589-9d89-91d97b2a9cf3.webp?v=1709613414&width=1600",
-      "buttonText": "Shop the Look"
+      "tag": "Design Systems",
+      "tagBg": "#3b82f6",
+      "date": "March 12, 2026",
+      "comments": "8 comments",
+      "title": "Architecting Scalable Design Systems for Hyper-Growth Tech Companies",
+      "description": "How top product teams harmonize Figma design tokens with production React codebases to eliminate handoff friction, maintain brand consistency, and ship features 4x faster.",
+      "image": "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1600&q=80",
+      "buttonText": "Read Article"
     },
     "secondaryPosts": [
       {
         "id": 2,
-        "tag": "Headphones",
+        "tag": "UX Strategy",
         "tagBg": "#EE6A2B",
-        "date": "October 9, 2023",
-        "comments": "0 comments",
-        "title": "Inside In-Ear Excellence",
-        "description": "In the audio tech world, there's always room for innovation. But, there are few moments when a product not only meets expectations but also redefines them.",
-        "image": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=500&q=80",
-        "buttonText": "Read more"
+        "date": "February 28, 2026",
+        "comments": "14 comments",
+        "title": "Micro-Interactions that Drive Conversion: A Masterclass in User Delight",
+        "description": "Exploring subtle motion physics, spatial feedback, and kinetic responsiveness that make modern interfaces feel alive and keep churn near zero.",
+        "image": "https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=500&q=80",
+        "buttonText": "Read Article"
       },
       {
         "id": 3,
-        "tag": "News & Events",
-        "tagBg": "#F54848",
-        "date": "October 9, 2023",
-        "comments": "0 comments",
-        "title": "The International Sound Artistry Conference Recap",
-        "description": "This year's AudioTech Expo in Los Angeles was nothing short of sensational. As enthusiasts and professionals from around the globe congregated, the air buzzed with anticipation and excitement.",
-        "image": "https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&w=500&q=80",
-        "buttonText": "Read more"
+        "tag": "Engineering",
+        "tagBg": "#22c55e",
+        "date": "February 15, 2026",
+        "comments": "6 comments",
+        "title": "The Next.js 15 Performance Playbook: Sub-Second Loads at Global Scale",
+        "description": "From partial prerendering and streaming server components to edge caching strategies that earn a perfect 100 on Google Lighthouse.",
+        "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=500&q=80",
+        "buttonText": "Read Article"
       }
     ]
   },
   "PatchSection": {
-    "badge": "NO.1 SOFTWARE COMPANY COMPANY",
-    "title": "Delivering Innovative IT solutions Empower In Businesses.",
-    "description": "Empowering enterprises with tailored financial insights and measurable growth strategies.",
+    "badge": "AWARD-WINNING DIGITAL AGENCY",
+    "title": "Crafting Transformative Digital Products That Empower Global Industry Leaders.",
+    "description": "We combine human-centered design, world-class engineering, and revenue-focused digital strategy to turn bold ideas into high-growth category leaders.",
     "stats": [
       {
         "id": 1,
-        "value": "30",
+        "value": "250",
         "symbol": "+",
-        "label": "Personalization At Seems Ultimate Scale."
+        "label": "Digital products shipped globally."
       },
       {
         "id": 2,
-        "value": "8K",
+        "value": "45",
         "symbol": "+",
-        "label": "Personalization At Seems Ultimate Scale."
+        "label": "International design & tech awards."
       },
       {
         "id": 3,
-        "value": "20",
+        "value": "10",
         "symbol": "X",
-        "label": "Personalization At Seems Ultimate Scale."
+        "label": "Average ROI delivered to client partners."
       }
     ]
   }

@@ -9,12 +9,12 @@ import { aboutCMS } from '../../../utils/apiData';
 
 const renderCodeTokens = (code) => {
     if (!code) return null;
-    const parts = code.split(/(\b(?:val|let|const|await|new|auto)\b|\b(?:ZegoExpressEngine|ZegoEngineProfile|ZegoCanvas|ZegoUser)\b|\([^)]*\))/g);
+    const parts = code.split(/(\b(?:val|let|const|await|new|auto|import|export|default|function|return|interface|type)\b|\b(?:ZegoExpressEngine|ZegoEngineProfile|ZegoCanvas|ZegoUser|StudioApp|CreativeEngine|DigitalAgency)\b|\([^)]*\))/g);
     return parts.map((part, i) => {
-        if (/^(val|let|const|await|new|auto)$/.test(part)) {
-            return <span key={i} style={{ color: '#94a3b8' }}>{part}</span>;
+        if (/^(val|let|const|await|new|auto|import|export|default|function|return|interface|type)$/.test(part)) {
+            return <span key={i} style={{ color: '#94a3b8' }}>{part} </span>;
         }
-        if (/^(ZegoExpressEngine|ZegoEngineProfile|ZegoCanvas|ZegoUser)$/.test(part)) {
+        if (/^(ZegoExpressEngine|ZegoEngineProfile|ZegoCanvas|ZegoUser|StudioApp|CreativeEngine|DigitalAgency)$/.test(part)) {
             return <span key={i} style={{ color: '#f43f5e' }}>{part}</span>;
         }
         if (part.startsWith('(') && part.endsWith(')')) {

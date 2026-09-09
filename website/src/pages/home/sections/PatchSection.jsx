@@ -15,7 +15,7 @@ const PatchSection = () => {
             }}
         >
             <div className='w-full py-100 sm-py-50'>
-                <div className="w-50 sm-w-full">
+                <div className="w-70 sm-w-full">
                     <p className="mini-text text-dark bg-white w-max px-18 py-6 rounded-20 flex items-center gap-8 font-600 uppercase mb-18">
                         <Icon name="Settings" width="14" height="14" className="text-primary" />
                         {patchCMS.badge}

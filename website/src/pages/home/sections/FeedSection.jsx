@@ -1,8 +1,7 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
-import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 import Container from '../../../components/common/Container';
@@ -13,8 +12,7 @@ import Heading from '../../../components/layout/generic/Heading';
 import { feedCMS } from '../../../utils/apiData';
 
 const FeedSection = () => {
-    const prevRef = useRef(null);
-    const nextRef = useRef(null);
+    const [swiperInstance, setSwiperInstance] = useState(null);
 
     return (
         <Container>
@@ -62,21 +60,23 @@ const FeedSection = () => {
                         transform: scale(1.04);
                     }
                     .feed-nav-btn {
-                        width: 38px;
-                        height: 38px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        border-radius: 50%;
-                        border: 1px solid var(--border-color, #e2e8f0);
-                        background: var(--white);
+                        width: 38px !important;
+                        height: 38px !important;
+                        padding: 0 !important;
+                        display: inline-flex !important;
+                        align-items: center !important;
+                        justify-content: center !important;
+                        border-radius: 50% !important;
+                        border: 1px solid var(--border-color, #e2e8f0) !important;
+                        background: var(--white) !important;
+                        color: var(--dark) !important;
                         cursor: pointer;
                         transition: all 0.2s ease;
                     }
                     .feed-nav-btn:hover {
-                        background: var(--primary);
-                        color: #ffffff;
-                        border-color: var(--primary);
+                        background: var(--primary) !important;
+                        color: #ffffff !important;
+                        border-color: var(--primary) !important;
                     }
                 `}</style>
 
@@ -86,30 +86,36 @@ const FeedSection = () => {
                             version="v2"
                             tag={feedCMS.heading.tag}
                             title={feedCMS.heading.title}
-                        // actionText={feedCMS.heading.actionText}
                         />
                     </div>
                     <div className="flex items-center gap-8 sm-hidden mb-4">
-                        <button
-                            ref={prevRef}
+                        <Button
+                            version="icon"
+                            variant='outline'
+                            icon="ChevronLeft"
+                            iconWidth="18"
+                            iconHeight="18"
+                            className='rounded-20'
+                            onClick={() => swiperInstance?.slidePrev()}
                             aria-label="Previous Slide"
-                            className="feed-nav-btn"
-                        >
-                            <Icon name="ChevronLeft" width="18" height="18" />
-                        </button>
-                        <button
-                            ref={nextRef}
+                        />
+                        <Button
+                            version="icon"
+                            variant='outline'
+                            icon="ChevronRight"
+                            iconWidth="18"
+                            iconHeight="18"
+                            className='rounded-20'
+                            onClick={() => swiperInstance?.slideNext()}
                             aria-label="Next Slide"
-                            className="feed-nav-btn"
-                        >
-                            <Icon name="ChevronRight" width="18" height="18" />
-                        </button>
+                        />
                     </div>
                 </div>
 
                 <div className='mt-30'>
                     <Swiper
-                        modules={[Autoplay, Navigation, Pagination]}
+                        onSwiper={setSwiperInstance}
+                        modules={[Autoplay, Pagination]}
                         spaceBetween={16}
                         slidesPerView={1.2}
                         loop={feedCMS.feedItems && feedCMS.feedItems.length > 4}
@@ -120,14 +126,6 @@ const FeedSection = () => {
                         }}
                         pagination={{
                             clickable: true,
-                        }}
-                        navigation={{
-                            prevEl: prevRef.current,
-                            nextEl: nextRef.current,
-                        }}
-                        onBeforeInit={(swiper) => {
-                            swiper.params.navigation.prevEl = prevRef.current;
-                            swiper.params.navigation.nextEl = nextRef.current;
                         }}
                         breakpoints={{
                             480: { slidesPerView: 1.8, spaceBetween: 16 },
@@ -148,7 +146,7 @@ const FeedSection = () => {
                                     />
 
                                     <div className='absolute top-0 right-0'>
-                                        <div className='bg-white rounded-full icon-lg m-15'>
+                                        <div className='bg-white rounded-full icon-lg m-15 flex items-center justify-center shadow-sm'>
                                             <Icon name="Instagram" width="18" height="18" className="text-danger" />
                                         </div>
                                     </div>
@@ -174,7 +172,7 @@ const FeedSection = () => {
                                                     version="v3"
                                                     bg="white"
                                                     color="dark"
-                                                    className='rounded-30'
+                                                    className='rounded-30 font-500'
                                                 />
                                             </div>
                                         </div>

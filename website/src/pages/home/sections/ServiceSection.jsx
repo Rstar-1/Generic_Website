@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Container from '../../../components/common/Container';
 import Icon from '../../../components/common/Icon';
-import Tab from '../../../components/common/Tab';
 import Button from '../../../components/common/Button';
 import Image from '../../../components/common/Image';
 import launchShieldImg from '../../../assets/launch-shield.jpg';
@@ -12,12 +11,12 @@ import { serviceCMS } from '../../../utils/apiData';
 
 const renderPlatformCode = (code) => {
     if (!code) return null;
-    const parts = code.split(/(\b(?:val|let|const|await|new|auto)\b|\b(?:ZegoExpressEngine|ZegoEngineProfile|ZegoCanvas|ZegoUser)\b|\([^)]*\)|\[[^\]]*\]|\{[^}]*\})/g);
+    const parts = code.split(/(\b(?:val|let|const|await|new|auto|import|from|export|default|function|return|interface|type)\b|\b(?:ZegoExpressEngine|ZegoEngineProfile|ZegoCanvas|ZegoUser|StudioApp|CreativeEngine|DigitalAgency|NextResponse)\b|\([^)]*\)|\[[^\]]*\]|\{[^}]*\})/g);
     return parts.map((part, i) => {
-        if (/^(val|let|const|await|new|auto)$/.test(part)) {
+        if (/^(val|let|const|await|new|auto|import|from|export|default|function|return|interface|type)$/.test(part)) {
             return <span key={i} style={{ color: '#94a3b8' }}>{part} </span>;
         }
-        if (/^(ZegoExpressEngine|ZegoEngineProfile|ZegoCanvas|ZegoUser)$/.test(part)) {
+        if (/^(ZegoExpressEngine|ZegoEngineProfile|ZegoCanvas|ZegoUser|StudioApp|CreativeEngine|DigitalAgency|NextResponse)$/.test(part)) {
             return <span key={i} style={{ color: '#f43f5e', fontWeight: 500 }}>{part}</span>;
         }
         if ((part.startsWith('(') && part.endsWith(')')) || (part.startsWith('{') && part.endsWith('}')) || (part.startsWith('[') && part.endsWith(']'))) {
@@ -49,37 +48,235 @@ const globeAvatars = [
     }
 ];
 
+const ServiceProgressBar = React.memo(({ scrollPercent, trackMetrics }) => {
+    const startY = trackMetrics.startY ?? 20;
+    const middleY = trackMetrics.middleY ?? 600;
+    const stage3Y = trackMetrics.stage3Y ?? 1400;
+    const endY = trackMetrics.endY ?? 2400;
+    const totalLength = Math.max(endY - startY, 1);
+    const currentHeadY = Math.min(Math.max(startY + totalLength * scrollPercent, startY), endY);
+
+    const stage2Percent = Math.min(Math.max(Math.round(((middleY - startY) / totalLength) * 100), 8), 50);
+    const stage3Percent = Math.min(Math.max(Math.round(((stage3Y - startY) / totalLength) * 100), stage2Percent + 10), 85);
+    const blueEnd = Math.max(stage2Percent - 6, 2);
+    const greenEnd = Math.min(stage2Percent + 6, stage3Percent - 4);
+
+    return (
+        <svg
+            className="sm-hidden"
+            style={{
+                position: 'absolute',
+                left: 0,
+                top: 0,
+                width: '40px',
+                height: '100%',
+                zIndex: 1,
+                pointerEvents: 'none',
+                overflow: 'visible'
+            }}
+        >
+            <defs>
+                <linearGradient
+                    id="serviceProgressGradient"
+                    x1="0"
+                    y1={startY}
+                    x2="0"
+                    y2={endY}
+                    gradientUnits="userSpaceOnUse"
+                >
+                    <stop offset="0%" stopColor="#3b82f6" />
+                    <stop offset={`${blueEnd}%`} stopColor="#3b82f6" />
+                    <stop offset={`${stage2Percent}%`} stopColor="#22c55e" />
+                    <stop offset={`${greenEnd}%`} stopColor="#22c55e" />
+                    <stop offset={`${stage3Percent}%`} stopColor="#db5e1f" />
+                    <stop offset="100%" stopColor="#db5e1f" />
+                </linearGradient>
+
+                <filter id="serviceGlowFilter" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="3" result="coloredBlur" />
+                    <feMerge>
+                        <feMergeNode in="coloredBlur" />
+                        <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                </filter>
+            </defs>
+
+            {/* Inactive Track Line spanning through the entire section */}
+            <line
+                x1="20"
+                y1={startY}
+                x2="20"
+                y2={endY}
+                stroke="rgba(255, 255, 255, 0.08)"
+                strokeWidth="2"
+                strokeLinecap="round"
+            />
+
+            {/* Active Glow Line */}
+            {scrollPercent > 0.002 && (
+                <line
+                    x1="20"
+                    y1={startY}
+                    x2="20"
+                    y2={currentHeadY}
+                    stroke="url(#serviceProgressGradient)"
+                    strokeWidth="4"
+                    strokeLinecap="round"
+                    opacity="0.4"
+                    filter="url(#serviceGlowFilter)"
+                />
+            )}
+
+            {/* Active Core Line */}
+            {scrollPercent > 0.002 && (
+                <line
+                    x1="20"
+                    y1={startY}
+                    x2="20"
+                    y2={currentHeadY}
+                    stroke="url(#serviceProgressGradient)"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                />
+            )}
+        </svg>
+    );
+});
+
 const ServiceSection = () => {
     const navigate = useNavigate();
     const sectionRef = useRef(null);
+    const stagesContainerRef = useRef(null);
+    const firstIconRef = useRef(null);
+    const middleIconRef = useRef(null);
+    const lastIconRef = useRef(null);
     const [scrollPercent, setScrollPercent] = useState(0);
-    const [activeIndustryTab, setActiveIndustryTab] = useState('Manufacturer');
-    const [activePlatformTab, setActivePlatformTab] = useState('Android');
-
-    const activeIndustryCard = useMemo(() => {
-        return serviceCMS.industryTabsData[activeIndustryTab] || serviceCMS.industryTabsData['Company'] || serviceCMS.industryTabsData['Social'];
-    }, [activeIndustryTab]);
+    const [trackMetrics, setTrackMetrics] = useState({
+        startY: 20,
+        middleY: 600,
+        stage3Y: 1400,
+        endY: 2400
+    });
+    const metricsRef = useRef({
+        startY: 20,
+        middleY: 600,
+        stage3Y: 1400,
+        endY: 2400
+    });
+    const [activePlatformTab, setActivePlatformTab] = useState(Object.keys(serviceCMS.platformCodeSnippets || {})[0] || 'Next.js');
 
     const activeCodeSnippet = useMemo(() => {
-        return serviceCMS.platformCodeSnippets[activePlatformTab] || serviceCMS.platformCodeSnippets['Android'] || [];
+        return serviceCMS.platformCodeSnippets[activePlatformTab] || Object.values(serviceCMS.platformCodeSnippets || {})[0] || [];
     }, [activePlatformTab]);
 
     useEffect(() => {
-        const handleScroll = () => {
-            if (!sectionRef.current) return;
-            const rect = sectionRef.current.getBoundingClientRect();
-            const windowHeight = window.innerHeight;
-            const start = windowHeight * 0.45 - rect.top;
-            const total = rect.height - windowHeight * 0.25;
+        const updateMetrics = () => {
+            if (!stagesContainerRef.current || !firstIconRef.current || !lastIconRef.current) return;
+            const containerRect = stagesContainerRef.current.getBoundingClientRect();
+            const firstRect = firstIconRef.current.getBoundingClientRect();
+            const lastRect = lastIconRef.current.getBoundingClientRect();
+            const middleRect = middleIconRef.current ? middleIconRef.current.getBoundingClientRect() : null;
 
-            if (total <= 0) return;
-            const progress = Math.min(Math.max(start / total, 0), 1);
+            const startY = (firstRect.top - containerRect.top) + (firstRect.height / 2);
+            const stage3Y = (lastRect.top - containerRect.top) + (lastRect.height / 2);
+            const middleY = middleRect ? (middleRect.top - containerRect.top) + (middleRect.height / 2) : (startY + stage3Y) / 2;
+
+            const containerHeight = stagesContainerRef.current.offsetHeight || containerRect.height;
+            const endY = Math.max(containerHeight - 30, stage3Y + 60);
+
+            if (stage3Y > startY && endY > stage3Y) {
+                const next = { startY, middleY, stage3Y, endY };
+                metricsRef.current = next;
+                setTrackMetrics(next);
+            }
+        };
+
+        const handleScroll = () => {
+            if (!stagesContainerRef.current || !firstIconRef.current || !lastIconRef.current) {
+                if (sectionRef.current) {
+                    const rect = sectionRef.current.getBoundingClientRect();
+                    const windowHeight = window.innerHeight;
+                    const start = windowHeight * 0.45 - rect.top;
+                    const total = rect.height - windowHeight * 0.25;
+                    if (total > 0) setScrollPercent(Math.min(Math.max(start / total, 0), 1));
+                }
+                return;
+            }
+
+            const metrics = metricsRef.current;
+            const containerRect = stagesContainerRef.current.getBoundingClientRect();
+            const firstRect = firstIconRef.current.getBoundingClientRect();
+            const middleRect = middleIconRef.current ? middleIconRef.current.getBoundingClientRect() : null;
+            const lastRect = lastIconRef.current.getBoundingClientRect();
+
+            // Focal reading area: slightly above vertical center of viewport
+            const focalY = window.innerHeight * 0.45;
+            const firstCenter = firstRect.top + firstRect.height / 2;
+            const middleCenter = middleRect
+                ? middleRect.top + middleRect.height / 2
+                : firstCenter + (metrics.middleY - metrics.startY);
+            const lastCenter = lastRect.top + lastRect.height / 2;
+            const containerBottom = containerRect.bottom;
+
+            let headY = metrics.startY;
+
+            if (focalY <= firstCenter) {
+                headY = metrics.startY;
+            } else if (focalY <= middleCenter) {
+                const span = Math.max(middleCenter - firstCenter, 1);
+                const ratio = Math.min(Math.max((focalY - firstCenter) / span, 0), 1);
+                headY = metrics.startY + (metrics.middleY - metrics.startY) * ratio;
+            } else if (focalY <= lastCenter) {
+                const span = Math.max(lastCenter - middleCenter, 1);
+                const ratio = Math.min(Math.max((focalY - middleCenter) / span, 0), 1);
+                headY = metrics.middleY + (metrics.stage3Y - metrics.middleY) * ratio;
+            } else {
+                // Moving through Stage 3 down to section completion
+                const finishTarget = window.innerHeight * 0.85;
+                const remainingScroll = containerBottom - finishTarget;
+                const totalPastLast = Math.max((metrics.endY - metrics.stage3Y) + (focalY - finishTarget), 200);
+
+                if (containerBottom <= finishTarget) {
+                    headY = metrics.endY;
+                } else {
+                    const ratio = 1 - Math.min(Math.max(remainingScroll / totalPastLast, 0), 1);
+                    headY = metrics.stage3Y + (metrics.endY - metrics.stage3Y) * ratio;
+                }
+            }
+
+            const totalTrack = Math.max(metrics.endY - metrics.startY, 1);
+            const clampedHeadY = Math.min(Math.max(headY, metrics.startY), metrics.endY);
+            const progress = (clampedHeadY - metrics.startY) / totalTrack;
             setScrollPercent(progress);
         };
 
         window.addEventListener('scroll', handleScroll, { passive: true });
+        window.addEventListener('resize', handleScroll);
+        window.addEventListener('resize', updateMetrics);
+
+        updateMetrics();
         handleScroll();
-        return () => window.removeEventListener('scroll', handleScroll);
+
+        const t1 = setTimeout(() => { updateMetrics(); handleScroll(); }, 150);
+        const t2 = setTimeout(() => { updateMetrics(); handleScroll(); }, 600);
+
+        let resizeObserver;
+        if (typeof ResizeObserver !== 'undefined' && stagesContainerRef.current) {
+            resizeObserver = new ResizeObserver(() => {
+                updateMetrics();
+                handleScroll();
+            });
+            resizeObserver.observe(stagesContainerRef.current);
+        }
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('resize', handleScroll);
+            window.removeEventListener('resize', updateMetrics);
+            clearTimeout(t1);
+            clearTimeout(t2);
+            if (resizeObserver) resizeObserver.disconnect();
+        };
     }, []);
 
     const renderBusinessMetricsCard = () => (
@@ -90,7 +287,7 @@ const ServiceSection = () => {
                 border: '1px solid rgba(255, 255, 255, 0.08)'
             }}
         >
-            <div className='p-22'>
+            <div className='p-20'>
                 <h3 className="text-white head-text font-600 capitalize">
                     {serviceCMS.businessMetricsCard.title}
                 </h3>
@@ -122,34 +319,35 @@ const ServiceSection = () => {
     return (
         <Container style={{ backgroundColor: 'var(--dark)' }}>
             <div ref={sectionRef} className="py-60 sm-py-40 relative w-full">
-                <div className="relative w-full">
-                    <div
-                        style={{
-                            position: 'absolute',
-                            left: '22px',
-                            top: '24px',
-                            bottom: '40px',
-                            width: '2px',
-                            backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                            borderRadius: '2px',
-                            zIndex: 1
-                        }} className='sm-hidden'
-                    >
-                        <div
-                            style={{
-                                width: '100%',
-                                height: `${scrollPercent * 100}%`,
-                                background: 'linear-gradient(180deg, #3b82f6 0%, #22c55e 50%, #db5e1f 100%)',
-                                borderRadius: '2px',
-                                transition: 'height 0.12s linear',
-                                boxShadow: '0 0 12px rgba(59, 130, 246, 0.6)'
-                            }}
-                        />
-                    </div>
+                <div ref={stagesContainerRef} className="relative w-full">
+                    <ServiceProgressBar
+                        scrollPercent={scrollPercent}
+                        trackMetrics={trackMetrics}
+                    />
 
                     {serviceCMS.stages.map((item, index) => {
-                        const stageThreshold = index === 0 ? 0.05 : index === 1 ? 0.35 : 0.7;
-                        const isReached = scrollPercent >= stageThreshold;
+                        const iconRef =
+                            index === 0
+                                ? firstIconRef
+                                : index === 1
+                                    ? middleIconRef
+                                    : index === serviceCMS.stages.length - 1
+                                        ? lastIconRef
+                                        : null;
+
+                        const totalLen = Math.max((trackMetrics.endY ?? 2400) - (trackMetrics.startY ?? 20), 1);
+                        const currentHeadY = (trackMetrics.startY ?? 20) + totalLen * scrollPercent;
+                        const iconY =
+                            index === 0
+                                ? trackMetrics.startY ?? 20
+                                : index === 1
+                                    ? trackMetrics.middleY ?? 600
+                                    : trackMetrics.stage3Y ?? 1400;
+
+                        const isReached =
+                            index === 0
+                                ? scrollPercent >= 0.002 || currentHeadY >= iconY
+                                : currentHeadY >= iconY - 15;
 
                         return (
                             <div
@@ -160,14 +358,19 @@ const ServiceSection = () => {
                                     marginBottom: index === serviceCMS.stages.length - 1 ? '0' : '90px'
                                 }}
                             >
-                                <div className="w-5 sm-hidden">
+                                <div
+                                    className="sm-hidden flex items-center justify-center flex-shrink-0"
+                                    style={{ width: '40px', minWidth: '40px', height: '40px', zIndex: 2 }}
+                                >
                                     <div
-                                        className="rounded-full icon-lg bg-dark"
+                                        ref={iconRef}
+                                        className="rounded-full icon-lg bg-dark flex items-center justify-center flex-shrink-0"
                                         style={{
                                             border: `1px solid ${isReached ? item.color : 'rgba(255, 255, 255, 0.15)'}`,
                                             background: isReached
                                                 ? `radial-gradient(circle, ${item.glowColor} 0%, rgba(10, 15, 26, 0.9) 75%)`
                                                 : 'var(--dark)',
+                                            boxShadow: isReached ? `0 0 16px ${item.glowColor}` : 'none',
                                             transition: 'all 0.4s ease'
                                         }}
                                     >
@@ -181,7 +384,7 @@ const ServiceSection = () => {
                                     </div>
                                 </div>
 
-                                <div className="w-95 sm-w-full">
+                                <div className="w-full" style={{ flex: 1, minWidth: 0 }}>
                                     <p className="text-white font-500 small-text">{item.tag}</p>
 
                                     <h2 className="text-white font-600 head-text mt-10 sm-mt-4">
@@ -224,67 +427,9 @@ const ServiceSection = () => {
                                     )}
 
                                     {item.id === 'product-design' && (
-                                        <div className="mt-30 w-full">
-                                            <div className="mb-24 overflow-auto">
-                                                <Tab
-                                                    version="3"
-                                                    tabs={item.tabs}
-                                                    activeTab={activeIndustryTab}
-                                                    onChange={setActiveIndustryTab}
-                                                />
-                                            </div>
-
+                                        <div className="mt-20 w-full">
                                             <div
                                                 className="w-full rounded-10 relative overflow-hidden"
-                                                style={{
-                                                    background: 'radial-gradient(ellipse at 80% 30%, rgba(30, 58, 138, 0.25) 0%, #090e1a 70%)',
-                                                    border: '1px solid rgba(59, 130, 246, 0.25)'
-                                                }}
-                                            >
-                                                <div className="grid-cols-2 sm-grid-cols-1 p-30 sm-p-20 items-center" style={{ gap: '20px' }}>
-                                                    <div>
-                                                        <h3 className="text-white font-600 title-text capitalize">
-                                                            {activeIndustryCard.title}{' '}
-                                                            <span className="text-primary">{activeIndustryCard.keyword}</span>{' '}
-                                                            {activeIndustryCard.titleEnd}
-                                                        </h3>
-                                                        <p className="mini-text text-white text-muted mt-12">
-                                                            {activeIndustryCard.description}
-                                                        </p>
-
-                                                        <div className="grid-cols-2 sm-grid-cols-1 gap-12 mt-15">
-                                                            {activeIndustryCard.bullets.map((b, bIdx) => (
-                                                                <div key={bIdx} className="flex items-center gap-8">
-                                                                    <div className="bg-primary dot rounded-full" />
-                                                                    <p className="mini-text text-white font-400">{b}</p>
-                                                                </div>
-                                                            ))}
-                                                        </div>
-
-                                                        <Button
-                                                            text={activeIndustryCard.cta}
-                                                            version="v2"
-                                                            bg="primary"
-                                                            color="white"
-                                                            icon="ChevronRight"
-                                                            iconPosition="right"
-                                                            className="mt-24 font-600 rounded-5"
-                                                            onClick={() => navigate('/services')}
-                                                        />
-                                                    </div>
-
-                                                    <div className="relative">
-                                                        <Image
-                                                            src={activeIndustryCard.image}
-                                                            alt={activeIndustryCard.badge}
-                                                            className="w-full h-300 rounded-10 object-cover flex"
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div
-                                                className="w-full rounded-10 relative overflow-hidden mt-20"
                                                 style={{
                                                     background: 'radial-gradient(ellipse at 80% 30%, rgba(30, 58, 138, 0.25) 0%, #090e1a 70%)',
                                                     border: '1px solid rgba(59, 130, 246, 0.25)'
@@ -340,8 +485,21 @@ const ServiceSection = () => {
                                         >
                                             <div className="p-16">
                                                 <p className="font-300 text-white small-text">
-                                                    Embed real-time voice and video with a{' '}
-                                                    <span style={{ color: '#22c55e', fontWeight: 600 }}>few lines of code:_</span>
+                                                    {item.codeIntro ? (
+                                                        item.codeIntro.includes('few lines of code:_') ? (
+                                                            <>
+                                                                {item.codeIntro.split('few lines of code:_')[0]}
+                                                                <span style={{ color: '#22c55e', fontWeight: 600 }}>few lines of code:_</span>
+                                                            </>
+                                                        ) : (
+                                                            item.codeIntro
+                                                        )
+                                                    ) : (
+                                                        <>
+                                                            Architect and deploy high-performance web applications with a{' '}
+                                                            <span style={{ color: '#22c55e', fontWeight: 600 }}>few lines of code:_</span>
+                                                        </>
+                                                    )}
                                                 </p>
 
                                                 <div
@@ -351,11 +509,31 @@ const ServiceSection = () => {
                                                         border: '1px solid rgba(255, 255, 255, 0.1)'
                                                     }}
                                                 >
-                                                    <div className="flex items-center gap-16 mb-14 bordb pb-12" style={{ overflowX: 'auto' }}>
+                                                    <div className="flex items-center justify-between gap-16 mb-14 bordb pb-12" style={{ overflowX: 'auto' }}>
                                                         <div className="flex items-center gap-6 flex-shrink-0">
                                                             <div className="rounded-full" style={{ width: '10px', height: '10px', backgroundColor: '#ef4444' }} />
                                                             <div className="rounded-full" style={{ width: '10px', height: '10px', backgroundColor: '#f59e0b' }} />
                                                             <div className="rounded-full" style={{ width: '10px', height: '10px', backgroundColor: '#10b981' }} />
+                                                        </div>
+                                                        <div className="flex items-center gap-6 flex-wrap">
+                                                            {Object.keys(serviceCMS.platformCodeSnippets || {}).slice(0, 5).map((plat) => {
+                                                                const isActive = activePlatformTab === plat;
+                                                                return (
+                                                                    <span
+                                                                        key={plat}
+                                                                        onClick={() => setActivePlatformTab(plat)}
+                                                                        className="cursor-pointer mini-text font-400 px-8 py-2 rounded-4"
+                                                                        style={{
+                                                                            color: isActive ? '#ffffff' : 'var(--gray)',
+                                                                            backgroundColor: isActive ? 'rgba(255,255,255,0.12)' : 'transparent',
+                                                                            fontSize: '11px',
+                                                                            transition: 'all 0.2s ease'
+                                                                        }}
+                                                                    >
+                                                                        {plat}
+                                                                    </span>
+                                                                );
+                                                            })}
                                                         </div>
                                                     </div>
 
