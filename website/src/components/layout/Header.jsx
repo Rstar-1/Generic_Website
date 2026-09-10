@@ -13,26 +13,29 @@ import { header, configData } from "../../utils/apiData";
 import { resolveImagePath } from "../../utils/imageResolver";
 import { useCart } from "../../context/CartContext";
 
+const isEcom = import.meta.env.VITE_ECOM === "true";
+const headerType = configData?.Header?.HeaderType ?? configData?.Header?.[0]?.HeaderType ?? 1;
+
 const LogoClass = {
   1: "w-25",
   2: "w-15",
   3: "w-15",
   4: "w-15",
-}[configData?.Header?.HeaderType] || "w-25";
+}[headerType] || "w-25";
 
 const NavigationClass = {
   1: "w-50 justify-center",
   2: "w-60 justify-start",
-  3: "w-70 justify-end",
+  3: isEcom ? "w-70 justify-end" : "w-75 justify-end",
   4: "w-70 justify-end",
-}[configData?.Header?.HeaderType] || "w-50 justify-center";
+}[headerType] || "w-50 justify-center";
 
 const ActionClass = {
   1: "w-25",
   2: "w-25",
-  3: "w-25",
+  3: isEcom ? "w-25" : "w-20",
   4: "w-20",
-}[configData?.Header?.HeaderType] || "w-25";
+}[headerType] || "w-25";
 
 const CategoryClass = {
   1: "justify-between",
@@ -231,7 +234,7 @@ const HeaderBottomBar = React.memo(
         style={{ borderTop: '1px solid rgba(255, 255, 255, 0.1)' }}
       >
         <Container>
-          <div className={`${CategoryClass} flex items-center w-full py-16`} style={{ gap: '22px' }}>
+          <div className={`${CategoryClass} flex items-center w-full py-16`} style={{ gap: '26px' }}>
             {menuItems.map((item, idx) => {
               const isActive = pathname === item.href;
               const isHovered =
@@ -261,7 +264,7 @@ const HeaderBottomBar = React.memo(
                 >
                   <NavLink
                     to={item.href || "/product"}
-                    className="font-400 mini-text capitalize cursor-pointer flex items-center gap-2"
+                    className="font-500 mini-text capitalize cursor-pointer flex items-center gap-2"
                     style={{ color: linkColor }}
                   >
                     {item.label}

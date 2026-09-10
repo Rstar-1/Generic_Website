@@ -6,6 +6,7 @@ import Layout from '../components/layout/Layout';
 import Loader from '../components/common/generic/Loader';
 
 // 📦 Lazy Pages
+const BookDemo = lazy(() => import('../pages/bookademo/BookDemo'));
 const Home = lazy(() => import('../pages/home/Home'));
 const About = lazy(() => import('../pages/about/About'));
 const Blog = lazy(() => import('../pages/blog/Blog'));
@@ -20,8 +21,9 @@ function AppRoutes() {
     return (
         <Suspense fallback={<Loader />}>
             <Routes>
+                <Route path="bookdemo" element={<BookDemo />} />
                 <Route path="/" element={<Layout />}>
-                    <Route index element={<Navigate to="/home" replace />} />
+                    <Route index element={<Navigate to="/bookdemo" replace />} />
                     <Route path="home" element={<Home />} />
                     <Route path="about" element={<About />} />
                     <Route path="blog" element={<Blog />} />

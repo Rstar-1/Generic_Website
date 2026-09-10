@@ -12,10 +12,15 @@
   ],
   "HeroBanner": [
     {
-      "HeaderSticky": true,
-      "HeroBannerVersion": 1,
+      "HeroBannerVersion": 2,
+      "HeroBannerType": 1,
       "HeroBannerText": 1,
       "HeroBannerImage": 1
+    }
+  ],
+  "Category": [
+    {
+      "CategoryVersion": 1
     }
   ],
   "About": [

@@ -35,7 +35,7 @@ const Banner = ({ title, desc, style, breadcrumbs, productData, loading, bgImage
         <Container className="relative"
             style={{
                 background: bannerBackground,
-                padding: '80px 0px',
+                padding: '120px 0px 80px 0px',
                 ...style
             }}>
             {/* <div
