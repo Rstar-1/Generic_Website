@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import agencyVideo from '../../../assets/agency.mp4';
-import heroMask1 from '../../../assets/hero-bg1-mask.png';
+import heroMask1 from '../../../assets/hero-bg2-mask.png';
 import heroMask3 from '../../../assets/hero-bg3-mask.png';
 import Container from '../../../components/common/Container';
 import Image from '../../../components/common/Image';

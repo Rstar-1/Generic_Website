@@ -8,6 +8,7 @@ const OfferSection = lazy(() => import('./sections/OfferSection'));
 const PatchSection = lazy(() => import('./sections/PatchSection'));
 const ServiceSection = lazy(() => import('./sections/ServiceSection'));
 const TrendingSection = lazy(() => import('./sections/TrendingSection'));
+const AboutSection = lazy(() => import('./sections/AboutSection'));
 const AboutSections = lazy(() => import('./sections/AboutSections'));
 const BlogSection = lazy(() => import('./sections/BlogSection'));
 const FeedSection = lazy(() => import('./sections/FeedSection'));
@@ -17,7 +18,7 @@ const ecomSections = [
     HeroBanner,
     CategorySection,
     FeatureSection,
-    ServiceSection,
+    AboutSection,
     TrendingSection,
     OfferSection
 ];

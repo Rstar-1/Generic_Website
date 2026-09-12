@@ -1,9 +1,16 @@
-import { createContext, useContext } from 'react';
+import React, { createContext, useContext, memo } from 'react';
 import Container from "./Container";
 
 const SkeletonContext = createContext(null);
 
-function S({ theme, animation, ...props }) {
+const THEMES = {
+    light: { bg: "#e2e8f0", grad: "linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%)" },
+    dark: { bg: "#1e293b", grad: "linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%)" },
+    adaptive: { bg: "rgba(0,0,0,0.08)", grad: "linear-gradient(90deg, rgba(0,0,0,0.08) 25%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.08) 75%)" },
+    translucent: { bg: "rgba(255,255,255,0.2)", grad: "linear-gradient(90deg, rgba(255,255,255,0.2) 25%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.2) 75%)" }
+};
+
+const S = memo(function S({ theme, animation, ...props }) {
     const ctx = useContext(SkeletonContext);
     return (
         <Skeleton
@@ -12,7 +19,7 @@ function S({ theme, animation, ...props }) {
             {...props}
         />
     );
-}
+});
 
 // Inject keyframes globally once (safe for SSR)
 if (typeof document !== "undefined" && !document.getElementById("skeleton-styles")) {
@@ -25,7 +32,7 @@ if (typeof document !== "undefined" && !document.getElementById("skeleton-styles
     document.head.appendChild(style);
 }
 
-const Skeleton = ({
+const Skeleton = memo(({
     variant = "rect", // "rect" | "circle" | "text" | "card" | "blog" | "section-header" | "card-grid" | "articles" | "promo" | "reviews" | "product-detail" | "hero" | "browse-category" | "why-choose" | "review-section" | "table" | "form"
     width,
     height,
@@ -39,13 +46,7 @@ const Skeleton = ({
     ...props
 }) => {
     const itemCount = count !== undefined ? count : (variant === "card-grid" || variant === "articles" ? 4 : 1);
-    const themes = {
-        light: { bg: "#e2e8f0", grad: "linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%)" },
-        dark: { bg: "#1e293b", grad: "linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%)" },
-        adaptive: { bg: "rgba(0,0,0,0.08)", grad: "linear-gradient(90deg, rgba(0,0,0,0.08) 25%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.08) 75%)" },
-        translucent: { bg: "rgba(255,255,255,0.2)", grad: "linear-gradient(90deg, rgba(255,255,255,0.2) 25%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.2) 75%)" }
-    };
-    const active = themes[theme] || themes.light;
+    const active = THEMES[theme] || THEMES.light;
 
     const baseStyle = {
         display: "inline-block",
@@ -782,6 +783,8 @@ const Skeleton = ({
             {renderContent()}
         </SkeletonContext.Provider>
     );
-};
+});
+
+Skeleton.displayName = "Skeleton";
 
 export default Skeleton;

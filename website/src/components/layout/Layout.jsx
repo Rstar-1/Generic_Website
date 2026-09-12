@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
+import Chatbot from './Chatbot';
 import { CartProvider } from '../../context/CartContext';
 import Button from '../common/Button';
 
@@ -113,6 +114,7 @@ const Layout = () => (
             </div>
         </aside>
 
+        <Chatbot />
         <Footer />
     </CartProvider>
 );

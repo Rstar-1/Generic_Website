@@ -12,7 +12,7 @@
   ],
   "HeroBanner": [
     {
-      "HeroBannerVersion": 2,
+      "HeroBannerVersion": 1,
       "HeroBannerType": 1,
       "HeroBannerText": 1,
       "HeroBannerImage": 1
@@ -20,15 +20,16 @@
   ],
   "Category": [
     {
-      "CategoryVersion": 1
+      "CategoryVersion": 3
     }
   ],
   "About": [
     {
+      "AboutVersion": 2,
+      "AboutType": 1,
       "AboutSide": "left",
-      "AboutVersion": 1,
-      "AboutText": 1,
-      "AboutImage": 1
+      "AboutLeft": 1,
+      "AboutRight": 4
     }
   ],
   "Service": [
@@ -54,6 +55,11 @@
   "Blog": [
     {
       "BlogVersion": 1
+    }
+  ],
+  "Connect": [
+    {
+      "ConnectVersion": 1
     }
   ],
   "Footer": [

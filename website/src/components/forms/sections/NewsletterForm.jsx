@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Icon from '../../common/Icon';
-import FormBuilder from '../../common/FormBuilder';
+import FormBuilder from '../FormBuilder';
 import { sendEmail } from '../../../utils/emailsend';
 
 const NewsletterForm = ({
