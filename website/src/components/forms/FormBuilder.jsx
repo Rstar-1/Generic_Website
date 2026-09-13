@@ -29,7 +29,8 @@ const validateField = (field, val) => {
       val === undefined ||
       val === "" ||
       (typeof val === "string" && !val.trim()) ||
-      (Array.isArray(val) && !val.length))
+      (Array.isArray(val) && !val.length) ||
+      (field.type === "range-datepicker" && typeof val === "object" && (!val?.fromDate || !val?.toDate)))
   ) {
     return "This field is required";
   }
@@ -68,6 +69,10 @@ const FormBuilder = React.memo(
     fieldClassName = "",
     version = 1,
     fieldVersion,
+    onBack,
+    backText = "Back",
+    isSubmitting = false,
+    buttonColor = "white",
     children,
   }) => {
     const activeVersion = fieldVersion || version;
@@ -196,7 +201,30 @@ const FormBuilder = React.memo(
         {children}
 
         <div className={buttonClassName || "flex justify-center mt-20"}>
-          <Button type="submit" version={buttonVersion} bg={buttonBg}>
+          {onBack && (
+            <Button
+              type="button"
+              version={buttonVersion}
+              bg="forth"
+              color="dark"
+              text={backText}
+              icon="ChevronLeft"
+              iconPosition="left"
+              iconWidth="14"
+              iconHeight="14"
+              className="rounded-5 mr-12"
+              style={{ color: "var(--dark)" }}
+              onClick={onBack}
+              disabled={isSubmitting}
+            />
+          )}
+          <Button
+            type="submit"
+            version={buttonVersion}
+            bg={buttonBg}
+            color={buttonColor}
+            disabled={isSubmitting}
+          >
             {submitText}
           </Button>
         </div>

@@ -949,6 +949,53 @@ const Icon = React.memo(({ name, icon, className = "", width, height, strokeWidt
                     <path d="m19 4-.7 2a1 1 0 0 1-.6.6L15.7 7.3l2 .7a1 1 0 0 1 .6.6l.7 2 .7-2a1 1 0 0 1 .6-.6l2-.7-2-.7a1 1 0 0 1-.6-.6Z" />
                 </svg>
             );
+        case "Battery":
+            return (
+                <svg viewBox="0 0 24 24" width={defaultWidth} height={defaultHeight} stroke={stroke || "currentColor"} strokeWidth={defaultStrokeWidth} fill={fill || "none"} strokeLinecap="round" strokeLinejoin="round" className={`flex ${className}`} {...props}>
+                    <rect width="16" height="10" x="2" y="7" rx="2" ry="2"/>
+                    <line x1="22" x2="22" y1="11" y2="13"/>
+                </svg>
+            );
+        case "Screen":
+        case "Focus":
+        case "Scan":
+            return (
+                <svg viewBox="0 0 24 24" width={defaultWidth} height={defaultHeight} stroke={stroke || "currentColor"} strokeWidth={defaultStrokeWidth} fill={fill || "none"} strokeLinecap="round" strokeLinejoin="round" className={`flex ${className}`} {...props}>
+                    <path d="M4 8V4h4"/>
+                    <path d="M20 8V4h-4"/>
+                    <path d="M4 16v4h4"/>
+                    <path d="M20 16v4h-4"/>
+                </svg>
+            );
+        case "Display":
+        case "MoveDiagonal":
+        case "DiagonalArrow":
+            return (
+                <svg viewBox="0 0 24 24" width={defaultWidth} height={defaultHeight} stroke={stroke || "currentColor"} strokeWidth={defaultStrokeWidth} fill={fill || "none"} strokeLinecap="round" strokeLinejoin="round" className={`flex ${className}`} {...props}>
+                    <polyline points="13 5 19 5 19 11"/>
+                    <polyline points="11 19 5 19 5 13"/>
+                    <line x1="19" y1="5" x2="5" y2="19"/>
+                </svg>
+            );
+        case "AluminiumCase":
+        case "CaseGrid":
+        case "DotsGrid":
+            return (
+                <svg viewBox="0 0 24 24" width={defaultWidth} height={defaultHeight} fill={stroke || fill || "currentColor"} className={`flex ${className}`} {...props}>
+                    <circle cx="8" cy="5" r="1.5" />
+                    <circle cx="12" cy="5" r="1.5" />
+                    <circle cx="16" cy="5" r="1.5" />
+                    <circle cx="8" cy="9.5" r="1.5" />
+                    <circle cx="12" cy="9.5" r="1.5" />
+                    <circle cx="16" cy="9.5" r="1.5" />
+                    <circle cx="8" cy="14.5" r="1.5" />
+                    <circle cx="12" cy="14.5" r="1.5" />
+                    <circle cx="16" cy="14.5" r="1.5" />
+                    <circle cx="8" cy="19" r="1.5" />
+                    <circle cx="12" cy="19" r="1.5" />
+                    <circle cx="16" cy="19" r="1.5" />
+                </svg>
+            );
         default:
             return null;
     }

@@ -21,7 +21,7 @@ const QUICK_ACTIONS = [
         icon: 'Layers',
         iconBg: '#06b6d4',
         reply: 'Our architectural materials are certified for diverse commercial and residential applications:\n\n• **Hospitality**: Hotels, resorts, guest suites, and dining areas.\n• **Corporate**: Executive boardrooms, open workspaces, and breakout lounges.\n• **Retail & Showrooms**: High-abrasion durability with aesthetic grain patterns.\n• **Healthcare & Education**: Anti-microbial, stain-resistant, and low-VOC verified.',
-        cta: { text: 'Explore Services', path: '/services' }
+        cta: { text: 'Explore Services', path: '/service' }
     },
     {
         id: 'wheretobuy',
@@ -30,7 +30,7 @@ const QUICK_ACTIONS = [
         icon: 'MapPin',
         iconBg: '#7c3aed',
         reply: 'We have an authorized distributor network across North America, Europe, and Asia-Pacific. You can connect directly with our regional trade desks or locate authorized local stockists for immediate fulfillment.',
-        cta: { text: 'Find A Dealer', path: '/wheretobuy' }
+        cta: { text: 'Find A Dealer', path: '/product' }
     },
     {
         id: 'warranty',
@@ -141,7 +141,7 @@ const ChatHeader = React.memo(({ onClose }) => (
                 />
             </div>
             <div>
-                <h4 className="mid-text font-600 text-dark">Responsive Assistant</h4>
+                <h4 className="headmini-text font-600 text-dark">Responsive Assistant</h4>
                 <p className="mini-text font-400 text-gray">Online</p>
             </div>
         </div>
@@ -375,7 +375,7 @@ const Chatbot = () => {
                         bottom: '30px',
                         right: '6px',
                     }}
-                    className='flex items-end justify-end gap-10'
+                    className='flex items-end justify-end gap-10 z-999'
                 >
                     {showTeaser && (
                         <ChatTeaser

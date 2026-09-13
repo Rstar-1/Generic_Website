@@ -542,7 +542,7 @@ const HeaderActions = React.memo(
             iconWidth="16"
             iconHeight="16"
             version="v2"
-            className="rounded-5"
+            className="rounded-30"
           />
         </div>
 

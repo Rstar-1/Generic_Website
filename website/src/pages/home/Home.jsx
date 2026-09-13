@@ -14,11 +14,14 @@ const BlogSection = lazy(() => import('./sections/BlogSection'));
 const FeedSection = lazy(() => import('./sections/FeedSection'));
 const HeroSections = lazy(() => import('./sections/HeroSections'));
 
+const CompareSection = lazy(() => import('./sections/CompareSection'));
+
 const ecomSections = [
     HeroBanner,
     CategorySection,
     FeatureSection,
     AboutSection,
+    CompareSection,
     TrendingSection,
     OfferSection
 ];

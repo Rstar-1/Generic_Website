@@ -388,7 +388,7 @@ const AboutVersion3 = React.memo(({ aboutSide = 'left', onLearnMore, data = defa
                                 {(aboutCMS?.codeSnippets?.[activePlatform] || aboutCMS?.codeSnippets?.Android || []).map((item) => (
                                     <div key={item.num} className="flex items-center gap-10 whitespace-nowrap overflow-hidden text-ellipsis">
                                         <span style={{ color: '#475569', width: '12px', textAlign: 'right', flexShrink: 0, userSelect: 'none' }}>
-                                             {item.num}
+                                            {item.num}
                                         </span>
                                         <span className="overflow-hidden text-ellipsis">
                                             {renderCodeTokens(item.code)}
@@ -638,7 +638,7 @@ const AboutSection = React.memo(() => {
     const headingTitle = aboutVersion === 4 ? (aboutCMS?.heading?.title || "Expert Innovative And Deliver Exceptional For NOT Solution Now.") : "Expert Innovative And Deliver Exceptional For NOT Solution Now.";
 
     return (
-        <Container style={{ background: 'var(--forth)' }}>
+        <Container>
             <div className="w-full py-50">
                 {!([5, 6].includes(aboutVersion)) && (
                     <Heading

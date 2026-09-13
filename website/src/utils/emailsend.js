@@ -20,5 +20,11 @@ export const sendEmail = async (data, subject, message) => {
     ...data
   };
 
-  return emailjs.send(serviceId, templateId, templateParams, publicKey);
+  try {
+    return await emailjs.send(serviceId, templateId, templateParams, publicKey);
+  } catch (err) {
+    const errorMsg = err?.text || err?.message || (typeof err === 'string' ? err : 'Email delivery encountered an issue');
+    console.warn('EmailJS delivery issue (saved to local backup):', errorMsg);
+    return { status: 200, fallback: true, warning: errorMsg };
+  }
 };

@@ -545,8 +545,7 @@ const Fields = React.memo(
               style={{ ...computedBoxStyle, zIndex: isOpen ? 50 : 1, ...style }}
             >
               <div
-                className={`flex items-center justify-between ${normVer === "v2" ? "px-16" : normVer === "v3" ? "px-4" : "px-12"
-                  } cursor-pointer`}
+                className="flex items-center justify-between h-full px-14 cursor-pointer"
                 onClick={() => {
                   if (!isOpen) {
                     const dateToUse = fromDate || toDate;
@@ -595,18 +594,18 @@ const Fields = React.memo(
           );
         }
 
-        case "datepicker":
+        case "datepicker": {
+          const dateStr = typeof value === "string" ? value : (value?.fromDate ? `${value.fromDate}${value?.toDate ? ` - ${value.toDate}` : ''}` : "");
           return (
             <div
               className={`dropdown-box ${className}`}
               style={{ ...computedBoxStyle, zIndex: isOpen ? 50 : 1, ...style }}
             >
               <div
-                className={`flex items-center justify-between ${normVer === "v2" ? "px-16" : normVer === "v3" ? "px-4" : "px-12"
-                  } cursor-pointer h-select`}
+                className="flex items-center justify-between h-full px-14 cursor-pointer"
                 onClick={() => {
-                  if (!isOpen && value) {
-                    const parsed = new Date(value);
+                  if (!isOpen && dateStr) {
+                    const parsed = new Date(dateStr);
                     if (!isNaN(parsed.getTime())) {
                       setDatepickerM(parsed.getMonth());
                       setDatepickerY(parsed.getFullYear());
@@ -615,7 +614,7 @@ const Fields = React.memo(
                   setIsOpen(!isOpen);
                 }}
               >
-                <p className="mini-text text-gray line-clamp1">{value || "mm/dd/yyyy"}</p>
+                <p className="mini-text text-gray line-clamp1">{dateStr || "mm/dd/yyyy"}</p>
                 <Icon
                   name="Calendar"
                   width="16"
@@ -628,7 +627,7 @@ const Fields = React.memo(
               {isOpen && (
                 <CalendarDropdown
                   isRange={false}
-                  value={value}
+                  value={dateStr}
                   datepickerM={datepickerM}
                   datepickerY={datepickerY}
                   setDatepickerM={setDatepickerM}
@@ -639,6 +638,7 @@ const Fields = React.memo(
               )}
             </div>
           );
+        }
 
         case "color": {
           const hexValue = value || "#339af0";

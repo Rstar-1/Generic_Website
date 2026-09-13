@@ -249,7 +249,7 @@ const FeatureSection = () => {
     const navigate = useNavigate();
 
     return (
-        <Container>
+        <Container style={{ background: 'var(--forth)' }}>
             <div className="w-full py-50">
                 <style>{`
                     .product-card .product-btn {
