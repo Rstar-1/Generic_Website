@@ -39,30 +39,49 @@ const enquiryFields = [
     }
 ];
 
+// Contact details configured via environment variables
+const rawEnvPhone = import.meta.env.VITE_CONTACT_PHONE || import.meta.env.VITE_PHONE || '+1 888-234-1234 (Toll-Free)';
+const displayPhone = import.meta.env.VITE_CONTACT_PHONE || (
+    import.meta.env.VITE_PHONE
+        ? (import.meta.env.VITE_PHONE.startsWith('+') || import.meta.env.VITE_PHONE.includes(' ') || import.meta.env.VITE_PHONE.includes('-')
+            ? import.meta.env.VITE_PHONE
+            : (import.meta.env.VITE_PHONE.length === 10 ? `+91 ${import.meta.env.VITE_PHONE}` : import.meta.env.VITE_PHONE))
+        : '+1 888-234-1234 (Toll-Free)'
+);
+const phoneDial = import.meta.env.VITE_PHONE || (import.meta.env.VITE_CONTACT_PHONE ? import.meta.env.VITE_CONTACT_PHONE.replace(/[^\d+]/g, '') : '8882341234');
+const envEmail = import.meta.env.VITE_EMAIL || 'connect@generictrade.com';
+const envAddress = import.meta.env.VITE_ADDRESS || import.meta.env.VITE_OFFICE_ADDRESS || '382 NE 191st St # 87394 Miami, FL 33179';
+const envOfficeTitle = import.meta.env.VITE_OFFICE_TITLE || 'General Office';
+const envOfficeSub = import.meta.env.VITE_OFFICE_SUB || import.meta.env.VITE_SITE_NAME || 'Global Trade Center';
+const envHours = import.meta.env.VITE_WORKING_HOURS || 'Mon – Fri, 7:30 AM – 4:00 PM PT';
+const envWeekendHours = import.meta.env.VITE_WEEKEND_HOURS || 'Sat: 8:00 AM – 1:00 PM | Sun: Closed';
+
 const contactDetails = [
     {
         icon: 'MapPin',
-        title: 'General Office',
-        desc: '382 NE 191st St # 87394 Miami, FL 33179',
-        sub: 'Global Trade Center'
+        title: envOfficeTitle,
+        desc: envAddress,
+        sub: envOfficeSub
     },
     {
         icon: 'Phone',
         title: 'Call Us',
-        desc: '+1 888-234-1234 (Toll-Free)',
-        sub: 'Mon – Fri, 7:30 AM – 4:00 PM PT'
+        desc: displayPhone,
+        link: `tel:${phoneDial}`,
+        sub: envHours
     },
     {
         icon: 'Mail',
         title: 'Email Us',
-        desc: 'connect@generictrade.com',
+        desc: envEmail,
+        link: `mailto:${envEmail}`,
         sub: 'Average Response Time: < 15 mins'
     },
     {
         icon: 'Clock',
         title: 'Working Hours',
-        desc: 'Mon – Fri, 7:30 AM – 4:00 PM PT',
-        sub: 'Sat: 8:00 AM – 1:00 PM | Sun: Closed'
+        desc: envHours,
+        sub: envWeekendHours
     }
 ];
 
@@ -75,70 +94,76 @@ const getCart = () => {
     }
 };
 
-const EnquiryVersion1 = React.memo(({ fields, onSubmit, formKey }) => (
-    <Container>
-        <div className="flex sm-grid-cols-1 items-start gap-12 py-60">
-            <div className="w-65 sm-w-full pr-20 sm-pr-1 bordr">
-                <Heading
-                    version="v2"
-                    tag="GET IN TOUCH"
-                    tagIcon="Phone"
-                    title="Contact Us"
-                    subtitle="Made entirely of oak, the Bow Chair is comfortable, visually pleasing and brimming with character. The moulded plywood seat is unusually wide in proportion to its depth."
-                    className="mb-20"
-                />
+const EnquiryVersion1 = React.memo(({ fields, onSubmit, formKey }) => {
+    const navigate = useNavigate();
 
-                <div className="w-90 sm-w-full">
-                    <FormBuilder
-                        key={formKey}
-                        version="3"
-                        fields={fields}
-                        onSubmit={onSubmit}
-                        submitType="json"
-                        col="1"
-                        submitText="Submit Now"
-                        buttonVersion="v2"
-                        buttonBg="dark"
-                        buttonClassName="flex items-center justify-start mt-20"
+    return (
+        <Container>
+            <div className="flex sm-grid-cols-1 items-start gap-12 py-60">
+                <div className="w-65 sm-w-full pr-20 sm-pr-1 bordr">
+                    <Heading
+                        version="v2"
+                        tag={import.meta.env.VITE_CONTACT_TAG || "GET IN TOUCH"}
+                        tagIcon="Phone"
+                        title={import.meta.env.VITE_CONTACT_TITLE || "Contact Us"}
+                        subtitle={import.meta.env.VITE_CONTACT_SUBTITLE || "Have a project in mind, need technical consultation, or have an inquiry? Reach out to our team."}
+                        className="mb-20"
                     />
-                </div>
-            </div>
 
-            <div className="w-35 sm-w-full pl-20 sm-pl-1">
-                <Heading
-                    version="v2"
-                    tag="SUPPORT DESK"
-                    tagIcon="Clock"
-                    title="Need Help?"
-                    subtitle="To us, design has a broader purpose and as you can read about on this website, we are on a mission."
-                    className="mb-20"
-                />
-
-                <div className="grid-cols-1 gap-12 mt-20">
-                    {contactDetails.slice(0, 3).map((item, idx) => (
-                        <div key={idx} className="flex gap-12 items-start mb-20">
-                            <div className="icon-lg border-dark rounded-full center-div flex-shrink-0">
-                                <Icon name={item.icon} width="16" height="16" stroke="#141414" />
-                            </div>
-                            <div>
-                                <h4 className="text-dark mid-text font-600">{item.title}</h4>
-                                <p className="text-gray mini-text font-400 mt-2">{item.desc}</p>
-                            </div>
-                        </div>
-                    ))}
+                    <div className="w-90 sm-w-full">
+                        <FormBuilder
+                            key={formKey}
+                            version="3"
+                            fields={fields}
+                            onSubmit={onSubmit}
+                            submitType="json"
+                            col="1"
+                            submitText="Submit Now"
+                            buttonVersion="v2"
+                            buttonBg="dark"
+                            buttonClassName="flex items-center justify-start mt-20"
+                        />
+                    </div>
                 </div>
 
-                <Button
-                    text="Find A Store"
-                    version="v2"
-                    bg="dark"
-                    color="white"
-                    className="rounded-30 mt-10"
-                />
+                <div className="w-35 sm-w-full pl-20 sm-pl-1 sm-mt-16">
+                    <Heading
+                        version="v2"
+                        tag={import.meta.env.VITE_SUPPORT_TAG || "SUPPORT DESK"}
+                        tagIcon="Clock"
+                        title={import.meta.env.VITE_SUPPORT_TITLE || "Need Help?"}
+                        subtitle={import.meta.env.VITE_SUPPORT_SUBTITLE || "To us, design has a broader purpose and as you can read about on this website, we are on a mission."}
+                        className="mb-20"
+                    />
+
+                    <div className="grid-cols-1 gap-12 mt-20">
+                        {contactDetails.slice(0, 3).map((item, idx) => (
+                            <div key={idx} className="flex gap-12 items-start mb-20">
+                                <div className="icon-lg border-dark rounded-full center-div flex-shrink-0">
+                                    <Icon name={item.icon} width="16" height="16" stroke="#141414" />
+                                </div>
+                                <div>
+                                    <h4 className="text-dark mid-text font-600">{item.title}</h4>
+                                    {item.link ? (
+                                        <a
+                                            href={item.link}
+                                            className="text-gray mini-text font-400 mt-2 block"
+                                            style={{ textDecoration: 'none', color: 'inherit' }}
+                                        >
+                                            <span className="text-gray hover:text-dark">{item.desc}</span>
+                                        </a>
+                                    ) : (
+                                        <p className="text-gray mini-text font-400 mt-2">{item.desc}</p>
+                                    )}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
-        </div>
-    </Container>
-));
+        </Container>
+    );
+});
 
 EnquiryVersion1.displayName = 'EnquiryVersion1';
 
@@ -255,7 +280,7 @@ const EnquiryVersion3 = React.memo(({ fields, onSubmit, formKey }) => (
                         <Icon name="Phone" width="16" height="16" stroke="var(--primary)" />
                     </div>
                     <h4 className="title-text font-600 text-dark mt-8">Sales & Inquiries</h4>
-                    <p className="mini-text text-gray mt-7">+1 888-234-1234 (Toll-Free)</p>
+                    <p className="mini-text text-gray mt-7">{displayPhone}</p>
                     <p className="mini-text text-primary font-500 mt-2">Instant Connection</p>
                 </div>
 
@@ -264,7 +289,7 @@ const EnquiryVersion3 = React.memo(({ fields, onSubmit, formKey }) => (
                         <Icon name="Mail" width="16" height="16" stroke="var(--primary)" />
                     </div>
                     <h4 className="title-text font-600 text-dark mt-8">Technical Advisory</h4>
-                    <p className="mini-text text-gray mt-7">connect@generictrade.com</p>
+                    <p className="mini-text text-gray mt-7">{envEmail}</p>
                     <p className="mini-text text-primary font-500 mt-2">&lt; 15 Min Turnaround</p>
                 </div>
 
@@ -273,8 +298,8 @@ const EnquiryVersion3 = React.memo(({ fields, onSubmit, formKey }) => (
                         <Icon name="MapPin" width="16" height="16" stroke="var(--primary)" />
                     </div>
                     <h4 className="title-text font-600 text-dark mt-8">Get In Touch</h4>
-                    <p className="mini-text text-gray mt-7">382 NE 191st St Miami, FL</p>
-                    <p className="mini-text text-primary font-500 mt-2">Open Mon – Fri, 7:30 AM</p>
+                    <p className="mini-text text-gray mt-7">{envAddress}</p>
+                    <p className="mini-text text-primary font-500 mt-2">Open {envHours.split(',')[0] || 'Mon – Fri'}</p>
                 </div>
             </div>
 

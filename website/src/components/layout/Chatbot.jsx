@@ -6,89 +6,89 @@ import Fields from '../forms/Fields';
 
 const QUICK_ACTIONS = [
     {
-        id: 'products',
-        title: 'Our products',
-        subtitle: 'SPC, LVT, synthetic leather',
-        icon: 'Product',
-        iconBg: '#2563eb',
-        reply: 'We offer an extensive catalog of commercial and residential solutions:\n\n• **SPC Rigid Core Flooring**: 100% waterproof, heavy-duty wear layer with acoustic IXPE underlayment.\n• **LVT Luxury Vinyl Tile**: Authentic embossed wood & stone textures for high-traffic environments.\n• **Synthetic Leather**: High-durability upholstery grade for hospitality and corporate furniture.\n\nWould you like to browse our catalog or get sample swatches?',
-        cta: { text: 'Browse Products', path: '/product' }
-    },
-    {
-        id: 'applications',
-        title: 'Applications',
-        subtitle: 'Where our products fit',
+        id: 'services',
+        title: 'Our Services',
+        subtitle: 'Web, UI/UX, Cloud & AI',
         icon: 'Layers',
-        iconBg: '#06b6d4',
-        reply: 'Our architectural materials are certified for diverse commercial and residential applications:\n\n• **Hospitality**: Hotels, resorts, guest suites, and dining areas.\n• **Corporate**: Executive boardrooms, open workspaces, and breakout lounges.\n• **Retail & Showrooms**: High-abrasion durability with aesthetic grain patterns.\n• **Healthcare & Education**: Anti-microbial, stain-resistant, and low-VOC verified.',
+        iconBg: '#2563eb',
+        reply: 'We specialize in end-to-end digital product design and modern engineering:\n\n• **UI/UX & Product Design**: Research, Figma design systems, wireframing, and interactive prototyping.\n• **Full-Stack Engineering**: High-performance web apps built with Next.js, React, Node.js, and TypeScript.\n• **Cloud & DevOps**: Edge deployment, scalable microservices, and CI/CD pipelines.\n• **AI & Growth Engine**: Custom LLM integration, workflow automation, and CRO optimization.\n\nWould you like to explore our service capabilities or discuss a project?',
         cta: { text: 'Explore Services', path: '/service' }
     },
     {
-        id: 'wheretobuy',
-        title: 'Where to buy',
-        subtitle: 'Find dealers near you',
-        icon: 'MapPin',
-        iconBg: '#7c3aed',
-        reply: 'We have an authorized distributor network across North America, Europe, and Asia-Pacific. You can connect directly with our regional trade desks or locate authorized local stockists for immediate fulfillment.',
-        cta: { text: 'Find A Dealer', path: '/product' }
+        id: 'portfolio',
+        title: 'Case Studies',
+        subtitle: 'Featured digital work',
+        icon: 'Sparkles',
+        iconBg: '#06b6d4',
+        reply: 'We partner with high-growth startups and global enterprises to deliver category-defining digital products:\n\n• **B2B SaaS Platforms**: High-conversion user onboarding and complex analytics dashboards.\n• **Headless E-Commerce**: Sub-second page transitions with 3D product previews.\n• **Enterprise Web Apps**: SOC-2 compliant, accessible (WCAG AA), and Lighthouse 100 performance rated.\n\nCheck out our recent client products and digital showcases!',
+        cta: { text: 'View Products & Work', path: '/product' }
     },
     {
-        id: 'warranty',
-        title: 'Warranty',
-        subtitle: 'Coverage & maintenance',
+        id: 'bookdemo',
+        title: 'Book a Demo',
+        subtitle: 'Free strategy session',
+        icon: 'Calendar',
+        iconBg: '#7c3aed',
+        reply: 'Ready to build or scale your digital product? Schedule a free 30-minute discovery session with our technical leads and product architects:\n\n• Architecture review & modern tech stack assessment\n• UX heuristic audit & conversion funnel evaluation\n• MVP roadmap & sprint timeline estimation',
+        cta: { text: 'Book A Consultation', path: '/bookdemo' }
+    },
+    {
+        id: 'pricing',
+        title: 'Pricing & Plans',
+        subtitle: 'Flexible sprint models',
         icon: 'ShieldCheck',
         iconBg: '#059669',
-        reply: 'All our products are backed by industry-leading warranties:\n\n• **Commercial Warranty**: 15 to 25-year structural & wear protection.\n• **Residential Warranty**: Lifetime residential wear guarantee.\n• **Maintenance**: Stain-resistant UV ceramic coating with minimal upkeep required.',
-        cta: { text: 'Contact Support', path: '/connect' }
+        reply: 'We offer flexible, transparent engagement models tailored to your growth stage:\n\n• **MVP Sprints**: Idea to production in 4 to 6 weeks.\n• **Dedicated Product Pods**: Senior engineers & designers embedded in your team.\n• **Custom Enterprise Scopes**: End-to-end delivery with guaranteed performance SLAs.\n\nExplore our pricing tiers or request a custom proposal!',
+        cta: { text: 'View Pricing', path: '/pricing' }
     }
 ];
 
 const QUERY_RULES = [
     {
-        keywords: ['price', 'cost', 'rate', 'quote', 'tier'],
-        reply: 'Our pricing structure varies by volume, specifications, and project scope. You can view our public tiers on the Pricing page or request an executive quote via our Connect desk.',
+        keywords: ['price', 'cost', 'rate', 'quote', 'tier', 'budget', 'estimate'],
+        reply: 'Our engagement models include rapid MVP sprints, monthly dedicated engineering pods, and custom enterprise scopes. You can review our transparent pricing tiers or connect with our team for a tailored proposal.',
         cta: { text: 'View Pricing', path: '/pricing' }
     },
     {
-        keywords: ['sample', 'swatch', 'kit', 'catalog'],
-        reply: 'We provide complimentary material sample swatches for architects, contractors, and verified trade partners. Connect with our specialists to request a physical swatch kit.',
-        cta: { text: 'Request Samples', path: '/connect' }
-    },
-    {
-        keywords: ['contact', 'phone', 'call', 'email', 'touch', 'support'],
-        reply: 'You can reach our solutions desk at +1 888-234-1234 (Toll-Free) or email connect@generictrade.com. Our average response time is under 15 minutes!',
-        cta: { text: 'Connect Now', path: '/connect' }
-    },
-    {
-        keywords: ['demo', 'book', 'meeting', 'schedule', 'session'],
-        reply: 'We would be delighted to schedule a live one-on-one architecture & material review! Head to our Book Demo section to reserve a session.',
-        cta: { text: 'Book A Demo', path: '/bookademo' }
-    },
-    {
-        keywords: ['product', 'spc', 'lvt', 'floor', 'flooring', 'leather'],
+        keywords: ['service', 'services', 'capabilities', 'stack', 'tech', 'technology', 'technologies', 'develop', 'development', 'design', 'frontend', 'backend', 'ui', 'ux', 'cloud', 'ai'],
         reply: QUICK_ACTIONS[0].reply,
         cta: QUICK_ACTIONS[0].cta
     },
     {
-        keywords: ['application', 'hospitality', 'hotel', 'commercial', 'residential'],
+        keywords: ['portfolio', 'work', 'project', 'projects', 'product', 'products', 'case', 'study', 'showcase', 'client'],
         reply: QUICK_ACTIONS[1].reply,
         cta: QUICK_ACTIONS[1].cta
     },
     {
-        keywords: ['dealer', 'buy', 'store', 'where', 'location', 'distributor'],
+        keywords: ['demo', 'book', 'meeting', 'schedule', 'session', 'consult', 'consultation', 'call', 'discovery'],
         reply: QUICK_ACTIONS[2].reply,
         cta: QUICK_ACTIONS[2].cta
     },
     {
-        keywords: ['warranty', 'guarantee', 'maintain', 'durability'],
+        keywords: ['pricing', 'plan', 'plans', 'sprint', 'engagement', 'model'],
         reply: QUICK_ACTIONS[3].reply,
         cta: QUICK_ACTIONS[3].cta
+    },
+    {
+        keywords: ['contact', 'phone', 'call', 'email', 'touch', 'support', 'reach', 'message'],
+        reply: `You can reach our digital solutions desk directly:\n\n• **Email**: ${import.meta.env.VITE_EMAIL || 'connect@generictrade.com'}\n• **Phone**: ${import.meta.env.VITE_CONTACT_PHONE || import.meta.env.VITE_PHONE || '+1 888-234-1234 (Toll-Free)'}\n\nOur average turnaround time is under 15 minutes during business hours!`,
+        cta: { text: 'Connect With Us', path: '/connect' }
+    },
+    {
+        keywords: ['about', 'team', 'agency', 'company', 'who', 'story', 'mission'],
+        reply: 'We are a bespoke digital product agency and engineering collective. We partner with ambitious leaders to build high-performance web applications, resilient architectures, and iconic brand identities.',
+        cta: { text: 'About Our Agency', path: '/about' }
+    },
+    {
+        keywords: ['blog', 'article', 'articles', 'insight', 'insights', 'news'],
+        reply: 'Check out our engineering articles, UI/UX design systems, and digital product strategies on our blog.',
+        cta: { text: 'Read Blog', path: '/blog' }
     }
 ];
 
 const DEFAULT_REPLY = {
-    text: 'Thank you for reaching out! Our solutions specialists are available to answer your technical and commercial queries. Would you like to view our products, find a local dealer, or speak with an advisor?',
-    cta: { text: 'Contact Us', path: '/connect' }
+    text: 'Thanks for reaching out! Our digital product strategists and engineers are here to assist. Would you like to explore our services, review client work, or book a free discovery consultation?',
+    cta: { text: 'Book A Consultation', path: '/bookdemo' }
 };
 
 const ChatTeaser = React.memo(({ onOpen, onDismiss }) => (
@@ -124,7 +124,7 @@ const ChatTeaser = React.memo(({ onOpen, onDismiss }) => (
             />
         </div>
         <p className="mini-text text-dark font-500">
-            Hi! 👋 Looking for flooring or have a question? I'm here to help.
+            Hi! 👋 Planning a digital project or have questions? Let's chat!
         </p>
     </div>
 ));
@@ -141,8 +141,8 @@ const ChatHeader = React.memo(({ onClose }) => (
                 />
             </div>
             <div>
-                <h4 className="headmini-text font-600 text-dark">Responsive Assistant</h4>
-                <p className="mini-text font-400 text-gray">Online</p>
+                <h4 className="headmini-text font-600 text-dark">Digital Agency Assistant</h4>
+                <p className="mini-text font-400 text-gray">Online • Average reply &lt; 15m</p>
             </div>
         </div>
 
@@ -165,11 +165,11 @@ const ChatWelcome = React.memo(({ onActionClick }) => (
     <div>
         <h2 className="title-text text-dark font-700 capitalize">
             Hey there 👋<br />
-            How can I <span className="text-primary">help</span>?
+            How can we <span className="text-primary">help</span>?
         </h2>
 
         <p className="mini-text text-gray mt-6">
-            Ask about flooring, leather, applications, dealers, or support.
+            Ask about our services, tech stack, case studies, pricing, or book a consultation.
         </p>
 
         <div className="grid-cols-2 gap-6 mt-10">
