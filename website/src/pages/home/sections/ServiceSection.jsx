@@ -586,7 +586,7 @@ const ServiceSection = () => {
         stage3Y: 1400,
         endY: 2400
     });
-    const [activePlatformTab, setActivePlatformTab] = useState(Object.keys(serviceCMS.platformCodeSnippets || {})[0] || 'Next.js');
+    const [activePlatformTab, setActivePlatformTab] = useState(Object.keys(serviceCMS.platformCodeSnippets || {})[0] || 'React');
 
     const activeCodeSnippet = useMemo(() => {
         return serviceCMS.platformCodeSnippets[activePlatformTab] || Object.values(serviceCMS.platformCodeSnippets || {})[0] || [];

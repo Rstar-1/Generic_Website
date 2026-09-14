@@ -62,11 +62,11 @@ const Modal = React.memo(
     );
 
     const cardClass = isSidebar
-      ? `bg-white relative z-999 b-shadow border-ec p-0 overflow-auto h-100 ${placement === "right"
+      ? `bg-white relative z-999 b-shadow border-ec p-0 overflow-auto h-100 sm-w-full ${placement === "right"
         ? "animate-sidebar-right"
         : "animate-sidebar-left"
       }`
-      : "bg-white relative z-999 rounded-10 b-shadow border-ec p-0 overflow-auto animate-modal-scale";
+      : "bg-white relative z-999 rounded-10 b-shadow border-ec p-0 overflow-auto animate-modal-scale sm-w-full";
 
     const sizeStyle = useMemo(
       () => ({

@@ -5,6 +5,7 @@ import Icon from '../../../components/common/Icon';
 import Button from '../../../components/common/Button';
 import Heading from '../../../components/layout/generic/Heading';
 import FormBuilder from '../../../components/forms/FormBuilder';
+import { showToast } from '../../../components/common/Toast';
 import { configData } from '../../../utils/apiData';
 import { sendEmail } from '../../../utils/emailsend';
 
@@ -74,7 +75,7 @@ const getCart = () => {
     }
 };
 
-const EnquiryVersion1 = React.memo(({ fields, onSubmit, formSubmitted }) => (
+const EnquiryVersion1 = React.memo(({ fields, onSubmit, formKey }) => (
     <Container>
         <div className="flex sm-grid-cols-1 items-start gap-12 py-60">
             <div className="w-65 sm-w-full pr-20 sm-pr-1 bordr">
@@ -87,15 +88,9 @@ const EnquiryVersion1 = React.memo(({ fields, onSubmit, formSubmitted }) => (
                     className="mb-20"
                 />
 
-                {formSubmitted && (
-                    <div className="p-10 mb-15 bg-light-success text-success rounded-5 font-600 small-text text-center flex items-center justify-center gap-6">
-                        <Icon name="Check" width="16" height="16" />
-                        <span>Thank you! Your enquiry has been submitted.</span>
-                    </div>
-                )}
-
                 <div className="w-90 sm-w-full">
                     <FormBuilder
+                        key={formKey}
                         version="3"
                         fields={fields}
                         onSubmit={onSubmit}
@@ -147,7 +142,7 @@ const EnquiryVersion1 = React.memo(({ fields, onSubmit, formSubmitted }) => (
 
 EnquiryVersion1.displayName = 'EnquiryVersion1';
 
-const EnquiryVersion2 = React.memo(({ fields, onSubmit, formSubmitted }) => (
+const EnquiryVersion2 = React.memo(({ fields, onSubmit, formKey }) => (
     <Container>
         <div className="py-60">
             <div className="grid grid-cols-2 sm-grid-cols-1 gap-24 items-stretch">
@@ -221,14 +216,8 @@ const EnquiryVersion2 = React.memo(({ fields, onSubmit, formSubmitted }) => (
                         className="mb-20"
                     />
 
-                    {formSubmitted && (
-                        <div className="p-10 mb-15 bg-light-success text-success rounded-5 font-600 small-text text-center flex items-center justify-center gap-6">
-                            <Icon name="Check" width="16" height="16" />
-                            <span>Thank you! Your enquiry has been submitted.</span>
-                        </div>
-                    )}
-
                     <FormBuilder
+                        key={formKey}
                         version="3"
                         fields={fields}
                         onSubmit={onSubmit}
@@ -247,7 +236,7 @@ const EnquiryVersion2 = React.memo(({ fields, onSubmit, formSubmitted }) => (
 
 EnquiryVersion2.displayName = 'EnquiryVersion2';
 
-const EnquiryVersion3 = React.memo(({ fields, onSubmit, formSubmitted }) => (
+const EnquiryVersion3 = React.memo(({ fields, onSubmit, formKey }) => (
     <Container>
         <div className="py-60 w-full">
             <Heading
@@ -292,15 +281,9 @@ const EnquiryVersion3 = React.memo(({ fields, onSubmit, formSubmitted }) => (
             <div
                 className="bg-white mt-26"
             >
-
-                {formSubmitted && (
-                    <div className="p-10 mb-15 bg-light-success text-success rounded-5 font-600 small-text text-center flex items-center justify-center gap-6">
-                        <Icon name="Check" width="16" height="16" />
-                        <span>Thank you! Your enquiry has been submitted.</span>
-                    </div>
-                )}
                 <div className='w-70'>
                     <FormBuilder
+                        key={formKey}
                         version="3"
                         fields={fields}
                         onSubmit={onSubmit}
@@ -327,7 +310,7 @@ const VERSION_COMPONENTS = {
 
 const Enquiry = React.memo(({ version, isCart = false, onClearCart }) => {
     const navigate = useNavigate();
-    const [formSubmitted, setFormSubmitted] = useState(false);
+    const [formKey, setFormKey] = useState(0);
     const enquiryVersion = version ?? configData?.Connect?.[0]?.ConnectVersion ?? 1;
 
     const handleFormSubmit = useCallback(async (data) => {
@@ -373,11 +356,6 @@ const Enquiry = React.memo(({ version, isCart = false, onClearCart }) => {
             console.error("Formspree error:", err);
         }
 
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-        const smsUrl = `sms:${import.meta.env.VITE_PHONE || '8779030638'}${isIOS ? '&' : '?'}body=${smsBody}`;
-
-        window.location.href = smsUrl;
-
         if (isCart) {
             const currentCart = getCart();
             if (currentCart && currentCart.length > 0) {
@@ -385,10 +363,17 @@ const Enquiry = React.memo(({ version, isCart = false, onClearCart }) => {
             }
         }
 
-        setFormSubmitted(true);
-        setTimeout(() => {
-            setFormSubmitted(false);
-            if (isCart) {
+        // Clear input values and show toast
+        setFormKey(prev => prev + 1);
+        showToast('Thank you! Your enquiry has been submitted.', 'success');
+
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        const smsUrl = `sms:${import.meta.env.VITE_PHONE || '8779030638'}${isIOS ? '&' : '?'}body=${smsBody}`;
+
+        window.location.href = smsUrl;
+
+        if (isCart) {
+            setTimeout(() => {
                 if (onClearCart) onClearCart();
                 const ecomEnv = import.meta.env.ECOM ?? import.meta.env.VITE_ECOM;
                 const isEcom = String(ecomEnv).toLowerCase() === 'true';
@@ -397,8 +382,8 @@ const Enquiry = React.memo(({ version, isCart = false, onClearCart }) => {
                 } else {
                     navigate('/wheretobuy');
                 }
-            }
-        }, 1500);
+            }, 1500);
+        }
     }, [isCart, onClearCart, navigate]);
 
     const ActiveVersionComponent = VERSION_COMPONENTS[enquiryVersion] || EnquiryVersion1;
@@ -407,7 +392,7 @@ const Enquiry = React.memo(({ version, isCart = false, onClearCart }) => {
         <ActiveVersionComponent
             fields={enquiryFields}
             onSubmit={handleFormSubmit}
-            formSubmitted={formSubmitted}
+            formKey={formKey}
         />
     );
 });

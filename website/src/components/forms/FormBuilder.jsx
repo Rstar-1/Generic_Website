@@ -62,6 +62,7 @@ const FormBuilder = React.memo(
     onSubmit,
     submitType = "formdata",
     col = "1",
+    smcol = "1",
     submitText = "Save Changes",
     buttonVersion = "v2",
     buttonBg = "primary",
@@ -184,7 +185,7 @@ const FormBuilder = React.memo(
 
     return (
       <form onSubmit={handleSubmit} className="w-full">
-        <div className={`grid-cols-${col} gap-12 items-start`}>
+        <div className={`grid-cols-${col} sm-grid-cols-${smcol} gap-12 items-start`}>
           {fields.map((field) => (
             <Fields
               key={field.name}

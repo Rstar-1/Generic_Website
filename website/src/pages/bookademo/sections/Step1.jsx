@@ -5,6 +5,7 @@ import Button from '../../../components/common/Button';
 import Icon from '../../../components/common/Icon';
 import Modal from '../../../components/common/Modal';
 import FormBuilder from '../../../components/forms/FormBuilder';
+import { showToast } from '../../../components/common/Toast';
 import { sendEmail } from '../../../utils/emailsend';
 import { HERO_DESCRIPTION, sellerTypes, SELLER_DETAILS, sellerNames } from './sellerData';
 
@@ -39,7 +40,7 @@ GlossySphere.displayName = 'GlossySphere';
 const SellerNode = React.memo(({ item, isActive, onClick }) => (
     <div
         onClick={onClick}
-        className="bg-white b-shadow absolute cursor-pointer flex items-center gap-8 rounded-20 px-16 py-6"
+        className="bg-white sm-hidden b-shadow absolute cursor-pointer flex items-center gap-8 rounded-20 px-16 py-6"
         style={{
             top: `${item.y}%`,
             left: `${item.x}%`,
@@ -167,8 +168,8 @@ const Step1 = React.memo(() => {
     const [activeSellerId, setActiveSellerId] = useState('manufacture');
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [formStep, setFormStep] = useState(1);
+    const [formKey, setFormKey] = useState(0);
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [submitStatus, setSubmitStatus] = useState(null);
 
     const [formData, setFormData] = useState({
         name: '',
@@ -288,11 +289,23 @@ const Step1 = React.memo(() => {
         setFormStep(2);
     }, []);
 
+    const handleResetForm = useCallback(() => {
+        setFormData({
+            name: '',
+            email: '',
+            phone: '',
+            tradeRole: activeSeller.name,
+            location: '',
+            dateRange: ''
+        });
+        setFormKey((prev) => prev + 1);
+        setFormStep(1);
+    }, [activeSeller.name]);
+
     const handleStep2Submit = useCallback(async (data) => {
         const updatedForm = { ...formData, ...data };
         setFormData(updatedForm);
         setIsSubmitting(true);
-        setSubmitStatus(null);
 
         const currentRole = updatedForm.tradeRole || activeSeller.name;
         const dateVal = updatedForm.dateRange;
@@ -341,57 +354,28 @@ Appointment Date: ${dateFormatted}
                 console.warn('Local lead storage error:', storageErr);
             }
 
-            setSubmitStatus({
-                type: 'success',
-                message: 'Thank you! Your demo appointment has been confirmed. Our trade specialist will contact you shortly.',
-                data: { ...updatedForm, dateFormatted, currentRole }
-            });
+            handleResetForm();
+            showToast('Thank you! Your demo appointment has been confirmed.', 'success');
+
+            setTimeout(() => {
+                navigate('/home');
+            }, 1200);
         } catch (err) {
             console.error('Demo booking error:', err);
             const errMsg = err?.text || err?.message || 'Failed to submit demo request. Please try again.';
-            setSubmitStatus({
-                type: 'error',
-                message: errMsg
-            });
+            showToast(errMsg, 'error');
         } finally {
             setIsSubmitting(false);
         }
-    }, [formData, activeSeller.name]);
-
-    const handleAddToCalendar = useCallback(() => {
-        if (!submitStatus?.data) return;
-        const role = submitStatus.data.currentRole || 'IT Consulting';
-        const clientName = submitStatus.data.name || 'Client';
-        const location = submitStatus.data.location || 'Online';
-        const rawDate = submitStatus.data.dateFormatted || '';
-        const title = encodeURIComponent(`Demo Session: ${role} - ${clientName}`);
-        const details = encodeURIComponent(`Demo appointment for ${clientName}\nRole: ${role}\nLocation: ${location}`);
-        const locParam = encodeURIComponent(location);
-        const dateClean = rawDate.replace(/-/g, '');
-        const datesParam = dateClean ? `&dates=${dateClean}/${dateClean}` : '';
-        window.open(`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${locParam}${datesParam}`, '_blank');
-    }, [submitStatus]);
-
-    const handleResetForm = useCallback(() => {
-        setFormData({
-            name: '',
-            email: '',
-            phone: '',
-            tradeRole: activeSeller.name,
-            location: '',
-            dateRange: ''
-        });
-        setSubmitStatus(null);
-        setFormStep(1);
-    }, [activeSeller.name]);
+    }, [formData, activeSeller.name, handleResetForm, navigate]);
 
     return (
         <Container version="v0">
             <div className="grid-cols-2 sm-grid-cols-1 gap-12 w-full h-100">
                 <div className="px-30 flex items-center bg-forth">
-                    <div className="relative w-full overflow-hidden flex items-center justify-center h-600">
+                    <div className="relative w-full overflow-hidden flex items-center justify-center h-600 sm-h-full">
                         <svg
-                            className="absolute top-0 left-0 w-full h-full pointer-events-none"
+                            className="absolute top-0 left-0 w-full h-full sm-hidden"
                             style={{ zIndex: 5 }}
                             viewBox="0 0 100 100"
                             preserveAspectRatio="none"
@@ -444,101 +428,52 @@ Appointment Date: ${dateFormatted}
                         </p>
 
                         <div className="mt-20">
-                            {submitStatus?.type === 'success' ? (
-                                <div className="p-12 bg-forth rounded-5">
-                                    <div className="flex items-center gap-8 mb-10">
-                                        <Icon name="ShieldCheck" width="24" height="24" stroke="var(--success)" />
-                                        <h5 className="mid-text font-600 text-dark">Demo Booked Successfully!</h5>
-                                    </div>
-                                    <p className="small-text text-gray font-400">
-                                        {submitStatus.message}
-                                    </p>
+                            <div className="flex items-center justify-between mb-16">
+                                <span className="mini-text px-10 py-2 rounded-20 bg-primary text-white font-600">
+                                    Step {formStep} of 2
+                                </span>
+                                <p className="mini-text text-primary font-600">
+                                    {formStep === 1 ? 'Contact Details' : 'Schedule & Location'}
+                                </p>
+                            </div>
 
-                                    {submitStatus.data && (
-                                        <div className="bg-white rounded-5 p-10 grid-cols-2 sm-grid-cols-1 gap-8 mt-8">
-                                            <div>
-                                                <p className="mini-text text-gray font-500">Participant</p>
-                                                <p className="small-text font-600 text-dark">{submitStatus.data.name || 'Guest'}</p>
-                                            </div>
-                                            <div>
-                                                <p className="mini-text text-gray font-500">Role</p>
-                                                <p className="small-text font-600 text-dark">{submitStatus.data.currentRole}</p>
-                                            </div>
-                                            <div>
-                                                <p className="mini-text text-gray font-500">Location</p>
-                                                <p className="small-text font-600 text-dark">{submitStatus.data.location}</p>
-                                            </div>
-                                            <div>
-                                                <p className="mini-text text-gray font-500">Appointment Date</p>
-                                                <p className="small-text font-600 text-dark">{submitStatus.data.dateFormatted}</p>
-                                            </div>
-                                        </div>
-                                    )}
-                                    <div className="flex items-center gap-12 mt-12">
-                                        <Button
-                                            version="v2"
-                                            bg="primary"
-                                            color="white"
-                                            text="Proceed"
-                                            className="rounded-5"
-                                            onClick={() => navigate('/home')}
-                                        />
-                                    </div>
-                                </div>
-                            ) : (
-                                <div>
-                                    <div className="flex items-center justify-between mb-16">
-                                        <span className="mini-text px-10 py-2 rounded-20 bg-primary text-white font-600">
-                                            Step {formStep} of 2
-                                        </span>
-                                        <p className="mini-text text-primary font-600">
-                                            {formStep === 1 ? 'Contact Details' : 'Schedule & Location'}
-                                        </p>
-                                    </div>
+                            {formStep === 1 && (
+                                <FormBuilder
+                                    key={`step1-${formKey}`}
+                                    version={3}
+                                    col="2"
+                                    smcol="2"
+                                    fields={step1Fields}
+                                    values={formData}
+                                    onChange={handleFieldChange}
+                                    onSubmit={handleStep1Submit}
+                                    submitType="json"
+                                    submitText="Next Step"
+                                    buttonVersion="v2"
+                                    buttonBg="primary"
+                                    buttonClassName="flex items-center justify-start mt-20"
+                                />
+                            )}
 
-                                    {formStep === 1 && (
-                                        <FormBuilder
-                                            version={3}
-                                            col="2"
-                                            fields={step1Fields}
-                                            values={formData}
-                                            onChange={handleFieldChange}
-                                            onSubmit={handleStep1Submit}
-                                            submitType="json"
-                                            submitText="Next"
-                                            buttonVersion="v2"
-                                            buttonBg="primary"
-                                            buttonClassName="flex items-center justify-start mt-20"
-                                        />
-                                    )}
-
-                                    {formStep === 2 && (
-                                        <FormBuilder
-                                            version={3}
-                                            col="2"
-                                            fields={step2Fields}
-                                            values={formData}
-                                            onChange={handleFieldChange}
-                                            onSubmit={handleStep2Submit}
-                                            submitType="json"
-                                            submitText={isSubmitting ? 'Submitting...' : 'Submit Now'}
-                                            buttonVersion="v2"
-                                            buttonBg="primary"
-                                            buttonClassName="flex items-center gap-12 mt-20"
-                                            onBack={() => {
-                                                setSubmitStatus(null);
-                                                setFormStep(1);
-                                            }}
-                                            isSubmitting={isSubmitting}
-                                        >
-                                            {submitStatus?.type === 'error' && (
-                                                <p className="mini-text text-danger mt-10">
-                                                    {submitStatus.message}
-                                                </p>
-                                            )}
-                                        </FormBuilder>
-                                    )}
-                                </div>
+                            {formStep === 2 && (
+                                <FormBuilder
+                                    key={`step2-${formKey}`}
+                                    version={3}
+                                    col="2"
+                                    fields={step2Fields}
+                                    values={formData}
+                                    onChange={handleFieldChange}
+                                    onSubmit={handleStep2Submit}
+                                    submitType="json"
+                                    submitText={isSubmitting ? 'Submitting...' : 'Submit Now'}
+                                    buttonVersion="v2"
+                                    buttonBg="primary"
+                                    buttonClassName="flex items-center gap-12 mt-20"
+                                    onBack={() => {
+                                        setFormStep(1);
+                                    }}
+                                    isSubmitting={isSubmitting}
+                                />
                             )}
                         </div>
                     </div>

@@ -18,11 +18,6 @@
       "label": "News & Media"
     },
     {
-      "href": "/pricing",
-      "label": "Pricing",
-      "ecomOnly": false
-    },
-    {
       "href": "/service",
       "label": "Services"
     },

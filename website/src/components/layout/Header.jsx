@@ -17,11 +17,11 @@ const isEcom = import.meta.env.VITE_ECOM === "true";
 const headerType = configData?.Header?.HeaderType ?? configData?.Header?.[0]?.HeaderType ?? 1;
 
 const LogoClass = {
-  1: "w-25",
-  2: "w-15",
-  3: "w-15",
-  4: "w-15",
-}[headerType] || "w-25";
+  1: "w-25 sm-w-85",
+  2: "w-15 sm-w-85",
+  3: "w-15 sm-w-85",
+  4: "w-15 sm-w-85",
+}[headerType] || "w-25 sm-w-85";
 
 const NavigationClass = {
   1: "w-50 justify-center",
@@ -31,11 +31,11 @@ const NavigationClass = {
 }[headerType] || "w-50 justify-center";
 
 const ActionClass = {
-  1: "w-25",
-  2: "w-25",
-  3: isEcom ? "w-25" : "w-20",
-  4: "w-20",
-}[headerType] || "w-25";
+  1: "w-25 sm-w-15",
+  2: "w-25 sm-w-15",
+  3: isEcom ? "w-25 sm-w-15" : "w-20 sm-w-15",
+  4: "w-20 sm-w-15",
+}[headerType] || "w-25 sm-w-15";
 
 const CategoryClass = {
   1: "justify-between",
@@ -110,7 +110,7 @@ const HeaderLogo = React.memo(({ isHeaderWhite, onCloseMobile }) => {
 
   return (
     <NavLink
-      to="/"
+      to="/home"
       className={LogoClass}
       onClick={onCloseMobile}
     >
@@ -559,8 +559,8 @@ const HeaderActions = React.memo(
               ? "Close"
               : "Menu"
           }
-          iconWidth="18"
-          iconHeight="18"
+          iconWidth="32"
+          iconHeight="32"
           iconStroke={
             configData?.Header?.HeaderSticky
               ? isHeaderWhite
@@ -725,7 +725,7 @@ const MobileMenu = React.memo(
     }
 
     return (
-      <div className="relative left-0 w-full bg-white h-600 overflow-auto z-99 top-0 bordh hidden md-hidden sm-grid-cols-1">
+      <div className="relative left-0 w-full bg-white h-600 sm-h-full sm-pb-20 overflow-auto z-99 top-0 bordh hidden md-hidden sm-grid-cols-1">
         <div className="px-18">
           <div className="grid-cols-1 w-full">
             {header.navLinks?.map(
@@ -804,7 +804,7 @@ const MobileMenu = React.memo(
             )}
           </div>
 
-          {header.bottomBar?.menu?.length > 0 && (
+          {isEcom && header.bottomBar?.menu?.length > 0 && (
             <div className="pt-16 pb-8 bordb">
               <p
                 className="mini-text text-gray font-600 uppercase mb-8"

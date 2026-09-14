@@ -31,7 +31,7 @@
         }
       ]
     },
-    "platforms": ["Next.js", "React", "TypeScript", "Tailwind", "Mobile"],
+    "platforms": ["Next.js", "React", "Tailwind"],
     "codeSnippets": {
       "Next.js": [
         {
@@ -77,28 +77,6 @@
           "code": "return <InteractiveStudioCanvas experience={motionCanvas} />"
         }
       ],
-      "TypeScript": [
-        {
-          "num": 1,
-          "code": "interface DigitalProductConfig<T = BrandIdentity> {"
-        },
-        {
-          "num": 2,
-          "code": "const agencyEngine = new CreativeEngine({ apiVersion: 'v2' })"
-        },
-        {
-          "num": 3,
-          "code": "const project = await agencyEngine.buildDesignSystem(brief)"
-        },
-        {
-          "num": 4,
-          "code": "const deliverables = await project.compileProductionBundle()"
-        },
-        {
-          "num": 5,
-          "code": "return project.launchZeroDowntimeRelease(deliverables)"
-        }
-      ],
       "Tailwind": [
         {
           "num": 1,
@@ -119,50 +97,6 @@
         {
           "num": 5,
           "code": "export default defineDesignSystemConfig(componentKit)"
-        }
-      ],
-      "Mobile": [
-        {
-          "num": 1,
-          "code": "const mobileApp = await createCrossPlatformApp({ framework: 'Native' })"
-        },
-        {
-          "num": 2,
-          "code": "await mobileApp.loadFluidGestureNavigation(fluidRoutes)"
-        },
-        {
-          "num": 3,
-          "code": "const offlineSync = mobileApp.enableOptimisticStateCache()"
-        },
-        {
-          "num": 4,
-          "code": "await mobileApp.registerPushNotifications({ priority: 'high' })"
-        },
-        {
-          "num": 5,
-          "code": "return mobileApp.publishToAppStores({ automatedReview: true })"
-        }
-      ],
-      "Android": [
-        {
-          "num": 1,
-          "code": "const studio = await createDigitalExperience({ brand: 'NextGen' })"
-        },
-        {
-          "num": 2,
-          "code": "const designTokens = await studio.injectThemeTokens(customTheme)"
-        },
-        {
-          "num": 3,
-          "code": "const page = studio.renderDynamicCanvas({ ssr: true, edge: true })"
-        },
-        {
-          "num": 4,
-          "code": "await studio.optimizeCoreWebVitals({ targetScore: 100 })"
-        },
-        {
-          "num": 5,
-          "code": "export default studio.deployToEdgeCluster(productionEnv)"
         }
       ]
     },
@@ -437,28 +371,6 @@
       }
     },
     "platformCodeSnippets": {
-      "Next.js": [
-        {
-          "num": 1,
-          "code": "const digitalStudio = await initEnterpriseApp({ locale: 'en-US' })"
-        },
-        {
-          "num": 2,
-          "code": "const { designTokens } = await digitalStudio.loadDesignSystem()"
-        },
-        {
-          "num": 3,
-          "code": "const page = digitalStudio.renderServerComponents({ revalidate: 60 })"
-        },
-        {
-          "num": 4,
-          "code": "await digitalStudio.prefetchEdgeRoutes(['/services', '/case-studies'])"
-        },
-        {
-          "num": 5,
-          "code": "export default digitalStudio.deployToVercelEnterprise()"
-        }
-      ],
       "React": [
         {
           "num": 1,
@@ -479,28 +391,6 @@
         {
           "num": 5,
           "code": "return <AgencyShowcaseComponent experience={motionScene} />"
-        }
-      ],
-      "TypeScript": [
-        {
-          "num": 1,
-          "code": "type AgencyProjectBrief = { client: string; scope: 'Web' | 'Brand' }"
-        },
-        {
-          "num": 2,
-          "code": "const clientInstance = new DigitalAgencyClient({ secureAuth: true })"
-        },
-        {
-          "num": 3,
-          "code": "const deliverables = await clientInstance.buildDeliverables(brief)"
-        },
-        {
-          "num": 4,
-          "code": "await clientInstance.runLighthouseAudit({ minScore: 98 })"
-        },
-        {
-          "num": 5,
-          "code": "return clientInstance.publishProductionRelease(deliverables)"
         }
       ],
       "Node.js": [
@@ -539,182 +429,6 @@
         {
           "num": 5,
           "code": "export const designSystem = freezeTokens(agencyTheme)"
-        }
-      ],
-      "Android": [
-        {
-          "num": 1,
-          "code": "const digitalStudio = await initEnterpriseApp({ locale: 'en-US' })"
-        },
-        {
-          "num": 2,
-          "code": "const { designTokens } = await digitalStudio.loadDesignSystem()"
-        },
-        {
-          "num": 3,
-          "code": "const page = digitalStudio.renderServerComponents({ revalidate: 60 })"
-        },
-        {
-          "num": 4,
-          "code": "await digitalStudio.prefetchEdgeRoutes(['/services', '/case-studies'])"
-        },
-        {
-          "num": 5,
-          "code": "export default digitalStudio.deployToVercelEnterprise()"
-        }
-      ],
-      "iOS": [
-        {
-          "num": 1,
-          "code": "const digitalStudio = await initEnterpriseApp({ locale: 'en-US' })"
-        },
-        {
-          "num": 2,
-          "code": "const { designTokens } = await digitalStudio.loadDesignSystem()"
-        },
-        {
-          "num": 3,
-          "code": "const page = digitalStudio.renderServerComponents({ revalidate: 60 })"
-        },
-        {
-          "num": 4,
-          "code": "await digitalStudio.prefetchEdgeRoutes(['/services', '/case-studies'])"
-        },
-        {
-          "num": 5,
-          "code": "export default digitalStudio.deployToVercelEnterprise()"
-        }
-      ],
-      "Web": [
-        {
-          "num": 1,
-          "code": "const digitalStudio = await initEnterpriseApp({ locale: 'en-US' })"
-        },
-        {
-          "num": 2,
-          "code": "const { designTokens } = await digitalStudio.loadDesignSystem()"
-        },
-        {
-          "num": 3,
-          "code": "const page = digitalStudio.renderServerComponents({ revalidate: 60 })"
-        },
-        {
-          "num": 4,
-          "code": "await digitalStudio.prefetchEdgeRoutes(['/services', '/case-studies'])"
-        },
-        {
-          "num": 5,
-          "code": "export default digitalStudio.deployToVercelEnterprise()"
-        }
-      ],
-      "Flutter": [
-        {
-          "num": 1,
-          "code": "const digitalStudio = await initEnterpriseApp({ locale: 'en-US' })"
-        },
-        {
-          "num": 2,
-          "code": "const { designTokens } = await digitalStudio.loadDesignSystem()"
-        },
-        {
-          "num": 3,
-          "code": "const page = digitalStudio.renderServerComponents({ revalidate: 60 })"
-        },
-        {
-          "num": 4,
-          "code": "await digitalStudio.prefetchEdgeRoutes(['/services', '/case-studies'])"
-        },
-        {
-          "num": 5,
-          "code": "export default digitalStudio.deployToVercelEnterprise()"
-        }
-      ],
-      "React Native": [
-        {
-          "num": 1,
-          "code": "const digitalStudio = await initEnterpriseApp({ locale: 'en-US' })"
-        },
-        {
-          "num": 2,
-          "code": "const { designTokens } = await digitalStudio.loadDesignSystem()"
-        },
-        {
-          "num": 3,
-          "code": "const page = digitalStudio.renderServerComponents({ revalidate: 60 })"
-        },
-        {
-          "num": 4,
-          "code": "await digitalStudio.prefetchEdgeRoutes(['/services', '/case-studies'])"
-        },
-        {
-          "num": 5,
-          "code": "export default digitalStudio.deployToVercelEnterprise()"
-        }
-      ],
-      "Windows": [
-        {
-          "num": 1,
-          "code": "const digitalStudio = await initEnterpriseApp({ locale: 'en-US' })"
-        },
-        {
-          "num": 2,
-          "code": "const { designTokens } = await digitalStudio.loadDesignSystem()"
-        },
-        {
-          "num": 3,
-          "code": "const page = digitalStudio.renderServerComponents({ revalidate: 60 })"
-        },
-        {
-          "num": 4,
-          "code": "await digitalStudio.prefetchEdgeRoutes(['/services', '/case-studies'])"
-        },
-        {
-          "num": 5,
-          "code": "export default digitalStudio.deployToVercelEnterprise()"
-        }
-      ],
-      "macOS": [
-        {
-          "num": 1,
-          "code": "const digitalStudio = await initEnterpriseApp({ locale: 'en-US' })"
-        },
-        {
-          "num": 2,
-          "code": "const { designTokens } = await digitalStudio.loadDesignSystem()"
-        },
-        {
-          "num": 3,
-          "code": "const page = digitalStudio.renderServerComponents({ revalidate: 60 })"
-        },
-        {
-          "num": 4,
-          "code": "await digitalStudio.prefetchEdgeRoutes(['/services', '/case-studies'])"
-        },
-        {
-          "num": 5,
-          "code": "export default digitalStudio.deployToVercelEnterprise()"
-        }
-      ],
-      "Electron": [
-        {
-          "num": 1,
-          "code": "const digitalStudio = await initEnterpriseApp({ locale: 'en-US' })"
-        },
-        {
-          "num": 2,
-          "code": "const { designTokens } = await digitalStudio.loadDesignSystem()"
-        },
-        {
-          "num": 3,
-          "code": "const page = digitalStudio.renderServerComponents({ revalidate: 60 })"
-        },
-        {
-          "num": 4,
-          "code": "await digitalStudio.prefetchEdgeRoutes(['/services', '/case-studies'])"
-        },
-        {
-          "num": 5,
-          "code": "export default digitalStudio.deployToVercelEnterprise()"
         }
       ]
     },

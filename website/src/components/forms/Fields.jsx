@@ -673,6 +673,7 @@ const Fields = React.memo(
                 ...style,
                 resize: "vertical",
                 minHeight: "90px",
+                padding: '10px 0'
               }}
             />
           );

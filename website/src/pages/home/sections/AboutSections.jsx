@@ -30,7 +30,7 @@ const renderCodeTokens = (code) => {
 
 const AboutSections = () => {
     const navigate = useNavigate();
-    const [activePlatform, setActivePlatform] = useState(aboutCMS.platforms?.[0] || 'Android');
+    const [activePlatform, setActivePlatform] = useState(aboutCMS.platforms?.[0] || 'Next.js');
 
     return (
         <Container>
@@ -149,7 +149,7 @@ const AboutSections = () => {
                                             overflowX: 'hidden'
                                         }}
                                     >
-                                        {(aboutCMS.codeSnippets[activePlatform] || aboutCMS.codeSnippets.Android || []).map((item) => (
+                                        {(aboutCMS.codeSnippets[activePlatform] || aboutCMS.codeSnippets[aboutCMS.platforms?.[0]] || []).map((item) => (
                                             <div key={item.num} className="flex items-center gap-10 whitespace-nowrap overflow-hidden text-ellipsis">
                                                 <span style={{ color: '#475569', width: '12px', textAlign: 'right', flexShrink: 0, userSelect: 'none' }}>
                                                     {item.num}

@@ -6,7 +6,7 @@
       "HeaderCategory": 1,
       "HeaderNavMenu": "nav",
       "HeaderSticky": true,
-      "HeaderTopBar": true,
+      "HeaderTopBar": false,
       "HeaderBottomBar": true
     }
   ],
@@ -20,13 +20,13 @@
   ],
   "Category": [
     {
-      "CategoryVersion": 1
+      "CategoryVersion": 3
     }
   ],
   "About": [
     {
       "AboutVersion": 2,
-      "AboutType": 1,
+      "AboutType": 2,
       "AboutSide": "left",
       "AboutLeft": 1,
       "AboutRight": 4
