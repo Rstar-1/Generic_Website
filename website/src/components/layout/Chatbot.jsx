@@ -33,19 +33,19 @@ const QUICK_ACTIONS = [
         cta: { text: 'Book A Consultation', path: '/bookdemo' }
     },
     {
-        id: 'pricing',
-        title: 'Pricing & Plans',
-        subtitle: 'Flexible sprint models',
-        icon: 'ShieldCheck',
+        id: 'contact',
+        title: 'Get in Touch',
+        subtitle: 'Speak with our team',
+        icon: 'Headset',
         iconBg: '#059669',
-        reply: 'We offer flexible, transparent engagement models tailored to your growth stage:\n\n• **MVP Sprints**: Idea to production in 4 to 6 weeks.\n• **Dedicated Product Pods**: Senior engineers & designers embedded in your team.\n• **Custom Enterprise Scopes**: End-to-end delivery with guaranteed performance SLAs.\n\nExplore our pricing tiers or request a custom proposal!',
-        cta: { text: 'View Pricing', path: '/pricing' }
+        reply: `You can reach our digital solutions desk directly:\n\n• **Email**: ${import.meta.env.VITE_EMAIL || 'connect@generictrade.com'}\n• **Phone**: ${import.meta.env.VITE_CONTACT_PHONE || import.meta.env.VITE_PHONE || '+1 888-234-1234 (Toll-Free)'}\n\nOur average turnaround time is under 15 minutes during business hours!`,
+        cta: { text: 'Get in Touch', path: '/connect' }
     }
 ];
 
 const QUERY_RULES = [
     {
-        keywords: ['price', 'cost', 'rate', 'quote', 'tier', 'budget', 'estimate'],
+        keywords: ['price', 'pricing', 'cost', 'rate', 'quote', 'tier', 'budget', 'estimate', 'plan', 'plans', 'sprint', 'engagement', 'model'],
         reply: 'Our engagement models include rapid MVP sprints, monthly dedicated engineering pods, and custom enterprise scopes. You can review our transparent pricing tiers or connect with our team for a tailored proposal.',
         cta: { text: 'View Pricing', path: '/pricing' }
     },
@@ -65,14 +65,9 @@ const QUERY_RULES = [
         cta: QUICK_ACTIONS[2].cta
     },
     {
-        keywords: ['pricing', 'plan', 'plans', 'sprint', 'engagement', 'model'],
+        keywords: ['contact', 'phone', 'call', 'email', 'touch', 'support', 'reach', 'message'],
         reply: QUICK_ACTIONS[3].reply,
         cta: QUICK_ACTIONS[3].cta
-    },
-    {
-        keywords: ['contact', 'phone', 'call', 'email', 'touch', 'support', 'reach', 'message'],
-        reply: `You can reach our digital solutions desk directly:\n\n• **Email**: ${import.meta.env.VITE_EMAIL || 'connect@generictrade.com'}\n• **Phone**: ${import.meta.env.VITE_CONTACT_PHONE || import.meta.env.VITE_PHONE || '+1 888-234-1234 (Toll-Free)'}\n\nOur average turnaround time is under 15 minutes during business hours!`,
-        cta: { text: 'Connect With Us', path: '/connect' }
     },
     {
         keywords: ['about', 'team', 'agency', 'company', 'who', 'story', 'mission'],
@@ -169,7 +164,7 @@ const ChatWelcome = React.memo(({ onActionClick }) => (
         </h2>
 
         <p className="mini-text text-gray mt-6">
-            Ask about our services, tech stack, case studies, pricing, or book a consultation.
+            Ask about our services, tech stack, case studies, or get in touch with our team.
         </p>
 
         <div className="grid-cols-2 gap-6 mt-10">

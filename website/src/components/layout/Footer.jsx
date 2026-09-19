@@ -11,21 +11,50 @@ const FooterTopBar = React.memo(({ features }) => {
 
   return (
     <div className="grid-cols-4 sm-grid-cols-1 gap-12">
-      {features.map((item, index) => (
-        <div
-          key={item.id || index}
-          className="flex items-center gap-12 p-14 border-ec rounded-10"
-          style={{ borderRight: index === features.length - 1 ? 'none' : '1px solid var(--forth)' }}
-        >
-          <div className="icon-lg bg-tertiary rounded-full flex-shrink-0">
-            <Icon name={item.icon} width="16" height="16" stroke="var(--dark)" />
+      {features.map((item, index) => {
+        const isLast = index === features.length - 1;
+        const cardStyle = {
+          borderRight: isLast ? 'none' : '1px solid var(--forth)',
+          textDecoration: 'none',
+        };
+
+        const content = (
+          <>
+            <div className="icon-lg bg-tertiary rounded-full flex-shrink-0">
+              <Icon name={item.icon} width="16" height="16" stroke="var(--dark)" />
+            </div>
+            <div>
+              <h6 className="headmini-text text-dark font-500">{item.title}</h6>
+              <p className="mini-text text-gray font-500">{item.text}</p>
+            </div>
+          </>
+        );
+
+        if (item.link) {
+          return (
+            <a
+              key={item.id || index}
+              href={item.link}
+              target={item.link.startsWith('http') ? '_blank' : undefined}
+              rel={item.link.startsWith('http') ? 'noopener noreferrer' : undefined}
+              className="flex items-center gap-12 p-14 border-ec rounded-10 cursor-pointer transition-all"
+              style={cardStyle}
+            >
+              {content}
+            </a>
+          );
+        }
+
+        return (
+          <div
+            key={item.id || index}
+            className="flex items-center gap-12 p-14 border-ec rounded-10"
+            style={cardStyle}
+          >
+            {content}
           </div>
-          <div>
-            <h6 className="headmini-text text-dark font-500">{item.title}</h6>
-            <p className="mini-text text-gray font-500">{item.text}</p>
-          </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 });
@@ -119,21 +148,38 @@ const FooterNavigation = React.memo(({ columns }) => {
 const FooterSocials = React.memo(({ socials }) => {
   if (!isVisible(footerConfig.FooterSocial) || !socials?.length) return null;
 
+  const socialMap = {
+    facebook: import.meta.env.VITE_SOCIAL_FACEBOOK,
+    instagram: import.meta.env.VITE_SOCIAL_INSTAGRAM,
+    youtube: import.meta.env.VITE_SOCIAL_YOUTUBE,
+    whatsapp: import.meta.env.VITE_SOCIAL_WHATSAPP,
+    x: import.meta.env.VITE_SOCIAL_TWITTER,
+    twitter: import.meta.env.VITE_SOCIAL_TWITTER,
+    linkedin: import.meta.env.VITE_SOCIAL_LINKEDIN,
+  };
+
   return (
     <div className="flex items-center gap-12 pt-16">
-      {socials.map((s) => (
-        <a
-          key={s.platform || s.iconName}
-          href={s.url || '#'}
-          aria-label={s.platform || s.iconName}
-          className="rounded-full flex items-center justify-center transition-all"
-          style={{ width: '36px', height: '36px', backgroundColor: '#F1F5F9' }}
-          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#E2E8F0')}
-          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#F1F5F9')}
-        >
-          <Icon name={s.iconName} width="16" height="16" stroke="#0F172A" fill="#0F172A" />
-        </a>
-      ))}
+      {socials.map((s) => {
+        const platformKey = (s.platform || s.iconName || '').toLowerCase();
+        const url = socialMap[platformKey] || s.url || '#';
+
+        return (
+          <a
+            key={s.platform || s.iconName}
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={s.platform || s.iconName}
+            className="rounded-full flex items-center justify-center transition-all"
+            style={{ width: '36px', height: '36px', backgroundColor: '#F1F5F9' }}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#E2E8F0')}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#F1F5F9')}
+          >
+            <Icon name={s.iconName} width="16" height="16" stroke="#0F172A" fill="#0F172A" />
+          </a>
+        );
+      })}
     </div>
   );
 });
@@ -143,11 +189,16 @@ const FooterSocial = FooterSocials;
 const FooterBottomBar = React.memo(({ bottom }) => {
   if (!isVisible(footerConfig.FooterBottomBar) || !bottom) return null;
 
+  const siteName = import.meta.env.VITE_SITE_NAME;
+  const copyright = siteName
+    ? `© ${new Date().getFullYear()} ${siteName}. All rights reserved.`
+    : bottom.copyright;
+
   return (
     <div className="bordh">
       <FooterSocials socials={bottom.socials} />
       <div className="flex sm-grid-cols-1 items-center justify-between pt-12">
-        <p className="mini-text text-gray">{bottom.copyright}</p>
+        <p className="mini-text text-gray">{copyright}</p>
         {bottom.legalLinks && (
           <div className="flex items-center gap-12">
             {bottom.legalLinks.map((item) => (
@@ -167,6 +218,48 @@ const Footer = () => {
   const [email, setEmail] = React.useState('');
   const [isSubscribed, setIsSubscribed] = React.useState(false);
 
+  const envPhone = import.meta.env.VITE_PHONE;
+  const displayPhone = envPhone
+    ? (envPhone.startsWith('+') || envPhone.includes(' ') || envPhone.includes('-')
+        ? envPhone
+        : (envPhone.length === 10 ? `+91 ${envPhone}` : envPhone))
+    : null;
+  const phoneHref = import.meta.env.VITE_SOCIAL_PHONE || (envPhone ? `tel:${envPhone}` : null);
+  const envEmail = import.meta.env.VITE_EMAIL;
+  const emailHref = envEmail ? `mailto:${envEmail}` : null;
+  const envAddress = import.meta.env.VITE_ADDRESS?.trim();
+
+  const resolvedFeatures = React.useMemo(() => {
+    if (!features?.length) return [];
+    return features.map((item) => {
+      const id = item.id?.toLowerCase();
+      const title = item.title?.toLowerCase();
+
+      if (id === 'call' || title?.includes('call') || title?.includes('phone')) {
+        return {
+          ...item,
+          text: displayPhone || item.text,
+          link: phoneHref || item.link,
+        };
+      }
+      if (id === 'touch' || title?.includes('touch') || title?.includes('mail') || title?.includes('email')) {
+        return {
+          ...item,
+          text: envEmail || item.text,
+          link: emailHref || item.link,
+        };
+      }
+      if (id === 'address' || title?.includes('address') || title?.includes('location')) {
+        return {
+          ...item,
+          text: envAddress || item.text,
+          link: envAddress ? `https://maps.google.com/?q=${encodeURIComponent(envAddress)}` : item.link,
+        };
+      }
+      return item;
+    });
+  }, [features, displayPhone, phoneHref, envEmail, emailHref, envAddress]);
+
   const handleEmailChange = React.useCallback((e) => setEmail(e.target.value), []);
 
   const handleSubscribe = React.useCallback(
@@ -183,7 +276,7 @@ const Footer = () => {
   return (
     <Container style={{ background: 'var(--forth)' }}>
       <div className="py-30 w-full">
-        <FooterTopBar features={features} />
+        <FooterTopBar features={resolvedFeatures} />
 
         <div className="flex sm-grid-cols-1 justify-between gap-12 w-full py-25">
           <FooterNewsletter

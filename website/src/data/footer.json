@@ -11,22 +11,23 @@
       "id": "call",
       "icon": "Phone",
       "title": "Call Us",
-      "text": "+1 888-234-1234 (tool-free)",
+      "text": "+91 7015163045",
+      "link": "tel:7015163045",
       "type": "text"
     },
     {
       "id": "touch",
       "icon": "Send",
       "title": "Get in Touch",
-      "text": "touch@garacestore.com",
-      "link": "mailto:touch@garacestore.com",
+      "text": "kohad0681@gmail.com",
+      "link": "mailto:kohad0681@gmail.com",
       "type": "link"
     },
     {
       "id": "address",
       "icon": "MapPin",
       "title": "Address",
-      "text": "382 NE 191st St # 87394 Miami",
+      "text": "Apollo Bandar, Colaba, Mumbai, Maharashtra 400001",
       "type": "text"
     }
   ],
@@ -84,12 +85,12 @@
     },
     "paymentBadges": ["VISA", "MC", "AMEX", "PAYPAL", "DINERS", "DISCOVER"],
     "socials": [
-      { "platform": "facebook", "iconName": "Facebook", "url": "#facebook" },
-      { "platform": "x", "iconName": "X", "url": "#x" },
-      { "platform": "instagram", "iconName": "Instagram", "url": "#instagram" },
-      { "platform": "github", "iconName": "GitHub", "url": "#github" }
+      { "platform": "facebook", "iconName": "Facebook", "url": "https://www.facebook.com/share/p/1EhdBQaRw4/" },
+      { "platform": "x", "iconName": "X", "url": "https://twitter.com/ashmitaent" },
+      { "platform": "instagram", "iconName": "Instagram", "url": "https://www.instagram.com/inraclick/" },
+      { "platform": "youtube", "iconName": "YouTube", "url": "https://www.youtube.com/@INRACLICK" }
     ],
-    "copyright": "© 2026 Hyper Garace. Powered by Shopify",
+    "copyright": "© 2026 inraClick. All rights reserved.",
     "legalLinks": [
       { "label": "Terms of Service", "url": "#terms" },
       { "label": "Privacy Policy", "url": "#privacy" }
