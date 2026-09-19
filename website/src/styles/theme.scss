@@ -1,35 +1,55 @@
 /* ======================= Start-Color ======================= */
 
 :root {
-    --primary: #db5e1f !important;
-    --secondary: #1f5ac0 !important;
+    --primary: #1f5ac0 !important;
+    --secondary: #4f80d5 !important;
     --tertiary: #edf2f7d6 !important;
-    --forth: #fafafa !important;
+    --forth: #fafafad0 !important;
     --success: #4bb543 !important;
+    --successtext: #25771fbc !important;
     --warning: #fb5711 !important;
+    --warningtext: #ff5722 !important;
     --danger: #c21b1bdb !important;
-    --info: #1877F2 !important;
+    --info: #2378bdb7 !important;
     --white: #fff !important;
     --dark: #0f1623 !important;
     --gray: #585a63c0 !important;
-    --insta: linear-gradient(135deg,
-            #c13584 0%,
-            #e1306c 50%,
-            #f77737 100%) !important;
 }
 
 .dark-mode {
-    --primary: #00fffe !important;
-    --secondary: #1e4a5d !important;
-    --tertiary: #091a2d !important;
-    --forth: #2fa2ad !important;
+    --primary: #94a4f0 !important;
+    --secondary: #85a6e4 !important;
+    --tertiary: #8f9aaa !important;
+    --forth: #0f172a !important;
     --success: #4bb543 !important;
+    --successtext: #4ade80 !important;
     --warning: #ff5722 !important;
+    --warningtext: #fbbf24 !important;
     --danger: #d91831 !important;
     --info: #2196f3 !important;
-    --white: #fff !important;
-    --dark: #000 !important;
-    --gray: #74767e !important;
+    --white: #263651 !important;
+    --dark: #ffffff !important;
+    --gray: #c4c9cf !important;
+
+    .bg-light-primary {
+        background: #e1e6ef !important;
+    }
+
+    .bg-light-secondary {
+        background: #2d2638 !important;
+    }
+
+    .bg-light-success {
+        background: #123d24 !important;
+    }
+
+    .bg-light-warning {
+        background: #3e2618 !important;
+    }
+
+    .bg-light-danger {
+        background: #eddadf !important;
+    }
 }
 
 /* ======================= End-Color ======================= */
@@ -85,7 +105,7 @@
 }
 
 .bg-light-primary {
-    background: #faf0edcb !important;
+    background: #f3f5f8b6 !important;
 }
 
 .bg-light-secondary {
@@ -202,6 +222,81 @@
 
 /* ======================= End-Border ======================= */
 
+/* ======================= Start-ApexCharts Themes ======================= */
+.apexcharts-legend-text {
+    color: var(--dark) !important;
+}
+
+.apexcharts-text {
+    fill: var(--dark);
+}
+
+.apexcharts-xaxis-label,
+.apexcharts-yaxis-label,
+.apexcharts-yaxis-title text {
+    fill: var(--gray) !important;
+}
+
+.apexcharts-gridline {
+    stroke: var(--tertiary) !important;
+}
+
+.apexcharts-pie-area,
+.apexcharts-donut-slice {
+    stroke: var(--white) !important;
+}
+
+.dark-mode {
+    .apexcharts-canvas {
+        .apexcharts-legend-text {
+            color: var(--dark) !important;
+        }
+
+        .apexcharts-text,
+        .apexcharts-title-text {
+            fill: var(--dark) !important;
+        }
+
+        .apexcharts-datalabel-label {
+            fill: var(--gray) !important;
+        }
+
+        .apexcharts-datalabel-value {
+            fill: var(--dark) !important;
+        }
+
+        .apexcharts-xaxis-label,
+        .apexcharts-yaxis-label,
+        .apexcharts-yaxis-title text {
+            fill: var(--gray) !important;
+        }
+
+        .apexcharts-gridline {
+            stroke: rgba(255, 255, 255, 0.08) !important;
+        }
+
+        .apexcharts-pie-area,
+        .apexcharts-donut-slice {
+            stroke: var(--white) !important;
+        }
+
+        .apexcharts-tooltip {
+            background: var(--white) !important;
+            border-color: var(--tertiary) !important;
+            color: var(--dark) !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+
+            .apexcharts-tooltip-title {
+                background: var(--tertiary) !important;
+                border-bottom-color: var(--tertiary) !important;
+                color: var(--dark) !important;
+            }
+        }
+    }
+}
+
+/* ======================= End-ApexCharts Themes ======================= */
+
 /* ======================= Start-FontFamily ======================= */
 
 * {
@@ -241,6 +336,114 @@ input,
 }
 
 /* ======================= End-scrollbar ======================= */
+
+/* ======================= Start-Fontsize ======================= */
+.largehead-text {
+    font-size: 84px !important;
+    margin: 0px !important;
+    line-height: 90px !important;
+
+    @media (max-width: 640px) {
+        font-size: 42px !important;
+        margin: 0px !important;
+        line-height: 56px !important;
+        font-weight: 500 !important;
+    }
+}
+
+.large-text {
+    font-size: 52px !important;
+    margin: 0px !important;
+    line-height: 65px !important;
+
+    @media (max-width: 640px) {
+        font-size: 36px !important;
+        margin: 0px !important;
+        line-height: 56px !important;
+    }
+}
+
+.head-text {
+    font-size: 40px !important;
+    line-height: 52px !important;
+    margin: 0px !important;
+
+    @media (max-width: 640px) {
+        font-size: 24px !important;
+        margin: 0px !important;
+        line-height: 36px !important;
+    }
+}
+
+.title-text {
+    font-size: 24px !important;
+    margin: 0px !important;
+
+    @media (max-width: 640px) {
+        font-size: 20px !important;
+        margin: 0px !important;
+    }
+}
+
+.mid-text {
+    font-size: 18px !important;
+    margin: 0px !important;
+}
+
+.headmini-text {
+    font-size: 14px !important;
+    margin: 0px !important;
+}
+
+.largepara-text {
+    font-size: 24px !important;
+    line-height: 30px !important;
+
+    @media (max-width: 640px) {
+        font-size: 20px !important;
+        line-height: 28px !important;
+    }
+}
+
+.headpara-text {
+    font-size: 20px !important;
+    line-height: 30px !important;
+
+    @media (max-width: 640px) {
+        font-size: 20px !important;
+        line-height: 28px !important;
+    }
+}
+
+.midpara-text {
+    font-size: 18px !important;
+
+    @media (max-width: 640px) {
+        font-size: 15px !important;
+        line-height: 21px !important;
+    }
+}
+
+.para-text {
+    font-size: 16px !important;
+    line-height: 22px !important;
+
+    @media (max-width: 640px) {
+        font-size: 16px !important;
+    }
+}
+
+.small-text {
+    font-size: 13px !important;
+    line-height: 26px !important;
+}
+
+.mini-text {
+    font-size: 11.5px !important;
+    line-height: 16px !important;
+}
+
+/* ======================= End-Fontsize ======================= */
 
 /* ======================= Start-Fontsize ======================= */
 .largehead-text {

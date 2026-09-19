@@ -5,6 +5,7 @@ const VERSION_CLASSES = {
   v1: "container mx-auto",
   v2: "container2",
   v3: "container3 mx-auto",
+  v4: "p-10",
 };
 
 const Container = React.memo(

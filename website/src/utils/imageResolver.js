@@ -13,6 +13,12 @@ const assetMap = {
   "sobo_white.png": soboWhite,
 };
 
-export const resolveImagePath = (path) => (path ? assetMap[path] || path : "");
-export { hero, soboLogo, soboWhite };
+export const resolveImagePath = (path) => {
+  if (!path) return "";
+  if (typeof path === "string") {
+    return assetMap[path] || assetMap[path.trim()] || path;
+  }
+  return path;
+};
 
+export { hero, soboLogo, soboWhite };

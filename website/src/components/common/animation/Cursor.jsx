@@ -87,7 +87,6 @@ const Cursor = () => {
                 overflow: 'hidden'
             }}
         >
-            {/* Trailing Soft Ring */}
             <div
                 ref={ringRef}
                 style={{
@@ -105,7 +104,6 @@ const Cursor = () => {
                 }}
             />
 
-            {/* Instant Small Solid Dot */}
             <div
                 ref={dotRef}
                 style={{
