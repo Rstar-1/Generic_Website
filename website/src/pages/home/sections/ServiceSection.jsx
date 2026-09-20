@@ -1,765 +1,334 @@
-import React, { useState, useEffect, useRef, useMemo, useCallback, forwardRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Container from '../../../components/common/Container';
-import Icon from '../../../components/common/Icon';
-import Button from '../../../components/common/Button';
+import Badge from '../../../components/common/Badge';
 import Image from '../../../components/common/Image';
-import launchShieldImg from '../../../assets/launch-shield.jpg';
-import launchGlobeImg from '../../../assets/launch-globe.jpg';
-import launchCertificationsImg from '../../../assets/launch-certifications.jpg';
-import { serviceCMS } from '../../../utils/apiData';
 
-const renderPlatformCode = (code) => {
-    if (!code) return null;
-    const parts = code.split(/(\b(?:val|let|const|await|new|auto|import|from|export|default|function|return|interface|type)\b|\b(?:ZegoExpressEngine|ZegoEngineProfile|ZegoCanvas|ZegoUser|StudioApp|CreativeEngine|DigitalAgency|NextResponse)\b|\([^)]*\)|\[[^\]]*\]|\{[^}]*\})/g);
-    return parts.map((part, i) => {
-        if (/^(val|let|const|await|new|auto|import|from|export|default|function|return|interface|type)$/.test(part)) {
-            return <span key={i} style={{ color: '#94a3b8' }}>{part} </span>;
-        }
-        if (/^(ZegoExpressEngine|ZegoEngineProfile|ZegoCanvas|ZegoUser|StudioApp|CreativeEngine|DigitalAgency|NextResponse)$/.test(part)) {
-            return <span key={i} style={{ color: '#f43f5e', fontWeight: 500 }}>{part}</span>;
-        }
-        if ((part.startsWith('(') && part.endsWith(')')) || (part.startsWith('{') && part.endsWith('}')) || (part.startsWith('[') && part.endsWith(']'))) {
-            return (
-                <span key={i} style={{ color: '#f1f5f9' }}>
-                    {part[0]}<span style={{ color: '#c084fc' }}>{part.slice(1, -1)}</span>{part[part.length - 1]}
-                </span>
-            );
-        }
-        return <span key={i} style={{ color: '#f1f5f9' }}>{part}</span>;
-    });
-};
+gsap.registerPlugin(ScrollTrigger);
 
-const globeAvatars = [
+const services = [
     {
-        src: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
-        alt: 'Client',
-        style: { top: '40%', right: '20%' }
+        id: 1,
+        serviceName: 'Web Development and Designing',
+        description:
+            'We create responsive, secure, and high-performing websites that showcase your brand and engage your audience. From corporate sites, one-page websites, to fully custom solutions, every design is optimized for speed, user experience, and conversions.',
+        image: 'https://cdn.shopify.com/videos/c/o/v/f196940502664ba8be492d5f52bfdefb.mp4',
+        serviceLists: [
+            { label: 'Ecommerce Development', url: '/services' },
+            { label: 'Dynamic Website', url: '/services' },
+            { label: 'Static Website', url: '/services' },
+            { label: 'Blogging Website', url: '/services' },
+            { label: 'WordPress Development', url: '/services' },
+            { label: 'Ecommerce Using Shopify Web Hosting', url: '/services' },
+            { label: 'Website Maintenance', url: '/services' }
+        ]
     },
     {
-        src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80',
-        alt: 'Client',
-        style: { top: '32%', left: '20%' }
+        id: 2,
+        serviceName: 'Digital Marketing',
+        description:
+            'Our digital marketing services help businesses reach their target audience and generate measurable results. From SEO, Local SEO, Google Ads, Social Media Marketing, to Content Marketing, we craft campaigns that increase traffic, leads, and ROI.',
+        image: 'https://cdn.shopify.com/videos/c/o/v/951507feec354b77b5e3ddad19a3ea3f.mp4',
+        serviceLists: [
+            { label: 'Google Adwords', url: '/services' },
+            { label: 'Social Media Marketing', url: '/services' },
+            { label: 'Social Media Optimization', url: '/services' },
+            { label: 'Link Tree Style', url: '/services' },
+            { label: 'Content Marketing', url: '/services' }
+        ]
     },
     {
-        src: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80',
-        alt: 'Client',
-        style: { bottom: '16%', right: '40%' }
+        id: 3,
+        serviceName: 'App Development',
+        description:
+            'We design and develop feature-rich mobile applications for iOS and Android. Our apps are user-friendly, fast, and scalable, helping businesses improve engagement, increase loyalty, and boost conversions.',
+        image: 'https://cdn.shopify.com/videos/c/o/v/a83157d97c94463fb605d0b8cfc719ba.mp4',
+        serviceLists: [
+            { label: 'App Development', url: '/services' },
+            { label: 'iOS App Development', url: '/services' },
+            { label: 'Android App Development', url: '/services' },
+            { label: 'Cross-Platform Solutions', url: '/services' },
+            { label: 'Flutter & React Native', url: '/services' }
+        ]
+    },
+    {
+        id: 4,
+        serviceName: 'Graphic Designing',
+        description:
+            'Our team creates professional, eye-catching graphics for both digital and print platforms. From branding, social media visuals, to marketing collateral, every design is tailored to enhance your brand identity and communicate your message effectively.',
+        image: 'https://cdn.shopify.com/videos/c/o/v/296a0e7b36af46d591ff600f76bd3b3a.mp4',
+        serviceLists: [
+            { label: 'Brand Identity', url: '/services' },
+            { label: 'Logo Designing', url: '/services' },
+            { label: 'Brochure Designing', url: '/services' },
+            { label: 'Post Designing', url: '/services' },
+            { label: 'Banner Designing', url: '/services' }
+        ]
+    },
+    {
+        id: 5,
+        serviceName: 'Bulk SMS Service',
+        description:
+            'We provide fast and reliable bulk SMS services to help you connect with your customers instantly. Send promotional, transactional, and OTP messages with high delivery rates and real-time tracking.',
+        image: 'https://cdn.shopify.com/videos/c/o/v/f761ddacc0554ccab92ac7a7a789fab9.mp4',
+        serviceLists: [
+            { label: 'Bulk SMS', url: '/services' },
+            { label: 'Bulk WhatsApp', url: '/services' }
+        ]
+    },
+    {
+        id: 6,
+        serviceName: 'Search Engine Optimization',
+        description:
+            'Our SEO strategies help businesses appear at the top of search results. We focus on on-page SEO, off-page SEO, technical SEO, and Local SEO to increase visibility, attract qualified traffic, and drive long-term growth for your brand.',
+        image: 'https://cdn.shopify.com/videos/c/o/v/79233ca19dc14cd9a6ea4797e1559838.mp4',
+        serviceLists: [
+            { label: 'Search Engine Optimization', url: '/services' },
+            { label: 'Local SEO', url: '/services' },
+            { label: 'Technical SEO Audit', url: '/services' },
+            { label: 'Keyword Research & Scaling', url: '/services' }
+        ]
     }
 ];
 
-const renderHeading = (item) => {
-    if (item.id === 'development') {
-        return (
-            <>
-                <span style={{ color: item.color }}>{item.headingHighlight}</span>{' '}
-                {item.headingMain}
-            </>
-        );
-    }
-    if (item.id === 'launch') {
-        return (
-            <>
-                {item.headingMain}{' '}
-                <span style={{ color: item.color }}>{item.headingHighlight}</span>
-            </>
-        );
-    }
-    return (
-        <>
-            {item.headingMain}
-            <br />
-            <span style={{ color: item.color }}>{item.headingHighlight}</span>
-        </>
+const ServiceSection = () => {
+    const sectionRef = useRef(null);
+    const textRef = useRef(null);
+    const imageRef = useRef(null);
+
+    const [isDesktop, setIsDesktop] = useState(() =>
+        typeof window !== 'undefined' ? window.innerWidth >= 1024 : true
     );
-};
 
-const ServiceProgressBar = React.memo(({ scrollPercent, trackMetrics }) => {
-    const startY = trackMetrics.startY ?? 20;
-    const middleY = trackMetrics.middleY ?? 600;
-    const stage3Y = trackMetrics.stage3Y ?? 1400;
-    const endY = trackMetrics.endY ?? 2400;
-    const totalLength = Math.max(endY - startY, 1);
-    const currentHeadY = Math.min(Math.max(startY + totalLength * scrollPercent, startY), endY);
+    const reversedServices = useMemo(() => [...services].reverse(), []);
 
-    const stage2Percent = Math.min(Math.max(Math.round(((middleY - startY) / totalLength) * 100), 8), 50);
-    const stage3Percent = Math.min(Math.max(Math.round(((stage3Y - startY) / totalLength) * 100), stage2Percent + 10), 85);
-    const blueEnd = Math.max(stage2Percent - 6, 2);
-    const greenEnd = Math.min(stage2Percent + 6, stage3Percent - 4);
+    useEffect(() => {
+        const media = window.matchMedia('(min-width: 1024px)');
+        const updateMedia = (e) => setIsDesktop(e.matches);
+        setIsDesktop(media.matches);
+        media.addEventListener('change', updateMedia);
+        return () => media.removeEventListener('change', updateMedia);
+    }, []);
 
-    return (
-        <svg
-            className="sm-hidden"
-            style={{
-                position: 'absolute',
-                left: 0,
-                top: 0,
-                width: '40px',
-                height: '100%',
-                zIndex: 1,
-                pointerEvents: 'none',
-                overflow: 'visible'
-            }}
-        >
-            <defs>
-                <linearGradient
-                    id="serviceProgressGradient"
-                    x1="0"
-                    y1={startY}
-                    x2="0"
-                    y2={endY}
-                    gradientUnits="userSpaceOnUse"
-                >
-                    <stop offset="0%" stopColor="#3b82f6" />
-                    <stop offset={`${blueEnd}%`} stopColor="#3b82f6" />
-                    <stop offset={`${stage2Percent}%`} stopColor="#22c55e" />
-                    <stop offset={`${greenEnd}%`} stopColor="#22c55e" />
-                    <stop offset={`${stage3Percent}%`} stopColor="#db5e1f" />
-                    <stop offset="100%" stopColor="#db5e1f" />
-                </linearGradient>
+    useEffect(() => {
+        if (!isDesktop) return;
 
-                <filter id="serviceGlowFilter" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur stdDeviation="3" result="coloredBlur" />
-                    <feMerge>
-                        <feMergeNode in="coloredBlur" />
-                        <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                </filter>
-            </defs>
+        const sectionEl = sectionRef.current;
+        const textEl = textRef.current;
+        const imageEl = imageRef.current;
+        if (!sectionEl || !textEl || !imageEl) return;
 
-            {/* Inactive Track Line spanning through the entire section */}
-            <line
-                x1="20"
-                y1={startY}
-                x2="20"
-                y2={endY}
-                stroke="rgba(255, 255, 255, 0.08)"
-                strokeWidth="2"
-                strokeLinecap="round"
-            />
+        const totalSteps = services.length - 1;
+        let currentStep = 0;
 
-            {/* Active Glow Line */}
-            {scrollPercent > 0.002 && (
-                <line
-                    x1="20"
-                    y1={startY}
-                    x2="20"
-                    y2={currentHeadY}
-                    stroke="url(#serviceProgressGradient)"
-                    strokeWidth="4"
-                    strokeLinecap="round"
-                    opacity="0.4"
-                    filter="url(#serviceGlowFilter)"
-                />
-            )}
+        const ctx = gsap.context(() => {
+            const animateText = gsap.quickTo(textEl, 'yPercent', {
+                duration: 0.6,
+                ease: 'power3.inOut'
+            });
 
-            {/* Active Core Line */}
-            {scrollPercent > 0.002 && (
-                <line
-                    x1="20"
-                    y1={startY}
-                    x2="20"
-                    y2={currentHeadY}
-                    stroke="url(#serviceProgressGradient)"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                />
-            )}
-        </svg>
-    );
-});
+            const animateImage = gsap.quickTo(imageEl, 'yPercent', {
+                duration: 0.6,
+                ease: 'power3.inOut'
+            });
 
-const StageIcon = React.memo(forwardRef(({ item, isReached }, ref) => (
-    <div
-        className="sm-hidden flex items-center justify-center flex-shrink-0"
-        style={{ width: '40px', minWidth: '40px', height: '40px', zIndex: 2 }}
-    >
-        <div
-            ref={ref}
-            className="rounded-full icon-lg bg-dark flex items-center justify-center flex-shrink-0"
-            style={{
-                border: `1px solid ${isReached ? item.color : 'rgba(255, 255, 255, 0.15)'}`,
-                background: isReached
-                    ? `radial-gradient(circle, ${item.glowColor} 0%, rgba(10, 15, 26, 0.9) 75%)`
-                    : 'var(--dark)',
-                boxShadow: isReached ? `0 0 16px ${item.glowColor}` : 'none',
-                transition: 'all 0.4s ease'
-            }}
-        >
-            <Icon
-                name={item.icon}
-                width="22"
-                height="22"
-                stroke={isReached ? 'var(--white)' : 'var(--gray)'}
-                strokeWidth="2"
-            />
-        </div>
-    </div>
-)));
+            ScrollTrigger.create({
+                trigger: sectionEl,
+                start: 'top top',
+                end: () => `+=${totalSteps * 550}`,
+                pin: true,
+                pinSpacing: true,
+                anticipatePin: 1,
+                invalidateOnRefresh: true,
+                onRefresh: (self) => {
+                    if (self.spacer) {
+                        self.spacer.style.backgroundColor = 'var(--dark)';
+                    }
+                },
+                onUpdate: (self) => {
+                    const step = Math.round(self.progress * totalSteps);
+                    const clamped = Math.max(0, Math.min(totalSteps, step));
+                    if (clamped !== currentStep) {
+                        currentStep = clamped;
+                        animateText(100 * clamped);
+                        animateImage(-100 * clamped);
+                    }
+                }
+            });
+        }, sectionRef);
 
-const BusinessMetricsCard = React.memo(({ cardData, onNavigate }) => {
-    if (!cardData) return null;
-    return (
-        <div
-            className="rounded-5"
-            style={{
-                backgroundColor: '#0c101c',
-                border: '1px solid rgba(255, 255, 255, 0.08)'
-            }}
-        >
-            <div className='p-20'>
-                <h3 className="text-white head-text font-600 capitalize">
-                    {cardData.title}
-                </h3>
+        const t1 = setTimeout(() => ScrollTrigger.refresh(), 100);
+        const t2 = setTimeout(() => ScrollTrigger.refresh(), 400);
+        const t3 = setTimeout(() => ScrollTrigger.refresh(), 1000);
 
-                <div className='relative grid-cols-2 gap-12 mt-15'>
-                    {cardData.metrics?.map((bm, mIdx) => (
-                        <div key={mIdx}>
-                            <p className="text-white midpara-text font-500">{bm.value}</p>
-                            <p className="mini-text text-white font-300">{bm.label}</p>
-                        </div>
-                    ))}
-                </div>
-                <Button
-                    text={cardData.ctaText}
-                    version="v2"
-                    variant="outline"
-                    color="white"
-                    icon="ChevronRight"
-                    iconPosition="right"
-                    iconWidth="13"
-                    iconHeight="13"
-                    onClick={() => onNavigate('/services')}
-                    className='mt-16'
-                />
-            </div>
-        </div>
-    );
-});
+        const handleLoad = () => ScrollTrigger.refresh();
+        window.addEventListener('load', handleLoad);
 
-const CollaborationCard = React.memo(({ collaboration, onNavigate }) => {
-    if (!collaboration) return null;
-    const highlight = collaboration.titleHighlight;
-    const [part1, part2] = highlight && collaboration.title.includes(highlight)
-        ? collaboration.title.split(highlight)
-        : [collaboration.title, ''];
+        return () => {
+            clearTimeout(t1);
+            clearTimeout(t2);
+            clearTimeout(t3);
+            window.removeEventListener('load', handleLoad);
+            ctx.revert();
+        };
+    }, [isDesktop]);
 
     return (
-        <div className="mt-20 w-full">
-            <div
-                className="w-full rounded-10 relative overflow-hidden"
-                style={{
-                    background: 'radial-gradient(ellipse at 80% 30%, rgba(30, 58, 138, 0.25) 0%, #090e1a 70%)',
-                    border: '1px solid rgba(59, 130, 246, 0.25)'
-                }}
-            >
-                <div className="flex sm-grid-cols-1 items-center justify-between gap-12 p-30 sm-p-20">
-                    <div className="w-80 sm-w-full">
-                        <p className="text-white font-500 para-text">
-                            {part1}
-                            {highlight && <span className="text-primary">{highlight}</span>}
-                            {part2}
-                        </p>
-                        <div className="grid-cols-2 sm-grid-cols-1 gap-10 mt-12 w-60">
-                            {collaboration.items?.map((cItem, cIdx) => (
-                                <div key={cIdx} className="flex items-center gap-8">
-                                    <span className="text-primary">✓</span>
-                                    <p className="mini-text text-white">{cItem}</p>
+        <Container
+            ref={sectionRef}
+            version="v0"
+            className="relative w-full text-white overflow-hidden"
+            style={{ background: 'var(--dark)' }}
+        >
+            {isDesktop ? (
+                <div className="w-full h-100 overflow-hidden z-10 grid-cols-2 items-center relative">
+                    <div className="h-full relative overflow-hidden flex items-center">
+                        <div
+                            className="absolute pointer-events-none rounded-full"
+                            style={{
+                                left: '-3vw',
+                                top: '-3vw',
+                                width: '25vw',
+                                height: '25vw',
+                                filter: 'blur(80px)',
+                                background: 'radial-gradient(circle, rgba(255, 8, 8, 0.6) 0%, rgba(220, 38, 38, 0.25) 50%, transparent 75%)',
+                                zIndex: 0
+                            }}
+                        />
+
+                        <div
+                            ref={textRef}
+                            className="absolute h-full w-full will-change-transform"
+                            style={{ top: `-${(services.length - 1) * 100}%`, zIndex: 1 }}
+                        >
+                            {reversedServices.map((service) => (
+                                <div
+                                    key={`desktop-text-${service.id}`}
+                                    className="w-full h-100 flex items-center"
+                                >
+                                    <div className="px-30 w-full" style={{ maxWidth: '580px' }}>
+                                        <h2 className="large-text font-500 text-white uppercase">
+                                            {service.serviceName}
+                                        </h2>
+                                        <p className="para-text font-300 my-15 text-white" style={{ opacity: 0.85 }}>
+                                            {service.description}
+                                        </p>
+
+                                        <hr style={{ border: 'none', borderTop: '1px solid rgba(255, 255, 255, 0.16)' }} />
+
+                                        <div className="flex flex-wrap gap-12 mt-20">
+                                            {service.serviceLists.map((item, idx) => (
+                                                <a key={idx} href={item.url} className="decoration-none inline-flex">
+                                                    <Badge
+                                                        text={item.label}
+                                                        shape="pill"
+                                                        variant="outline"
+                                                        icon="ArrowUpRight"
+                                                        iconPosition="right"
+                                                        iconSize={13}
+                                                        capitalize={false}
+                                                        bg="rgba(255, 255, 255, 0.08)"
+                                                        textColor="#ffffff"
+                                                        borderColor="rgba(255, 255, 255, 0.18)"
+                                                        className="service-pill cursor-pointer"
+                                                    />
+                                                </a>
+                                            ))}
+                                        </div>
+                                    </div>
                                 </div>
                             ))}
                         </div>
                     </div>
 
-                    <div className="w-20 sm-w-full grid-cols-1 gap-10">
-                        <Button
-                            text={collaboration.buttonText}
-                            version="v2"
-                            bg="white"
-                            color="dark"
-                            className="font-600 rounded-5 w-full"
-                            onClick={() => onNavigate('/connect')}
-                        />
-                        <Button
-                            text={`${collaboration.linkText} >`}
-                            version="v2"
-                            variant="outline"
-                            className="mini-text text-center cursor-pointer text-decoration-none mt-8 border-0 p-0 text-muted w-full"
-                            style={{ color: '#94a3b8', fontSize: '12px' }}
-                            onClick={() => onNavigate('/services')}
-                        />
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-});
-
-const DevelopmentCard = React.memo(({
-    item,
-    activePlatformTab,
-    activeCodeSnippet,
-    onTabChange,
-    onNavigate
-}) => {
-    const platforms = Object.keys(serviceCMS.platformCodeSnippets || {}).slice(0, 5);
-
-    return (
-        <div
-            className="w-full rounded-10 relative overflow-hidden mt-14"
-            style={{
-                backgroundColor: '#070a12',
-                border: '1px solid rgba(34, 197, 94, 0.45)'
-            }}
-        >
-            <div className="p-16">
-                <p className="font-300 text-white small-text">
-                    {item.codeIntro ? (
-                        item.codeIntro.includes('few lines of code:_') ? (
-                            <>
-                                {item.codeIntro.split('few lines of code:_')[0]}
-                                <span style={{ color: '#22c55e', fontWeight: 600 }}>few lines of code:_</span>
-                            </>
-                        ) : (
-                            item.codeIntro
-                        )
-                    ) : (
-                        <>
-                            Architect and deploy high-performance web applications with a{' '}
-                            <span style={{ color: '#22c55e', fontWeight: 600 }}>few lines of code:_</span>
-                        </>
-                    )}
-                </p>
-
-                <div
-                    className="rounded-5 p-16 mt-10"
-                    style={{
-                        backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                        border: '1px solid rgba(255, 255, 255, 0.1)'
-                    }}
-                >
-                    <div className="flex items-center justify-between gap-16 mb-14 bordb pb-12" style={{ overflowX: 'auto' }}>
-                        <div className="flex items-center gap-6 flex-shrink-0">
-                            <div className="rounded-full" style={{ width: '10px', height: '10px', backgroundColor: '#ef4444' }} />
-                            <div className="rounded-full" style={{ width: '10px', height: '10px', backgroundColor: '#f59e0b' }} />
-                            <div className="rounded-full" style={{ width: '10px', height: '10px', backgroundColor: '#10b981' }} />
-                        </div>
-                        <div className="flex items-center gap-6 flex-wrap">
-                            {platforms.map((plat) => {
-                                const isActive = activePlatformTab === plat;
-                                return (
-                                    <span
-                                        key={plat}
-                                        onClick={() => onTabChange(plat)}
-                                        className="cursor-pointer mini-text font-400 px-8 py-2 rounded-4"
-                                        style={{
-                                            color: isActive ? '#ffffff' : 'var(--gray)',
-                                            backgroundColor: isActive ? 'rgba(255,255,255,0.12)' : 'transparent',
-                                            fontSize: '11px',
-                                            transition: 'all 0.2s ease'
-                                        }}
-                                    >
-                                        {plat}
-                                    </span>
-                                );
-                            })}
-                        </div>
-                    </div>
-
-                    {activeCodeSnippet.map((line) => (
-                        <div key={line.num} className="flex items-center gap-10 mb-5">
-                            <p className="mini-text text-gray font-500">{line.num}</p>
-                            <p className="mini-text text-white font-300">{renderPlatformCode(line.code)}</p>
-                        </div>
-                    ))}
-                </div>
-
-                <div className="grid-cols-4 sm-grid-cols-1 gap-12 mt-24">
-                    {item.tools?.map((tool, tIdx) => (
+                    <div className="relative w-full h-full overflow-hidden">
                         <div
-                            key={tIdx}
-                            className="flex items-center justify-between p-8 rounded-5 cursor-pointer"
-                            style={{
-                                backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                                border: '1px solid rgba(255, 255, 255, 0.08)'
-                            }}
-                            onClick={() => onNavigate(tool.href)}
+                            ref={imageRef}
+                            className="absolute w-full h-full will-change-transform"
+                            style={{ top: '0%' }}
                         >
-                            <div className="flex items-center gap-12">
+                            {services.map((service) => (
                                 <div
-                                    className="rounded-full icon-lg"
-                                    style={{
-                                        backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                                        border: '1px solid rgba(255, 255, 255, 0.1)'
-                                    }}
+                                    key={`desktop-media-${service.id}`}
+                                    className="w-full h-100 relative flex items-center justify-center overflow-hidden"
                                 >
-                                    <Icon name={tool.icon} width="20" height="20" stroke="var(--white)" />
+                                    <Image
+                                        src={service.image}
+                                        alt={service.serviceName}
+                                        className="w-full h-full object-cover"
+                                    />
                                 </div>
-                                <p className="text-white mini-text font-300">
-                                    {tool.label}
-                                </p>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            ) : (
+                <div className="w-full py-40 px-20 flex flex-column gap-30" style={{ background: 'var(--dark)' }}>
+                    {services.map((service) => (
+                        <div key={`mobile-${service.id}`} className="w-full overflow-hidden rounded-10 flex flex-column">
+                            <div
+                                className="relative w-full overflow-hidden rounded-10 mb-20"
+                                style={{ aspectRatio: '16 / 10' }}
+                            >
+                                <Image
+                                    src={service.image}
+                                    alt={service.serviceName}
+                                    className="w-full h-full object-cover"
+                                />
                             </div>
-                            <Icon name="ChevronRight" width="22" height="22" stroke="var(--white)" strokeWidth="2" />
+
+                            <div className="px-5 flex flex-column">
+                                <h2 className="font-400 text-white m-0" style={{ fontSize: '24px', lineHeight: 1.2 }}>
+                                    {service.serviceName}
+                                </h2>
+                                <p className="font-300 mt-10 mb-18 text-white" style={{ opacity: 0.8, fontSize: '14px', lineHeight: 1.65 }}>
+                                    {service.description}
+                                </p>
+
+                                <hr style={{ border: 'none', borderTop: '1px solid rgba(255, 255, 255, 0.16)', marginBottom: '18px' }} />
+
+                                <div className="flex flex-wrap gap-8">
+                                    {service.serviceLists.map((item, idx) => (
+                                        <a key={idx} href={item.url} className="decoration-none inline-flex">
+                                            <Badge
+                                                text={item.label}
+                                                shape="pill"
+                                                variant="outline"
+                                                icon="ArrowUpRight"
+                                                iconPosition="right"
+                                                iconSize={12}
+                                                capitalize={false}
+                                                bg="rgba(255, 255, 255, 0.08)"
+                                                textColor="#ffffff"
+                                                borderColor="rgba(255, 255, 255, 0.18)"
+                                                className="service-pill cursor-pointer"
+                                            />
+                                        </a>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
                     ))}
                 </div>
-            </div>
-        </div>
-    );
-});
-
-const LaunchCard = React.memo(({ onNavigate }) => (
-    <div className="mt-20 w-full">
-        <div className="grid-cols-3 sm-grid-cols-1 gap-12 mb-12">
-            <div
-                className="rounded-5"
-                style={{
-                    backgroundColor: '#0c101c',
-                    border: '1px solid rgba(255, 255, 255, 0.08)'
-                }}
-            >
-                <Image
-                    src={launchCertificationsImg}
-                    alt="Security Certifications: DNV ISO 27001, ISO 27018, ISO 27701, GDPR"
-                    className="w-full flex object-cover h-400"
-                />
-                <div className="p-20">
-                    <h4 className="text-white title-text font-600">
-                        {serviceCMS.securityCard.title}
-                    </h4>
-                    <p className="mt-3 text-white font-300 mini-text">
-                        {serviceCMS.securityCard.description}
-                    </p>
-                    <Button
-                        text={serviceCMS.securityCard.ctaText}
-                        version="v2"
-                        variant="outline"
-                        color="white"
-                        icon="ChevronRight"
-                        iconPosition="right"
-                        iconWidth="13"
-                        iconHeight="13"
-                        onClick={() => onNavigate('/services')}
-                        className='mt-16'
-                    />
-                </div>
-            </div>
-
-            <div className="grid-cols-1 gap-12">
-                <Image
-                    src={launchShieldImg}
-                    alt="Data Security Shield"
-                    className="w-full h-300 object-cover rounded-5 flex"
-                />
-                <BusinessMetricsCard
-                    cardData={serviceCMS.businessMetricsCard}
-                    onNavigate={onNavigate}
-                />
-            </div>
-
-            <div className="grid-cols-1 gap-12">
-                <BusinessMetricsCard
-                    cardData={serviceCMS.businessMetricsCard}
-                    onNavigate={onNavigate}
-                />
-                <div className='relative z-10'>
-                    <Image
-                        src={launchGlobeImg}
-                        alt="Global network globe"
-                        className="w-full h-300 object-cover flex"
-                    />
-
-                    {globeAvatars.map((avatar, aIdx) => (
-                        <div
-                            key={aIdx}
-                            className="absolute rounded-full"
-                            style={{
-                                ...avatar.style,
-                                zIndex: 20
-                            }}
-                        >
-                            <Image
-                                src={avatar.src}
-                                alt={avatar.alt}
-                                width='35px'
-                                height='35px'
-                                className="flex rounded-full object-cover"
-                                style={{ border: '1.5px solid #ffffff' }}
-                            />
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
-    </div>
-));
-
-const StageRow = React.memo(({
-    item,
-    isLast,
-    iconRef,
-    isReached,
-    activePlatformTab,
-    activeCodeSnippet,
-    onPlatformTabChange,
-    onNavigate
-}) => (
-    <div
-        className="flex items-start w-full relative z-10"
-        style={{
-            gap: '20px',
-            marginBottom: isLast ? '0' : '90px'
-        }}
-    >
-        <StageIcon
-            ref={iconRef}
-            item={item}
-            isReached={isReached}
-        />
-
-        <div className="w-full" style={{ flex: 1, minWidth: 0 }}>
-            <p className="text-white font-500 small-text">{item.tag}</p>
-
-            <h2 className="text-white font-600 head-text mt-10 sm-mt-4">
-                {renderHeading(item)}
-            </h2>
-
-            <p className="mt-12 sm-mt-10 font-300 small-text text-white">
-                {item.description}
-            </p>
-
-            {item.hasTopCta && item.ctaText && (
-                <Button
-                    text={item.ctaText}
-                    version="v2"
-                    variant="outline"
-                    color="white"
-                    icon="ChevronRight"
-                    iconPosition="right"
-                    iconWidth="14"
-                    iconHeight="14"
-                    className='mt-20 sm-mt-14'
-                    onClick={() => onNavigate(item.ctaLink)}
-                />
             )}
 
-            {item.id === 'product-design' && (
-                <CollaborationCard
-                    collaboration={item.collaboration}
-                    onNavigate={onNavigate}
-                />
-            )}
-
-            {item.id === 'development' && (
-                <DevelopmentCard
-                    item={item}
-                    activePlatformTab={activePlatformTab}
-                    activeCodeSnippet={activeCodeSnippet}
-                    onTabChange={onPlatformTabChange}
-                    onNavigate={onNavigate}
-                />
-            )}
-
-            {item.id === 'launch' && (
-                <LaunchCard onNavigate={onNavigate} />
-            )}
-        </div>
-    </div>
-));
-
-const ServiceSection = () => {
-    const navigate = useNavigate();
-    const sectionRef = useRef(null);
-    const stagesContainerRef = useRef(null);
-    const firstIconRef = useRef(null);
-    const middleIconRef = useRef(null);
-    const lastIconRef = useRef(null);
-    const [scrollPercent, setScrollPercent] = useState(0);
-    const [trackMetrics, setTrackMetrics] = useState({
-        startY: 20,
-        middleY: 600,
-        stage3Y: 1400,
-        endY: 2400
-    });
-    const metricsRef = useRef({
-        startY: 20,
-        middleY: 600,
-        stage3Y: 1400,
-        endY: 2400
-    });
-    const [activePlatformTab, setActivePlatformTab] = useState(Object.keys(serviceCMS.platformCodeSnippets || {})[0] || 'React');
-
-    const activeCodeSnippet = useMemo(() => {
-        return serviceCMS.platformCodeSnippets[activePlatformTab] || Object.values(serviceCMS.platformCodeSnippets || {})[0] || [];
-    }, [activePlatformTab]);
-
-    const handleNavigate = useCallback((path) => {
-        navigate(path);
-    }, [navigate]);
-
-    const handlePlatformTabChange = useCallback((tab) => {
-        setActivePlatformTab(tab);
-    }, []);
-
-    const updateMetrics = useCallback(() => {
-        if (!stagesContainerRef.current || !firstIconRef.current || !lastIconRef.current) return;
-        const containerRect = stagesContainerRef.current.getBoundingClientRect();
-        const firstRect = firstIconRef.current.getBoundingClientRect();
-        const lastRect = lastIconRef.current.getBoundingClientRect();
-        const middleRect = middleIconRef.current ? middleIconRef.current.getBoundingClientRect() : null;
-
-        const startY = (firstRect.top - containerRect.top) + (firstRect.height / 2);
-        const stage3Y = (lastRect.top - containerRect.top) + (lastRect.height / 2);
-        const middleY = middleRect ? (middleRect.top - containerRect.top) + (middleRect.height / 2) : (startY + stage3Y) / 2;
-
-        const containerHeight = stagesContainerRef.current.offsetHeight || containerRect.height;
-        const endY = Math.max(containerHeight - 30, stage3Y + 60);
-
-        if (stage3Y > startY && endY > stage3Y) {
-            const next = { startY, middleY, stage3Y, endY };
-            metricsRef.current = next;
-            setTrackMetrics(next);
-        }
-    }, []);
-
-    const handleScroll = useCallback(() => {
-        if (!stagesContainerRef.current || !firstIconRef.current || !lastIconRef.current) {
-            if (sectionRef.current) {
-                const rect = sectionRef.current.getBoundingClientRect();
-                const windowHeight = window.innerHeight;
-                const start = windowHeight * 0.45 - rect.top;
-                const total = rect.height - windowHeight * 0.25;
-                if (total > 0) setScrollPercent(Math.min(Math.max(start / total, 0), 1));
-            }
-            return;
-        }
-
-        const metrics = metricsRef.current;
-        const containerRect = stagesContainerRef.current.getBoundingClientRect();
-        const firstRect = firstIconRef.current.getBoundingClientRect();
-        const middleRect = middleIconRef.current ? middleIconRef.current.getBoundingClientRect() : null;
-        const lastRect = lastIconRef.current.getBoundingClientRect();
-
-        const focalY = window.innerHeight * 0.45;
-        const firstCenter = firstRect.top + firstRect.height / 2;
-        const middleCenter = middleRect
-            ? middleRect.top + middleRect.height / 2
-            : firstCenter + (metrics.middleY - metrics.startY);
-        const lastCenter = lastRect.top + lastRect.height / 2;
-        const containerBottom = containerRect.bottom;
-
-        let headY = metrics.startY;
-
-        if (focalY <= firstCenter) {
-            headY = metrics.startY;
-        } else if (focalY <= middleCenter) {
-            const span = Math.max(middleCenter - firstCenter, 1);
-            const ratio = Math.min(Math.max((focalY - firstCenter) / span, 0), 1);
-            headY = metrics.startY + (metrics.middleY - metrics.startY) * ratio;
-        } else if (focalY <= lastCenter) {
-            const span = Math.max(lastCenter - middleCenter, 1);
-            const ratio = Math.min(Math.max((focalY - middleCenter) / span, 0), 1);
-            headY = metrics.middleY + (metrics.stage3Y - metrics.middleY) * ratio;
-        } else {
-            const finishTarget = window.innerHeight * 0.85;
-            const remainingScroll = containerBottom - finishTarget;
-            const totalPastLast = Math.max((metrics.endY - metrics.stage3Y) + (focalY - finishTarget), 200);
-
-            if (containerBottom <= finishTarget) {
-                headY = metrics.endY;
-            } else {
-                const ratio = 1 - Math.min(Math.max(remainingScroll / totalPastLast, 0), 1);
-                headY = metrics.stage3Y + (metrics.endY - metrics.stage3Y) * ratio;
-            }
-        }
-
-        const totalTrack = Math.max(metrics.endY - metrics.startY, 1);
-        const clampedHeadY = Math.min(Math.max(headY, metrics.startY), metrics.endY);
-        const progress = (clampedHeadY - metrics.startY) / totalTrack;
-        setScrollPercent(progress);
-    }, []);
-
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        window.addEventListener('resize', handleScroll);
-        window.addEventListener('resize', updateMetrics);
-
-        updateMetrics();
-        handleScroll();
-
-        const t1 = setTimeout(() => { updateMetrics(); handleScroll(); }, 150);
-        const t2 = setTimeout(() => { updateMetrics(); handleScroll(); }, 600);
-
-        let resizeObserver;
-        if (typeof ResizeObserver !== 'undefined' && stagesContainerRef.current) {
-            resizeObserver = new ResizeObserver(() => {
-                updateMetrics();
-                handleScroll();
-            });
-            resizeObserver.observe(stagesContainerRef.current);
-        }
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-            window.removeEventListener('resize', handleScroll);
-            window.removeEventListener('resize', updateMetrics);
-            clearTimeout(t1);
-            clearTimeout(t2);
-            if (resizeObserver) resizeObserver.disconnect();
-        };
-    }, [handleScroll, updateMetrics]);
-
-    return (
-        <Container style={{ backgroundColor: 'var(--dark)' }}>
-            <div ref={sectionRef} className="py-60 sm-py-40 relative w-full">
-                <div ref={stagesContainerRef} className="relative w-full">
-                    <ServiceProgressBar
-                        scrollPercent={scrollPercent}
-                        trackMetrics={trackMetrics}
-                    />
-
-                    {serviceCMS.stages.map((item, index) => {
-                        const isLast = index === serviceCMS.stages.length - 1;
-                        const iconRef =
-                            index === 0
-                                ? firstIconRef
-                                : index === 1
-                                    ? middleIconRef
-                                    : isLast
-                                        ? lastIconRef
-                                        : null;
-
-                        const totalLen = Math.max((trackMetrics.endY ?? 2400) - (trackMetrics.startY ?? 20), 1);
-                        const currentHeadY = (trackMetrics.startY ?? 20) + totalLen * scrollPercent;
-                        const iconY =
-                            index === 0
-                                ? trackMetrics.startY ?? 20
-                                : index === 1
-                                    ? trackMetrics.middleY ?? 600
-                                    : trackMetrics.stage3Y ?? 1400;
-
-                        const isReached =
-                            index === 0
-                                ? scrollPercent >= 0.002 || currentHeadY >= iconY
-                                : currentHeadY >= iconY - 15;
-
-                        return (
-                            <StageRow
-                                key={item.id}
-                                item={item}
-                                isLast={isLast}
-                                iconRef={iconRef}
-                                isReached={isReached}
-                                activePlatformTab={activePlatformTab}
-                                activeCodeSnippet={activeCodeSnippet}
-                                onPlatformTabChange={handlePlatformTabChange}
-                                onNavigate={handleNavigate}
-                            />
-                        );
-                    })}
-                </div>
-            </div>
+            <style>{`
+                .service-pill {
+                    padding: 8px 18px !important;
+                    font-size: 13px !important;
+                    backdrop-filter: blur(12px);
+                    -webkit-backdrop-filter: blur(12px);
+                    transition: all 0.25s ease !important;
+                }
+                .service-pill:hover {
+                    background-color: rgba(255, 255, 255, 0.2) !important;
+                    border-color: rgba(255, 255, 255, 0.35) !important;
+                    transform: translateY(-2px);
+                }
+            `}</style>
         </Container>
     );
 };
 
-export default ServiceSection;
+export default React.memo(ServiceSection);

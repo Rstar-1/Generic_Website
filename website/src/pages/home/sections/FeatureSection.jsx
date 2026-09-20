@@ -291,4 +291,4 @@ const FeatureSection = () => {
     );
 };
 
-export default FeatureSection;
+export default React.memo(FeatureSection);

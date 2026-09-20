@@ -2,7 +2,7 @@
   "features": [
     {
       "id": "service",
-      "icon": "Headset",
+      "icon": "Users",
       "title": "Customer Service",
       "text": "Mon-Sat, 9am-6pm EST.",
       "type": "text"
@@ -85,10 +85,26 @@
     },
     "paymentBadges": ["VISA", "MC", "AMEX", "PAYPAL", "DINERS", "DISCOVER"],
     "socials": [
-      { "platform": "facebook", "iconName": "Facebook", "url": "https://www.facebook.com/share/p/1EhdBQaRw4/" },
-      { "platform": "x", "iconName": "X", "url": "https://twitter.com/ashmitaent" },
-      { "platform": "instagram", "iconName": "Instagram", "url": "https://www.instagram.com/inraclick/" },
-      { "platform": "youtube", "iconName": "YouTube", "url": "https://www.youtube.com/@INRACLICK" }
+      {
+        "platform": "facebook",
+        "iconName": "Facebook",
+        "url": "https://www.facebook.com/share/p/1EhdBQaRw4/"
+      },
+      {
+        "platform": "x",
+        "iconName": "X",
+        "url": "https://twitter.com/ashmitaent"
+      },
+      {
+        "platform": "instagram",
+        "iconName": "Instagram",
+        "url": "https://www.instagram.com/inraclick/"
+      },
+      {
+        "platform": "youtube",
+        "iconName": "YouTube",
+        "url": "https://www.youtube.com/@INRACLICK"
+      }
     ],
     "copyright": "© 2026 inraClick. All rights reserved.",
     "legalLinks": [

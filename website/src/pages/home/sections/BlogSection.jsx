@@ -24,7 +24,9 @@ const BlogSection = () => {
                         <Image
                             src={featuredPost.image}
                             alt={featuredPost.title}
-                            className="top-0 left-0 w-full h-full object-cover filter-b5"
+                            className="top-0 left-0 w-full h-full object-cover filter-b4"
+                            loading="lazy"
+                            decoding="async"
                         />
 
                         <div className='absolute top-0 left-0'>
@@ -38,30 +40,22 @@ const BlogSection = () => {
                             <div className='m-30 sm-m-14'>
                                 <div className='flex items-center gap-12'>
                                     <div className='flex items-center gap-4'>
-                                        <Icon name="Clock" width="12" height="12" className="text-white" />
-                                        <p className='mini-text text-white'>{featuredPost.date}</p>
+                                        <Icon name="Clock" width="16" height="16" className="text-white" />
+                                        <p className='small-text text-white'>{featuredPost.date}</p>
                                     </div>
                                     <div className='flex items-center gap-4'>
-                                        <Icon name="Reviews" width="12" height="12" className="text-white" />
-                                        <p className='mini-text text-white'>{featuredPost.comments}</p>
+                                        <Icon name="Reviews" width="16" height="16" className="text-white" />
+                                        <p className='small-text text-white'>{featuredPost.comments}</p>
                                     </div>
                                 </div>
 
-                                <h3 className='large-text text-white font-600 mt-16 sm-mt-4'>
+                                <h3 className='head-text text-white font-600 line-clamp3 uppercase mt-16 sm-mt-4'>
                                     {featuredPost.title}
                                 </h3>
 
-                                <p className='small-text text-white font-400 mt-10 sm-w-full sm-line-clamp3 w-80'>
+                                <p className='para-text text-white font-400 mt-10 sm-line-clamp3 w-full'>
                                     {featuredPost.description}
                                 </p>
-
-                                <Button
-                                    text={featuredPost.buttonText || "Shop the Look"}
-                                    version="v2"
-                                    bg="white"
-                                    color="dark"
-                                    className='rounded-30 mt-22 sm-mt-12'
-                                />
                             </div>
                         </div>
                     </div>
@@ -77,6 +71,8 @@ const BlogSection = () => {
                                         src={post.image}
                                         alt={post.title}
                                         className='w-full h-full object-cover flex'
+                                        loading="lazy"
+                                        decoding="async"
                                     />
                                     <div className='absolute top-0 left-0'>
                                         <p className='mini-text text-white bg-primary w-max px-14 py-4 sm-px-10 sm-py-2 rounded-20 flex items-center gap-8 font-500 uppercase m-12 sm-m-8'>
@@ -102,16 +98,16 @@ const BlogSection = () => {
                                         {post.title}
                                     </h4>
 
-                                    <p className='mini-text text-gray font-400 mt-8 sm-mt-4 line-clamp4 sm-line-clamp3'>
+                                    <p className='small-text text-gray font-400 mt-8 sm-mt-4 line-clamp4 sm-line-clamp3'>
                                         {post.description}
                                     </p>
 
                                     <Button
                                         text={post.buttonText || "Read more"}
-                                        version="v0"
+                                        version="v2"
                                         bg="dark"
                                         color="white"
-                                        className='rounded-30 mt-12'
+                                        className='rounded-30 mt-16'
                                     />
                                 </div>
                             </div>
@@ -123,4 +119,4 @@ const BlogSection = () => {
     );
 };
 
-export default BlogSection;
+export default React.memo(BlogSection);

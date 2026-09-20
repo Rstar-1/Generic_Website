@@ -1,19 +1,21 @@
 /* ======================= Start-Color ======================= */
 
 :root {
-    --primary: #1f5ac0 !important;
-    --secondary: #4f80d5 !important;
+    --primary: #db5e1f !important;
+    --secondary: #1f5ac0 !important;
     --tertiary: #edf2f7d6 !important;
-    --forth: #fafafad0 !important;
+    --forth: #fafafa !important;
     --success: #4bb543 !important;
-    --successtext: #25771fbc !important;
     --warning: #fb5711 !important;
-    --warningtext: #ff5722 !important;
     --danger: #c21b1bdb !important;
-    --info: #2378bdb7 !important;
+    --info: #1877F2 !important;
     --white: #fff !important;
     --dark: #0f1623 !important;
     --gray: #585a63c0 !important;
+    --insta: linear-gradient(135deg,
+            #c13584 0%,
+            #e1306c 50%,
+            #f77737 100%) !important;
 }
 
 .dark-mode {
@@ -339,114 +341,6 @@ input,
 
 /* ======================= Start-Fontsize ======================= */
 .largehead-text {
-    font-size: 84px !important;
-    margin: 0px !important;
-    line-height: 90px !important;
-
-    @media (max-width: 640px) {
-        font-size: 42px !important;
-        margin: 0px !important;
-        line-height: 56px !important;
-        font-weight: 500 !important;
-    }
-}
-
-.large-text {
-    font-size: 52px !important;
-    margin: 0px !important;
-    line-height: 65px !important;
-
-    @media (max-width: 640px) {
-        font-size: 36px !important;
-        margin: 0px !important;
-        line-height: 56px !important;
-    }
-}
-
-.head-text {
-    font-size: 40px !important;
-    line-height: 52px !important;
-    margin: 0px !important;
-
-    @media (max-width: 640px) {
-        font-size: 24px !important;
-        margin: 0px !important;
-        line-height: 36px !important;
-    }
-}
-
-.title-text {
-    font-size: 24px !important;
-    margin: 0px !important;
-
-    @media (max-width: 640px) {
-        font-size: 20px !important;
-        margin: 0px !important;
-    }
-}
-
-.mid-text {
-    font-size: 18px !important;
-    margin: 0px !important;
-}
-
-.headmini-text {
-    font-size: 14px !important;
-    margin: 0px !important;
-}
-
-.largepara-text {
-    font-size: 24px !important;
-    line-height: 30px !important;
-
-    @media (max-width: 640px) {
-        font-size: 20px !important;
-        line-height: 28px !important;
-    }
-}
-
-.headpara-text {
-    font-size: 20px !important;
-    line-height: 30px !important;
-
-    @media (max-width: 640px) {
-        font-size: 20px !important;
-        line-height: 28px !important;
-    }
-}
-
-.midpara-text {
-    font-size: 18px !important;
-
-    @media (max-width: 640px) {
-        font-size: 15px !important;
-        line-height: 21px !important;
-    }
-}
-
-.para-text {
-    font-size: 16px !important;
-    line-height: 22px !important;
-
-    @media (max-width: 640px) {
-        font-size: 16px !important;
-    }
-}
-
-.small-text {
-    font-size: 13px !important;
-    line-height: 26px !important;
-}
-
-.mini-text {
-    font-size: 11.5px !important;
-    line-height: 16px !important;
-}
-
-/* ======================= End-Fontsize ======================= */
-
-/* ======================= Start-Fontsize ======================= */
-.largehead-text {
     font-size: 130px !important;
     margin: 0px !important;
     line-height: 130px !important;
@@ -474,13 +368,11 @@ input,
     font-size: 52px !important;
     margin: 0px !important;
     line-height: 60px !important;
-    font-weight: 500 !important;
 
     @media (max-width: 640px) {
         font-size: 32px !important;
         margin: 0px !important;
         line-height: 43px !important;
-        font-weight: 500 !important;
     }
 }
 
@@ -488,13 +380,11 @@ input,
     font-size: 34px !important;
     line-height: 44px !important;
     margin: 0px !important;
-    font-weight: 500 !important;
 
     @media (max-width: 640px) {
         font-size: 24px !important;
         margin: 0px !important;
         line-height: 36px !important;
-        font-weight: 500 !important;
     }
 }
 
@@ -513,14 +403,22 @@ input,
     font-size: 17px !important;
     line-height: 22px !important;
     margin: 0px !important;
-    font-weight: 500 !important;
 }
 
 .headmini-text {
-    font-size: 14px !important;
-    line-height: 18px !important;
+    font-size: 15px !important;
+    line-height: 20px !important;
     margin: 0px !important;
-    font-weight: 500 !important;
+}
+
+.largepara-text {
+    font-size: 24px !important;
+    line-height: 30px !important;
+
+    @media (max-width: 640px) {
+        font-size: 20px !important;
+        line-height: 28px !important;
+    }
 }
 
 .headpara-text {
@@ -534,20 +432,17 @@ input,
 }
 
 .midpara-text {
-    font-size: 18px !important;
-    font-weight: 400 !important;
+    font-size: 17px !important;
 
     @media (max-width: 640px) {
         font-size: 15px !important;
         line-height: 21px !important;
-        font-weight: 500 !important;
     }
 }
 
 .para-text {
-    font-size: 18px !important;
-    line-height: 29px !important;
-    font-weight: 400 !important;
+    font-size: 15px !important;
+    line-height: 22px !important;
 
     @media (max-width: 640px) {
         font-size: 15px !important;
@@ -555,9 +450,8 @@ input,
 }
 
 .small-text {
-    font-size: 15px !important;
-    line-height: 22px !important;
-    font-weight: 400 !important;
+    font-size: 13px !important;
+    line-height: 20px !important;
 
     @media (max-width: 640px) {
         font-size: 13.5px !important;
@@ -565,14 +459,8 @@ input,
 }
 
 .mini-text {
-    font-size: 12px !important;
-    line-height: 20px !important;
-    font-weight: 400 !important;
-
-    @media (max-width: 640px) {
-        font-size: 12px !important;
-        line-height: 18px !important;
-    }
+    font-size: 11.5px !important;
+    line-height: 16px !important;
 }
 
 /* ======================= End-Fontsize ======================= */

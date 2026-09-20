@@ -8,11 +8,15 @@ const HeroSections = () => {
     return (
         <Container version='v0'>
             <div className='relative py-100 w-full'>
-                <div className='absolute top-0 left-0 w-full h-full overflow-hidden z-10'>
+                <div
+                    className='absolute top-0 left-0 w-full h-full overflow-hidden z-10'
+                    style={{ transform: 'translateZ(0)', willChange: 'transform' }}
+                >
                     <Image
                         src={agencyVideo}
                         alt="Agency Hero Background Video"
                         className='w-full h-full'
+                        preload="auto"
                         style={{
                             objectFit: 'cover',
                             opacity: 0.55,
@@ -50,4 +54,4 @@ const HeroSections = () => {
     );
 };
 
-export default HeroSections;
+export default React.memo(HeroSections);

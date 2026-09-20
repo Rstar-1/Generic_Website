@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
@@ -13,10 +13,29 @@ import { feedCMS } from '../../../utils/apiData';
 
 const FeedSection = () => {
     const [swiperInstance, setSwiperInstance] = useState(null);
+    const sectionRef = useRef(null);
+
+    useEffect(() => {
+        const el = sectionRef.current;
+        if (!el || !swiperInstance || typeof IntersectionObserver === 'undefined') return;
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    swiperInstance.autoplay?.start();
+                } else {
+                    swiperInstance.autoplay?.stop();
+                }
+            },
+            { threshold: 0.1 }
+        );
+        observer.observe(el);
+        return () => observer.disconnect();
+    }, [swiperInstance]);
 
     return (
         <Container>
-            <div className='w-full py-50'>
+            <div ref={sectionRef} className='w-full py-50'>
                 <style>{`
                     .feed-swiper {
                         padding-bottom: 36px !important;
@@ -143,6 +162,8 @@ const FeedSection = () => {
                                         src={item.image}
                                         alt="Instagram Feed Post"
                                         className="feed-img w-full h-full object-cover flex"
+                                        loading="lazy"
+                                        decoding="async"
                                     />
 
                                     <div className='absolute top-0 right-0'>
@@ -162,6 +183,8 @@ const FeedSection = () => {
                                                             width='50px'
                                                             height='50px'
                                                             className="flex object-cover rounded-5"
+                                                            loading="lazy"
+                                                            decoding="async"
                                                         />
                                                     </div>
                                                 ))}
@@ -187,4 +210,4 @@ const FeedSection = () => {
     );
 };
 
-export default FeedSection;
+export default React.memo(FeedSection);

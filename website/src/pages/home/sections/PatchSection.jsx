@@ -10,8 +10,8 @@ const PatchSection = () => {
             className="relative z-10"
             style={{
                 background: `linear-gradient(90deg, rgba(10, 15, 25, 0.94) 0%, rgba(10, 15, 25, 0.82) 50%, rgba(10, 15, 25, 0.45) 100%), url(${counterBg}) center/cover no-repeat`,
-                backgroundAttachment: 'fixed',
-                backgroundPosition: 'bottom'
+                backgroundPosition: 'center',
+                willChange: 'transform'
             }}
         >
             <div className='w-full py-100 sm-py-50'>
@@ -33,4 +33,4 @@ const PatchSection = () => {
     );
 };
 
-export default PatchSection;
+export default React.memo(PatchSection);

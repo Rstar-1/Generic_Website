@@ -171,7 +171,7 @@ const HeaderNavigation = React.memo(
             >
               <NavLink
                 to={item.href}
-                className="font-500 small-text px-16 cursor-pointer flex items-center"
+                className="font-500 para-text px-16 cursor-pointer flex items-center"
                 style={{
                   color: linkColor,
                 }}
@@ -510,6 +510,13 @@ const HeaderActions = React.memo(
             iconHeight="16"
             iconStrokeWidth="2"
             variant="outline"
+            border={
+              configData?.Header?.HeaderSticky
+                ? isHeaderWhite
+                  ? "primary"
+                  : "white"
+                : "primary"
+            }
             iconStroke={
               configData?.Header?.HeaderSticky
                 ? isHeaderWhite
@@ -518,30 +525,25 @@ const HeaderActions = React.memo(
                 : "var(--primary)"
             }
             version="icon"
-            bg={
-              configData?.Header?.HeaderSticky
-                ? isHeaderWhite
-                  ? "var(--primary)"
-                  : "none"
-                : "var(--primary)"
-            }
-            className="border-primary rounded-30 p-12"
+            bg="transparent"
+            className="rounded-30 p-12"
           />
 
           {cartSection}
 
           <Button
-            text="Get A Quote"
+            text="Schedule Call"
             onClick={() =>
               onNavigate("/connect")
             }
             bg="primary"
             color="white"
+            border="primary"
             icon={configData?.Header?.HeaderType === 4 ? "" : "ArrowRight"}
             iconPosition="right"
             iconWidth="16"
             iconHeight="16"
-            version="v2"
+            version="v1"
             className="rounded-30"
           />
         </div>

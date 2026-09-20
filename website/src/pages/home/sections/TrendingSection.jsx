@@ -87,4 +87,4 @@ const TrendingSection = () => {
     );
 };
 
-export default TrendingSection;
+export default React.memo(TrendingSection);

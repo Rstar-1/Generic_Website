@@ -8,6 +8,9 @@ export default defineConfig({
   server: {
     host: true,
   },
+  optimizeDeps: {
+    include: ["framer-motion"],
+  },
   build: {
     rollupOptions: {
       output: {

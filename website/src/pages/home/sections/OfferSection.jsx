@@ -179,4 +179,4 @@ const OfferSection = () => {
     );
 };
 
-export default OfferSection;
+export default React.memo(OfferSection);
