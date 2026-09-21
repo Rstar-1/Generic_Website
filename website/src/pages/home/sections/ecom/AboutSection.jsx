@@ -1,14 +1,14 @@
 import React, { useCallback, useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Container from '../../../components/common/Container';
-import Icon from '../../../components/common/Icon';
-import Image from '../../../components/common/Image';
-import Button from '../../../components/common/Button';
-import Heading from '../../../components/layout/generic/Heading';
-import LeftLayout from '../../../components/layout/sections/LeftLayout';
-import RightLayout from '../../../components/layout/sections/RightLayout';
-import { configData, aboutCMS } from '../../../utils/apiData';
-import { resolveImagePath } from '../../../utils/imageResolver';
+import Container from '../../../../components/common/Container';
+import Icon from '../../../../components/common/Icon';
+import Image from '../../../../components/common/Image';
+import Button from '../../../../components/common/Button';
+import Heading from '../../../../components/layout/generic/Heading';
+import LeftLayout from '../../../../components/layout/sections/LeftLayout';
+import RightLayout from '../../../../components/layout/sections/RightLayout';
+import { configData, aboutCMS } from '../../../../utils/apiData';
+import { resolveImagePath } from '../../../../utils/imageResolver';
 
 export const defaultAboutData = {
     experienceYears: "30+",

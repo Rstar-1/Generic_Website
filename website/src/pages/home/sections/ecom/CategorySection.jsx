@@ -1,14 +1,14 @@
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Container from '../../../components/common/Container';
-import Icon from '../../../components/common/Icon';
-import Image from '../../../components/common/Image';
-import Heading from '../../../components/layout/generic/Heading';
-import { configData } from '../../../utils/apiData';
-import { resolveImagePath } from '../../../utils/imageResolver';
-import slider1 from '../../../assets/collection-slider-1.jpg';
-import slider2 from '../../../assets/collection-slider-2.jpg';
-import slider3 from '../../../assets/collection-slider-3.jpg';
+import Container from '../../../../components/common/Container';
+import Icon from '../../../../components/common/Icon';
+import Image from '../../../../components/common/Image';
+import Heading from '../../../../components/layout/generic/Heading';
+import { configData } from '../../../../utils/apiData';
+import { resolveImagePath } from '../../../../utils/imageResolver';
+import slider1 from '../../../../assets/collection-slider-1.jpg';
+import slider2 from '../../../../assets/collection-slider-2.jpg';
+import slider3 from '../../../../assets/collection-slider-3.jpg';
 
 const categories = [
     {

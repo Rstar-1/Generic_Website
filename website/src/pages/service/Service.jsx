@@ -4,8 +4,8 @@ import Loader from '../../components/common/generic/Loader';
 import bannerImg from '../../assets/about-banner.jpg';
 
 const ServiceDetailSection = lazy(() => import('./sections/ServiceDetailSection'));
-const PatchSection = lazy(() => import('../home/sections/PatchSection'));
-const FeedSection = lazy(() => import('../home/sections/FeedSection'));
+const PatchSection = lazy(() => import('../home/sections/agency/PatchSection'));
+const FeedSection = lazy(() => import('../home/sections/agency/FeedSection'));
 
 const Service = () => {
     return (

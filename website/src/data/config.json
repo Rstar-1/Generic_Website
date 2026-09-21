@@ -2,7 +2,7 @@
   "Header": [
     {
       "HeaderVersion": 1,
-      "HeaderType": 1,
+      "HeaderType": 2,
       "HeaderCategory": 1,
       "HeaderNavMenu": "nav",
       "HeaderSticky": true,
@@ -65,8 +65,8 @@
   "Footer": [
     {
       "FooterVersion": 1,
-      "FooterSocial": true,
-      "FooterTopBar": true,
+      "FooterSocial": false,
+      "FooterTopBar": false,
       "FooterBottomBar": true
     }
   ]

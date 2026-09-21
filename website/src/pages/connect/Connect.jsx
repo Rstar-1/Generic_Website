@@ -1,7 +1,7 @@
 import React from 'react';
 import Banner from '../../components/layout/generic/Banner';
 import Enquiry from './sections/Enquiry';
-import PatchSection from '../home/sections/PatchSection';
+import PatchSection from '../home/sections/agency/PatchSection';
 import bannerImg from '../../assets/about-banner.jpg';
 
 const Connect = () => {

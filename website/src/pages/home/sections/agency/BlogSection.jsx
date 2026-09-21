@@ -1,10 +1,10 @@
 import React from 'react';
-import Container from '../../../components/common/Container';
-import Image from '../../../components/common/Image';
-import Button from '../../../components/common/Button';
-import Icon from '../../../components/common/Icon';
-import Heading from '../../../components/layout/generic/Heading';
-import { blogCMS } from '../../../utils/apiData';
+import Container from '../../../../components/common/Container';
+import Image from '../../../../components/common/Image';
+import Button from '../../../../components/common/Button';
+import Icon from '../../../../components/common/Icon';
+import Heading from '../../../../components/layout/generic/Heading';
+import { blogCMS } from '../../../../utils/apiData';
 
 const BlogSection = () => {
     const { heading, featuredPost, secondaryPosts } = blogCMS;

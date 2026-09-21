@@ -4,7 +4,7 @@ import Loader from '../../components/common/generic/Loader';
 import bannerImg from '../../assets/about-banner.jpg';
 
 const PriceSection = lazy(() => import('./sections/PriceSection'));
-const PatchSection = lazy(() => import('../home/sections/PatchSection'));
+const PatchSection = lazy(() => import('../home/sections/agency/PatchSection'));
 
 const Pricing = () => {
     return (

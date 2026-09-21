@@ -4,9 +4,9 @@ import Loader from '../../components/common/generic/Loader';
 import aboutBanner from '../../assets/about-banner.jpg';
 
 const DetailSection = lazy(() => import('./sections/DetailSection'));
-const PatchSection = lazy(() => import('../home/sections/PatchSection'));
-const OfferSection = lazy(() => import('../home/sections/OfferSection'));
-const FeedSection = lazy(() => import('../home/sections/FeedSection'));
+const PatchSection = lazy(() => import('../home/sections/agency/PatchSection'));
+const OfferSection = lazy(() => import('../home/sections/ecom/OfferSection'));
+const FeedSection = lazy(() => import('../home/sections/agency/FeedSection'));
 
 const ecomSections = [
     DetailSection,

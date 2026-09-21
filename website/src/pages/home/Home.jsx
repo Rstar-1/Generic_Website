@@ -1,18 +1,20 @@
 import React, { lazy, Suspense, memo } from 'react';
-import HeroSections from './sections/HeroSections';
+import LazySection from '../../components/common/LazySection';
+import HeroSections from './sections/agency/HeroSections';
+import ScaleSection from './sections/agency/ScaleSection';
 
-const HeroBanner = lazy(() => import('./sections/HeroBanner'));
-const CategorySection = lazy(() => import('./sections/CategorySection'));
-const FeatureSection = lazy(() => import('./sections/FeatureSection'));
-const OfferSection = lazy(() => import('./sections/OfferSection'));
-const PatchSection = lazy(() => import('./sections/PatchSection'));
-const ServiceSection = lazy(() => import('./sections/ServiceSection'));
-const TrendingSection = lazy(() => import('./sections/TrendingSection'));
-const AboutSection = lazy(() => import('./sections/AboutSection'));
-const AboutSections = lazy(() => import('./sections/AboutSections'));
-const BlogSection = lazy(() => import('./sections/BlogSection'));
-const FeedSection = lazy(() => import('./sections/FeedSection'));
-const CompareSection = lazy(() => import('./sections/CompareSection'));
+const HeroBanner = lazy(() => import('./sections/ecom/HeroBanner'));
+const CategorySection = lazy(() => import('./sections/ecom/CategorySection'));
+const FeatureSection = lazy(() => import('./sections/ecom/FeatureSection'));
+const OfferSection = lazy(() => import('./sections/ecom/OfferSection'));
+const AboutSection = lazy(() => import('./sections/ecom/AboutSection'));
+const TrendingSection = lazy(() => import('./sections/ecom/TrendingSection'));
+const CompareSection = lazy(() => import('./sections/ecom/CompareSection'));
+const AboutSections = lazy(() => import('./sections/agency/AboutSections'));
+const PatchSection = lazy(() => import('./sections/agency/PatchSection'));
+const ServiceSection = lazy(() => import('./sections/agency/ServiceSection'));
+const BlogSection = lazy(() => import('./sections/agency/BlogSection'));
+const FeedSection = lazy(() => import('./sections/agency/FeedSection'));
 
 const ecomSections = [
     { Component: HeroBanner, minHeight: '500px' },
@@ -26,6 +28,7 @@ const ecomSections = [
 
 const standardSections = [
     { Component: HeroSections, isEager: true },
+    { Component: ScaleSection, isEager: true },
     { Component: AboutSections, minHeight: '400px' },
     { Component: ServiceSection, minHeight: '600px' },
     { Component: FeedSection, minHeight: '400px' },
@@ -42,15 +45,21 @@ const Home = () => {
     const activeSections = isEcom ? ecomSections : standardSections;
 
     return (
-        <main className="w-full" style={{ overflowX: 'clip' }}>
+        <main className="w-full">
             {activeSections.map(({ Component, isEager, minHeight }, index) => {
                 if (isEager) {
                     return <Component key={index} />;
                 }
                 return (
-                    <Suspense key={index} fallback={<SectionFallback minHeight={minHeight} />}>
-                        <Component />
-                    </Suspense>
+                    <LazySection
+                        key={index}
+                        placeholderHeight={minHeight}
+                        placeholder={<SectionFallback minHeight={minHeight} />}
+                    >
+                        <Suspense fallback={<SectionFallback minHeight={minHeight} />}>
+                            <Component />
+                        </Suspense>
+                    </LazySection>
                 );
             })}
         </main>

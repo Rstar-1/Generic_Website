@@ -4,12 +4,12 @@ import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-import Container from '../../../components/common/Container';
-import Image from '../../../components/common/Image';
-import Button from '../../../components/common/Button';
-import Icon from '../../../components/common/Icon';
-import Heading from '../../../components/layout/generic/Heading';
-import { feedCMS } from '../../../utils/apiData';
+import Container from '../../../../components/common/Container';
+import Image from '../../../../components/common/Image';
+import Button from '../../../../components/common/Button';
+import Icon from '../../../../components/common/Icon';
+import Heading from '../../../../components/layout/generic/Heading';
+import { feedCMS } from '../../../../utils/apiData';
 
 const FeedSection = () => {
     const [swiperInstance, setSwiperInstance] = useState(null);

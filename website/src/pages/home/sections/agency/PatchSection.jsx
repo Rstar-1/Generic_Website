@@ -1,17 +1,19 @@
 import React from 'react';
-import counterBg from '../../../assets/counter-bg.jpg';
-import Container from '../../../components/common/Container';
-import Icon from '../../../components/common/Icon';
-import { patchCMS } from '../../../utils/apiData';
+import counterBg from '../../../../assets/counter-bg.jpg';
+import Container from '../../../../components/common/Container';
+import Icon from '../../../../components/common/Icon';
+import { patchCMS } from '../../../../utils/apiData';
 
 const PatchSection = () => {
     return (
         <Container
             className="relative z-10"
             style={{
-                background: `linear-gradient(90deg, rgba(10, 15, 25, 0.94) 0%, rgba(10, 15, 25, 0.82) 50%, rgba(10, 15, 25, 0.45) 100%), url(${counterBg}) center/cover no-repeat`,
+                backgroundImage: `linear-gradient(90deg, rgba(10, 15, 25, 0.94) 0%, rgba(10, 15, 25, 0.82) 50%, rgba(10, 15, 25, 0.45) 100%), url(${counterBg})`,
                 backgroundPosition: 'center',
-                willChange: 'transform'
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+                backgroundAttachment: 'fixed'
             }}
         >
             <div className='w-full py-100 sm-py-50'>

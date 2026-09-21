@@ -1,13 +1,13 @@
 import React, { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import Container from "../../../components/common/Container";
-import Image from "../../../components/common/Image";
-import Icon from "../../../components/common/Icon";
-import Button from "../../../components/common/Button";
+import Container from "../../../../components/common/Container";
+import Image from "../../../../components/common/Image";
+import Icon from "../../../../components/common/Icon";
+import Button from "../../../../components/common/Button";
 
-import watchUltra from "../../../assets/watch-ultra.jpg";
-import watchLuxe from "../../../assets/watch-luxe.jpg";
-import watchActive from "../../../assets/watch-active.jpg";
+import watchUltra from "../../../../assets/watch-ultra.jpg";
+import watchLuxe from "../../../../assets/watch-luxe.jpg";
+import watchActive from "../../../../assets/watch-active.jpg";
 
 const PRODUCTS = [
     {

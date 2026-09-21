@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import agencyVideo from '../../../assets/agency.mp4';
-import heroMask1 from '../../../assets/hero-bg1-mask.png';
-import heroMask3 from '../../../assets/hero-bg3-mask.png';
-import Container from '../../../components/common/Container';
-import Image from '../../../components/common/Image';
-import Button from '../../../components/common/Button';
+import agencyVideo from '../../../../assets/agency.mp4';
+import heroMask1 from '../../../../assets/hero-bg1-mask.png';
+import heroMask3 from '../../../../assets/hero-bg3-mask.png';
+import Container from '../../../../components/common/Container';
+import Image from '../../../../components/common/Image';
+import Button from '../../../../components/common/Button';
 
-import { configData } from '../../../utils/apiData';
+import { configData } from '../../../../utils/apiData';
 
 const HEIGHT_MAP = {
     sticky: { 1: 'h-800 sm-h-550', 2: 'h-700 sm-h-550' },

@@ -1,7 +1,7 @@
 import React from 'react';
-import Container from '../../../components/common/Container';
-import Image from '../../../components/common/Image';
-import Button from '../../../components/common/Button';
+import Container from '../../../../components/common/Container';
+import Image from '../../../../components/common/Image';
+import Button from '../../../../components/common/Button';
 
 const offerBanners = [
     {
