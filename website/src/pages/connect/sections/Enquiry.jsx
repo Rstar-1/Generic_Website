@@ -35,7 +35,8 @@ const enquiryFields = [
         name: 'message',
         label: 'Your message',
         type: 'textarea',
-        placeholder: 'Tell us about your project or inquiry...'
+        placeholder: 'Tell us about your project or inquiry...',
+        style: { width: '97%' }
     }
 ];
 
@@ -113,13 +114,13 @@ const EnquiryVersion1 = React.memo(({ fields, onSubmit, formKey }) => {
                     <div className="w-90 sm-w-full">
                         <FormBuilder
                             key={formKey}
-                            version="3"
+                            version="2"
                             fields={fields}
                             onSubmit={onSubmit}
                             submitType="json"
                             col="1"
                             submitText="Submit Now"
-                            buttonVersion="v2"
+                            buttonVersion="v1"
                             buttonBg="dark"
                             buttonClassName="flex items-center justify-start mt-20"
                         />
@@ -129,8 +130,8 @@ const EnquiryVersion1 = React.memo(({ fields, onSubmit, formKey }) => {
                 <div className="w-35 sm-w-full pl-20 sm-pl-1 sm-mt-16">
                     <Heading
                         version="v2"
-                        tag={import.meta.env.VITE_SUPPORT_TAG || "SUPPORT DESK"}
-                        tagIcon="Clock"
+                        tag=''
+                        tagIcon=""
                         title={import.meta.env.VITE_SUPPORT_TITLE || "Need Help?"}
                         subtitle={import.meta.env.VITE_SUPPORT_SUBTITLE || "To us, design has a broader purpose and as you can read about on this website, we are on a mission."}
                         className="mb-20"
