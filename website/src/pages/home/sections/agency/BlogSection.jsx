@@ -3,6 +3,7 @@ import Container from '../../../../components/common/Container';
 import Image from '../../../../components/common/Image';
 import Button from '../../../../components/common/Button';
 import Icon from '../../../../components/common/Icon';
+import Badge from '../../../../components/common/Badge';
 import Heading from '../../../../components/layout/generic/Heading';
 import { blogCMS } from '../../../../utils/apiData';
 
@@ -30,10 +31,17 @@ const BlogSection = () => {
                         />
 
                         <div className='absolute top-0 left-0'>
-                            <p className='mini-text text-white bg-primary w-max px-14 py-4 rounded-20 flex items-center gap-8 font-500 uppercase m-30 sm-m-14'>
-                                <Icon name='Box' width="14" height="14" className="text-white" />
-                                {featuredPost.tag}
-                            </p>
+                            <Badge
+                                text={featuredPost.tag}
+                                icon="Box"
+                                iconSize={14}
+                                bg="bg-primary"
+                                textColor="text-white"
+                                shape="pill"
+                                size="sm"
+                                capitalize={false}
+                                className="uppercase font-500 m-30 sm-m-14"
+                            />
                         </div>
 
                         <div className='absolute bottom-0 left-0'>
@@ -52,10 +60,6 @@ const BlogSection = () => {
                                 <h3 className='head-text text-white font-600 line-clamp3 uppercase mt-16 sm-mt-4'>
                                     {featuredPost.title}
                                 </h3>
-
-                                <p className='para-text text-white font-400 mt-10 sm-line-clamp3 w-full'>
-                                    {featuredPost.description}
-                                </p>
                             </div>
                         </div>
                     </div>
@@ -75,10 +79,17 @@ const BlogSection = () => {
                                         decoding="async"
                                     />
                                     <div className='absolute top-0 left-0'>
-                                        <p className='mini-text text-white bg-primary w-max px-14 py-4 sm-px-10 sm-py-2 rounded-20 flex items-center gap-8 font-500 uppercase m-12 sm-m-8'>
-                                            <Icon name='Box' width="14" height="14" className="text-white" />
-                                            {post.tag}
-                                        </p>
+                                        <Badge
+                                            text={post.tag}
+                                            icon="Box"
+                                            iconSize={12}
+                                            bg="bg-primary"
+                                            textColor="text-white"
+                                            shape="pill"
+                                            size="sm"
+                                            capitalize={false}
+                                            className="uppercase font-500 m-12 sm-m-8"
+                                        />
                                     </div>
                                 </div>
 

@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import Banner from '../../components/layout/generic/Banner';
 import Loader from '../../components/common/generic/Loader';
+import SEO from '../../seo';
 import aboutBanner from '../../assets/about-banner.jpg';
 
 const DetailSection = lazy(() => import('./sections/DetailSection'));
@@ -26,6 +27,7 @@ const About = () => {
 
     return (
         <>
+            <SEO page="about" />
             <Banner
                 title="About Us"
                 desc="About Our Story"

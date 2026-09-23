@@ -70,53 +70,6 @@ const FooterNewsletter = React.memo(
       <div className="w-45 sm-w-full">
         <h3 className="head-text text-dark font-600">{title}</h3>
         <p className="small-text text-gray font-400 mt-4">{description}</p>
-
-        <form onSubmit={onSubscribe} className="flex items-center gap-12 w-90 sm-w-full sm-mt-20 mt-30">
-          <input
-            type="email"
-            value={email}
-            onChange={onEmailChange}
-            placeholder={placeholder}
-            required
-            className="outline-none"
-            style={{
-              backgroundColor: '#F1F5F9',
-              border: 'none',
-              borderRadius: '30px',
-              padding: '14px 22px',
-              fontSize: '14px',
-              flex: 1,
-              minWidth: '220px',
-              color: '#0F172A',
-            }}
-          />
-          <button
-            type="submit"
-            className="cursor-pointer font-600 transition-all"
-            style={{
-              backgroundColor: '#0F172A',
-              color: '#FFFFFF',
-              borderRadius: '30px',
-              padding: '14px 28px',
-              fontSize: '14px',
-              border: 'none',
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.9')}
-            onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
-          >
-            {isSubscribed ? 'Subscribed!' : buttonText}
-          </button>
-        </form>
-
-        {d && (
-          <p className="mini-text text-gray font-400 mt-8">
-            {d.prefix}
-            <a href={d.termsUrl} className="text-gray mini-text">{d.termsLabel}</a>
-            {d.middle}
-            <a href={d.privacyUrl} className="text-gray mini-text">{d.privacyLabel}</a>
-            {d.suffix}
-          </p>
-        )}
       </div>
     );
   }
@@ -126,14 +79,14 @@ const FooterNavigation = React.memo(({ columns }) => {
   if (!columns?.length) return null;
 
   return (
-    <div className="w-45 sm-w-full grid-cols-3 sm-pl-1 gap-12 sm-mt-12">
+    <div className="w-45 sm-w-full gap-12 sm-mt-12">
       {columns.map((col, cIdx) => (
         <div key={col.title || cIdx}>
-          <h4 className="mid-text text-dark font-600">{col.title}</h4>
-          <ul className="list-none px-4 grid-cols-1 gap-8 mt-12">
+          {/* <h4 className="mid-text text-dark font-600">{col.title}</h4> */}
+          <ul className="list-none px-4 flex justify-end gap-12">
             {col.links.map((link, lIdx) => (
               <li key={link.label || lIdx}>
-                <a href={link.url || '#'} className="text-gray font-400 small-text">
+                <a href={link.url || '#'} className="text-gray font-400 para-text px-10">
                   {link.label}
                 </a>
               </li>
@@ -221,8 +174,8 @@ const Footer = () => {
   const envPhone = import.meta.env.VITE_PHONE;
   const displayPhone = envPhone
     ? (envPhone.startsWith('+') || envPhone.includes(' ') || envPhone.includes('-')
-        ? envPhone
-        : (envPhone.length === 10 ? `+91 ${envPhone}` : envPhone))
+      ? envPhone
+      : (envPhone.length === 10 ? `+91 ${envPhone}` : envPhone))
     : null;
   const phoneHref = import.meta.env.VITE_SOCIAL_PHONE || (envPhone ? `tel:${envPhone}` : null);
   const envEmail = import.meta.env.VITE_EMAIL;

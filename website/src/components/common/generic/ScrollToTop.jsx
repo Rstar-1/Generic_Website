@@ -38,7 +38,7 @@ const ScrollToTop = React.memo(() => {
     <>
       <button
         onClick={scrollToTop}
-        className={`scroll-to-top-btn flex items-center justify-center b-shadow z-99 border-0 cursor-pointer rounded-full bg-forth ${isVisible ? "visible" : ""
+        className={`scroll-to-top-btn flex items-center justify-center b-shadow z-999 border-0 cursor-pointer rounded-full bg-forth ${isVisible ? "visible" : ""
           }`}
         aria-label="Scroll to top"
         style={{

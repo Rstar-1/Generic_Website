@@ -50,31 +50,10 @@
     {
       "title": "Company",
       "links": [
-        { "label": "About us", "url": "#about-us" },
-        { "label": "Contact", "url": "#contact" },
-        { "label": "FAQs", "url": "#faqs" },
-        { "label": "Blog", "url": "#blog" },
-        { "label": "Find a Store", "url": "#find-a-store" }
-      ]
-    },
-    {
-      "title": "Collection",
-      "links": [
-        { "label": "Tables", "url": "#tables" },
-        { "label": "Bow Chairs", "url": "#bow-chairs" },
-        { "label": "Turn Table", "url": "#turn-table" },
-        { "label": "Turn Chair", "url": "#turn-chair" },
-        { "label": "Cross Bar Chair", "url": "#cross-bar-chair" }
-      ]
-    },
-    {
-      "title": "Shop",
-      "links": [
-        { "label": "Sofas", "url": "#sofas" },
-        { "label": "Outdoor", "url": "#outdoor" },
-        { "label": "Seating", "url": "#seating" },
-        { "label": "Lighting", "url": "#lighting" },
-        { "label": "Accessories", "url": "#accessories" }
+        { "label": "About us", "url": "about" },
+        { "label": "News & Media", "url": "blog" },
+        { "label": "Services", "url": "service" },
+        { "label": "Get In Touch", "url": "connect" }
       ]
     }
   ],

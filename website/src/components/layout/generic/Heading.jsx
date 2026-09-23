@@ -1,6 +1,7 @@
-import React, { useMemo } from 'react';
+import { useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Icon from '../../common/Icon';
+import Badge from '../../common/Badge';
 
 const Heading = ({
     version = "v1",
@@ -13,21 +14,32 @@ const Heading = ({
     onActionClick,
     actionIcon = "ArrowRight",
     align = "center",
-    className = ""
+    className = "",
+    tagProps = {}
 }) => {
     const navigate = useNavigate();
 
-    const handleActionClick = () => {
+    const handleActionClick = useCallback(() => {
         if (onActionClick) onActionClick();
         else if (actionLink) navigate(actionLink);
-    };
+    }, [onActionClick, actionLink, navigate]);
 
-    const renderTag = (extraClass = "") => tag ? (
-        <p className={`mini-text text-dark border-ec w-max px-18 py-6 rounded-20 flex items-center gap-8 font-600 uppercase mb-8 ${extraClass}`}>
-            {tagIcon && <Icon name={tagIcon} width="14" height="14" className="text-primary" />}
-            {tag}
-        </p>
-    ) : null;
+    const renderTag = useCallback((extraClass = "") => tag ? (
+        <Badge
+            text={tag}
+            icon={tagIcon}
+            iconSize={14}
+            iconColor="var(--primary)"
+            iconClassName="text-primary"
+            variant="outline"
+            color="white"
+            shape="pill"
+            size="md"
+            capitalize={false}
+            className={`font-600 uppercase mb-8 border-ec ${extraClass}`}
+            {...tagProps}
+        />
+    ) : null, [tag, tagIcon, tagProps]);
 
     const renderedHeading = useMemo(() => {
         switch (version) {
@@ -75,7 +87,7 @@ const Heading = ({
                     </div>
                 );
         }
-    }, [version, tag, tagIcon, title, subtitle, actionText, actionIcon, align, className]);
+    }, [version, tag, title, subtitle, actionText, actionIcon, align, className, handleActionClick, renderTag]);
 
     return renderedHeading;
 };

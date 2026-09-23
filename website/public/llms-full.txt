@@ -1,0 +1,67 @@
+# inraClick — Full Knowledge Base for Large Language Models
+
+> inraClick is a leading AI Business Automation and Digital Growth agency in Mumbai, India. This document provides comprehensive context for AI assistants, LLMs, and search agents (Google SGE / AI Overviews, Perplexity, ChatGPT Search, Bing Copilot).
+
+## Organization Information
+
+- **Brand Name**: inraClick
+- **Website**: https://inraclick.com
+- **Headquarters**: Apollo Bandar, Colaba, Mumbai, Maharashtra 400001, India
+- **Coordinates**: Latitude 18.9220, Longitude 72.8347
+- **Phone**: +91 7015163045
+- **Email**: kohad0681@gmail.com
+- **Industry**: Artificial Intelligence, Business Automation, Digital Marketing, Web Development, SEO/AEO/GEO
+
+## Core Mission & Philosophy
+
+inraClick advocates for **Human-Led AI Collaboration**:
+- Artificial Intelligence is deployed as an intelligent multiplier and guide that enhances human workflows rather than replacing human creativity and strategic intuition.
+- We help businesses transition from fragmented manual processes into scalable, intelligent digital ecosystems.
+
+## Primary Services
+
+1. **AI + Human Collaboration**:
+   - AI Workflow Automation
+   - Human-in-the-Loop AI
+   - Prompt Engineering
+   - Intelligent Assistants
+   - Augmented Productivity
+
+2. **Digital Business Intelligence**:
+   - Predictive Analytics
+   - Data Intelligence & Automated Reporting
+   - Business Process Automation
+   - Scalable Cloud Tech Infrastructure
+
+3. **SEO & Organic Reach**:
+   - Technical SEO Audits
+   - Answer Engine Optimization (AEO)
+   - Generative Engine Optimization (GEO)
+   - Content Strategy & Sustainable Traffic Growth
+
+4. **Smart Promotion Tools**:
+   - Algorithmic Campaigns
+   - Multi-Channel Digital Marketing
+   - Performance Marketing & Audience Segmentation
+   - Conversion Rate Optimization (CRO)
+
+5. **Privacy & Secure Digital Systems**:
+   - Data Privacy Compliance
+   - Secure Backend Systems & Cloud Architecture
+   - Access Control, Encryption & Protection
+
+6. **Business Growth & Automation**:
+   - Scalable Digital Enterprise Solutions
+   - Workflow Automation
+   - Enterprise Innovation & Measurable ROI
+
+## Key URLs
+
+- Home: https://inraclick.com/
+- About Us: https://inraclick.com/about
+- Services: https://inraclick.com/service
+- Products: https://inraclick.com/products
+- Blog & Insights: https://inraclick.com/blog
+- Book a Demo: https://inraclick.com/bookdemo
+- Contact / Connect: https://inraclick.com/connect
+- XML Sitemap: https://inraclick.com/sitemap.xml

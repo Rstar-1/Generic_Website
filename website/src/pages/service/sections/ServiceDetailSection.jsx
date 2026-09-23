@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Container from '../../../components/common/Container';
 import Image from '../../../components/common/Image';
 import Icon from '../../../components/common/Icon';
-import Button from '../../../components/common/Button';
+import Badge from '../../../components/common/Badge';
 
 const benefitImages = [
     {
@@ -26,7 +26,8 @@ const socialLinks = [
 
 const contactInfos = [
     { id: 1, icon: 'Phone', text: '+91 7015163045', href: 'tel:+917015163045' },
-    { id: 2, icon: 'Mail', text: 'inra@inraclick.com', href: 'mailto:inra@inraclick.com' }
+    { id: 2, icon: 'Mail', text: 'inra@inraclick.com', href: 'mailto:inra@inraclick.com' },
+    { id: 3, icon: 'MapPin', text: 'Colaba, Mumbai, India', href: 'https://maps.google.com' }
 ];
 
 const featureCards = [
@@ -100,32 +101,32 @@ const ServiceDetailSection = () => {
 
                 <div className="w-30 sm-w-full grid-cols-1 gap-12">
                     <div
-                        className="rounded-10 p-30 relative overflow-hidden"
+                        className="rounded-10 p-24 relative overflow-hidden "
                         style={{
-                            background: "linear-gradient(180deg, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.65) 100%), url('https://concept-theme-tech.myshopify.com/cdn/shop/files/collection-headphones-accessories.webp?v=1708441039&width=1080')",
+                            background: "linear-gradient(180deg, rgba(15, 23, 42, 0.75) 0%, rgba(15, 23, 42, 0.90) 100%), url('https://concept-theme-tech.myshopify.com/cdn/shop/files/collection-headphones-accessories.webp?v=1708441039&width=1080')",
                             backgroundSize: 'cover',
                             backgroundPosition: 'center'
                         }}
                     >
-
+                        <Badge text="Direct Response" color="white" shape="pill" size="sm" className="mb-12" />
                         <h3 className="title-text font-600 text-white">
-                            Need Any Software Company Services?
+                            Need Qualified Leads for Your Business?
                         </h3>
-                        <p className="small-text text-white mt-8 text-muted">
-                            Our tech solutions help businesses operate smarter, faster, and more.
+                        <p className="small-text text-white mt-8 text-muted" style={{ opacity: 0.85 }}>
+                            Connect directly with our lead generation leads for B2B pipeline growth and B2C direct customer acquisition.
                         </p>
 
-                        <div className="grid-cols-1 gap-12 mt-26">
+                        <div className="grid-cols-1 gap-12 mt-20">
                             {contactInfos.map((info) => (
                                 <a
                                     key={info.id}
                                     href={info.href}
-                                    className="flex items-center gap-12 mb-4"
+                                    className="flex items-center gap-12 text-white decoration-none hover:opacity-85 transition-all"
                                 >
                                     <div className="icon-lg bg-primary rounded-full flex items-center justify-center flex-shrink-0">
-                                        <Icon name={info.icon} width="18" height="18" stroke="var(--white)" />
+                                        <Icon name={info.icon} width="16" height="16" stroke="var(--white)" />
                                     </div>
-                                    <p className="small-text font-500 text-white m-0">{info.text}</p>
+                                    <p className="small-text font-400 text-white m-0 truncate">{info.text}</p>
                                 </a>
                             ))}
                         </div>
@@ -143,15 +144,15 @@ const ServiceDetailSection = () => {
                                         width: '38px',
                                         height: '38px',
                                         borderRadius: '50%',
-                                        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                                        backgroundColor: 'rgba(255, 255, 255, 0.12)',
                                         color: '#FFFFFF'
                                     }}
                                     onMouseEnter={(e) => {
-                                        e.currentTarget.style.backgroundColor = '#FF5100';
-                                        e.currentTarget.style.transform = 'translateY(-3px)';
+                                        e.currentTarget.style.backgroundColor = 'var(--primary)';
+                                        e.currentTarget.style.transform = 'translateY(-2px)';
                                     }}
                                     onMouseLeave={(e) => {
-                                        e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+                                        e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.12)';
                                         e.currentTarget.style.transform = 'translateY(0)';
                                     }}
                                 >
@@ -159,31 +160,16 @@ const ServiceDetailSection = () => {
                                 </a>
                             ))}
                         </div>
-
-                        <Button
-                            onClick={() => navigate('/connect')}
-                            text="Know More Us"
-                            icon="ArrowUpRight"
-                            iconPosition="right"
-                            bg="primary"
-                            color="white"
-                            version='v3'
-                            className='mt-20 rounded-20'
-                        />
                     </div>
 
                     {featureCards.map((card) => (
-                        <div key={card.id} className="bg-forth rounded-10 p-18">
-                            <div className="flex">
-                                <div className="w-15">
-                                    <div className="icon-lg bg-tertiary rounded-full flex items-center justify-center">
-                                        <Icon name={card.icon} width="22" height="22" stroke="var(--primary)" />
-                                    </div>
-                                </div>
-                                <div className="w-85">
-                                    <h4 className="mid-text font-600 text-dark">{card.title}</h4>
-                                    <p className="small-text text-gray mt-2">{card.desc}</p>
-                                </div>
+                        <div key={card.id} className="bg-forth rounded-5 p-20">
+                            <div className="icon-lg bg-white rounded-full">
+                                <Icon name={card.icon} width="22" height="22" stroke="var(--primary)" />
+                            </div>
+                            <div className="mt-13">
+                                <h4 className="mid-text font-600 text-dark">{card.title}</h4>
+                                <p className="small-text text-gray mt-2">{card.desc}</p>
                             </div>
                         </div>
                     ))}

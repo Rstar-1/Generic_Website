@@ -2,7 +2,6 @@ import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Container from '../../../components/common/Container';
 import Icon from '../../../components/common/Icon';
-import Button from '../../../components/common/Button';
 import Heading from '../../../components/layout/generic/Heading';
 import FormBuilder from '../../../components/forms/FormBuilder';
 import { showToast } from '../../../components/common/Toast';
@@ -101,7 +100,7 @@ const EnquiryVersion1 = React.memo(({ fields, onSubmit, formKey }) => {
     return (
         <Container>
             <div className="flex sm-grid-cols-1 items-start gap-12 py-60">
-                <div className="w-65 sm-w-full pr-20 sm-pr-1 bordr">
+                <div className="w-60 sm-w-full pr-20 sm-pr-1 bordr">
                     <Heading
                         version="v2"
                         tag={import.meta.env.VITE_CONTACT_TAG || "GET IN TOUCH"}
@@ -127,7 +126,7 @@ const EnquiryVersion1 = React.memo(({ fields, onSubmit, formKey }) => {
                     </div>
                 </div>
 
-                <div className="w-35 sm-w-full pl-20 sm-pl-1 sm-mt-16">
+                <div className="w-40 sm-w-full pl-20 sm-pl-1 sm-mt-16">
                     <Heading
                         version="v2"
                         tag=''

@@ -1,5 +1,6 @@
 import React, { lazy, Suspense, memo } from 'react';
 import LazySection from '../../components/common/LazySection';
+import SEO from '../../seo';
 import HeroSections from './sections/agency/HeroSections';
 import ScaleSection from './sections/agency/ScaleSection';
 
@@ -46,6 +47,7 @@ const Home = () => {
 
     return (
         <main className="w-full">
+            <SEO page="home" />
             {activeSections.map(({ Component, isEager, minHeight }, index) => {
                 if (isEager) {
                     return <Component key={index} />;

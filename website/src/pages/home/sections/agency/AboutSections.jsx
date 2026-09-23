@@ -81,7 +81,7 @@ const AboutSections = () => {
 
                                 <Button
                                     text={aboutCMS.crafter.buttonText}
-                                    version="v2"
+                                    version="v1"
                                     bg="white"
                                     color="dark"
                                     className="rounded-6 font-600 mt-36"

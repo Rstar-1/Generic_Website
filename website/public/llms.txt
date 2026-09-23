@@ -1,0 +1,27 @@
+# inraClick
+
+> AI Business Automation & Digital Growth Solutions agency headquartered in Apollo Bandar, Colaba, Mumbai, Maharashtra, India. inraClick empowers modern enterprises by combining human-led AI workflows, custom website development, SEO, AEO (Answer Engine Optimization), GEO (Generative Engine Optimization), and performance marketing.
+
+## Core Pages
+
+- [Home](https://inraclick.com/): Intelligent AI business automation platform and digital growth ecosystems.
+- [About Us](https://inraclick.com/about): Our story, mission, and human-led artificial intelligence philosophy.
+- [Services](https://inraclick.com/service): Comprehensive digital services including AI + Human Collaboration, Digital Business Intelligence, SEO & Organic Reach, Smart Promotion Tools, Privacy Systems, and Business Growth Automation.
+- [Products](https://inraclick.com/products): Intelligent business automation products and enterprise tools.
+- [News & Blog](https://inraclick.com/blog): Industry insights on AI workflows, SEO, AEO, GEO, and digital innovation.
+- [Book a Demo](https://inraclick.com/bookdemo): Schedule a personalized live demonstration of inraClick automation tools.
+- [Connect / Contact](https://inraclick.com/connect): Contact our Mumbai office in Colaba for custom inquiries and partnerships.
+
+## Services Breakdown
+
+- [AI + Human Collaboration](https://inraclick.com/service): AI as an intelligent guide that empowers humans and streamlines digital workflows.
+- [Digital Business Intelligence](https://inraclick.com/service): Predictive systems, automated data intelligence, and scalable tech infrastructure.
+- [SEO & Organic Reach](https://inraclick.com/service): Technical SEO, AEO, and sustainable organic website traffic growth.
+- [Smart Promotion Tools](https://inraclick.com/service): Algorithmic campaigns, multi-channel marketing, and conversion optimization.
+- [Privacy & Secure Digital Systems](https://inraclick.com/service): Data privacy compliance, encryption, and secure cloud backend systems.
+- [Business Growth & Automation](https://inraclick.com/service): Measurable ROI, scalable digital solutions, and automated workflows.
+
+## Optional
+
+- [Full LLM Details](https://inraclick.com/llms-full.txt): Extended documentation and knowledge base for LLM reasoning.
+- [XML Sitemap](https://inraclick.com/sitemap.xml): Complete machine-readable URL list.

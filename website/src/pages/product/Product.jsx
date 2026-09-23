@@ -2,11 +2,13 @@ import React from 'react'
 import Banner from '../../components/layout/generic/Banner'
 import FilterSection from './sections/FilterSection'
 import SpecifySection from './sections/SpecifySection'
+import SEO from '../../seo'
 import bannerImg from '../../assets/about-banner.jpg'
 
 const Product = () => {
     return (
         <>
+            <SEO page="product" />
             <Banner
                 title="Products Collection"
                 desc="Products"

@@ -24,27 +24,19 @@
         {
           "title": "Modern Frontend & Full-Stack Tech",
           "description": "Build lightning-fast web applications using Next.js 15, React 19, TypeScript, and serverless edge functions for sub-second global response times."
-        },
-        {
-          "title": "Conversion & Performance Optimization",
-          "description": "Architected for Lighthouse 100 performance scores, seamless micro-interactions, WCAG AA accessibility, and maximum user conversion."
         }
       ]
     },
-    "platforms": ["Next.js", "React", "Tailwind"],
+    "platforms": ["Next.js", "React"],
     "codeSnippets": {
       "Next.js": [
         {
           "num": 1,
-          "code": "const studio = await createDigitalExperience({ brand: 'NextGen' })"
+          "code": "const studio = createExperience({ brand: 'NextGen' })"
         },
         {
           "num": 2,
           "code": "const designTokens = await studio.injectThemeTokens(customTheme)"
-        },
-        {
-          "num": 3,
-          "code": "const page = studio.renderDynamicCanvas({ ssr: true, edge: true })"
         },
         {
           "num": 4,
@@ -76,28 +68,6 @@
           "num": 5,
           "code": "return <InteractiveStudioCanvas experience={motionCanvas} />"
         }
-      ],
-      "Tailwind": [
-        {
-          "num": 1,
-          "code": "const designTokens = extendTailwindTheme({ brandPrimary: '#3b82f6' })"
-        },
-        {
-          "num": 2,
-          "code": "const componentKit = buildUtilityVariants({ glassmorphism: true })"
-        },
-        {
-          "num": 3,
-          "code": "const responsiveGrid = compileFluidLayout({ columns: 12 })"
-        },
-        {
-          "num": 4,
-          "code": "await syncFigmaVariablesWithCssTokens(designTokens)"
-        },
-        {
-          "num": 5,
-          "code": "export default defineDesignSystemConfig(componentKit)"
-        }
       ]
     },
     "racers": [
@@ -112,12 +82,6 @@
         "title": "Brand Identity & Motion",
         "subtitle": "Iconic visual storytelling that captivates",
         "description": "From dynamic brand identities and 3D web animations to distinctive typography and art direction, we create digital impressions that turn casual visitors into loyal brand advocates."
-      },
-      {
-        "id": 3,
-        "title": "Growth & CRO Engine",
-        "subtitle": "Data-driven UX optimization",
-        "description": "Continuously elevate your KPIs through heuristic UX evaluations, high-impact A/B experimentation, intelligent onboarding funnels, and enterprise analytics integrations."
       }
     ]
   },
@@ -541,7 +505,7 @@
       "comments": "8 comments",
       "title": "Architecting Scalable Design Systems for Hyper-Growth Tech Companies",
       "description": "How top product teams harmonize Figma design tokens with production React codebases to eliminate handoff friction, maintain brand consistency, and ship features 4x faster.",
-      "image": "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1600&q=80",
+      "image": "https://www.esenceweb.com/backend/uploads/shopify-v-ecommerce-website-development-blog.png",
       "buttonText": "Read Article"
     },
     "secondaryPosts": [
@@ -553,7 +517,7 @@
         "comments": "14 comments",
         "title": "Micro-Interactions that Drive Conversion: A Masterclass in User Delight",
         "description": "Exploring subtle motion physics, spatial feedback, and kinetic responsiveness that make modern interfaces feel alive and keep churn near zero.",
-        "image": "https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=500&q=80",
+        "image": "https://www.esenceweb.com/backend/uploads/Business-Automation-Software-Development-Company-blog.png",
         "buttonText": "Read Article"
       },
       {
@@ -564,7 +528,18 @@
         "comments": "6 comments",
         "title": "The Next.js 15 Performance Playbook: Sub-Second Loads at Global Scale",
         "description": "From partial prerendering and streaming server components to edge caching strategies that earn a perfect 100 on Google Lighthouse.",
-        "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=500&q=80",
+        "image": "https://www.esenceweb.com/backend/uploads/custom-website-development-vs-template-website-development-blog.png",
+        "buttonText": "Read Article"
+      },
+      {
+        "id": 4,
+        "tag": "Engineering",
+        "tagBg": "#22c55e",
+        "date": "February 15, 2026",
+        "comments": "6 comments",
+        "title": "The Next.js 15 Performance Playbook: Sub-Second Loads at Global Scale",
+        "description": "From partial prerendering and streaming server components to edge caching strategies that earn a perfect 100 on Google Lighthouse.",
+        "image": "https://www.esenceweb.com/backend/uploads/mobile-friendly-website-design-services-in-pune.png",
         "buttonText": "Read Article"
       }
     ]
