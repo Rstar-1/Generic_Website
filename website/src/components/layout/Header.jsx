@@ -444,41 +444,35 @@ const CartSidebar = React.memo(
           </div>
         </div>
 
-        <div className="w-full fixed bottom-0 left-0 bg-forth bordh">
-          <div className="p-30">
-            <div className="flex items-center justify-between mb-16">
-              <p className="small-text font-500 text-dark">
-                Subtotal
-              </p>
-
-              <p className="small-text font-500 text-primary">
-                ₹{subtotal}
-              </p>
+        <div className="fixed bottom-0 left-0 w-full bg-forth">
+          <div className="p-15">
+            <div className="flex items-end w-full">
+              <div className="w-80">
+                <h4 className="mid-text text-dark font-600">Estimated total</h4>
+                <p className="mini-text text-gray">Taxes and shipping at checkout</p>
+              </div>
+              <p className="small-text text-dark font-600 w-20 text-right">${subtotal.toFixed(2)}</p>
             </div>
-
-            <div className="grid-cols-2 gap-10">
+            <div className="grid-cols-2 gap-12 mt-12">
               <Button
-                text="Checkout"
-                version="v2"
-                bg="primary"
-                color="white"
-                disabled={cartItems.length === 0}
+                text="Explore More"
                 onClick={() => {
-                  onCloseCart();
-                  onNavigate("/pricing");
+                  setIsCartOpen(false);
+                  navigate('/products');
                 }}
+                version="v3"
+                bg="tertiary"
+                color="dark"
+                className="rounded-30 font-500"
               />
 
               <Button
-                text="View Products"
-                version="v2"
-                variant="outline"
-                bg="primary"
-                color="dark"
-                onClick={() => {
-                  onCloseCart();
-                  onNavigate("/products");
-                }}
+                text="Send Enquiry"
+                onClick={() => alert('Proceeding to checkout...')}
+                version="v3"
+                bg="dark"
+                color="white"
+                className="rounded-30 font-500"
               />
             </div>
           </div>
