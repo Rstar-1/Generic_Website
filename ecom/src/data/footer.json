@@ -1,0 +1,110 @@
+{
+  "features": [
+    {
+      "id": "service",
+      "icon": "Support",
+      "title": "Customer Support",
+      "text": "Mon-Sat, 9am-7pm IST.",
+      "type": "text"
+    },
+    {
+      "id": "call",
+      "icon": "Phone",
+      "title": "Call Us",
+      "text": "+91 98731 98731 / +91 98179 26992",
+      "link": "tel:9873198731",
+      "type": "text"
+    },
+    {
+      "id": "touch",
+      "icon": "Send",
+      "title": "Email Us",
+      "text": "info@goonjcom.in / shreeharisurgicals@gmail.com",
+      "link": "mailto:info@goonjcom.in",
+      "type": "link"
+    },
+    {
+      "id": "address",
+      "icon": "MapPin",
+      "title": "Distribution Hubs",
+      "text": "Delhi: Dilshad Garden | Mumbai: Masjid Bunder",
+      "type": "text"
+    }
+  ],
+  "newsletter": {
+    "title": "Institutional Supply Updates",
+    "description": "Receive updated medical equipment catalogs, tender specifications, and wholesale price notifications.",
+    "placeholder": "Enter your hospital or company email",
+    "buttonText": "Subscribe",
+    "disclaimer": {
+      "prefix": "By subscribing you agree to our ",
+      "termsLabel": "Terms & Conditions",
+      "termsUrl": "/terms",
+      "middle": " and ",
+      "privacyLabel": "Privacy Policy",
+      "privacyUrl": "/privacy",
+      "suffix": "."
+    }
+  },
+  "columns": [
+    {
+      "title": "Healthcare Network",
+      "links": [
+        { "label": "About Us", "url": "/about" },
+        { "label": "All Products", "url": "/product" },
+        { "label": "Find A Store / Supplier", "url": "/supplier" },
+        { "label": "Healthcare Insights", "url": "/blog" },
+        { "label": "Institutional Enquiry", "url": "/connect" }
+      ]
+    },
+    {
+      "title": "Hospital Holloware & OT",
+      "links": [
+        { "label": "Stainless Steel Dressing Drums", "url": "/product/16" },
+        { "label": "Surgical Instrument Trays", "url": "/product/18" },
+        { "label": "7 LED Examination Light", "url": "/product/22" },
+        { "label": "12x12 Deluxe Autoclave", "url": "/product/25" },
+        { "label": "SSP Emergency Crash Cart", "url": "/product/28" }
+      ]
+    },
+    {
+      "title": "First Aid & Emergency Care",
+      "links": [
+        { "label": "Factory First Aid Kit - Type A", "url": "/product/1" },
+        { "label": "Industrial First Aid Kit - Type B", "url": "/product/2" },
+        { "label": "Type C First Aid Metal Box", "url": "/product/3" },
+        { "label": "Wall Mount Medical Cabinet", "url": "/product/8" },
+        { "label": "Aluminium Scoop Stretcher", "url": "/product/10" }
+      ]
+    }
+  ],
+  "bottom": {
+    "region": {
+      "flag": "🇮🇳",
+      "label": "India (INR ₹)"
+    },
+    "paymentBadges": ["VISA", "MC", "AMEX", "UPI", "NEFT", "RTGS"],
+    "socials": [
+      {
+        "platform": "facebook",
+        "iconName": "Facebook",
+        "url": "https://www.facebook.com/"
+      },
+      {
+        "platform": "instagram",
+        "iconName": "Instagram",
+        "url": "https://www.instagram.com/"
+      },
+      {
+        "platform": "youtube",
+        "iconName": "YouTube",
+        "url": "https://www.youtube.com/"
+      }
+    ],
+    "copyright": "© 2026 Goonj & Shreehari Surgicals Healthcare Network. All rights reserved.",
+    "legalLinks": [
+      { "label": "Terms & Conditions", "url": "/terms" },
+      { "label": "Privacy Policy", "url": "/privacy" }
+    ]
+  }
+}

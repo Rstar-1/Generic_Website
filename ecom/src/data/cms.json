@@ -1,0 +1,434 @@
+{
+  "HeroSections": {
+    "titleLine1": "CERTIFIED",
+    "titleLine2": "HOSPITAL, SURGICAL &",
+    "titleHighlight": "FIRST AID HEALTHCARE SOLUTIONS",
+    "agencyTitle": "MANUFACTURERS & SUPPLIERS",
+    "leftText": "Goonj & Shreehari Surgicals — Leading manufacturers & wholesale distributors of stainless steel hospital holloware, OT equipment, CE-certified industrial first aid boxes, and emergency patient stretchers.",
+    "rightText": "Equipping leading hospitals, clinical trauma centers, pharmaceutical clean rooms, and manufacturing plants across India with certified medical devices, hospital furniture, and life-saving rescue solutions."
+  },
+  "AboutSections": {
+    "heading": {
+      "tag": "MANUFACTURING & QUALITY EXCELLENCE",
+      "title": "Medical-Grade 304 Stainless Steel Holloware, OT Equipment & CE-Certified First Aid Kits"
+    },
+    "crafter": {
+      "title": "Hospital Furniture, Holloware & Emergency Rescue",
+      "subtitle": "Precision stainless steel fabrication, cold-LED surgical illumination & Factory Act compliance",
+      "buttonText": "< View Medical Catalog />",
+      "features": [
+        {
+          "title": "Sterilization Integrity & Corrosion Resistance",
+          "description": "Seamless deep-drawn Grade 304 stainless steel dressing drums, catheter trays, and holloware built to endure continuous 134°C autoclave steam sterilization."
+        },
+        {
+          "title": "CE & Statutory Safety Compliance",
+          "description": "Industrial first aid boxes, evacuation stair chairs, and scoop stretchers fully certified to CE Directive 2006/42/CE and Indian Factories Act requirements."
+        }
+      ]
+    },
+    "platforms": ["First Aid & Emergency (Shreehari)", "Hospital Holloware & OT (Goonj)", "Protective Linen & Disposables"],
+    "codeSnippets": {
+      "First Aid & Emergency (Shreehari)": [
+        { "num": 1, "code": "const standard = 'CE Certified (Directive 2006/42/CE)'" },
+        { "num": 2, "code": "const kitTypes = ['Type A (28 items)', 'Type B (34 items)', 'Type C (38 items)']" },
+        { "num": 3, "code": "const stretcherSpecs = ['Aluminium Scoop', 'HDPE Spine Board', '4-Fold Wheeled']" },
+        { "num": 4, "code": "const certification = 'ISO 9001:2015 Registered (Shreehari Surgicals)'" },
+        { "num": 5, "code": "export default getEmergencyFirstAidCatalog()" }
+      ],
+      "Hospital Holloware & OT (Goonj)": [
+        { "num": 1, "code": "const steelGrade = 'AISI 304 Non-Magnetic Stainless Steel'" },
+        { "num": 2, "code": "const holloware = ['Jointed & Jointless Dressing Drums', 'Instrument Trays', 'Kidney Dishes']" },
+        { "num": 3, "code": "const otLighting = 'Cold LED Shadowless 35,000 to 100,000 Lux'" },
+        { "num": 4, "code": "const autoclaveRating = '15 PSI Standard / Triple-Wall Radial 134°C'" },
+        { "num": 5, "code": "return <HospitalEquipmentSupplier brand='Goonj' />" }
+      ],
+      "Protective Linen & Disposables": [
+        { "num": 1, "code": "const fabric = '45-60 GSM Hydrophobic SMMS Non-Woven'" },
+        { "num": 2, "code": "const barrierLevel = 'AAMI Level 3 Liquid & Viral Barrier'" },
+        { "num": 3, "code": "const sterilization = 'Ethylene Oxide (EO) Individually Pouched'" },
+        { "num": 4, "code": "const masks = 'N95 Respirators (≥95% BFE/PFE) & 3-Ply Surgical'" },
+        { "num": 5, "code": "export const medicalDisposables = getGoonjCatalog()" }
+      ]
+    },
+    "racers": [
+      {
+        "id": 1,
+        "title": "Direct Factory Wholesale Supply",
+        "subtitle": "Central distribution hubs in Delhi & Mumbai for rapid nationwide dispatch",
+        "description": "Vast ready stock of hospital holloware, dressing drums, first aid boxes, stretchers, surgical gowns, and autoclaves shipped across India."
+      },
+      {
+        "id": 2,
+        "title": "Hospital & Industrial Grade Certified",
+        "subtitle": "ISO 9001 (QMS), ISO 14001 (EMS), ISO 45001, CE, RoHS & BMW 2016 Compliant",
+        "description": "Engineered for government and corporate multi-specialty hospitals, emergency EMS fleets, defense establishments, and manufacturing factories."
+      }
+    ]
+  },
+  "ServiceSection": {
+    "stages": [
+      {
+        "id": "sizing",
+        "step": 1,
+        "tag": "01 / Clinical Sizing & Requirement Audit",
+        "color": "#3b82f6",
+        "glowColor": "rgba(59, 130, 246, 0.48)",
+        "icon": "Shield",
+        "headingMain": "Tailored Hospital Equipment &",
+        "headingHighlight": "Statutory Safety Compliance",
+        "description": "We assist hospital administrators, safety directors, and procurement teams in selecting the exact specifications of holloware, autoclaves, first aid kits (Type A, B, or C), and emergency stretchers.",
+        "ctaText": "Enquire about institutional supply",
+        "ctaLink": "/connect",
+        "hasTopCta": true,
+        "tabs": [
+          { "label": "Hospital Wards & ICUs", "value": "Hospital" },
+          { "label": "Factories & Workshops", "value": "Factory" },
+          { "label": "Emergency EMS & Rescue", "value": "Rescue" },
+          { "label": "Maternity & Neonatal", "value": "Neonatal" },
+          { "label": "Operation Theatres", "value": "Operation" },
+          { "label": "Home Healthcare", "value": "Homecare" }
+        ],
+        "collaboration": {
+          "title": "Select certified medical equipment and emergency care solutions for your institution.",
+          "titleHighlight": "for maximum patient safety, infection control, and operational readiness",
+          "items": [
+            "Seamless Grade 304 stainless steel hospital holloware & dressing drums",
+            "CE-Certified industrial first aid kits (Types A, B, and C) & wall cabinets",
+            "Emergency scoop stretchers, spine boards & stair evacuation chairs",
+            "Shadowless LED surgical OT lights & steam autoclave sterilizers"
+          ],
+          "buttonText": "Request Institutional Price List",
+          "linkText": "Explore complete medical & surgical catalog"
+        }
+      },
+      {
+        "id": "manufacturing",
+        "step": 2,
+        "tag": "02 / Precision Manufacturing & Quality Testing",
+        "color": "#22c55e",
+        "glowColor": "rgba(34, 197, 94, 0.48)",
+        "icon": "Activity",
+        "headingMain": "Quality Controlled Fabrication &",
+        "headingHighlight": "Certified Compliance",
+        "description": "Manufactured using state-of-the-art sheet metal deep drawing, precision optical LED clustering, and rigorous pressure testing under ISO 9001, CE, and RoHS standards.",
+        "ctaText": "View Product Catalog",
+        "ctaLink": "/product",
+        "hasTopCta": true,
+        "codeIntro": "Verified hospital equipment specifications and technical parameters:_",
+        "tools": [
+          { "label": "SS 304 Holloware", "icon": "Layers", "href": "/product" },
+          { "label": "CE Certified First Aid", "icon": "Shield", "href": "/product" },
+          { "label": "Shadowless OT Lights", "icon": "Sun", "href": "/product" },
+          { "label": "Pan-India Dispatch", "icon": "Headphones", "href": "/connect" }
+        ]
+      },
+      {
+        "id": "installation",
+        "step": 3,
+        "tag": "03 / Safe Cargo Delivery & Reliable Support",
+        "color": "#db5e1f",
+        "glowColor": "rgba(219, 94, 31, 0.48)",
+        "icon": "Box",
+        "headingMain": "Protective Packaging, Swift Transit &",
+        "headingHighlight": "After-Sales Technical Assistance",
+        "description": "Cushioned export-grade wooden crate and carton packaging ensures all sensitive electronic phototherapy units, monitors, and holloware arrive pristine.",
+        "ctaText": "",
+        "ctaLink": "",
+        "hasTopCta": false
+      }
+    ],
+    "industryTabsData": {
+      "Hospital": {
+        "title": "Grade 304 Stainless Steel",
+        "keyword": "Hospital Holloware & Ward Furniture",
+        "titleEnd": "engineered for aseptic patient hygiene and continuous autoclave cycles",
+        "description": "Heavy-gauge dressing drums, instrument trays, kidney dishes, bedpans, and emergency crash carts manufactured to withstand harsh disinfectant protocols.",
+        "bullets": [
+          "AISI 304 non-magnetic stainless steel",
+          "Seamless deep-drawn jointless construction",
+          "Smooth anti-microbial mirror polished finish",
+          "Complete autoclave steam compatibility (134°C)"
+        ],
+        "cta": "View Hospital Holloware",
+        "badge": "Grade 304 Stainless Steel",
+        "image": "/products/spaces/hospital_ward.jpg"
+      },
+      "Factory": {
+        "title": "Statutory Factory Act Compliant",
+        "keyword": "Industrial First Aid Kits (Types A, B & C)",
+        "titleEnd": "providing certified emergency trauma care for manufacturing facilities",
+        "description": "Durable metal and plastic wall-mounted first aid stations equipped with sterile dressings, burn treatments, splints, and eye-wash essentials.",
+        "bullets": [
+          "Conforms to Section 45 Factories Act",
+          "CE Certified (Directive 2006/42/CE & 92/29)",
+          "Trilingual Resuscitation chart included",
+          "Waterproof & dust-tight locked cabinets"
+        ],
+        "cta": "View Industrial First Aid Kits",
+        "badge": "Factory Act Compliant",
+        "image": "/products/spaces/first_aid_action.jpg"
+      },
+      "Rescue": {
+        "title": "Rapid Trauma Extrication",
+        "keyword": "Emergency Stretchers & Evacuation Chairs",
+        "titleEnd": "for ambulance fleets, fire safety squads, and disaster management teams",
+        "description": "Aluminium scoop stretchers that decouple to scoop supine patients without spinal manipulation, rigid HDPE spine boards, and wheeled stair evacuation chairs.",
+        "bullets": [
+          "Aluminium scoop with rapid clutch release",
+          "100% X-Ray and CT translucent spine boards",
+          "4-fold compact wheeled evacuation chairs",
+          "Heavy patient capacity up to 180 kg"
+        ],
+        "cta": "View Emergency Stretchers",
+        "badge": "Emergency Rescue Grade",
+        "image": "/products/shreehari/scoop_stretcher_aluminium.jpg"
+      },
+      "Neonatal": {
+        "title": "Gentle Narrow-Spectrum LED",
+        "keyword": "Neonatal Phototherapy & Infant Warmers",
+        "titleEnd": "for effective neonatal jaundice management in maternity nurseries and NICUs",
+        "description": "450-470 nm high-intensity blue LED illumination ensures rapid bilirubin degradation with zero ultraviolet hazards and minimal thermal stress.",
+        "bullets": [
+          "Peak 460 nm blue wavelength irradiance",
+          ">50,000 hours continuous LED operating life",
+          "Integrated treatment timer & hour counter",
+          "Zero harmful UV and minimal infrared emission"
+        ],
+        "cta": "View Neonatal Phototherapy",
+        "badge": "NICU Certified",
+        "image": "/products/goonj/led_phototherapy_unit.jpg"
+      },
+      "Operation": {
+        "title": "Cold-Light Shadowless",
+        "keyword": "Surgical Operation Theatre Lights",
+        "titleEnd": "delivering depth cavity illumination with true natural tissue color rendering",
+        "description": "Multi-lens optical clusters produce homogeneous, shadow-free illumination up to 100,000 Lux with autoclavable positioning handles.",
+        "bullets": [
+          "High color rendering index (Ra > 95)",
+          "Cold LED technology with zero heat radiation",
+          "360-degree balanced spring suspension arms",
+          "Available in mobile stand and ceiling configurations"
+        ],
+        "cta": "View OT Surgical Lights",
+        "badge": "Shadow-Free Optics",
+        "image": "/products/spaces/operation_theater.jpg"
+      },
+      "Homecare": {
+        "title": "Reliable Aerosol & Care",
+        "keyword": "Home Care Nebulizers & Patient Mobility",
+        "titleEnd": "supporting chronic respiratory patients, homebound elders, and rehabilitation",
+        "description": "Ultra-fine medical aerosol nebulizers, digital weighing scales, hand exercisers, and low-friction SafeSlide patient transfer boards.",
+        "bullets": [
+          "Droplet size <5 microns for deep lung delivery",
+          "Low-noise quiet compressor and ultrasonic units",
+          "SafeSlide transfer boards prevent caregiver back injury",
+          "Easy to disinfect and sanitize at home"
+        ],
+        "cta": "View Home Care Products",
+        "badge": "Home Health & Rehab",
+        "image": "/products/goonj/ultrasonic_nebulizer.jpg"
+      }
+    },
+    "platformCodeSnippets": {
+      "First Aid & Emergency (Shreehari)": [
+        { "num": 1, "code": "const supplier = 'Shreehari Surgicals & Co. (Mumbai)'" },
+        { "num": 2, "code": "const brand = 'SUPPORT (Learn First Aid, Save Lives)'" },
+        { "num": 3, "code": "const certifications = ['CE 9511/CE/R001', 'ISO 9001:2015']" },
+        { "num": 4, "code": "const productLines = ['Type A/B/C Kits', 'Scoop Stretchers', 'Spine Boards']" },
+        { "num": 5, "code": "return generateEmergencyCatalog(supplier)" }
+      ],
+      "Hospital Holloware & OT (Goonj)": [
+        { "num": 1, "code": "const supplier = 'Goonj Communication & Electronic Scale Co. (Delhi)'" },
+        { "num": 2, "code": "const brands = ['Goonj', 'CYNOR Healthcare']" },
+        { "num": 3, "code": "const steelSpec = 'Grade 304 Stainless Steel Seamless Deep Drawn'" },
+        { "num": 4, "code": "const equipment = ['OT Lights', 'Autoclaves', 'Suction Machines', 'Hospital Beds']" },
+        { "num": 5, "code": "return deployHospitalEquipment(supplier)" }
+      ],
+      "Protective Linen & Disposables": [
+        { "num": 1, "code": "const fabric = 'SMS/SMMS Hydrophobic Non-Woven'" },
+        { "num": 2, "code": "const protectionStandard = 'AAMI Level 3 Liquid & Viral Barrier'" },
+        { "num": 3, "code": "const sterilization = 'EO Sterile Pouches (Disposable Gowns, Packs)'" },
+        { "num": 4, "code": "const respirators = 'N95 5-Ply BFE/PFE >= 95%'" },
+        { "num": 5, "code": "export const disposablesCatalog = getCmsLinenSpec()" }
+      ]
+    },
+    "securityCard": {
+      "title": "ISO 9001, CE Certified, RoHS Compliant & Bio-Medical Waste Standards",
+      "description": "Our medical equipment, hospital holloware, and emergency first aid supplies adhere to international safety directives, CE marking, and certified quality management systems.",
+      "ctaText": "View Certifications & Compliance"
+    },
+    "businessMetricsCard": {
+      "title": "Trusted by 2,500+ Hospitals, Trauma Centers, Factories & Paramedics in India",
+      "ctaText": "Request Wholesale Price List",
+      "metrics": [
+        { "value": "2500+", "label": "Hospitals & Facilities" },
+        { "value": "304", "label": "Grade Stainless Steel" },
+        { "value": "99.8%", "label": "On-Time Cargo Dispatch" }
+      ]
+    },
+    "bottomStatCapsules": [
+      {
+        "value": "100",
+        "plus": "%",
+        "label": "Medical Grade SS 304",
+        "icon": "Award"
+      },
+      {
+        "value": "CE",
+        "plus": "✓",
+        "label": "Certified Compliance",
+        "icon": "Shield"
+      },
+      {
+        "value": "24",
+        "plus": "h",
+        "label": "Express Dispatch Delhi/Mumbai",
+        "icon": "Clock"
+      },
+      {
+        "value": "500",
+        "plus": "+",
+        "label": "Medical & First Aid Products",
+        "icon": "Box"
+      }
+    ]
+  },
+  "FeedSection": {
+    "heading": {
+      "tag": "CLINICAL SPACES & REAL INSTALLATIONS",
+      "title": "Recent Operation Theatre, Hospital Ward & Emergency Rescues",
+      "actionText": "View Full Product Catalog",
+      "actionLink": "/product"
+    },
+    "buttonText": "View Equipment",
+    "feedItems": [
+      {
+        "id": 1,
+        "image": "/products/spaces/hospital_ward.jpg",
+        "products": [
+          "/products/goonj/ssp_crash_cart.jpg",
+          "/products/goonj/patient_monitor_12inch.jpg"
+        ]
+      },
+      {
+        "id": 2,
+        "image": "/products/spaces/operation_theater.jpg",
+        "products": [
+          "/products/goonj/ot_light_20_led.jpg",
+          "/products/goonj/disposable_sterile_gown.jpg"
+        ]
+      },
+      {
+        "id": 3,
+        "image": "/products/spaces/first_aid_action.jpg",
+        "products": [
+          "/products/shreehari/factory_kit_type_a.jpg",
+          "/products/shreehari/industrial_kit_type_b.jpg"
+        ]
+      },
+      {
+        "id": 4,
+        "image": "/products/spaces/surgical_instruments.jpg",
+        "products": [
+          "/products/goonj/dressing_drum_jointed.jpg",
+          "/products/goonj/surgical_instrument_tray.jpg"
+        ]
+      },
+      {
+        "id": 5,
+        "image": "/products/shreehari/scoop_stretcher_aluminium.jpg",
+        "products": [
+          "/products/shreehari/scoop_stretcher_aluminium.jpg",
+          "/products/shreehari/spine_board_stretcher.jpg"
+        ]
+      },
+      {
+        "id": 6,
+        "image": "/products/goonj/led_phototherapy_unit.jpg",
+        "products": [
+          "/products/goonj/led_phototherapy_unit.jpg",
+          "/products/goonj/touchscreen_syringe_pump.jpg"
+        ]
+      }
+    ]
+  },
+  "BlogSection": {
+    "heading": {
+      "tag": "HEALTHCARE EXPERTISE & CLINICAL GUIDES",
+      "title": "Medical, Surgical & First Aid Insights",
+      "actionText": "View All Articles"
+    },
+    "featuredPost": {
+      "id": 1,
+      "tag": "Industrial Safety",
+      "tagBg": "#dc2626",
+      "date": "October 10, 2026",
+      "comments": "18 comments",
+      "title": "Essential Workplace First Aid Compliance: Types A, B, and C Kits Under the Factory Act",
+      "description": "Understand statutory requirements for Types A, B, and C first aid boxes, minimum mandatory supplies, and regular inspection protocols for factories and commercial facilities.",
+      "image": "/products/spaces/first_aid_action.jpg",
+      "buttonText": "Read Guide"
+    },
+    "secondaryPosts": [
+      {
+        "id": 2,
+        "tag": "Infection Control",
+        "tagBg": "#2563eb",
+        "date": "October 05, 2026",
+        "comments": "24 comments",
+        "title": "Hospital Holloware & Autoclave Sterilization: Standards for 304 Stainless Steel Utensils",
+        "description": "Why Grade 304 stainless steel seamless jointless dressing drums, instrument trays, and catheter trays prevent bacterial contamination and withstand 134°C steam sterilization.",
+        "image": "/products/spaces/surgical_instruments.jpg",
+        "buttonText": "Read Guide"
+      },
+      {
+        "id": 3,
+        "tag": "Emergency Rescue",
+        "tagBg": "#ea580c",
+        "date": "September 28, 2026",
+        "comments": "16 comments",
+        "title": "Emergency Patient Stretchers Guide: Comparing Scoop Stretchers, Spine Boards, and Evacuation Chairs",
+        "description": "A critical comparative guide for trauma first responders: choosing between spinal immobilization boards, rapid decouple scoop stretchers, and wheeled evacuation stair chairs.",
+        "image": "/products/shreehari/scoop_stretcher_aluminium.jpg",
+        "buttonText": "Read Guide"
+      },
+      {
+        "id": 4,
+        "tag": "Hospital Linen",
+        "tagBg": "#059669",
+        "date": "September 20, 2026",
+        "comments": "21 comments",
+        "title": "Sterile Surgical Gowns & Operation Theatre PPE: AAMI Levels and Liquid Barrier Protection",
+        "description": "An engineering look at SMS/SMMS hydrophobic fabrics, AAMI Level 3 fluid barriers, and sterile protective apparel designed for surgical operating teams.",
+        "image": "/products/spaces/operation_theater.jpg",
+        "buttonText": "Read Guide"
+      }
+    ]
+  },
+  "PatchSection": {
+    "badge": "DELHI & MUMBAI HEALTHCARE NETWORK",
+    "title": "Delivering Certified Hospital Equipment, Surgical Holloware & Industrial First Aid Across India.",
+    "description": "Goonj and Shreehari Surgicals combine precision manufacturing, ISO and CE accreditations, and direct factory pricing to equip hospitals, emergency EMS fleets, and factories nationwide.",
+    "stats": [
+      {
+        "id": 1,
+        "value": "2500",
+        "symbol": "+",
+        "label": "Hospitals, factories, trauma centers & clinics equipped."
+      },
+      {
+        "id": 2,
+        "value": "304",
+        "symbol": "SS",
+        "label": "Medical grade stainless steel & biocompatible polymers."
+      },
+      {
+        "id": 3,
+        "value": "100",
+        "symbol": "%",
+        "label": "CE & ISO certified compliance with pan-India dispatch."
+      }
+    ]
+  }
+}

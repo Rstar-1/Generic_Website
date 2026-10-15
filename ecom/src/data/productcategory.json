@@ -1,0 +1,238 @@
+[
+  {
+    "id": 1,
+    "name": "First Aid & Emergency Care",
+    "slug": "first-aid-emergency",
+    "icon": "/products/shreehari/type_a_metal_box.jpg",
+    "iconName": "Shield",
+    "bgColor": "#FEF2F2",
+    "accentColor": "#DC2626",
+    "subCategories": [
+      {
+        "id": "industrial-first-aid",
+        "name": "Industrial & Factory First Aid Kits"
+      },
+      {
+        "id": "emergency-stretchers",
+        "name": "Emergency & Scoop Stretchers"
+      },
+      {
+        "id": "first-aid-cabinets",
+        "name": "Wall-Mounted First Aid Cabinets"
+      },
+      {
+        "id": "personal-travel-kits",
+        "name": "Travel & Home Relief Kits"
+      },
+      {
+        "id": "evacuation-rehab",
+        "name": "Evacuation Chairs & Slide Boards"
+      }
+    ],
+    "description": "CE certified industrial first aid kits, emergency scoop and folding stretchers, evacuation chairs, and first aid metal cabinets by Shreehari Surgicals (SUPPORT)."
+  },
+  {
+    "id": 2,
+    "name": "Hospital Holloware",
+    "slug": "hospital-holloware",
+    "icon": "/products/goonj/dressing_drum_jointed.jpg",
+    "iconName": "Layers",
+    "bgColor": "#EFF6FF",
+    "accentColor": "#2563EB",
+    "subCategories": [
+      {
+        "id": "dressing-drums",
+        "name": "Dressing Drums (Jointed & Jointless)"
+      },
+      {
+        "id": "instrument-trays",
+        "name": "Surgical Instrument & Catheter Trays"
+      },
+      {
+        "id": "kidney-dishes-bowls",
+        "name": "Kidney Dishes & Gallipots"
+      },
+      {
+        "id": "patient-care-utensils",
+        "name": "Bedpans & Male Urinals"
+      },
+      {
+        "id": "cidex-forcep-jars",
+        "name": "Cidex Trays & Forceps Jars"
+      }
+    ],
+    "description": "Hospital-grade stainless steel holloware, seamless autoclave drums, Mayo table trays, and patient care utensils by Goonj & CYNOR."
+  },
+  {
+    "id": 3,
+    "name": "O.T. & Examination Lights",
+    "slug": "ot-examination-lights",
+    "icon": "/products/goonj/ot_light_7_led.jpg",
+    "iconName": "Sun",
+    "bgColor": "#FFFBEB",
+    "accentColor": "#D97706",
+    "subCategories": [
+      {
+        "id": "led-examination-lights",
+        "name": "LED Examination Lights (6, 7, 12 LEDs)"
+      },
+      {
+        "id": "ot-surgical-lights",
+        "name": "OT Surgical Lights (LED 20 & Ceiling)"
+      },
+      {
+        "id": "mobile-stand-lamps",
+        "name": "Mobile Stand Examination Lamps"
+      },
+      {
+        "id": "angle-poise-lamps",
+        "name": "Angle Poise Clinical Lamps"
+      }
+    ],
+    "description": "Cold-light shadowless LED operation theatre lights, high-intensity examination lights, and mobile procedural lamps engineered for clinical precision."
+  },
+  {
+    "id": 4,
+    "name": "Sterilization & Suction",
+    "slug": "sterilization-suction",
+    "icon": "/products/goonj/deluxe_autoclave_12x12.jpg",
+    "iconName": "Activity",
+    "bgColor": "#F0FDF4",
+    "accentColor": "#16A34A",
+    "subCategories": [
+      {
+        "id": "autoclaves-sterilizers",
+        "name": "Pressure Autoclaves & Steam Sterilizers"
+      },
+      {
+        "id": "vertical-autoclaves",
+        "name": "Vertical Radial Locking Autoclaves"
+      },
+      {
+        "id": "electric-suction",
+        "name": "Electric High-Vacuum Suction Units"
+      },
+      {
+        "id": "portable-suction",
+        "name": "Ward & Theatre Suction Trolleys"
+      }
+    ],
+    "description": "High-pressure stainless steel steam autoclaves, triple-wall radial locking sterilizers, and heavy-duty 1/4 HP suction apparatus."
+  },
+  {
+    "id": 5,
+    "name": "Hospital Furniture",
+    "slug": "hospital-furniture",
+    "icon": "/products/goonj/ssp_crash_cart.jpg",
+    "iconName": "Box",
+    "bgColor": "#F5F3FF",
+    "accentColor": "#7C3AED",
+    "subCategories": [
+      {
+        "id": "icu-fowler-beds",
+        "name": "ICU, Semi-Fowler & Plain Hospital Beds"
+      },
+      {
+        "id": "crash-carts-trolleys",
+        "name": "Crash Carts, Drug & ECG Trolleys"
+      },
+      {
+        "id": "stretcher-trolleys",
+        "name": "Patient Stretcher Trolleys & IV Stands"
+      },
+      {
+        "id": "hospital-accessories",
+        "name": "Operation Table Accessories & Supports"
+      }
+    ],
+    "description": "Ergonomic ICU beds, powder-coated crash carts, stainless steel drug and ECG trolleys, and heavy-duty hospital ward furniture."
+  },
+  {
+    "id": 6,
+    "name": "Hospital Linen & Disposables",
+    "slug": "hospital-linen-disposables",
+    "icon": "/products/goonj/disposable_sterile_gown.jpg",
+    "iconName": "Feather",
+    "bgColor": "#ECFDF5",
+    "accentColor": "#059669",
+    "subCategories": [
+      {
+        "id": "surgical-gowns-scrubs",
+        "name": "Sterile Surgical Gowns & Surgeon Suits"
+      },
+      {
+        "id": "protective-aprons-coats",
+        "name": "Doctor Lab Coats & PE Disposable Aprons"
+      },
+      {
+        "id": "face-masks-caps",
+        "name": "N95 Respirators & 3-Ply Surgical Masks"
+      },
+      {
+        "id": "hospital-sheets-drapes",
+        "name": "Hospital Bed Sheets & Cotton Drape Sheets"
+      },
+      {
+        "id": "shoe-covers-bands",
+        "name": "Non-Woven Shoe Covers & Patient ID Bands"
+      }
+    ],
+    "description": "Sterile liquid-barrier surgical gowns, reusable scrub suits, N95 masks, hospital bedsheets, and protective non-woven consumables."
+  },
+  {
+    "id": 7,
+    "name": "Diagnostic & Neonatal Care",
+    "slug": "diagnostic-neonatal",
+    "icon": "/products/goonj/led_phototherapy_unit.jpg",
+    "iconName": "Heart",
+    "bgColor": "#FFF1F2",
+    "accentColor": "#E11D48",
+    "subCategories": [
+      {
+        "id": "neonatal-phototherapy",
+        "name": "LED Phototherapy Units & Radiant Warmers"
+      },
+      {
+        "id": "infusion-syringe-pumps",
+        "name": "Touchscreen Syringe Pumps & Infusion Units"
+      },
+      {
+        "id": "patient-monitoring",
+        "name": "12-Inch Multiparameter Patient Monitors"
+      },
+      {
+        "id": "stethoscopes-bp",
+        "name": "Cardiology Stethoscopes & Sphygmomanometers"
+      }
+    ],
+    "description": "Neonatal jaundice LED phototherapy units, precision micro-infusion syringe pumps, patient monitoring systems, and diagnostic cardiology stethoscopes."
+  },
+  {
+    "id": 8,
+    "name": "Home Care & Clinical Waste",
+    "slug": "home-care-clinical",
+    "icon": "/products/goonj/biomedical_waste_bins_ss_frame_set.jpg",
+    "iconName": "Trash2",
+    "bgColor": "#F3F4F6",
+    "accentColor": "#4B5563",
+    "subCategories": [
+      {
+        "id": "biomedical-waste-bins",
+        "name": "Color-Coded Bio-Medical Waste Bins (SS Frame)"
+      },
+      {
+        "id": "respiratory-nebulizers",
+        "name": "Ultrasonic & Compressor Nebulizers"
+      },
+      {
+        "id": "rehab-exercisers",
+        "name": "Hand & Finger Exercisers, Pill Organizers"
+      },
+      {
+        "id": "catheters-tubes",
+        "name": "Ryles Tubes, Feeding Tubes & Cannulas"
+      }
+    ],
+    "description": "Color-coded biohazard waste segregation bins with stainless steel stand, home nebulizers, pill organizers, and clinical tubes."
+  }
+]

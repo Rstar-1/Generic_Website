@@ -1,0 +1,80 @@
+{
+  "Header": [
+    {
+      "HeaderVersion": 1,
+      "HeaderType": 2,
+      "HeaderCategory": 2,
+      "HeaderNavMenu": "nav",
+      "HeaderSticky": true,
+      "HeaderTopBar": false,
+      "HeaderBottomBar": true
+    }
+  ],
+  "HeroBanner": [
+    {
+      "HeroBannerVersion": 1,
+      "HeroBannerType": 2,
+      "HeroBannerCat": false,
+      "CatShow": false,
+      "HeroBannerText": 1,
+      "HeroBannerImage": 1
+    }
+  ],
+  "Category": [
+    {
+      "CategoryVersion": 3
+    }
+  ],
+  "Product": [
+    {
+      "ProductVersion": 3
+    }
+  ],
+  "About": [
+    {
+      "AboutVersion": 1,
+      "AboutType": 1,
+      "AboutSide": "left",
+      "AboutLeft": 1,
+      "AboutRight": 4
+    }
+  ],
+  "Service": [
+    {
+      "ServiceVersion": 1
+    }
+  ],
+  "Patch": [
+    {
+      "PatchVersion": 1
+    }
+  ],
+  "Feeds": [
+    {
+      "FeedsVersion": 1
+    }
+  ],
+  "Testimonial": [
+    {
+      "TestimonialVersion": 1
+    }
+  ],
+  "Blog": [
+    {
+      "BlogVersion": 1
+    }
+  ],
+  "Connect": [
+    {
+      "ConnectVersion": 1
+    }
+  ],
+  "Footer": [
+    {
+      "FooterVersion": 1,
+      "FooterSocial": true,
+      "FooterTopBar": false,
+      "FooterBottomBar": true
+    }
+  ]
+}
