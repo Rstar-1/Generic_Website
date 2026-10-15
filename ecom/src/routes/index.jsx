@@ -1,28 +1,25 @@
-import { Suspense, lazy } from 'react';
+import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
-// 🧩 Layout
 import Layout from '../components/layout/Layout';
 import Loader from '../components/common/generic/Loader';
 
-// 📦 Lazy Pages
-const Home = lazy(() => import('../pages/home/Home'));
-const About = lazy(() => import('../pages/about/About'));
-const Blog = lazy(() => import('../pages/blogs/Blog'));
-const BlogDetail = lazy(() => import('../pages/blogs/BlogDetail'));
-const Supplier = lazy(() => import('../pages/supplier/Supplier'));
-const Product = lazy(() => import('../pages/product/Product'));
-const ProductDetail = lazy(() => import('../pages/product/ProductDetail'));
-const Connect = lazy(() => import('../pages/connect/Connect'));
-const Terms = lazy(() => import('../pages/content/Terms'));
-const Privacy = lazy(() => import('../pages/content/Privacy'));
+const Home = React.lazy(() => import('../pages/home/Home'));
+const About = React.lazy(() => import('../pages/about/About'));
+const Blog = React.lazy(() => import('../pages/blogs/Blog'));
+const BlogDetail = React.lazy(() => import('../pages/blogs/BlogDetail'));
+const Supplier = React.lazy(() => import('../pages/supplier/Supplier'));
+const Product = React.lazy(() => import('../pages/product/Product'));
+const ProductDetail = React.lazy(() => import('../pages/product/ProductDetail'));
+const Connect = React.lazy(() => import('../pages/connect/Connect'));
+const Terms = React.lazy(() => import('../pages/content/Terms'));
+const Privacy = React.lazy(() => import('../pages/content/Privacy'));
 
 function AppRoutes() {
     return (
-        <Suspense fallback={<Loader />}>
+        <React.Suspense fallback={<Loader />}>
             <Routes>
                 <Route path="/" element={<Layout />}>
-                    <Route index element={<Navigate to="/home" replace />} />
                     <Route path="home" element={<Home />} />
                     <Route path="about" element={<About />} />
                     <Route path="blog" element={<Blog />} />
@@ -40,7 +37,7 @@ function AppRoutes() {
                 </Route>
                 <Route path="*" element={<h2 style={{ textAlign: 'center', padding: '100px 20px' }}>404 - Page Not Found</h2>} />
             </Routes>
-        </Suspense>
+        </React.Suspense>
     );
 }
 

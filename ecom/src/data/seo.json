@@ -1,0 +1,140 @@
+{
+  "siteInfo": {
+    "description": "Ashmita Vinyls supplies PVC vinyl products for commercial and industrial applications across India.",
+    "address": {
+      "streetAddress": "C 304, 3rd Floor, Eastern Business District, L.B.S Marg Road, Bhandup West",
+      "addressLocality": "Mumbai",
+      "addressRegion": "Maharashtra",
+      "postalCode": "400078",
+      "addressCountry": "IN",
+      "fullAddress": "Ashmita Enterprises, C 304, 3rd Floor, Eastern Business District, Bhandup West, Mumbai, Maharashtra 400078, India"
+    },
+    "geo": {
+      "latitude": 19.1485,
+      "longitude": 72.9367
+    }
+  },
+  "pages": {
+    "home": {
+      "title": "PVC Vinyl Products Supplier in India | Ashmita Vinyls",
+      "description": "Explore PVC vinyl products and industrial solutions from Ashmita Vinyls across India.",
+      "path": "/home",
+      "breadcrumbs": [{ "label": "Home", "path": "/home" }]
+    },
+    "about": {
+      "title": "About Ashmita Vinyls | PVC Vinyl Products",
+      "description": "Learn about Ashmita Vinyls, our product range, quality focus and industrial solutions.",
+      "path": "/about",
+      "breadcrumbs": [
+        { "label": "Home", "path": "/home" },
+        { "label": "About Us", "path": "/about" }
+      ]
+    },
+    "product": {
+      "title": "PVC Vinyl Products | Ashmita Vinyls",
+      "description": "Explore PVC strip curtains, PVC rolls and other industrial vinyl products.",
+      "path": "/product",
+      "breadcrumbs": [
+        { "label": "Home", "path": "/home" },
+        { "label": "Products", "path": "/product" }
+      ]
+    },
+    "products": {
+      "title": "PVC Vinyl Products | Ashmita Vinyls",
+      "description": "Explore PVC strip curtains, PVC rolls and other industrial vinyl products.",
+      "path": "/product",
+      "breadcrumbs": [
+        { "label": "Home", "path": "/home" },
+        { "label": "Products", "path": "/product" }
+      ]
+    },
+    "productDetail": {
+      "title": "PVC Product Specifications | Ashmita Vinyls",
+      "description": "Explore product specifications, features and applications.",
+      "path": "/product-detail",
+      "breadcrumbs": [
+        { "label": "Home", "path": "/home" },
+        { "label": "Products", "path": "/product" },
+        { "label": "Product Details", "path": "/product-detail" }
+      ]
+    },
+    "supplier": {
+      "title": "Industrial PVC Applications | Ashmita Vinyls",
+      "description": "Discover industrial applications for PVC vinyl products.",
+      "path": "/supplier",
+      "breadcrumbs": [
+        { "label": "Home", "path": "/home" },
+        { "label": "Supplier", "path": "/supplier" }
+      ]
+    },
+    "quality": {
+      "title": "Product Quality | Ashmita Vinyls",
+      "description": "Learn about product quality and industrial PVC solutions.",
+      "path": "/quality",
+      "breadcrumbs": [
+        { "label": "Home", "path": "/home" },
+        { "label": "Quality", "path": "/quality" }
+      ]
+    },
+    "connect": {
+      "title": "Contact Ashmita Vinyls | Product Enquiries",
+      "description": "Contact Ashmita Vinyls for PVC product specifications and bulk enquiries.",
+      "path": "/connect",
+      "breadcrumbs": [
+        { "label": "Home", "path": "/home" },
+        { "label": "Contact Us", "path": "/connect" }
+      ]
+    },
+    "blog": {
+      "title": "PVC Products Blog & Industry Insights | Ashmita Vinyls",
+      "description": "Read guides and industry insights about PVC strip curtains, PVC rolls and industrial vinyl applications.",
+      "path": "/blog",
+      "breadcrumbs": [
+        { "label": "Home", "path": "/home" },
+        { "label": "Blog", "path": "/blog" }
+      ]
+    },
+    "blogDetail": {
+      "title": "PVC Industry Article | Ashmita Vinyls",
+      "description": "Read detailed articles about PVC products, applications and industry solutions.",
+      "path": "/blog-detail",
+      "breadcrumbs": [
+        { "label": "Home", "path": "/home" },
+        { "label": "Blog", "path": "/blog" },
+        { "label": "Article", "path": "/blog-detail" }
+      ]
+    },
+    "privacy": {
+      "title": "Privacy Policy | Ashmita Vinyls",
+      "description": "Read the Ashmita Vinyls privacy policy.",
+      "path": "/privacy",
+      "breadcrumbs": [
+        { "label": "Home", "path": "/home" },
+        { "label": "Privacy Policy", "path": "/privacy" }
+      ]
+    },
+    "terms": {
+      "title": "Terms & Conditions | Ashmita Vinyls",
+      "description": "Read the terms and conditions of Ashmita Vinyls.",
+      "path": "/terms",
+      "breadcrumbs": [
+        { "label": "Home", "path": "/home" },
+        { "label": "Terms & Conditions", "path": "/terms" }
+      ]
+    }
+  },
+  "faqs": [
+    {
+      "question": "What is Ashmita Vinyls?",
+      "answer": "Ashmita Vinyls supplies PVC vinyl products for commercial and industrial applications."
+    },
+    {
+      "question": "What PVC products are available?",
+      "answer": "Available products include PVC strip curtains, PVC rolls and related industrial vinyl solutions."
+    },
+    {
+      "question": "How can I enquire about products?",
+      "answer": "Contact Ashmita Vinyls by phone, email or the website enquiry form for product details and bulk requirements."
+    }
+  ]
+}

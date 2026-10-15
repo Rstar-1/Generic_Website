@@ -5,6 +5,7 @@ import rawConfigData from "../data/config.json";
 import productsData from "../data/product.json";
 import categoriesData from "../data/productcategory.json";
 import blogData from "../data/blog.json";
+import seoData from "../data/seo.json";
 
 const header = {
   ...headerData,
@@ -61,6 +62,9 @@ export {
   categoriesData as categories,
   blogData,
   blogData as blogs,
+  seoData,
+  seoData as seo,
+  seoData as seoConfig,
 };
 
 export default {
@@ -71,4 +75,7 @@ export default {
   productsData,
   categoriesData,
   blogData,
+  seoData,
+  seo: seoData,
+  seoConfig: seoData,
 };
