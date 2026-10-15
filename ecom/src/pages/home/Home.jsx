@@ -5,7 +5,9 @@ import Container from "../../components/common/Container";
 
 import SEO from "../../seo";
 
-import { carpetPatchBanner } from "../../utils/imageResolver";
+import { resolveImagePath } from "../../utils/imageResolver";
+
+const carpetPatchBanner = resolveImagePath("products/carpet_patch_banner.jpg");
 
 const HeroBanner = React.lazy(() => import("./sections/HeroBanner"));
 const CategorySection = React.lazy(() => import("./sections/CategorySection"));

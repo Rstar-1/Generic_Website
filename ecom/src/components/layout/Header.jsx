@@ -12,7 +12,7 @@ import Fields from "../forms/Fields";
 import EnquiryModal from "./generic/Enquiy";
 
 import { header, configData, productsData, categoriesData } from "../../utils/apiData";
-import { resolveImagePath, shreehariLogoColor, shreehariLogoWhite } from "../../utils/imageResolver";
+import { resolveImagePath } from "../../utils/imageResolver";
 import { ALL_LANGUAGES, changeWebsiteLanguage, getSavedLanguage } from "../../utils/i18n";
 
 import { useCart } from "../../feature/cartSlice";
@@ -115,28 +115,28 @@ const categoryMenuItems = [
 ];
 
 const headerType = configData?.Header?.HeaderType ?? configData?.Header?.[0]?.HeaderType ?? 1;
-const isStickyConfig = Boolean(configData?.Header?.HeaderSticky ?? configData?.Header?.[0]?.HeaderSticky);
+const isStickyConfig = Boolean(configData?.Header?.HeaderSticky);
 
 const LogoClass = {
   1: "w-25 sm-w-85",
-  2: "w-25 sm-w-85",
-  3: "w-20 sm-w-85",
-  4: "w-20 sm-w-85",
+  2: "w-15 sm-w-85",
+  3: "w-15 sm-w-85",
+  4: "w-15 sm-w-85",
 }[headerType] || "w-25 sm-w-85";
 
 const NavigationClass = {
   1: "w-50 justify-center",
-  2: "w-55 justify-start",
-  3: "w-60 justify-end",
-  4: "w-60 justify-end",
-}[headerType] || "w-55 justify-start";
+  2: "w-60 justify-start",
+  3: "w-70 justify-end",
+  4: "w-70 justify-end",
+}[headerType] || "w-50 justify-center";
 
 const ActionClass = {
   1: "w-25 sm-w-15",
-  2: "w-20 sm-w-15",
-  3: "w-20 sm-w-15",
+  2: "w-25 sm-w-15",
+  3: "w-25 sm-w-15",
   4: "w-20 sm-w-15",
-}[headerType] || "w-20 sm-w-15";
+}[headerType] || "w-25 sm-w-15";
 
 const CategoryClass = {
   1: "justify-between",
@@ -182,12 +182,12 @@ const HeaderTopBar = React.memo(() => {
 HeaderTopBar.displayName = "HeaderTopBar";
 
 const HeaderLogo = React.memo(({ isHeaderWhite, onCloseMobile }) => (
-  <NavLink to="/home" className={`${LogoClass} flex items-center`} onClick={onCloseMobile} title="SUPPORT - Learn First Aid, Save Lives">
+  <NavLink to="/home" className={LogoClass} onClick={onCloseMobile}>
     <Image
-      src={!isStickyConfig || isHeaderWhite ? shreehariLogoColor : shreehariLogoWhite}
-      alt="SUPPORT - Learn First Aid, Save Lives"
-      className="object-contain"
-      style={{ height: "46px", maxHeight: "48px", width: "auto" }}
+      src={resolveImagePath(!isStickyConfig || isHeaderWhite ? "sobo_logo.png" : "sobo_white.png")}
+      alt="Infitech Logo"
+      className="object-contain w-90 sm-w-50"
+      style={{ height: "60px" }}
     />
   </NavLink>
 ));

@@ -3,8 +3,9 @@ import React from "react";
 import Container from "../../common/Container";
 import Breadcrumb from "../../common/Breadcrumb";
 import Skeleton from "../../common/Skeleton";
-import { resolveImagePath, carpetBanner } from "../../../utils/imageResolver";
+import { resolveImagePath } from "../../../utils/imageResolver";
 
+const carpetBanner = resolveImagePath("products/carpet_banner.jpg");
 const defaultBannerImg = carpetBanner;
 
 const Banner = ({ title, desc, style, breadcrumbs, productData, loading, bgImage, image, backgroundImage }) => {
