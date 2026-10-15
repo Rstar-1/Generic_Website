@@ -8,14 +8,14 @@ import Loader from '../components/common/generic/Loader';
 // 📦 Lazy Pages
 const Home = lazy(() => import('../pages/home/Home'));
 const About = lazy(() => import('../pages/about/About'));
-const Blog = lazy(() => import('../pages/blog/Blog'));
-const BlogDetail = lazy(() => import('../pages/blog/BlogDetail'));
+const Blog = lazy(() => import('../pages/blogs/Blog'));
+const BlogDetail = lazy(() => import('../pages/blogs/BlogDetail'));
 const Supplier = lazy(() => import('../pages/supplier/Supplier'));
 const Product = lazy(() => import('../pages/product/Product'));
 const ProductDetail = lazy(() => import('../pages/product/ProductDetail'));
 const Connect = lazy(() => import('../pages/connect/Connect'));
-const Terms = lazy(() => import('../pages/terms/Terms'));
-const Privacy = lazy(() => import('../pages/privacy/Privacy'));
+const Terms = lazy(() => import('../pages/content/Terms'));
+const Privacy = lazy(() => import('../pages/content/Privacy'));
 
 function AppRoutes() {
     return (

@@ -7,7 +7,7 @@ import FormBuilder from "../../forms/FormBuilder";
 import Loader from "../../common/generic/Loader";
 import { resolveImagePath } from "../../../utils/imageResolver";
 import { sendEmail } from "../../../utils/emailsend";
-import { useCart } from "../../../feature/slice/cartSlice";
+import { useCart } from "../../../feature/cartSlice";
 
 const ENQUIRY_FIELDS = [
     {

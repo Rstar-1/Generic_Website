@@ -2,12 +2,57 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ecom</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>%VITE_SEO_TITLE%</title>
+    <meta name="description" content="%VITE_SEO_DESCRIPTION%" />
+    <meta name="keywords" content="%VITE_SEO_KEYWORDS%" />
+    <meta name="robots" content="%VITE_SEO_ROBOTS%" />
+    <link rel="canonical" href="%VITE_SITE_URL%" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="%VITE_SEO_TITLE%" />
+    <meta property="og:description" content="%VITE_SEO_DESCRIPTION%" />
+    <meta property="og:url" content="%VITE_SITE_URL%" />
+    <meta property="og:image" content="%VITE_SEO_IMAGE%" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="%VITE_SEO_TITLE%" />
+    <meta name="twitter:description" content="%VITE_SEO_DESCRIPTION%" />
+
+    <meta name="geo.region" content="IN-DL" />
+    <meta name="geo.placename" content="Delhi, Mumbai" />
+    <meta
+      name="ai-content-declaration"
+      content="Goonj and Shreehari certified hospital equipment, surgical holloware, and emergency first aid supplies"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Ubuntu:wght@300;400;500;700&display=swap"
+      media="print"
+      onload="this.media = 'all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Ubuntu:wght@300;400;500;700&display=swap"
+      />
+    </noscript>
+
+    <!-- Preload critical assets for instant LCP discovery -->
+    <link
+      rel="preload"
+      href="/united_brothers_color.png"
+      as="image"
+      fetchpriority="high"
+    />
   </head>
+
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <script type="module" src="/src/app/main.jsx"></script>
   </body>
 </html>
