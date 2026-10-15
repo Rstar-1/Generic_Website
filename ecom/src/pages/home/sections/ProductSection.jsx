@@ -2,7 +2,7 @@ import React from 'react';
 
 const ProductSection = () => {
     return (
-        <div>ProductSection</div>
+        <div className='py-90'>ProductSection</div>
     );
 };
 

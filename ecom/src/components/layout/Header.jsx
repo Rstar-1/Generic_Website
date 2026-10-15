@@ -13,8 +13,9 @@ import EnquiryModal from "./generic/Enquiy";
 
 import { header, configData, productsData, categoriesData } from "../../utils/apiData";
 import { resolveImagePath, shreehariLogoColor, shreehariLogoWhite } from "../../utils/imageResolver";
-import { useCart } from "../../feature/cartSlice";
 import { ALL_LANGUAGES, changeWebsiteLanguage, getSavedLanguage } from "../../utils/i18n";
+
+import { useCart } from "../../feature/cartSlice";
 
 const formatMegaProduct = (p) => ({
   id: p.id,

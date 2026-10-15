@@ -2,7 +2,7 @@ import React from 'react'
 
 const HeroBanner = () => {
     return (
-        <div>HeroBanner</div>
+        <div className='py-90'>HeroBanner</div>
     )
 }
 

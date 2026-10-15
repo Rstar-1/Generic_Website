@@ -2,7 +2,7 @@ import React from 'react';
 
 const FeatureSection = () => {
     return (
-        <div>FeatureSection</div>
+        <div className='py-90'>FeatureSection</div>
     );
 };
 
