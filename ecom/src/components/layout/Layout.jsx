@@ -43,6 +43,24 @@ const socialLinks = [
         fill: 'var(--white)',
         url: import.meta.env.VITE_SOCIAL_WHATSAPP,
         bg: 'success'
+    },
+    {
+        id: 'linkedin',
+        icon: 'LinkedIn',
+        width: '20',
+        height: '20',
+        fill: 'var(--white)',
+        url: import.meta.env.VITE_SOCIAL_LINKEDIN,
+        bg: 'info'
+    },
+    {
+        id: 'twitter',
+        icon: 'Twitter',
+        width: '20',
+        height: '20',
+        fill: 'var(--white)',
+        url: import.meta.env.VITE_SOCIAL_TWITTER,
+        bg: 'dark'
     }
 ];
 
@@ -56,7 +74,7 @@ const Layout = () => (
 
         <aside
             aria-label="Social and Contact Bar"
-            style={{ top: '40%' }}
+            style={{ top: '35%' }}
             className='fixed right-0 z-99 overflow-hidden mx-5'
         >
             <div className='grid-cols-1 gap-6'>

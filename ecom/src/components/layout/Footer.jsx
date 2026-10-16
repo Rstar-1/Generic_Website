@@ -124,7 +124,7 @@ const FooterNavigation = React.memo(({ columns }) => {
   if (!columns?.length) return null;
 
   return (
-    <div className="w-55 sm-w-full grid-cols-3 sm-pl-1 gap-14 sm-mt-12">
+    <div className="w-55 sm-w-full grid-cols-4 sm-grid-cols-2 sm-pl-1 gap-12 sm-mt-12">
       {columns.map((col, cIdx) => (
         <div key={col.title || cIdx}>
           <h4 className="mid-text text-dark font-600">{col.title}</h4>

@@ -7,7 +7,7 @@ import Icon from '../../common/Icon';
 import Fields from '../../forms/Fields';
 
 import { resolveImagePath } from '../../../utils/imageResolver';
-import { useCart } from '../../../feature/slice/cartSlice';
+import { useCart } from '../../../feature/cartSlice';
 
 export const FeatureCard = React.memo(({
     item,
