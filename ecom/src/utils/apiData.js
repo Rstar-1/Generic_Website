@@ -6,6 +6,7 @@ import productsData from "../data/product.json";
 import categoriesData from "../data/productcategory.json";
 import blogData from "../data/blog.json";
 import seoData from "../data/seo.json";
+import chatbotData from "../data/chatbot.json";
 
 const header = {
   ...headerData,
@@ -65,6 +66,8 @@ export {
   seoData,
   seoData as seo,
   seoData as seoConfig,
+  chatbotData,
+  chatbotData as chatbot,
 };
 
 export default {
@@ -78,4 +81,6 @@ export default {
   seoData,
   seo: seoData,
   seoConfig: seoData,
+  chatbotData,
+  chatbot: chatbotData,
 };

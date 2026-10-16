@@ -1,0 +1,183 @@
+{
+  "teaser": {
+    "badge": "SUPPORT",
+    "icon": "Shield",
+    "message": "Hi! 👋 Looking for PVC curtains or brackets? Let's chat!"
+  },
+  "header": {
+    "chatTitle": "Customer Assistant",
+    "searchTitle": "Product Catalog",
+    "status": "● Online"
+  },
+  "welcome": {
+    "title": "How can we",
+    "titleHighlight": "help you? 👋",
+    "subtitle": "Explore PVC strip curtain rolls, magnetic curtains, mounting brackets, or request wholesale quotes."
+  },
+  "quickActions": [
+    {
+      "id": "pvc_rolls",
+      "title": "PVC Strip Curtains",
+      "subtitle": "Standard, Polar & Anti-Insect",
+      "icon": "Layers",
+      "iconBg": "#2563eb",
+      "reply": "Explore our premium flexible PVC strip curtain rolls designed for thermal insulation, noise reduction, and dust barrier control:\n\n• **Transparent Standard**: High-clarity PVC rolls for warehouses, factories, and commercial doorways.\n• **Transparent Reliable**: Available in 1mm, 2mm, 3mm, and 5mm thickness for high-traffic zones.\n• **Transparent Supreme**: Extra heavy-duty vinyl engineered for extreme durability.\n• **Polar / Anti-Freeze**: Remains flexible down to -25°C for walk-in cold rooms and freezers.\n• **Anti-Insect Amber**: Yellow-tinted strips that block flying insects and pests in food & pharmaceutical units.",
+      "cta": {
+        "text": "View PVC Strip Rolls",
+        "path": "/product?category=PVC%20strip%20Curtain%20Rolls"
+      }
+    },
+    {
+      "id": "magnetic_curtains",
+      "title": "Magnetic Curtains",
+      "subtitle": "Hands-Free Auto Seal",
+      "icon": "Shield",
+      "iconBg": "#059669",
+      "reply": "Our Magnetic PVC strip curtains provide automatic, hands-free self-sealing for seamless transit:\n\n• **Instant Magnetic Seal**: High-strength embedded magnets snap shut immediately after passage.\n• **Climate & Pest Barrier**: Eliminates air leaks to preserve HVAC cooling and block flying insects.\n• **Clean & Transparent**: Optical-grade transparency for safe, unobstructed two-way visibility.\n• **Ideal For**: Supermarkets, restaurant kitchens, food processing units, and laboratories.",
+      "cta": {
+        "text": "Explore Magnetic Curtains",
+        "path": "/product?category=PVC%20Magnetic%20strip%20Curtain%20Rolls"
+      }
+    },
+    {
+      "id": "brackets",
+      "title": "Collection",
+      "subtitle": "MS, SS202 & SS304 Tracks",
+      "icon": "Box",
+      "iconBg": "#d97706",
+      "reply": "Heavy-duty mounting hardware and suspension tracks engineered for secure installation:\n\n• **Mild Steel (MS) Tracks**: Rugged, economical mounting strips for indoor standard doorways.\n• **Stainless Steel (SS202 & SS304)**: Corrosion-resistant, food-grade tracks for cleanrooms & coastal areas.\n• **Magnetic Curtain Tracks**: Specially engineered header tracks and bottom hold-down strips.\n• **Mounting Flexibility**: Universal pre-slotted holes for quick wall or under-lintel ceiling installation.\n• **Hardware Included**: Clamping plates, mounting clips, and fasteners.",
+      "cta": {
+        "text": "View Brackets & Hardware",
+        "path": "/product?category=Brackets"
+      }
+    },
+    {
+      "id": "connect",
+      "title": "Get In Touch",
+      "subtitle": "Request Quotation & Bulk Orders",
+      "icon": "Phone",
+      "iconBg": "#dc2626",
+      "reply": "Connect directly with our team for factory pricing, bulk wholesale orders, and custom sizes:\n\n• **Direct Factory Rates**: Zero middleman markups on bulk rolls and mounting hardware.\n• **Custom Dimensions**: Tailored strip widths, lengths, and overlap percentages for your doorways.\n• **Fast Dispatch**: Pan-India dispatch from our central distribution hubs.\n\n• **Email**: hello@Infitech.com\n• **Location**: Riverside Park EU-1001\n• **Business Hours**: Mon–Fri: 09:00 AM – 06:00 PM",
+      "cta": {
+        "text": "Request Wholesale Quotation",
+        "path": "/connect"
+      }
+    }
+  ],
+  "knowledgeBase": [
+    {
+      "id": "pvc_strip",
+      "keywords": [
+        "pvc",
+        "strip",
+        "curtain",
+        "roll",
+        "transparent",
+        "polar",
+        "freezer",
+        "anti-insect",
+        "amber",
+        "clear"
+      ],
+      "category": "PVC strip Curtain Rolls",
+      "reply": "We supply flexible PVC strip curtain rolls in Standard, Reliable, and Polar grades (1mm–5mm) for thermal and dust barrier protection:\n\n• **Standard**: High optical clarity for warehouses and doorways.\n• **Reliable**: Multi-thickness options for high traffic.\n• **Polar**: Flexible down to -25°C for refrigerated rooms.",
+      "cta": {
+        "text": "View PVC Rolls",
+        "path": "/product?category=PVC%20strip%20Curtain%20Rolls"
+      }
+    },
+    {
+      "id": "magnetic_curtains",
+      "keywords": ["magnetic", "magnet", "auto seal", "rapid", "hands-free"],
+      "category": "PVC Magnetic strip Curtain Rolls",
+      "reply": "Magnetic PVC strip curtains snap shut automatically for hands-free passage, climate preservation, and pest barrier protection.",
+      "cta": {
+        "text": "View Magnetic Curtains",
+        "path": "/product?category=PVC%20Magnetic%20strip%20Curtain%20Rolls"
+      }
+    },
+    {
+      "id": "brackets",
+      "keywords": [
+        "bracket",
+        "mount",
+        "mounting",
+        "hardware",
+        "track",
+        "clamp",
+        "ss304",
+        "ss202",
+        "ms",
+        "collection"
+      ],
+      "category": "Brackets",
+      "reply": "Heavy-duty ceiling and wall mounting brackets and tracks in Mild Steel (MS), Stainless Steel SS202, and SS304 grades.",
+      "cta": {
+        "text": "View Collection",
+        "path": "/product?category=Brackets"
+      }
+    },
+    {
+      "id": "wholesale",
+      "keywords": [
+        "price",
+        "cost",
+        "rate",
+        "wholesale",
+        "quote",
+        "quotation",
+        "tender",
+        "bulk",
+        "discount",
+        "order"
+      ],
+      "reply": "Direct manufacturer wholesale pricing and volume discounts available for bulk roll orders and hardware. Contact us for custom sizing.",
+      "cta": {
+        "text": "Request Wholesale Quotation",
+        "path": "/connect"
+      }
+    },
+    {
+      "id": "contact",
+      "keywords": [
+        "contact",
+        "phone",
+        "call",
+        "whatsapp",
+        "email",
+        "mail",
+        "address",
+        "location",
+        "where",
+        "store",
+        "timing",
+        "hours"
+      ],
+      "reply": "Reach our customer assistance and distribution team:\n\n• **Location**: Riverside Park EU-1001\n• **Email**: hello@Infitech.com\n• **Business Hours**: Mon–Fri: 09:00 AM – 06:00 PM",
+      "cta": {
+        "text": "Contact Us",
+        "path": "/connect"
+      }
+    }
+  ],
+  "search": {
+    "placeholder": "Search Products...",
+    "backButton": "Back to Chat",
+    "noResultsTitle": "No products found",
+    "noResultsSubtitle": "Try searching for \"Standard\", \"Magnetic\", or \"Brackets\""
+  },
+  "input": {
+    "placeholder": "Search Products...",
+    "sendLabel": "Send"
+  },
+  "messages": {
+    "backToTopics": "Back to topics"
+  },
+  "fallback": {
+    "matchingText": "Matching items for \"{query}\":",
+    "viewProductsText": "View Products",
+    "defaultText": "How can I assist you with PVC strip curtains, rolls, or brackets today?",
+    "ctaText": "View All Products",
+    "ctaPath": "/product"
+  }
+}

@@ -10,53 +10,46 @@ import { ToastContainer } from '../common/Toast';
 const socialLinks = [
     {
         id: 'instagram',
-        name: 'Instagram',
         icon: 'Instagram',
         width: '20',
         height: '20',
         fill: 'var(--white)',
-        url: import.meta.env.VITE_SOCIAL_INSTAGRAM || 'https://www.instagram.com/inraclick/',
-        bg: 'insta',
-        ariaLabel: 'Instagram'
+        url: import.meta.env.VITE_SOCIAL_INSTAGRAM,
+        bg: 'insta'
     },
     {
         id: 'youtube',
-        name: 'YouTube',
         icon: 'YouTube',
         width: '20',
         height: '20',
         fill: 'var(--white)',
-        url: import.meta.env.VITE_SOCIAL_YOUTUBE || 'https://www.youtube.com/@INRACLICK',
-        bg: 'danger',
-        ariaLabel: 'YouTube'
+        url: import.meta.env.VITE_SOCIAL_YOUTUBE,
+        bg: 'danger'
     },
     {
         id: 'facebook',
-        name: 'Facebook',
         icon: 'Facebook',
         width: '20',
         height: '20',
         fill: 'var(--white)',
-        url: import.meta.env.VITE_SOCIAL_FACEBOOK || 'https://www.facebook.com/share/p/1EhdBQaRw4/',
-        bg: 'info',
-        ariaLabel: 'Facebook'
+        url: import.meta.env.VITE_SOCIAL_FACEBOOK,
+        bg: 'info'
     },
     {
         id: 'whatsapp',
-        name: 'WhatsApp',
         icon: 'WhatsApp',
         width: '20',
         height: '20',
         fill: 'var(--white)',
-        url: import.meta.env.VITE_SOCIAL_WHATSAPP || 'https://whatsapp.com/channel/0029VbD28RpKgsNusSLyup2i',
-        bg: 'success',
-        ariaLabel: 'WhatsApp'
+        url: import.meta.env.VITE_SOCIAL_WHATSAPP,
+        bg: 'success'
     }
 ];
 
 const Layout = () => (
     <>
         <Header />
+
         <main className='w-full'>
             <Outlet />
         </main>
@@ -67,12 +60,12 @@ const Layout = () => (
             className='fixed right-0 z-99 overflow-hidden mx-5'
         >
             <div className='grid-cols-1 gap-6'>
-                {socialLinks.map((item) => (
+                {socialLinks?.map((item) => (
                     <Button
                         key={item.id}
                         version="icon"
                         bg={item.bg}
-                        aria-label={item.ariaLabel}
+                        aria-label={item.id}
                         onClick={() => {
                             if (!item.url) return;
                             if (item.url.startsWith('http')) {
@@ -85,7 +78,7 @@ const Layout = () => (
                         iconWidth={item.width}
                         iconHeight={item.height}
                         iconFill={item.fill}
-                        className='rounded-5 b-shadow flex'
+                        className='rounded-5 flex'
                     />
                 ))}
             </div>
@@ -93,6 +86,7 @@ const Layout = () => (
 
         <Chatbot />
         <ToastContainer />
+
         <Footer />
     </>
 );
