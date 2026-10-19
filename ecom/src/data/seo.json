@@ -1,6 +1,11 @@
 {
   "siteInfo": {
-    "description": "Ashmita Vinyls supplies PVC vinyl products for commercial and industrial applications across India.",
+    "name": "Ashmita Vinyls",
+    "description": "Ashmita Vinyls supplies premium PVC vinyl products, strip curtains, and industrial vinyl solutions across India.",
+    "url": "https://ashmitavinyls.com",
+    "image": "/products/spaces/hospital_ward.jpg",
+    "phone": "+91 9873198731",
+    "email": "info@ashmitavinyls.com",
     "address": {
       "streetAddress": "C 304, 3rd Floor, Eastern Business District, L.B.S Marg Road, Bhandup West",
       "addressLocality": "Mumbai",
@@ -17,77 +22,27 @@
   "pages": {
     "home": {
       "title": "PVC Vinyl Products Supplier in India | Ashmita Vinyls",
-      "description": "Explore PVC vinyl products and industrial solutions from Ashmita Vinyls across India.",
+      "description": "Explore high-grade PVC strip curtains, industrial vinyl rolls, polar freezer curtains, and mounting accessories from Ashmita Vinyls across India.",
+      "keywords": "PVC vinyl products, PVC strip curtains, industrial vinyl rolls, polar freezer curtains, Ashmita Vinyls, Mumbai vinyl supplier",
       "path": "/home",
-      "breadcrumbs": [{ "label": "Home", "path": "/home" }]
+      "breadcrumbs": [
+        { "label": "Home", "path": "/home" }
+      ]
     },
     "about": {
-      "title": "About Ashmita Vinyls | PVC Vinyl Products",
-      "description": "Learn about Ashmita Vinyls, our product range, quality focus and industrial solutions.",
+      "title": "About Us | Ashmita Vinyls - Industrial PVC Solutions",
+      "description": "Learn about Ashmita Vinyls, our manufacturing expertise, stringent quality standards, infrastructure, and nationwide supply of PVC strip curtain solutions.",
+      "keywords": "about Ashmita Vinyls, PVC curtain manufacturer, industrial vinyl solutions, PVC quality assurance, Mumbai PVC supplier",
       "path": "/about",
       "breadcrumbs": [
         { "label": "Home", "path": "/home" },
         { "label": "About Us", "path": "/about" }
       ]
     },
-    "product": {
-      "title": "PVC Vinyl Products | Ashmita Vinyls",
-      "description": "Explore PVC strip curtains, PVC rolls and other industrial vinyl products.",
-      "path": "/product",
-      "breadcrumbs": [
-        { "label": "Home", "path": "/home" },
-        { "label": "Products", "path": "/product" }
-      ]
-    },
-    "products": {
-      "title": "PVC Vinyl Products | Ashmita Vinyls",
-      "description": "Explore PVC strip curtains, PVC rolls and other industrial vinyl products.",
-      "path": "/product",
-      "breadcrumbs": [
-        { "label": "Home", "path": "/home" },
-        { "label": "Products", "path": "/product" }
-      ]
-    },
-    "productDetail": {
-      "title": "PVC Product Specifications | Ashmita Vinyls",
-      "description": "Explore product specifications, features and applications.",
-      "path": "/product-detail",
-      "breadcrumbs": [
-        { "label": "Home", "path": "/home" },
-        { "label": "Products", "path": "/product" },
-        { "label": "Product Details", "path": "/product-detail" }
-      ]
-    },
-    "supplier": {
-      "title": "Industrial PVC Applications | Ashmita Vinyls",
-      "description": "Discover industrial applications for PVC vinyl products.",
-      "path": "/supplier",
-      "breadcrumbs": [
-        { "label": "Home", "path": "/home" },
-        { "label": "Supplier", "path": "/supplier" }
-      ]
-    },
-    "quality": {
-      "title": "Product Quality | Ashmita Vinyls",
-      "description": "Learn about product quality and industrial PVC solutions.",
-      "path": "/quality",
-      "breadcrumbs": [
-        { "label": "Home", "path": "/home" },
-        { "label": "Quality", "path": "/quality" }
-      ]
-    },
-    "connect": {
-      "title": "Contact Ashmita Vinyls | Product Enquiries",
-      "description": "Contact Ashmita Vinyls for PVC product specifications and bulk enquiries.",
-      "path": "/connect",
-      "breadcrumbs": [
-        { "label": "Home", "path": "/home" },
-        { "label": "Contact Us", "path": "/connect" }
-      ]
-    },
     "blog": {
-      "title": "PVC Products Blog & Industry Insights | Ashmita Vinyls",
-      "description": "Read guides and industry insights about PVC strip curtains, PVC rolls and industrial vinyl applications.",
+      "title": "PVC Industry Blog & Technical Guides | Ashmita Vinyls",
+      "description": "Read expert articles, installation guides, temperature regulation tips, and industrial insights on PVC strip curtains and vinyl rolls.",
+      "keywords": "PVC products blog, industrial strip curtains guide, cold storage curtains, PVC curtain installation, vinyl news",
       "path": "/blog",
       "breadcrumbs": [
         { "label": "Home", "path": "/home" },
@@ -96,7 +51,8 @@
     },
     "blogDetail": {
       "title": "PVC Industry Article | Ashmita Vinyls",
-      "description": "Read detailed articles about PVC products, applications and industry solutions.",
+      "description": "Read detailed articles about PVC products, applications, temperature maintenance, and industry solutions.",
+      "keywords": "PVC article, industrial vinyl guide, curtain installation article",
       "path": "/blog-detail",
       "breadcrumbs": [
         { "label": "Home", "path": "/home" },
@@ -104,9 +60,60 @@
         { "label": "Article", "path": "/blog-detail" }
       ]
     },
+    "supplier": {
+      "title": "Authorized PVC Suppliers & Store Locations | Ashmita Vinyls",
+      "description": "Locate authorized Ashmita Vinyls dealers, suppliers, and distribution centers for industrial PVC products across India.",
+      "keywords": "PVC suppliers India, find PVC store, authorized vinyl distributor, industrial PVC supplier, Ashmita dealer network",
+      "path": "/supplier",
+      "breadcrumbs": [
+        { "label": "Home", "path": "/home" },
+        { "label": "Supplier", "path": "/supplier" }
+      ]
+    },
+    "connect": {
+      "title": "Connect With Us | Ashmita Vinyls Customer Support & Quotes",
+      "description": "Get in touch with Ashmita Vinyls for custom PVC strip curtain sizes, bulk wholesale inquiries, technical consultations, and instant quotes.",
+      "keywords": "connect with us, contact Ashmita Vinyls, PVC curtain inquiry, bulk order vinyl, customer support, request quotation",
+      "path": "/connect",
+      "breadcrumbs": [
+        { "label": "Home", "path": "/home" },
+        { "label": "Connect Us", "path": "/connect" }
+      ]
+    },
+    "connectUs": {
+      "title": "Connect With Us | Ashmita Vinyls Customer Support & Quotes",
+      "description": "Get in touch with Ashmita Vinyls for custom PVC strip curtain sizes, bulk wholesale inquiries, technical consultations, and instant quotes.",
+      "keywords": "connect with us, contact Ashmita Vinyls, PVC curtain inquiry, bulk order vinyl, customer support, request quotation",
+      "path": "/connect",
+      "breadcrumbs": [
+        { "label": "Home", "path": "/home" },
+        { "label": "Connect Us", "path": "/connect" }
+      ]
+    },
+    "faq": {
+      "title": "Frequently Asked Questions (FAQ) | Ashmita Vinyls",
+      "description": "Find answers to frequently asked questions about PVC strip curtains, thickness options, temperature tolerance, hardware installation, and deliveries.",
+      "keywords": "PVC curtain FAQ, strip curtain questions, vinyl roll installation, cold room curtains, maintenance FAQ, Ashmita Vinyls FAQ",
+      "path": "/faq",
+      "breadcrumbs": [
+        { "label": "Home", "path": "/home" },
+        { "label": "FAQ", "path": "/faq" }
+      ]
+    },
+    "faqs": {
+      "title": "Frequently Asked Questions (FAQ) | Ashmita Vinyls",
+      "description": "Find answers to frequently asked questions about PVC strip curtains, thickness options, temperature tolerance, hardware installation, and deliveries.",
+      "keywords": "PVC curtain FAQ, strip curtain questions, vinyl roll installation, cold room curtains, maintenance FAQ, Ashmita Vinyls FAQ",
+      "path": "/faq",
+      "breadcrumbs": [
+        { "label": "Home", "path": "/home" },
+        { "label": "FAQ", "path": "/faq" }
+      ]
+    },
     "privacy": {
       "title": "Privacy Policy | Ashmita Vinyls",
-      "description": "Read the Ashmita Vinyls privacy policy.",
+      "description": "Learn how Ashmita Vinyls collects, manages, and protects your personal information, corporate details, and inquiry data under our privacy policy.",
+      "keywords": "privacy policy, data protection, security, Ashmita Vinyls policy, user privacy",
       "path": "/privacy",
       "breadcrumbs": [
         { "label": "Home", "path": "/home" },
@@ -115,26 +122,106 @@
     },
     "terms": {
       "title": "Terms & Conditions | Ashmita Vinyls",
-      "description": "Read the terms and conditions of Ashmita Vinyls.",
+      "description": "Review the commercial terms and conditions, warranty details, cancellation policies, and order fulfillment guidelines of Ashmita Vinyls.",
+      "keywords": "terms and conditions, commercial terms, warranty policy, delivery terms, Ashmita Vinyls legal",
       "path": "/terms",
       "breadcrumbs": [
         { "label": "Home", "path": "/home" },
         { "label": "Terms & Conditions", "path": "/terms" }
+      ]
+    },
+    "termsAndCondition": {
+      "title": "Terms & Conditions | Ashmita Vinyls",
+      "description": "Review the commercial terms and conditions, warranty details, cancellation policies, and order fulfillment guidelines of Ashmita Vinyls.",
+      "keywords": "terms and conditions, commercial terms, warranty policy, delivery terms, Ashmita Vinyls legal",
+      "path": "/terms",
+      "breadcrumbs": [
+        { "label": "Home", "path": "/home" },
+        { "label": "Terms & Conditions", "path": "/terms" }
+      ]
+    },
+    "collection": {
+      "title": "PVC Strip Curtains & Vinyl Rolls Collection | Ashmita Vinyls",
+      "description": "Explore our complete collection of industrial PVC strip curtains, polar freezer curtains, ribbed vinyl rolls, anti-insect amber curtains, and SS brackets.",
+      "keywords": "PVC collection, strip curtain catalog, industrial vinyl rolls, ribbed PVC curtains, freezer curtains, mounting brackets collection",
+      "path": "/collection",
+      "breadcrumbs": [
+        { "label": "Home", "path": "/home" },
+        { "label": "Collection", "path": "/collection" }
+      ]
+    },
+    "collections": {
+      "title": "PVC Strip Curtains & Vinyl Rolls Collection | Ashmita Vinyls",
+      "description": "Explore our complete collection of industrial PVC strip curtains, polar freezer curtains, ribbed vinyl rolls, anti-insect amber curtains, and SS brackets.",
+      "keywords": "PVC collection, strip curtain catalog, industrial vinyl rolls, ribbed PVC curtains, freezer curtains, mounting brackets collection",
+      "path": "/collection",
+      "breadcrumbs": [
+        { "label": "Home", "path": "/home" },
+        { "label": "Collection", "path": "/collection" }
+      ]
+    },
+    "product": {
+      "title": "PVC Vinyl Products & Catalog | Ashmita Vinyls",
+      "description": "Explore PVC strip curtains, PVC rolls and other industrial vinyl products from Ashmita Vinyls.",
+      "keywords": "PVC products, strip curtains, vinyl rolls, industrial vinyl, Ashmita Vinyls",
+      "path": "/product",
+      "breadcrumbs": [
+        { "label": "Home", "path": "/home" },
+        { "label": "Products", "path": "/product" }
+      ]
+    },
+    "products": {
+      "title": "PVC Vinyl Products & Catalog | Ashmita Vinyls",
+      "description": "Explore PVC strip curtains, PVC rolls and other industrial vinyl products from Ashmita Vinyls.",
+      "keywords": "PVC products, strip curtains, vinyl rolls, industrial vinyl, Ashmita Vinyls",
+      "path": "/product",
+      "breadcrumbs": [
+        { "label": "Home", "path": "/home" },
+        { "label": "Products", "path": "/product" }
+      ]
+    },
+    "productDetail": {
+      "title": "PVC Product Specifications | Ashmita Vinyls",
+      "description": "Explore product specifications, features, technical data sheets, and industrial applications.",
+      "keywords": "PVC product specifications, technical details, vinyl curtain dimensions, strip curtain hardware",
+      "path": "/product-detail",
+      "breadcrumbs": [
+        { "label": "Home", "path": "/home" },
+        { "label": "Products", "path": "/product" },
+        { "label": "Product Details", "path": "/product-detail" }
+      ]
+    },
+    "quality": {
+      "title": "Product Quality & Standards | Ashmita Vinyls",
+      "description": "Learn about our rigorous product quality testing, ISO certifications, and industrial PVC performance standards.",
+      "keywords": "PVC quality, quality standards, industrial grade vinyl, durability, certifications",
+      "path": "/quality",
+      "breadcrumbs": [
+        { "label": "Home", "path": "/home" },
+        { "label": "Quality", "path": "/quality" }
       ]
     }
   },
   "faqs": [
     {
       "question": "What is Ashmita Vinyls?",
-      "answer": "Ashmita Vinyls supplies PVC vinyl products for commercial and industrial applications."
+      "answer": "Ashmita Vinyls is a premier manufacturer and supplier of commercial and industrial PVC vinyl products, strip curtains, and hanging systems across India."
     },
     {
-      "question": "What PVC products are available?",
-      "answer": "Available products include PVC strip curtains, PVC rolls and related industrial vinyl solutions."
+      "question": "What types of PVC strip curtains are available?",
+      "answer": "We offer standard transparent, ribbed double-rib, polar freezer grade (-40°C), anti-static, anti-insect amber yellow, and welding screen PVC curtains."
     },
     {
-      "question": "How can I enquire about products?",
-      "answer": "Contact Ashmita Vinyls by phone, email or the website enquiry form for product details and bulk requirements."
+      "question": "How do I choose the correct strip thickness and width?",
+      "answer": "For pedestrian doors up to 7-8 ft, 2mm x 200mm is recommended. For warehouse fork-lift openings or high wind exposure, 3mm x 300mm or 4mm x 400mm with 50% to 100% overlap is ideal."
+    },
+    {
+      "question": "Can Ashmita Vinyls customize curtain sizes and mounting brackets?",
+      "answer": "Yes, we fabricate custom door sizes with pre-punched strips and provide high-grade Stainless Steel 202/304 and Mild Steel powder-coated mounting rails."
+    },
+    {
+      "question": "How do I request a bulk quote or place an order?",
+      "answer": "You can reach out through our Connect Us page, call our sales helpline, or email info@ashmitavinyls.com for prompt quotations and B2B pricing."
     }
   ]
 }

@@ -6,7 +6,7 @@
       "HeaderCategory": 2,
       "HeaderNavMenu": "nav",
       "HeaderSticky": true,
-      "HeaderTopBar": false,
+      "HeaderTopBar": true,
       "HeaderBottomBar": true
     }
   ],
@@ -73,7 +73,7 @@
     {
       "FooterVersion": 1,
       "FooterSocial": true,
-      "FooterTopBar": false,
+      "FooterTopBar": true,
       "FooterBottomBar": true
     }
   ]

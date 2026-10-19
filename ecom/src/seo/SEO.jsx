@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import {
-  pageSeoData,
+  getPageSeo,
   aeoFAQs,
   siteInfo,
   SITE_URL,
@@ -10,13 +10,16 @@ import {
   getImageUrl,
 } from "./seoConfig";
 
-const updateTag = (selector, createTag, updateAttr) => {
+const upsertTag = (selector, tagName, attrs) => {
+  if (typeof document === "undefined") return null;
   let el = document.querySelector(selector);
   if (!el) {
-    el = createTag();
+    el = document.createElement(tagName);
     document.head.appendChild(el);
   }
-  updateAttr(el);
+  Object.entries(attrs).forEach(([key, val]) => {
+    if (val !== undefined && val !== null) el.setAttribute(key, val);
+  });
   return el;
 };
 
@@ -30,83 +33,58 @@ const SEO = ({
   type = "website",
   breadcrumbs,
   faqs,
+  robots: customRobots,
 }) => {
-  const config = (page && pageSeoData?.[page]) || {};
+  const currentPath =
+    customPath ||
+    (typeof window !== "undefined" ? window.location.pathname : "");
+
+  const config = useMemo(
+    () => getPageSeo(page || currentPath),
+    [page, currentPath],
+  );
+
   const title =
     customTitle ||
     config.title ||
     import.meta.env.VITE_SEO_TITLE ||
     SITE_NAME ||
     "";
+
   const description =
     customDesc ||
     config.description ||
     siteInfo?.description ||
     import.meta.env.VITE_SEO_DESCRIPTION ||
     "";
+
   const keywords =
     customKeywords ||
     config.keywords ||
     import.meta.env.VITE_SEO_KEYWORDS ||
     "";
-  const pagePath = customPath || config.path || (page ? `/${page}` : "");
+
+  const pagePath =
+    customPath ||
+    config.path ||
+    (page ? `/${page}` : currentPath || "/");
+
   const canonicalUrl = getUrl(pagePath);
   const imageUrl = getImageUrl(customImage || config.image || DEFAULT_IMAGE);
+  const robots =
+    customRobots ||
+    import.meta.env.VITE_SEO_ROBOTS ||
+    "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
 
   useEffect(() => {
-    // 1. Title
-    if (title) {
-      document.title = title;
-    }
+    if (typeof document === "undefined") return;
 
-    // 2. Standard Meta
-    if (description) {
-      updateTag(
-        'meta[name="description"]',
-        () => document.createElement("meta"),
-        (el) => {
-          el.setAttribute("name", "description");
-          el.setAttribute("content", description);
-        },
-      );
-    }
-    if (keywords) {
-      updateTag(
-        'meta[name="keywords"]',
-        () => document.createElement("meta"),
-        (el) => {
-          el.setAttribute("name", "keywords");
-          el.setAttribute("content", keywords);
-        },
-      );
-    }
-    updateTag(
-      'meta[name="robots"]',
-      () => document.createElement("meta"),
-      (el) => {
-        el.setAttribute("name", "robots");
-        el.setAttribute(
-          "content",
-          import.meta.env.VITE_SEO_ROBOTS ||
-            "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
-        );
-      },
-    );
+    if (title) document.title = title;
 
-    // 3. Canonical
-    if (canonicalUrl) {
-      updateTag(
-        'link[rel="canonical"]',
-        () => document.createElement("link"),
-        (el) => {
-          el.setAttribute("rel", "canonical");
-          el.setAttribute("href", canonicalUrl);
-        },
-      );
-    }
-
-    // 4. Open Graph (Social Sharing)
-    const ogTags = [
+    const metaTags = [
+      { name: "description", content: description },
+      { name: "keywords", content: keywords },
+      { name: "robots", content: robots },
       { property: "og:site_name", content: SITE_NAME },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
@@ -114,41 +92,26 @@ const SEO = ({
       { property: "og:type", content: type },
       { property: "og:image", content: imageUrl },
       { property: "og:locale", content: "en_US" },
-    ];
-    ogTags.forEach(({ property, content }) => {
-      if (content) {
-        updateTag(
-          `meta[property="${property}"]`,
-          () => document.createElement("meta"),
-          (el) => {
-            el.setAttribute("property", property);
-            el.setAttribute("content", content);
-          },
-        );
-      }
-    });
-
-    // 5. Twitter Cards
-    const twitterTags = [
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
       { name: "twitter:image", content: imageUrl },
     ];
-    twitterTags.forEach(({ name, content }) => {
-      if (content) {
-        updateTag(
-          `meta[name="${name}"]`,
-          () => document.createElement("meta"),
-          (el) => {
-            el.setAttribute("name", name);
-            el.setAttribute("content", content);
-          },
-        );
-      }
+
+    metaTags.forEach(({ name, property, content }) => {
+      if (!content) return;
+      const key = name ? "name" : "property";
+      const val = name || property;
+      upsertTag(`meta[${key}="${val}"]`, "meta", { [key]: val, content });
     });
 
-    // 6. Structured Data (JSON-LD)
+    if (canonicalUrl) {
+      upsertTag('link[rel="canonical"]', "link", {
+        rel: "canonical",
+        href: canonicalUrl,
+      });
+    }
+
     const address = siteInfo?.address || {};
     const geo = siteInfo?.geo || {};
 
@@ -199,29 +162,36 @@ const SEO = ({
       },
     ];
 
-    const activeBreadcrumbs = breadcrumbs ||
+    const activeBreadcrumbs =
+      breadcrumbs ||
       config.breadcrumbs || [
-        { label: "Home", path: "/" },
+        { label: "Home", path: "/home" },
         ...(pagePath && pagePath !== "/" && pagePath !== "/home"
           ? [{ label: title.split("|")[0].trim(), path: pagePath }]
           : []),
       ];
-    if (activeBreadcrumbs.length > 1) {
+
+    if (activeBreadcrumbs?.length > 1) {
       graph.push({
         "@type": "BreadcrumbList",
-        itemListElement: activeBreadcrumbs.map((crumb, index) => ({
+        itemListElement: activeBreadcrumbs.map((crumb, idx) => ({
           "@type": "ListItem",
-          position: index + 1,
+          position: idx + 1,
           name: crumb.label,
-          item: crumb.path.startsWith("http")
-            ? crumb.path
-            : `${SITE_URL}${crumb.path}`,
+          item: getUrl(crumb.path),
         })),
       });
     }
 
-    const activeFaqs = faqs || (page === "home" || !page ? aeoFAQs : []);
-    if (activeFaqs && activeFaqs.length > 0) {
+    const isFaqPage =
+      page === "faq" ||
+      page === "faqs" ||
+      pagePath?.includes("faq") ||
+      page === "home" ||
+      !page;
+    const activeFaqs = faqs || (isFaqPage ? config.faqs || aeoFAQs : []);
+
+    if (activeFaqs?.length > 0) {
       graph.push({
         "@type": "FAQPage",
         mainEntity: activeFaqs.map((faq) => ({
@@ -235,19 +205,16 @@ const SEO = ({
       });
     }
 
-    const jsonLd = {
-      "@context": "https://schema.org",
-      "@graph": graph.filter(Boolean),
-    };
-
-    let scriptEl = document.getElementById("site-seo-jsonld");
-    if (!scriptEl) {
-      scriptEl = document.createElement("script");
-      scriptEl.id = "site-seo-jsonld";
-      scriptEl.type = "application/ld+json";
-      document.head.appendChild(scriptEl);
+    const script = upsertTag("#site-seo-jsonld", "script", {
+      id: "site-seo-jsonld",
+      type: "application/ld+json",
+    });
+    if (script) {
+      script.textContent = JSON.stringify({
+        "@context": "https://schema.org",
+        "@graph": graph.filter(Boolean),
+      });
     }
-    scriptEl.textContent = JSON.stringify(jsonLd);
   }, [
     title,
     description,
@@ -255,10 +222,11 @@ const SEO = ({
     canonicalUrl,
     imageUrl,
     type,
+    robots,
     faqs,
     page,
     breadcrumbs,
-    config.breadcrumbs,
+    config,
     pagePath,
   ]);
 

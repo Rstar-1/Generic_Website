@@ -1,64 +1,89 @@
-import React from "react";
 
+import React, { memo } from "react";
 import Container from "../../common/Container";
 import Breadcrumb from "../../common/Breadcrumb";
 import Skeleton from "../../common/Skeleton";
 import { resolveImagePath } from "../../../utils/imageResolver";
+import { configData } from "../../../utils/apiData";
 
-const carpetBanner = resolveImagePath("products/carpet_banner.jpg");
-const defaultBannerImg = carpetBanner;
+const OVERLAY =
+    "linear-gradient(rgba(20,8,1,.72),rgba(15,20,23,.82))";
+const GRADIENT =
+    "linear-gradient(rgba(20,8,1,.72),rgba(148,51,6,.82))";
 
-const Banner = ({ title, desc, style, breadcrumbs, productData, loading, bgImage, image, backgroundImage }) => {
-    if (loading) {
-        return <Skeleton variant="banner" style={style} />;
-    }
+const Banner = memo(({
+    title = "Banner",
+    desc,
+    position = "center",
+    style,
+    breadcrumbs,
+    productData,
+    loading,
+    image,
+    bgImage,
+    backgroundImage,
+    version = "1",
+}) => {
+    if (loading) return <Skeleton variant="banner" style={style} />;
 
-    const mainHeading = title || "Banner";
-    const rawImg = bgImage || backgroundImage || image || defaultBannerImg;
-    const bannerImg = resolveImagePath(rawImg);
-    const bannerBackground = bannerImg
-        ? (bannerImg.includes('gradient') || bannerImg.startsWith('url(')
-            ? bannerImg
-            : `linear-gradient(rgba(10, 15, 25, 0.72), rgba(10, 15, 25, 0.82)), url(${bannerImg}) center/cover no-repeat`)
-        : `linear-gradient(rgba(10, 15, 25, 0.72), rgba(10, 15, 25, 0.82)), url(${carpetBanner}) center/cover no-repeat`;
+    const sticky = Boolean(
+        configData?.HeaderSticky ??
+        configData?.Header?.HeaderSticky ??
+        configData?.Header?.[0]?.HeaderSticky
+    );
 
-    const itemsList = productData
+    const left = position === "left";
+    const align = left ? "text-left" : "text-center";
+    const justify = left ? "justify-start" : "justify-center";
+
+    const rawImage = image || bgImage || backgroundImage;
+    const resolvedImage = rawImage && resolveImagePath(rawImage);
+
+    const background = String(version) === "2" || !resolvedImage
+        ? GRADIENT
+        : resolvedImage.includes("gradient") || resolvedImage.startsWith("url(")
+            ? resolvedImage
+            : `${OVERLAY}, url(${resolvedImage}) center/cover no-repeat`;
+
+    const items = productData
         ? [
-            { label: 'Home', path: '/home' },
-            { label: productData.category || 'Products', path: '/products' },
-            { label: productData.title || 'Product Detail' }
+            { label: "Home", path: "/home" },
+            { label: productData.category || "Products", path: "/products" },
+            { label: productData.title || "Product Detail" },
         ]
-        : Array.isArray(breadcrumbs)
-            ? breadcrumbs
-            : [
-                { label: 'Home', path: '/home' },
-                { label: title || 'Page' }
-            ];
+        : breadcrumbs || [
+            { label: "Home", path: "/home" },
+            { label: title },
+        ];
 
     return (
-        <Container className="relative"
+        <Container
+            className="relative"
             style={{
-                background: bannerBackground,
-                padding: '120px 0px 80px 0px',
-                ...style
-            }}>
-            <div className="relative w-full py-60 text-center">
-                <h2 className="text-white font-600 large-text text-center uppercase mt-40">
-                    {mainHeading}
+                background,
+                padding: sticky ? "120px 0 80px" : "60px 0",
+                ...style,
+            }}
+        >
+            <div className={`relative w-full py-60 ${align}`}>
+                <h2 className={`text-white font-600 large-text uppercase ${align} ${sticky ? "mt-40" : ""}`}>
+                    {title}
                 </h2>
 
                 {desc && (
-                    <p className="para-text text-white opacity-85 mt-8 max-w-600 mx-auto">
+                    <p className={`para-text text-white mt-8 ${left ? "" : "mx-auto"}`}>
                         {desc}
                     </p>
                 )}
 
-                <div className="mt-8 flex justify-center">
-                    <Breadcrumb items={itemsList} className="justify-center" />
+                <div className={`flex ${left ? "mt-14" : "mt-8"} ${justify}`}>
+                    <Breadcrumb items={items} className={justify} />
                 </div>
             </div>
         </Container>
     );
-};
+});
 
-export default React.memo(Banner);
+Banner.displayName = "Banner";
+
+export default Banner;

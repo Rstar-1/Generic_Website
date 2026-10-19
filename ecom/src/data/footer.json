@@ -1,41 +1,9 @@
 {
-  "features": [
-    {
-      "id": "service",
-      "icon": "Support",
-      "title": "Customer Support",
-      "text": "Mon-Sat, 9am-7pm IST.",
-      "type": "text"
-    },
-    {
-      "id": "call",
-      "icon": "Phone",
-      "title": "Call Us",
-      "text": "+91 98731 98731 / +91 98179 26992",
-      "link": "tel:9873198731",
-      "type": "text"
-    },
-    {
-      "id": "touch",
-      "icon": "Send",
-      "title": "Email Us",
-      "text": "info@goonjcom.in / shreeharisurgicals@gmail.com",
-      "link": "mailto:info@goonjcom.in",
-      "type": "link"
-    },
-    {
-      "id": "address",
-      "icon": "MapPin",
-      "title": "Distribution Hubs",
-      "text": "Delhi: Dilshad Garden | Mumbai: Masjid Bunder",
-      "type": "text"
-    }
-  ],
   "newsletter": {
-    "title": "Institutional Supply Updates",
-    "description": "Receive updated medical equipment catalogs, tender specifications, and wholesale price notifications.",
-    "placeholder": "Enter your hospital or company email",
-    "buttonText": "Subscribe",
+    "title": "Join Our Newsletter",
+    "description": "Become part of our growing network of healthcare providers. Share your expertise, access exclusive resources, and collaborate with industry leaders.",
+    "placeholder": "Enter your Email ID",
+    "buttonText": "SUBSCRIBE",
     "disclaimer": {
       "prefix": "By subscribing you agree to our ",
       "termsLabel": "Terms & Conditions",
@@ -48,59 +16,43 @@
   },
   "columns": [
     {
-      "title": "Healthcare Network",
+      "title": "Company",
       "links": [
         { "label": "About Us", "url": "/about" },
         { "label": "All Products", "url": "/product" },
-        { "label": "Find A Store / Supplier", "url": "/supplier" },
-        { "label": "Healthcare Insights", "url": "/blog" },
-        { "label": "Institutional Enquiry", "url": "/connect" }
+        { "label": "Find A Store", "url": "/supplier" },
+        { "label": "News & Media", "url": "/blog" },
+        { "label": "Connect Us", "url": "/connect" }
       ]
     },
     {
-      "title": "Hospital Holloware & OT",
+      "title": "PVC Strip Curtains",
       "links": [
-        { "label": "Stainless Steel Dressing Drums", "url": "/product/16" },
-        { "label": "Surgical Instrument Trays", "url": "/product/18" },
-        { "label": "7 LED Examination Light", "url": "/product/22" },
-        { "label": "12x12 Deluxe Autoclave", "url": "/product/25" },
-        { "label": "SSP Emergency Crash Cart", "url": "/product/28" }
+        { "label": "Transparent Standard", "url": "/product/1" },
+        { "label": "Transparent Reliable", "url": "/product/3" },
+        { "label": "Transparent Supreme", "url": "/product/9" },
+        { "label": "Crystal Clear", "url": "/product/11" },
+        { "label": "Polar Freezer", "url": "/product/13" }
       ]
     },
     {
-      "title": "First Aid & Emergency Care",
+      "title": "Brackets",
       "links": [
-        { "label": "Factory First Aid Kit - Type A", "url": "/product/1" },
-        { "label": "Industrial First Aid Kit - Type B", "url": "/product/2" },
-        { "label": "Type C First Aid Metal Box", "url": "/product/3" },
-        { "label": "Wall Mount Medical Cabinet", "url": "/product/8" },
-        { "label": "Aluminium Scoop Stretcher", "url": "/product/10" }
+        { "label": "Magnetic Strip Curtain Roll", "url": "/product/87" },
+        { "label": "Mounting Brackets (MS) - White", "url": "/product/89" },
+        { "label": "Mounting Brackets (MS) - Grey", "url": "/product/91" },
+        {
+          "label": "Stainless Steel 202 (SS202) Mounting Brackets",
+          "url": "/product/93"
+        },
+        {
+          "label": "Stainless Steel 304 (SS304) Mounting Brackets",
+          "url": "/product/95"
+        }
       ]
     }
   ],
   "bottom": {
-    "region": {
-      "flag": "🇮🇳",
-      "label": "India (INR ₹)"
-    },
-    "paymentBadges": ["VISA", "MC", "AMEX", "UPI", "NEFT", "RTGS"],
-    "socials": [
-      {
-        "platform": "facebook",
-        "iconName": "Facebook",
-        "url": "https://www.facebook.com/"
-      },
-      {
-        "platform": "instagram",
-        "iconName": "Instagram",
-        "url": "https://www.instagram.com/"
-      },
-      {
-        "platform": "youtube",
-        "iconName": "YouTube",
-        "url": "https://www.youtube.com/"
-      }
-    ],
     "copyright": "© 2026 Goonj & Shreehari Surgicals Healthcare Network. All rights reserved.",
     "legalLinks": [
       { "label": "Terms & Conditions", "url": "/terms" },
