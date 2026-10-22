@@ -49,9 +49,9 @@ const ProductDetail = () => {
         return findCategory(categoriesData, product);
     }, [product]);
 
-    const categoryName = category?.name || product?.category || 'Products';
-    const productName = product?.name || product?.title || 'Product Detail';
-    const productId = product?.id || id || '';
+    const categoryName = category?.name || product?.category;
+    const productName = product?.name || product?.title;
+    const productId = product?.id || id;
     const productSlug = getItemSlug(product) || productId;
 
     const breadcrumbs = useMemo(() => [

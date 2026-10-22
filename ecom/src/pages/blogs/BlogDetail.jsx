@@ -5,9 +5,8 @@ import LazySection from '../../components/common/LazySection';
 import Container from '../../components/common/Container';
 import Banner from '../../components/layout/generic/Banner';
 import SEO from '../../seo';
-import { resolveImagePath } from '../../utils/imageResolver';
-import { getItemSlug, matchBySlugOrId, Fallback } from '../../utils/utils';
-import blogData from '../../data/blog.json';
+import { getItemSlug, matchBySlugOrId, Fallback, findCategory, resolveImagePath } from '../../utils/utils';
+import { blogData, blogCategoriesData } from '../../utils/apiData';
 
 const BlogDetailSection = lazy(() => import('./sections/BlogDetailSection'));
 const PatchSection = lazy(() => import('../home/sections/PatchSection'));
@@ -44,16 +43,23 @@ const BlogDetail = () => {
         return (targetId ? (blogData || []).find((b) => matchBySlugOrId(b, targetId)) : null) || blogData?.[0] || null;
     }, [location.state, id, searchParams]);
 
-    const title = currentBlog?.title || 'Blog Detail';
+    const category = useMemo(() => {
+        if (!currentBlog) return null;
+        return findCategory(blogCategoriesData, currentBlog);
+    }, [currentBlog]);
+
+    const categoryName = category?.name || currentBlog?.category;
+    const title = currentBlog?.title || currentBlog?.name;
+    const blogId = currentBlog?.id || id;
+    const blogSlug = getItemSlug(currentBlog) || blogId;
     const description = currentBlog?.excerpt || currentBlog?.content?.slice(0, 160) || 'Read our latest blog post.';
-    const blogSlug = getItemSlug(currentBlog);
     const path = blogSlug ? `/blog/${blogSlug}` : '/blog';
 
     const breadcrumbs = useMemo(() => [
         { label: 'Home', path: '/home' },
-        { label: 'News & Media', path: '/blog' },
-        { label: title, path }
-    ], [title, path]);
+        { label: categoryName, path: `/blog?category=${encodeURIComponent(categoryName)}` },
+        { label: title, path: `/blog/${blogSlug}` }
+    ], [categoryName, title, blogSlug]);
 
     return (
         <>
@@ -73,7 +79,7 @@ const BlogDetail = () => {
                 }}
                 breadcrumbs={breadcrumbs}
             />
-            <Banner title={title} desc={currentBlog?.category || 'News & Media'} breadcrumbs={breadcrumbs} bgImage={blogBannerBg} />
+            <Banner title="Blogs Overview" desc='' breadcrumbs={breadcrumbs} bgImage={blogBannerBg} />
             {blogDetailSections.map(({ id: secId, Component, isEager, minHeight, isContainer, containerClass, containerStyle }) => {
                 const el = isContainer ? (
                     <Container className={containerClass} style={containerStyle}>
