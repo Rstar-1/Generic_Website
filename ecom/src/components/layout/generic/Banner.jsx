@@ -24,7 +24,7 @@ const Banner = memo(({
     backgroundImage,
     version = "1",
 }) => {
-    if (loading) return <Skeleton variant="banner" style={style} />;
+    if (loading) return <Skeleton variant="image" height="260px" style={style} />;
 
     const sticky = Boolean(
         configData?.HeaderSticky ??

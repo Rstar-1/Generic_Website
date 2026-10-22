@@ -1,31 +1,65 @@
-import React from 'react';
-import SEO from '../../seo';
+import React, { lazy, Suspense, memo, useMemo } from 'react';
+import LazySection from '../../components/common/LazySection';
 import Container from '../../components/common/Container';
+import Banner from '../../components/layout/generic/Banner';
+import SEO from '../../seo';
+import { resolveImagePath } from '../../utils/imageResolver';
+import { getStickyTop, Fallback } from '../../utils/utils';
 
-const Blog = () => (
-    <>
-        <SEO page="blog" />
-        <Container className="py-16">
-            <div className="max-w-4xl mx-auto px-4">
-                <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">PVC Industry Blog & Insights</h1>
-                <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-8">
-                    Discover technical guides, installation best practices, and temperature control insights for industrial PVC curtains.
-                </p>
-                <div className="space-y-6">
-                    <article className="p-6 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow transition-shadow">
-                        <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">Guide</span>
-                        <h2 className="text-xl font-bold text-gray-900 mt-2 mb-2">How to Choose the Right PVC Curtain for Cold Storage</h2>
-                        <p className="text-gray-600 text-sm">Learn why polar grade PVC is critical for deep freeze environments down to -40°C.</p>
-                    </article>
-                    <article className="p-6 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow transition-shadow">
-                        <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">Installation</span>
-                        <h2 className="text-xl font-bold text-gray-900 mt-2 mb-2">Proper Strip Curtain Overlap for High-Traffic Warehouses</h2>
-                        <p className="text-gray-600 text-sm">A quick formula to determine whether 33%, 50%, or 100% overlap suits your forklift traffic.</p>
-                    </article>
-                </div>
-            </div>
-        </Container>
-    </>
-);
+const BlogSection = lazy(() => import('./sections/BlogSection'));
+const PatchSection = lazy(() => import('../home/sections/PatchSection'));
 
-export default React.memo(Blog);
+const patchBannerBg = resolveImagePath('Patch1.jpg');
+const blogBannerBg = resolveImagePath('Banner.jpg');
+
+const blogSections = [
+    { id: 'blog', Component: BlogSection, minHeight: '600px', isContainer: true },
+    {
+        id: 'patch',
+        Component: PatchSection,
+        minHeight: '300px',
+        isContainer: true,
+        containerClass: 'relative z-10',
+        containerStyle: {
+            backgroundImage: `linear-gradient(90deg, rgba(10, 15, 25, 0.94) 0%, rgba(10, 15, 25, 0.82) 50%, rgba(10, 15, 25, 0.45) 100%), url(${patchBannerBg})`,
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundAttachment: 'fixed'
+        }
+    },
+];
+
+const BREADCRUMBS = [
+    { label: 'Home', path: '/home' },
+    { label: 'News & Media', path: '/blog' }
+];
+
+const Blog = () => {
+    const stickyTop = useMemo(() => getStickyTop(), []);
+
+    return (
+        <>
+            <SEO page="blog" breadcrumbs={BREADCRUMBS} />
+            <Banner title="News & Articles" desc="News & Media" breadcrumbs={BREADCRUMBS} bgImage={blogBannerBg} />
+            {blogSections.map(({ id, Component, isEager, minHeight, isContainer = true, containerClass, containerStyle }) => {
+                const el = isContainer ? (
+                    <Container className={containerClass} style={containerStyle}>
+                        <Component stickyTop={stickyTop} />
+                    </Container>
+                ) : (
+                    <Component stickyTop={stickyTop} />
+                );
+
+                const content = <Suspense fallback={<Fallback minHeight={minHeight} />}>{el}</Suspense>;
+                return isEager ? (
+                    <React.Fragment key={id}>{content}</React.Fragment>
+                ) : (
+                    <LazySection key={id} placeholderHeight={minHeight} placeholder={<Fallback minHeight={minHeight} />}>{content}</LazySection>
+                );
+            })}
+        </>
+    );
+};
+
+export default memo(Blog);

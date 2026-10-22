@@ -1,0 +1,45 @@
+{
+  "sortOptions": [
+    { "label": "Trending", "value": "trending" },
+    { "label": "Price: Low to High", "value": "price-low" },
+    { "label": "Price: High to Low", "value": "price-high" }
+  ],
+  "price": {
+    "title": "Price Range",
+    "min": 0,
+    "max": 300,
+    "step": 10
+  },
+  "availability": {
+    "title": "Availability",
+    "options": [
+      { "label": "In Stock", "value": "in-stock" },
+      { "label": "Out of Stock", "value": "out-of-stock" }
+    ]
+  },
+  "category": {
+    "title": "Category"
+  },
+  "brands": {
+    "title": "Brand",
+    "options": [
+      { "label": "WSI", "value": "WSI" },
+      { "label": "LKY", "value": "LKY" },
+      { "label": "Vietnam", "value": "Vietnam" },
+      { "label": "Others", "value": "Others" }
+    ]
+  },
+  "colors": {
+    "title": "Color",
+    "options": [
+      { "name": "Transparent", "color": "#f8fafc" },
+      { "name": "Amber Yellow", "color": "#fde047" },
+      { "name": "Red", "color": "#ef4444" },
+      { "name": "Blue", "color": "#0284c7" },
+      { "name": "Black", "color": "#1e293b" },
+      { "name": "Orange", "color": "#f59e0b" },
+      { "name": "Grey", "color": "#64748b" },
+      { "name": "Silver", "color": "#94a3b8" }
+    ]
+  }
+}

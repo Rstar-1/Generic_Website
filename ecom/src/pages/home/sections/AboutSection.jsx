@@ -5,29 +5,10 @@ import Image from '../../../components/common/Image';
 import Button from '../../../components/common/Button';
 import { resolveImagePath } from '../../../utils/imageResolver';
 
-const keyFeatures = [
-    {
-        title: 'CE & ISO 9001:2015 Certified',
-        description: 'Certified medical manufacturing meeting European standards and international quality systems.'
-    },
-    {
-        title: 'Section 45 Factories Act Compliant',
-        description: 'Approved Type A, B & C industrial first aid boxes required for factories and construction sites.'
-    },
-    {
-        title: 'Medical Grade AISI-304 Stainless Steel',
-        description: 'Seamless, autoclavable hospital holloware, dressing drums, and surgical trays built for lifetime use.'
-    },
-    {
-        title: 'Pan-India Clinical & Institutional Supply',
-        description: 'Direct factory pricing and rapid dispatch for government tenders, private hospitals, and distributors.'
-    }
-];
 
 const AboutSection = memo(() => {
     const navigate = useNavigate();
     const handleExplore = useCallback(() => navigate('/product'), [navigate]);
-    const handleEnquiry = useCallback(() => navigate('/connect'), [navigate]);
 
     return (
         <div className="w-full py-60">
@@ -55,7 +36,7 @@ const AboutSection = memo(() => {
                 {/* Right Image Column */}
                 <div className="relative rounded-10 overflow-hidden h-500 sm-h-360 w-full sm-mt-12">
                     <Image
-                        src={resolveImagePath('/products/spaces/operation_theater.jpg')}
+                        src={resolveImagePath('Banner.jpg')}
                         alt="State of the Art Medical Equipment & Surgical Care"
                         className="w-full h-full object-cover flex"
                         loading="eager"

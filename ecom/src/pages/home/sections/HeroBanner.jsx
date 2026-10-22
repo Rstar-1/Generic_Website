@@ -8,7 +8,7 @@ import Button from '../../../components/common/Button';
 import { configData } from '../../../utils/apiData';
 
 const HEIGHT_MAP = {
-    sticky: { 1: 'h-800 sm-h-550', 2: 'h-650 sm-h-550' },
+    sticky: { 1: 'h-800 sm-h-550', 2: 'h-700 sm-h-550' },
     normal: { 1: 'h-700 sm-h-550', 2: 'h-550' }
 };
 

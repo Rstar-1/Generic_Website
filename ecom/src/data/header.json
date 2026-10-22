@@ -1,9 +1,4 @@
 {
-  "topBar": {
-    "location": "Riverside Park EU-1001",
-    "email": "hello@Infitech.com",
-    "timing": "Mon–Fri 09:00 AM – 06:00 PM"
-  },
   "navLinks": [
     {
       "href": "/home",

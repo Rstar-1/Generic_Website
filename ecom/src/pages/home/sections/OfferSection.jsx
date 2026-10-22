@@ -8,25 +8,25 @@ const trendingProducts = [
         id: 1,
         title: 'Select Table Lamps',
         subtitle: 'Get up to $100 Off',
-        image: import.meta.env.VITE_IMAGE + "Product1.webp",
+        image: import.meta.env.VITE_IMAGE + "Product3.jpg",
     },
     {
         id: 2,
         title: 'Select Lounge Chairs',
         subtitle: 'From $200',
-        image: import.meta.env.VITE_IMAGE + "Product2.webp",
+        image: import.meta.env.VITE_IMAGE + "Product4.jpg",
     },
     {
         id: 3,
         title: 'Select Side tables',
         subtitle: 'Get up to $1.000',
-        image: import.meta.env.VITE_IMAGE + "Product3.webp",
+        image: import.meta.env.VITE_IMAGE + "Product5.jpg",
     },
     {
         id: 4,
         title: 'Select Home Decors',
         subtitle: 'Buy One Get One',
-        image: import.meta.env.VITE_IMAGE + "Product4.webp",
+        image: import.meta.env.VITE_IMAGE + "Product7.jpg",
     }
 ];
 
@@ -65,7 +65,8 @@ const OfferSection = () => {
                         >    <Image
                                 src={item.image}
                                 alt={item.title}
-                                className='h-full w-full object-cover flex'
+                                className='h-full w-full object-contain flex'
+                                style={{ objectPosition: '50% -50%' }}
                             />
                             <div className='absolute bottom-0 left-0 w-full text-center'>
                                 <div className='p-14 sm-p-5'>

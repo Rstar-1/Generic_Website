@@ -4,6 +4,7 @@ import Container from '../../components/common/Container';
 import Banner from '../../components/layout/generic/Banner';
 import SEO from '../../seo';
 import { resolveImagePath } from '../../utils/imageResolver';
+import { SectionFallback } from '../../utils/utils';
 
 const DetailSection = lazy(() => import('./sections/DetailSection'));
 const OfferSection = lazy(() => import('../home/sections/OfferSection'));
@@ -53,10 +54,6 @@ const BREADCRUMBS = [
     { label: 'Home', path: '/home' },
     { label: 'About Us', path: '/about' }
 ];
-
-const SectionFallback = memo(({ minHeight = '100px' }) => (
-    <div className="w-full" style={{ minHeight }} />
-));
 
 const About = () => {
     return (

@@ -6,6 +6,7 @@ import SlideLayout from '../../../components/layout/sections/SlideLayout';
 import CardLayout from '../../../components/layout/sections/CardLayout';
 
 import { productsData } from '../../../utils/apiData';
+import { navigateToProduct, navigateToCategory } from '../../../utils/utils';
 
 const ProductSection = () => {
     const navigate = useNavigate();
@@ -21,11 +22,11 @@ const ProductSection = () => {
     );
 
     const handleProductClick = useCallback((item) => {
-        navigate(`/product/${item.id}`, { state: { product: item } });
+        navigateToProduct(navigate, item);
     }, [navigate]);
 
     const handleCategoryClick = useCallback((cat) => {
-        navigate(`/product?category=${encodeURIComponent(cat)}`);
+        navigateToCategory(navigate, cat);
     }, [navigate]);
 
     return (

@@ -1,0 +1,142 @@
+{
+  "name": "Ashmita Enterprises",
+  "tagline": "Exporter & Trader — Retailer of PVC Strip Curtains from Mumbai",
+  "category": "PVC Strip Curtains, PVC Rolls, PVC Sheets & Mounting Brackets",
+  "location": "Bhandup West, Mumbai, Maharashtra - 400078",
+  "fullAddress": "C 304, 3rd Floor, Eastern Business District, Near Mangatram Petrol Pump, L.B.S Marg Road, Bhandup West, Mumbai City, Maharashtra - 400078, India",
+  "phone": "07942562287",
+  "phoneFormatted": "+91 7942562287",
+  "email": "info@goonjcom.in",
+  "rating": 4.3,
+  "reviews": 72,
+  "established": "2010",
+  "experience": "15+ Years",
+  "legalStatus": "Proprietorship Firm",
+  "natureOfBusiness": "Importer, Exporter, Wholesaler, Trader & Retailer",
+  "gstin": "27ABLPY9708M1ZK",
+  "moq": "1 Roll / 50 Mtrs",
+  "responseRate": "92%",
+  "responseTime": "< 2 hrs",
+  "fulfillmentRate": "99.5%",
+  "trustBadge": "TrustSEAL Verified & Payment Protected",
+  "about": "Established in 2010 at Bhandup West, Mumbai, Maharashtra, Ashmita Enterprises is a Proprietor-based firm, engaged as the foremost Importer and Wholesaler of PVC Strip Curtains, PVC Printed Rolls, PVC Sheet, PVC Roll, PVC Curtain, PVC Film, and Mounting Brackets. These products are highly demanded by customers across India for their low maintenance, optical clarity, temperature control, fine finishing, high functioning, superior durability, and longer service life.",
+  "labels": {
+    "trustSeal": "TrustSEAL Verified",
+    "ratings": "Ratings",
+    "callPrefix": "Call",
+    "gstPrefix": "GST:",
+    "statusPrefix": "Status:",
+    "estPrefix": "Est:",
+    "moqPrefix": "MOQ:",
+    "b2bQuoteBtn": "Request B2B Quote",
+    "trustAssuranceTitle": "Verified Trust Assurance",
+    "mobileBtnText": "Supplier Info",
+    "mobileModalTitle": "Supplier Profile & Overview",
+    "catalogTab": "Product Catalog",
+    "profileTab": "Company Factsheet & Profile",
+    "searchPlaceholder": "Search in catalog...",
+    "showing": "Showing",
+    "of": "of",
+    "products": "products",
+    "noMatch": "No catalog items match your search.",
+    "noProducts": "No catalog items found for this supplier.",
+    "aboutPrefix": "About",
+    "factsheetTitle": "Official Business Factsheet",
+    "verifiedActive": "Verified Active",
+    "responseRateSuffix": "Response Rate",
+    "dispatchHubSuffix": "Central Dispatch Hub"
+  },
+  "stats": [
+    { "key": "responseRate", "label": "Response Rate", "textClass": "text-dark" },
+    { "key": "responseTime", "label": "Response Time", "textClass": "text-success" }
+  ],
+  "contactItems": [
+    {
+      "id": "phone",
+      "icon": "Phone",
+      "color": "var(--primary)",
+      "type": "link",
+      "linkPrefix": "tel:",
+      "label": "Call",
+      "key": "phone",
+      "displayKey": "phoneFormatted"
+    },
+    {
+      "id": "email",
+      "icon": "Mail",
+      "color": "var(--gray)",
+      "type": "link",
+      "linkPrefix": "mailto:",
+      "key": "email"
+    },
+    {
+      "id": "gstin",
+      "icon": "Receipt",
+      "color": "var(--gray)",
+      "label": "GST:",
+      "key": "gstin"
+    },
+    {
+      "id": "status",
+      "icon": "Building",
+      "color": "var(--gray)",
+      "label": "Status:",
+      "key": "legalStatus"
+    },
+    {
+      "id": "established",
+      "icon": "Clock",
+      "color": "var(--gray)",
+      "label": "Est:",
+      "key": "established",
+      "extraKey": "experience"
+    },
+    {
+      "id": "moq",
+      "icon": "Box",
+      "color": "var(--gray)",
+      "label": "MOQ:",
+      "key": "moq"
+    }
+  ],
+  "specColumns": [
+    { "header": "Factsheet Field", "accessor": "field", "style": { "width": "38%" } },
+    { "header": "Verified Business Detail", "accessor": "value", "style": { "width": "62%" } }
+  ],
+  "factsheetFields": {
+    "companyName": "Company Name",
+    "natureOfBusiness": "Nature of Business",
+    "legalStatus": "Legal Status",
+    "yearOfEstablishment": "Year of Establishment",
+    "gstinRegistration": "GSTIN Registration",
+    "registeredAddress": "Registered Address",
+    "primaryHelpline": "Primary Helpline",
+    "verificationTrust": "Verification & Trust",
+    "productCategoryFocus": "Product Category Focus",
+    "moq": "Minimum Order Quantity (MOQ)",
+    "dispatchedHub": "Dispatched Hub"
+  },
+  "trustPoints": [
+    "IndiaMART TrustSEAL Verified & Payment Protected",
+    "100% Virgin Grade Flexible Polyvinyl Chloride (PVC)",
+    "Pan-India Safe Cargo Dispatch from Central Hub",
+    "Direct Importer & Wholesale B2B Tier Pricing"
+  ],
+  "highlights": [
+    {
+      "icon": "🚀",
+      "title": "Pan-India Dispatch",
+      "description": "Direct express cargo shipping from our central warehouse across all states in India."
+    },
+    {
+      "icon": "🏭",
+      "title": "Importer & Wholesaler",
+      "description": "Zero intermediary markups with direct wholesale roll pricing per kg and meter for industrial B2B buyers."
+    },
+    {
+      "icon": "🛠️",
+      "title": "Custom Slitting & Hardware",
+      "description": "Custom width/thickness rolls, polar cold-flex compounds, anti-insect amber strips, and SS 304 mounting systems."
+    }
+  ]
+}

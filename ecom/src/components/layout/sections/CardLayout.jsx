@@ -8,6 +8,7 @@ import Fields from '../../forms/Fields';
 
 import { resolveImagePath } from '../../../utils/imageResolver';
 import { useCart } from '../../../feature/cartSlice';
+import { formatPrice } from '../../../utils/utils';
 
 export const FeatureCard = React.memo(({
     item,
@@ -306,14 +307,8 @@ export const ProductCard = React.memo(({
     }
 
     const badge = item.badge || item.badges?.[0];
-    const price = typeof item.price === 'number'
-        ? `₹${item.price.toFixed(2)}`
-        : (item.priceFormatted || `₹${item.price || 0}`);
-    const originalPrice = item.originalPrice
-        ? (typeof item.originalPrice === 'number'
-            ? `₹${item.originalPrice.toFixed(2)}`
-            : (item.originalPriceFormatted || `₹${item.originalPrice}`))
-        : null;
+    const price = formatPrice(item.price);
+    const originalPrice = item.originalPrice ? formatPrice(item.originalPrice) : null;
 
     return (
         <div

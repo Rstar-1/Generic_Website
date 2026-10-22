@@ -15,6 +15,7 @@ const Connect = React.lazy(() => import('../pages/connect/Connect'));
 const Terms = React.lazy(() => import('../pages/content/Terms'));
 const Privacy = React.lazy(() => import('../pages/content/Privacy'));
 const Faq = React.lazy(() => import('../pages/content/Faq'));
+const Category = React.lazy(() => import('../pages/category/Category'));
 
 function AppRoutes() {
     return (
@@ -25,14 +26,18 @@ function AppRoutes() {
                     <Route path="home" element={<Home />} />
                     <Route path="about" element={<About />} />
                     <Route path="blog" element={<Blog />} />
+                    <Route path="blog/:id" element={<BlogDetail />} />
                     <Route path="blog-detail" element={<BlogDetail />} />
+                    <Route path="blog-detail/:id" element={<BlogDetail />} />
                     <Route path="supplier" element={<Supplier />} />
                     <Route path="supplier/:brandName" element={<Supplier />} />
-                    <Route path="blog/:id" element={<BlogDetail />} />
                     <Route path="product" element={<Product />} />
                     <Route path="products" element={<Product />} />
                     <Route path="product/:id" element={<ProductDetail />} />
                     <Route path="product-detail" element={<ProductDetail />} />
+                    <Route path="product-detail/:id" element={<ProductDetail />} />
+                    <Route path="category" element={<Category />} />
+                    <Route path="categories" element={<Category />} />
                     <Route path="collection" element={<Product />} />
                     <Route path="collections" element={<Product />} />
                     <Route path="connect" element={<Connect />} />

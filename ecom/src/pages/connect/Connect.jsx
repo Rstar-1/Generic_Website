@@ -1,45 +1,86 @@
-import React from 'react';
-import SEO from '../../seo';
+import React, { lazy, Suspense, memo } from 'react';
+import LazySection from '../../components/common/LazySection';
 import Container from '../../components/common/Container';
+import Banner from '../../components/layout/generic/Banner';
+import SEO from '../../seo';
+import { resolveImagePath } from '../../utils/imageResolver';
+import { SectionFallback } from '../../utils/utils';
 
-const Connect = () => (
-    <>
-        <SEO page="connect" />
-        <Container className="py-16">
-            <div className="max-w-4xl mx-auto px-4">
-                <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Connect With Us</h1>
-                <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-8">
-                    Have questions or require a custom quote? Reach out to our technical sales team for prompt assistance.
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div className="p-6 bg-white border border-gray-200 rounded-xl shadow-sm space-y-4">
-                        <h3 className="font-semibold text-lg text-gray-900">Get in Touch</h3>
-                        <div>
-                            <span className="block text-xs uppercase font-medium text-gray-500">Helpline</span>
-                            <a href="tel:+919873198731" className="text-blue-600 font-medium">+91 9873198731</a>
-                        </div>
-                        <div>
-                            <span className="block text-xs uppercase font-medium text-gray-500">Email</span>
-                            <a href="mailto:info@ashmitavinyls.com" className="text-blue-600 font-medium">info@ashmitavinyls.com</a>
-                        </div>
-                        <div>
-                            <span className="block text-xs uppercase font-medium text-gray-500">Office Location</span>
-                            <p className="text-gray-700 text-sm">C 304, 3rd Floor, Eastern Business District, Bhandup West, Mumbai 400078</p>
-                        </div>
-                    </div>
-                    <div className="p-6 bg-white border border-gray-200 rounded-xl shadow-sm">
-                        <h3 className="font-semibold text-lg text-gray-900 mb-4">Request a Callback</h3>
-                        <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-                            <input type="text" placeholder="Your Name" className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm" />
-                            <input type="email" placeholder="Your Email" className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm" />
-                            <textarea placeholder="Describe your requirement..." rows="3" className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm" />
-                            <button type="submit" className="w-full py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">Submit Request</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </Container>
-    </>
-);
+const Enquiry = lazy(() => import('./sections/Enquiry'));
+const PatchSection = lazy(() => import('../home/sections/PatchSection'));
 
-export default React.memo(Connect);
+const patchBannerBg = resolveImagePath('Patch1.jpg');
+const connectBannerBg = resolveImagePath('Banner.jpg');
+
+const connectSections = [
+    {
+        id: 'enquiry',
+        Component: Enquiry,
+        minHeight: '500px',
+        isContainer: true
+    },
+    {
+        id: 'patch',
+        Component: PatchSection,
+        minHeight: '300px',
+        isContainer: true,
+        containerClass: 'relative z-10',
+        containerStyle: {
+            backgroundImage: `linear-gradient(90deg, rgba(10, 15, 25, 0.94) 0%, rgba(10, 15, 25, 0.82) 50%, rgba(10, 15, 25, 0.45) 100%), url(${patchBannerBg})`,
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundAttachment: 'fixed'
+        }
+    },
+];
+
+const BREADCRUMBS = [
+    { label: 'Home', path: '/home' },
+    { label: 'Connect Us', path: '/connect' }
+];
+
+const Connect = () => {
+    return (
+        <>
+            <SEO page="connect" breadcrumbs={BREADCRUMBS} />
+            <Banner
+                title="Connect Us"
+                desc="Get In Touch With Us"
+                breadcrumbs={BREADCRUMBS}
+                bgImage={connectBannerBg}
+            />
+            {connectSections.map(({ id, Component, isEager, minHeight, isContainer, containerClass, containerStyle }) => {
+                const SectionContent = (
+                    <Suspense fallback={<SectionFallback minHeight={minHeight} />}>
+                        <Component />
+                    </Suspense>
+                );
+
+                const Content = isContainer ? (
+                    <Container className={containerClass} style={containerStyle}>
+                        {SectionContent}
+                    </Container>
+                ) : (
+                    SectionContent
+                );
+
+                return isEager ? (
+                    <React.Fragment key={id}>
+                        {Content}
+                    </React.Fragment>
+                ) : (
+                    <LazySection
+                        key={id}
+                        placeholderHeight={minHeight}
+                        placeholder={<SectionFallback minHeight={minHeight} />}
+                    >
+                        {Content}
+                    </LazySection>
+                );
+            })}
+        </>
+    );
+};
+
+export default memo(Connect);

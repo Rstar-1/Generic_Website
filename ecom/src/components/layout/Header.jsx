@@ -152,29 +152,37 @@ const getIconColor = (isHeaderWhite) => (!isStickyConfig || isHeaderWhite ? "#16
 
 const HeaderTopBar = React.memo(() => {
   if (configData?.Header?.[0]?.HeaderTopBar === false) return null;
-  const { location: loc, email, timing } = header.topBar || {};
+  const loc = import.meta.env.VITE_LOCATION;
+  const email = import.meta.env.VITE_EMAIL;
+  const timing = import.meta.env.VITE_WORKING_HOURS;
 
   return (
     <Container style={{ background: "var(--primary)" }} className="sm-hidden md-hidden">
       <div className="py-4 w-full flex items-center justify-between mini-text text-white">
         <div className="flex items-center gap-12">
-          <div className="flex items-center gap-6">
-            <Icon name="MapPin" width="14" height="14" stroke="var(--white)" />
-            <p>{loc || "Riverside Park EU-1001"}</p>
-          </div>
-          <span>|</span>
-          <div className="flex items-center gap-6">
-            <Icon name="Mail" width="14" height="14" stroke="var(--white)" />
-            <a href={`mailto:${email || "hello@Infitech.com"}`} className="text-white">
-              {email || "hello@Infitech.com"}
-            </a>
-          </div>
+          {loc && (
+            <div className="flex items-center gap-6">
+              <Icon name="MapPin" width="14" height="14" stroke="var(--white)" />
+              <p>{loc}</p>
+            </div>
+          )}
+          {loc && email && <span>|</span>}
+          {email && (
+            <div className="flex items-center gap-6">
+              <Icon name="Mail" width="14" height="14" stroke="var(--white)" />
+              <a href={`mailto:${email}`} className="text-white">
+                {email}
+              </a>
+            </div>
+          )}
         </div>
 
-        <div className="flex items-center gap-6">
-          <Icon name="Clock" width="14" height="14" stroke="var(--white)" />
-          <p>{timing || "Mon–Fri 09:00 AM – 06:00 PM"}</p>
-        </div>
+        {timing && (
+          <div className="flex items-center gap-6">
+            <Icon name="Clock" width="14" height="14" stroke="var(--white)" />
+            <p>{timing}</p>
+          </div>
+        )}
       </div>
     </Container>
   );

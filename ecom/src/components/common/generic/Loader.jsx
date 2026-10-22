@@ -11,7 +11,7 @@ const Loader = React.memo(() => {
         height: "100vh",
         backgroundColor: "#050505",
         textAlign: "center",
-        zIndex: 9999,
+        zIndex: 99999,
         position: "fixed",
         top: 0,
         left: 0,

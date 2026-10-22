@@ -20,7 +20,9 @@ export const siteInfo = {
   email: env.VITE_EMAIL || config.siteInfo?.email || "",
   address: {
     ...config.siteInfo?.address,
-    ...(env.VITE_ADDRESS ? { fullAddress: env.VITE_ADDRESS } : {}),
+    ...(env.VITE_ADDRESS || env.VITE_LOCATION
+      ? { fullAddress: env.VITE_ADDRESS || env.VITE_LOCATION }
+      : {}),
   },
   geo: config.siteInfo?.geo || {},
   sameAs: [

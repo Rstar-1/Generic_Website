@@ -6,23 +6,9 @@ import Chatbot from './Chatbot';
 
 import Button from '../common/Button';
 import { ToastContainer } from '../common/Toast';
+import { getSocialLinks, openExternalLink } from '../../utils/utils';
 
-const socialLinks = [
-    { id: 'instagram', icon: 'Instagram', bg: 'insta', url: import.meta.env.VITE_SOCIAL_INSTAGRAM },
-    { id: 'youtube', icon: 'YouTube', bg: 'danger', url: import.meta.env.VITE_SOCIAL_YOUTUBE },
-    { id: 'facebook', icon: 'Facebook', bg: 'info', url: import.meta.env.VITE_SOCIAL_FACEBOOK },
-    { id: 'whatsapp', icon: 'WhatsApp', bg: 'success', url: import.meta.env.VITE_SOCIAL_WHATSAPP },
-    { id: 'linkedin', icon: 'LinkedIn', bg: 'info', url: import.meta.env.VITE_SOCIAL_LINKEDIN },
-    { id: 'twitter', icon: 'Twitter', bg: 'dark', url: import.meta.env.VITE_SOCIAL_TWITTER }
-].filter((item) => item.url?.trim());
-
-const handleSocialClick = (url) => {
-    if (url.startsWith('http')) {
-        window.open(url, '_blank', 'noopener,noreferrer');
-    } else {
-        window.location.href = url;
-    }
-};
+const socialLinks = getSocialLinks();
 
 const Layout = () => (
     <>
@@ -49,7 +35,7 @@ const Layout = () => (
                             iconHeight="20"
                             iconFill="var(--white)"
                             aria-label={item?.id}
-                            onClick={() => handleSocialClick(item?.url)}
+                            onClick={() => openExternalLink(item?.url)}
                             className="rounded-5 flex"
                         />
                     ))}

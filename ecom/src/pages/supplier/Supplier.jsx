@@ -1,31 +1,105 @@
-import React from 'react';
-import SEO from '../../seo';
+import React, { lazy, Suspense, memo, useCallback } from 'react';
+import LazySection from '../../components/common/LazySection';
 import Container from '../../components/common/Container';
+import Banner from '../../components/layout/generic/Banner';
+import SEO from '../../seo';
+import { resolveImagePath } from '../../utils/imageResolver';
+import { SectionFallback } from '../../utils/utils';
 
-const Supplier = () => (
-    <>
-        <SEO page="supplier" />
-        <Container className="py-16">
-            <div className="max-w-4xl mx-auto px-4">
-                <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Authorized Suppliers & Store Locations</h1>
-                <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-8">
-                    Find verified Ashmita Vinyls dealers, authorized stockists, and distribution centers across India.
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="p-6 bg-white border border-gray-200 rounded-xl shadow-sm">
-                        <h3 className="font-semibold text-lg text-gray-900 mb-1">Mumbai Central Hub</h3>
-                        <p className="text-gray-600 text-sm mb-2">C 304, Eastern Business District, Bhandup West, Mumbai</p>
-                        <p className="text-gray-500 text-xs">Phone: +91 9873198731 | Stock: Full Catalog</p>
-                    </div>
-                    <div className="p-6 bg-white border border-gray-200 rounded-xl shadow-sm">
-                        <h3 className="font-semibold text-lg text-gray-900 mb-1">Delhi NCR Distribution</h3>
-                        <p className="text-gray-600 text-sm mb-2">Industrial Area, Okhla Phase II, New Delhi</p>
-                        <p className="text-gray-500 text-xs">Phone: +91 9873198731 | Stock: Bulk Rolls & Brackets</p>
-                    </div>
-                </div>
-            </div>
-        </Container>
-    </>
-);
+const DetailSection = lazy(() => import('./sections/DetailSection'));
+const FeatureSection = lazy(() => import('../home/sections/FeatureSection'));
+const OfferSection = lazy(() => import('../home/sections/OfferSection'));
+const PatchSection = lazy(() => import('../home/sections/PatchSection'));
 
-export default React.memo(Supplier);
+const patchBanner = resolveImagePath('Patch1.jpg');
+const supplierBanner = resolveImagePath('Banner.jpg');
+
+const supplierSections = [
+    {
+        id: 'detail',
+        Component: DetailSection,
+        minHeight: '500px',
+        isContainer: true,
+    },
+    {
+        id: 'feature',
+        Component: FeatureSection,
+        minHeight: '400px',
+        isContainer: true,
+        containerStyle: { background: 'var(--forth)' }
+    },
+    {
+        id: 'offer',
+        Component: OfferSection,
+        minHeight: '300px',
+        isContainer: true
+    },
+    {
+        id: 'patch',
+        Component: PatchSection,
+        minHeight: '300px',
+        isContainer: true,
+        containerClass: 'relative z-10',
+        containerStyle: {
+            backgroundImage: `linear-gradient(90deg, rgba(10, 15, 25, 0.94) 0%, rgba(10, 15, 25, 0.82) 50%, rgba(10, 15, 25, 0.45) 100%), url(${patchBanner})`,
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundAttachment: 'fixed'
+        }
+    },
+];
+
+const BREADCRUMBS = [
+    { label: 'Home', path: '/home' },
+    { label: 'Find A Store', path: '/supplier' }
+];
+
+const Supplier = () => {
+    const renderSection = useCallback(({ id, Component, isEager, minHeight, isContainer = true, containerClass, containerStyle }) => {
+        const fallback = <SectionFallback minHeight={minHeight} />;
+        const SectionContent = (
+            <Suspense fallback={fallback}>
+                <Component />
+            </Suspense>
+        );
+
+        const Content = isContainer ? (
+            <Container className={containerClass} style={containerStyle}>
+                {SectionContent}
+            </Container>
+        ) : (
+            SectionContent
+        );
+
+        return isEager ? (
+            <React.Fragment key={id}>
+                {Content}
+            </React.Fragment>
+        ) : (
+            <LazySection
+                key={id}
+                placeholderHeight={minHeight}
+                placeholder={fallback}
+            >
+                {Content}
+            </LazySection>
+        );
+    }, []);
+
+    return (
+        <>
+            <SEO page="supplier" breadcrumbs={BREADCRUMBS} />
+            <Banner
+                title="Find A Store"
+                desc="Authorized Suppliers & Store Locations"
+                breadcrumbs={BREADCRUMBS}
+                image={supplierBanner}
+                version="1"
+            />
+            {supplierSections.map(renderSection)}
+        </>
+    );
+};
+
+export default memo(Supplier);

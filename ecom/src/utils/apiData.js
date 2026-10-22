@@ -5,8 +5,11 @@ import rawConfigData from "../data/config.json";
 import productsData from "../data/product.json";
 import categoriesData from "../data/productcategory.json";
 import blogData from "../data/blog.json";
+import blogCategoriesData from "../data/blogcategory.json";
 import seoData from "../data/seo.json";
 import chatbotData from "../data/chatbot.json";
+import supplierData from "../data/supplier.json";
+import filterData from "../data/filter.json";
 
 const header = {
   ...headerData,
@@ -63,11 +66,17 @@ export {
   categoriesData as categories,
   blogData,
   blogData as blogs,
+  blogCategoriesData,
+  blogCategoriesData as blogCategories,
   seoData,
   seoData as seo,
   seoData as seoConfig,
   chatbotData,
   chatbotData as chatbot,
+  supplierData,
+  supplierData as supplier,
+  filterData,
+  filterData as filter,
 };
 
 export default {
@@ -78,9 +87,15 @@ export default {
   productsData,
   categoriesData,
   blogData,
+  blogCategoriesData,
+  blogCategories: blogCategoriesData,
   seoData,
   seo: seoData,
   seoConfig: seoData,
   chatbotData,
   chatbot: chatbotData,
+  supplierData,
+  supplier: supplierData,
+  filterData,
+  filter: filterData,
 };

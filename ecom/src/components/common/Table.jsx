@@ -621,7 +621,7 @@ const Table = ({
             )}
 
             {loading ? (
-                <Skeleton variant="table" columns={displayHeaders} count={5} style={{ marginTop: "12px" }} minWidth={minWidth} />
+                <Skeleton variant="array-text" count={5} style={{ marginTop: "12px" }} />
             ) : (
                 <div className="table-w rounded-5 mt-12 bordl bordr" style={{ overflowX: "auto" }}>
                     <table className="w-full responsive-table-el" style={{ borderCollapse: "collapse", minWidth }}>

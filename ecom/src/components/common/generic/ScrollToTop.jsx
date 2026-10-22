@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import Icon from "../Icon";
+import { scrollToTop } from "../../../utils/utils";
 
 const CIRCUMFERENCE = 40 * Math.PI;
 
@@ -28,10 +29,6 @@ const ScrollToTop = React.memo(() => {
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const scrollToTop = useCallback(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
   return (

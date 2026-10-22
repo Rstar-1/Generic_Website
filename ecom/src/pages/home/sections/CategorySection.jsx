@@ -1,207 +1,110 @@
-import React, { useCallback } from 'react';
+import React, { useState, useMemo, useCallback, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper/modules';
+import 'swiper/css';
 
 import Icon from '../../../components/common/Icon';
 import Image from '../../../components/common/Image';
+import Button from '../../../components/common/Button';
 import Heading from '../../../components/layout/generic/Heading';
 
-import { configData } from '../../../utils/apiData';
+import { categoriesData, configData } from '../../../utils/apiData';
+import productcategoryData from '../../../data/productcategory.json';
 import { resolveImagePath } from '../../../utils/imageResolver';
+import { navigateToCategory } from '../../../utils/utils';
 
-const categories = [
-    {
-        id: 1,
-        name: "Sale Items",
-        title: "Sale Items",
-        image: import.meta.env.VITE_IMAGE + "Product1.jpg",
-        icon: import.meta.env.VITE_IMAGE + "Product1.jpg",
-        iconName: "Layers",
-        bgColor: "#FEF2F2",
-        accentColor: "#DC2626",
-        description: "Explore limited time deals, discounted items, and seasonal sale collections."
-    },
-    {
-        id: 2,
-        name: "Press Tables",
-        title: "Press Tables",
-        image: import.meta.env.VITE_IMAGE + "Product2.jpg",
-        icon: import.meta.env.VITE_IMAGE + "Product2.jpg",
-        iconName: "Grid",
-        bgColor: "#EFF6FF",
-        accentColor: "#2563EB",
-        description: "Engineered solid press tables designed for durability, style, and functional spaces."
-    },
-    {
-        id: 3,
-        name: "Lighting",
-        title: "Lighting",
-        image: import.meta.env.VITE_IMAGE + "Product3.jpg",
-        icon: import.meta.env.VITE_IMAGE + "Product3.jpg",
-        iconName: "Sun",
-        bgColor: "#FFFBEB",
-        accentColor: "#D97706",
-        description: "Modern ambient and task lighting fixtures crafted to brighten every interior."
-    },
-    {
-        id: 4,
-        name: "Spoke Sofa",
-        title: "Spoke Sofa",
-        image: import.meta.env.VITE_IMAGE + "Compare1.jpg",
-        icon: import.meta.env.VITE_IMAGE + "Compare1.jpg",
-        iconName: "Layers",
-        bgColor: "#F5F3FF",
-        accentColor: "#7C3AED",
-        description: "Luxurious spoke sofas combining ergonomic comfort with timeless aesthetics."
-    },
-    {
-        id: 5,
-        name: "Storage",
-        title: "Storage",
-        image: import.meta.env.VITE_IMAGE + "Compare2.jpg",
-        icon: import.meta.env.VITE_IMAGE + "Compare2.jpg",
-        iconName: "Box",
-        bgColor: "#ECFDF5",
-        accentColor: "#059669",
-        description: "Minimalist modular shelving, cabinets, and storage solutions for modern living."
-    },
-    {
-        id: 6,
-        name: "Turn Chairs",
-        title: "Turn Chairs",
-        image: import.meta.env.VITE_IMAGE + "Compare3.jpg",
-        icon: import.meta.env.VITE_IMAGE + "Compare3.jpg",
-        iconName: "RotateCcw",
-        bgColor: "#FFF1F2",
-        accentColor: "#E11D48",
-        description: "360-degree swivel turn chairs offering flexible mobility and ergonomic back support."
-    },
-    {
-        id: 7,
-        name: "Longe Chairs",
-        title: "Longe Chairs",
-        image: import.meta.env.VITE_IMAGE + "Product1.jpg",
-        icon: import.meta.env.VITE_IMAGE + "Product1.jpg",
-        iconName: "Armchair",
-        bgColor: "#F0FDF4",
-        accentColor: "#16A34A",
-        description: "Plush lounge chairs designed for relaxation, quiet moments, and executive seating."
-    },
-    {
-        id: 8,
-        name: "Curve Coat",
-        title: "Curve Coat",
-        image: import.meta.env.VITE_IMAGE + "Compare1.jpg",
-        icon: import.meta.env.VITE_IMAGE + "Compare1.jpg",
-        iconName: "Shield",
-        bgColor: "#FDF2F8",
-        accentColor: "#DB2777",
-        description: "Sleek sculptural coat stands and entryway accessories with organic curve accents."
-    },
-    {
-        id: 9,
-        name: "Cross Tables",
-        title: "Cross Tables",
-        image: import.meta.env.VITE_IMAGE + "Product2.jpg",
-        icon: import.meta.env.VITE_IMAGE + "Product2.jpg",
-        iconName: "Plus",
-        bgColor: "#F8FAFC",
-        accentColor: "#475569",
-        description: "Sturdy geometric cross tables ideal for conference rooms and communal workspaces."
-    },
-    {
-        id: 10,
-        name: "Bend Chairs",
-        title: "Bend Chairs",
-        image: import.meta.env.VITE_IMAGE + "Product3.jpg",
-        icon: import.meta.env.VITE_IMAGE + "Product3.jpg",
-        iconName: "Zap",
-        bgColor: "#EFF6FF",
-        accentColor: "#1D4ED8",
-        description: "Form-molded bentwood chairs combining artisanal craft with industrial strength."
-    },
-    {
-        id: 11,
-        name: "Bar Chairs",
-        title: "Bar Chairs",
-        image: import.meta.env.VITE_IMAGE + "Compare2.jpg",
-        icon: import.meta.env.VITE_IMAGE + "Compare2.jpg",
-        iconName: "Coffee",
-        bgColor: "#FEF3C7",
-        accentColor: "#B45309",
-        description: "Counter-height and bar stools designed for cafes, kitchen islands, and social lounges."
-    },
-    {
-        id: 12,
-        name: "Accessories",
-        title: "Accessories",
-        image: import.meta.env.VITE_IMAGE + "Compare3.jpg",
-        icon: import.meta.env.VITE_IMAGE + "Compare3.jpg",
-        iconName: "Sliders",
-        bgColor: "#F1F5F9",
-        accentColor: "#334155",
-        description: "Curated home accents, desk items, and decorative accessories to elevate any room."
-    }
-];
+const categories = productcategoryData || categoriesData || [];
 
-const CategoryVersion1 = React.memo(({ items, onCategoryClick }) => (
-    <div className="grid-cols-6 sm-grid-cols-3 mt-30 border-ec">
-        {items.map((item, index) => {
-            const isLastInRow = (index + 1) % 6 === 0;
-            const isTopRow = index < 6;
-            return (
+const ViewMoreButton = () => {
+    const navigate = useNavigate();
+
+    return (
+        <div className="mt-25 flex justify-center">
+            <Button
+                version="v2"
+                variant="outline"
+                text="View All"
+                icon="ArrowRight"
+                iconPosition="right"
+                iconWidth="12"
+                iconHeight="12"
+                onClick={() => navigate('/category')}
+            />
+        </div>
+    );
+};
+
+const CategoryVersion1 = memo(({ items, onCategoryClick }) => (
+    <>
+        <div className="grid-cols-6 sm-grid-cols-3 mt-30 border-ec">
+            {items?.slice(0, 6)?.map((item, index) => {
+                const isLastInRow = (index + 1) % 6 === 0;
+                return (
+                    <div
+                        key={`${item.id}-${index}`}
+                        onClick={() => onCategoryClick(item)}
+                        style={{
+                            borderRight: isLastInRow ? 'none' : '1px solid #EBEBEB',
+                            borderBottom: 'none'
+                        }}
+                        className="p-20 sm-p-14 grid-cols-1 cursor-pointer"
+                    >
+                        <Image
+                            src={resolveImagePath(item.icon || item.image)}
+                            alt={item.name || item.title}
+                            width="116"
+                            height="116"
+                            className="rounded-full object-contain flex mx-auto"
+                        />
+                        <p className="small-text text-center text-dark font-500 line-clamp1 mt-12">
+                            {item.name || item.title}
+                        </p>
+                    </div>
+                );
+            })}
+        </div>
+
+        {items && items.length > 6 && <ViewMoreButton />}
+    </>
+));
+
+CategoryVersion1.displayName = 'CategoryVersion1';
+
+const CategoryVersion2 = memo(({ items, onCategoryClick }) => (
+    <>
+        <div className="grid-cols-6 sm-grid-cols-2 mt-30 gap-12">
+            {items?.slice(0, 6)?.map((cat, idx) => (
                 <div
-                    key={item.id}
-                    onClick={() => onCategoryClick(item)}
-                    style={{
-                        borderRight: isLastInRow ? 'none' : '1px solid #EBEBEB',
-                        borderBottom: isTopRow ? '1px solid #EBEBEB' : 'none'
-                    }}
-                    className="p-25 sm-p-14 grid-cols-1 cursor-pointer"
+                    key={`${cat.id}-${idx}`}
+                    className="p-14 border-ec rounded-5 cursor-pointer text-center"
+                    onClick={() => onCategoryClick(cat)}
                 >
-                    <Image
-                        src={resolveImagePath(item.image || item.icon)}
-                        alt={item.title || item.name}
-                        width="100px"
-                        height="100px"
-                        className="rounded-full object-cover flex mx-auto"
-                    />
-                    <p className="small-text text-center text-dark font-500 mt-16">
-                        {item.title || item.name}
+                    <div className="relative">
+                        <Image
+                            src={resolveImagePath(cat.icon || cat.image)}
+                            alt={cat.name || cat.title}
+                            width="110"
+                            height="110"
+                            loading={idx < 3 ? "eager" : "lazy"}
+                            fetchPriority={idx < 3 ? "high" : undefined}
+                            className="flex object-cover rounded-full mx-auto"
+                        />
+                    </div>
+                    <p className="text-dark font-500 small-text text-center line-clamp1 mt-12">
+                        {cat.name || cat.title}
                     </p>
                 </div>
-            );
-        })}
-    </div>
+            ))}
+        </div>
+
+        {items && items.length > 6 && <ViewMoreButton />}
+    </>
 ));
 
-const CategoryVersion2 = React.memo(({ items, onCategoryClick }) => (
-    <div className="grid-cols-6 sm-grid-cols-3 mt-30 gap-12">
-        {items?.slice(0, 6)?.map((cat, idx) => (
-            <div
-                key={cat.id}
-                className="px-12 py-16 border-ec rounded-10 cursor-pointer text-center"
-                onClick={() => onCategoryClick(cat)}
-            >
-                <div className="relative">
-                    <Image
-                        src={resolveImagePath(cat.icon || cat.image)}
-                        alt={cat.name || cat.title}
-                        width="110"
-                        height="110"
-                        loading={idx < 3 ? "eager" : "lazy"}
-                        fetchPriority={idx < 3 ? "high" : undefined}
-                        className="flex object-cover rounded-full mx-auto"
-                    />
-                </div>
-                <p className="text-dark font-500 small-text text-center mt-18">
-                    {cat.name || cat.title}
-                </p>
-            </div>
-        ))}
-    </div>
-));
+CategoryVersion2.displayName = 'CategoryVersion2';
 
-const CategoryVersion3 = React.memo(({ items, onCategoryClick }) => (
+const CategoryVersion3 = memo(({ items, onCategoryClick }) => (
     <>
         <style>{`
             .category-card {
@@ -219,9 +122,9 @@ const CategoryVersion3 = React.memo(({ items, onCategoryClick }) => (
             }
         `}</style>
         <div className="grid-cols-3 sm-grid-cols-1 mt-30" style={{ gap: '20px' }}>
-            {items?.slice(0, 3)?.map((cat) => (
+            {items?.slice(0, 6)?.map((cat, idx) => (
                 <div
-                    key={cat.id}
+                    key={`${cat.id}-${idx}`}
                     className="category-card bg-forth rounded-5 overflow-hidden flex cursor-pointer relative"
                     onClick={() => onCategoryClick(cat)}
                 >
@@ -267,25 +170,186 @@ const CategoryVersion3 = React.memo(({ items, onCategoryClick }) => (
                 </div>
             ))}
         </div>
+
+        {items && items.length > 6 && <ViewMoreButton />}
     </>
 ));
+
+CategoryVersion3.displayName = 'CategoryVersion3';
+
+const CategoryCard = memo(({ item, onClick }) => {
+    const imgSrc = resolveImagePath(item.icon || item.image);
+
+    return (
+        <div
+            className="feature-category-card overflow-hidden h-450 sm-h-350 rounded-10 relative cursor-pointer group select-none"
+            onClick={onClick}
+            role="button"
+            tabIndex={0}
+        >
+            <Image
+                src={imgSrc}
+                alt={item.name || item.title}
+                className="card-bg-img w-full h-full object-cover filter-b5 flex"
+                loading="lazy"
+            />
+
+            <div className="absolute top-0 left-0 p-12 z-10">
+                {(item.badgeNumber || item.subCategories?.length) ? (
+                    <div className="bg-primary rounded-5 p-10">
+                        <h5 className="head-text font-600 text-white">
+                            {item.badgeNumber || `${item.subCategories.length}+`}
+                        </h5>
+                        <p className="font-500 text-white mini-text">
+                            {item.badgeText || 'Varieties'}
+                        </p>
+                    </div>
+                ) : null}
+            </div>
+
+            <div className="absolute bottom-0 left-0 z-10 w-full">
+                <div className="p-16">
+                    <h3 className="font-600 text-white title-text uppercase line-clamp1 bordh pt-16">
+                        {item.name || item.title}
+                    </h3>
+
+                    <p className="small-text uppercase text-white font-500 flex items-center gap-6 mt-4 text-muted">
+                        Explore Category
+                        <Icon name="ArrowRight" width="16" height="16" stroke="currentColor" />
+                    </p>
+                </div>
+            </div>
+        </div>
+    );
+});
+
+CategoryCard.displayName = 'CategoryCard';
+
+const CategoryVersion4 = memo(({ items, onCategoryClick }) => {
+    const navigate = useNavigate();
+    const [swiper, setSwiper] = useState(null);
+    const [activeIndex, setActiveIndex] = useState(0);
+
+    const handleCategoryClick = useCallback(
+        (cat) => {
+            if (onCategoryClick) {
+                onCategoryClick(cat);
+                return;
+            }
+            navigateToCategory(navigate, cat);
+        },
+        [navigate, onCategoryClick]
+    );
+
+    const categoryItems = useMemo(() => {
+        return (items && items.length > 0) ? items : categories;
+    }, [items]);
+
+    const canLoop = categoryItems.length > 3;
+
+    return (
+        <div className="w-full mt-30">
+            <style>{`
+                .feature-category-card .card-bg-img {
+                    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+                }
+                .feature-category-card:hover .card-bg-img {
+                    transform: scale(1.08);
+                }
+                .category-swiper-bullet {
+                    width: 7px;
+                    height: 7px;
+                    border-radius: 50%;
+                    background-color: var(--gray, #94a3b8);
+                    opacity: 0.4;
+                    cursor: pointer;
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                    border: none;
+                    padding: 0;
+                }
+                .category-swiper-bullet.active {
+                    width: 28px;
+                    border-radius: 4px;
+                    background-color: var(--primary, #0284c7);
+                    opacity: 1;
+                }
+            `}</style>
+
+            <Swiper
+                onSwiper={setSwiper}
+                onSlideChange={(s) => setActiveIndex(s.realIndex)}
+                modules={[Autoplay]}
+                slidesPerView={3}
+                spaceBetween={20}
+                loop={canLoop}
+                autoplay={{
+                    delay: 4000,
+                    disableOnInteraction: false,
+                    pauseOnMouseEnter: true,
+                }}
+                speed={650}
+                breakpoints={{
+                    320: {
+                        slidesPerView: 1.15,
+                        spaceBetween: 12,
+                    },
+                    640: {
+                        slidesPerView: 2,
+                        spaceBetween: 16,
+                    },
+                    1024: {
+                        slidesPerView: Math.min(categoryItems.length, 3),
+                        spaceBetween: 20,
+                    },
+                }}
+                className="w-full pb-10"
+            >
+                {categoryItems.map((item, index) => (
+                    <SwiperSlide key={item.id || index}>
+                        <CategoryCard
+                            item={item}
+                            onClick={() => handleCategoryClick(item)}
+                        />
+                    </SwiperSlide>
+                ))}
+            </Swiper>
+
+            {/* Custom Dot Indicators */}
+            {categoryItems.length > 1 && (
+                <div className="flex items-center justify-center gap-8 mt-20">
+                    {categoryItems.map((_, idx) => (
+                        <button
+                            key={idx}
+                            type="button"
+                            aria-label={`Slide ${idx + 1}`}
+                            onClick={() => (canLoop ? swiper?.slideToLoop(idx) : swiper?.slideTo(idx))}
+                            className={`category-swiper-bullet ${idx === (activeIndex % categoryItems.length) ? 'active' : ''}`}
+                        />
+                    ))}
+                </div>
+            )}
+        </div>
+    );
+});
+
+CategoryVersion4.displayName = 'CategoryVersion4';
 
 const VERSION_COMPONENTS = {
     1: CategoryVersion1,
     2: CategoryVersion2,
-    3: CategoryVersion3
+    3: CategoryVersion3,
+    4: CategoryVersion4
 };
 
-const CategorySection = React.memo(() => {
+const CategorySection = memo(() => {
     const navigate = useNavigate();
-    const categoryVersion = configData?.Category?.[0]?.CategoryVersion ?? 1;
+    const categoryVersion = configData?.Category?.[0]?.CategoryVersion ?? 3;
 
     const handleCategoryClick = useCallback((cat) => {
-        const query = typeof cat === 'object' ? (cat.name || cat.title || cat.id) : cat;
-        navigate(`/product?category=${encodeURIComponent(query)}`);
+        navigateToCategory(navigate, cat);
     }, [navigate]);
 
-    const ActiveVersionComponent = VERSION_COMPONENTS[categoryVersion] || CategoryVersion1;
+    const ActiveVersionComponent = VERSION_COMPONENTS[categoryVersion] || CategoryVersion3;
 
     return (
         <div className="w-full py-50">
@@ -299,4 +363,7 @@ const CategorySection = React.memo(() => {
     );
 });
 
+CategorySection.displayName = 'CategorySection';
+
+export { CategoryVersion1, CategoryVersion2, CategoryVersion3, CategoryVersion4 };
 export default CategorySection;

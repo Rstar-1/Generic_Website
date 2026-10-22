@@ -8,18 +8,10 @@ import NewsletterForm from '../forms/sections/NewsletterForm';
 import { showToast } from '../common/Toast';
 import { sendEmail } from '../../utils/emailsend';
 import { footer, footerData, configData, productsData } from '../../utils/apiData';
+import { isVisible, getSocialLinks } from '../../utils/utils';
 
 const footerConfig = configData?.Footer?.[0] || configData?.Footer || {};
-const isVisible = (val) => val !== false;
-
-const socialLinks = [
-  { id: 'instagram', icon: 'Instagram', url: import.meta.env.VITE_SOCIAL_INSTAGRAM },
-  { id: 'youtube', icon: 'YouTube', url: import.meta.env.VITE_SOCIAL_YOUTUBE },
-  { id: 'facebook', icon: 'Facebook', url: import.meta.env.VITE_SOCIAL_FACEBOOK },
-  { id: 'whatsapp', icon: 'WhatsApp', url: import.meta.env.VITE_SOCIAL_WHATSAPP },
-  { id: 'linkedin', icon: 'LinkedIn', url: import.meta.env.VITE_SOCIAL_LINKEDIN },
-  { id: 'twitter', icon: 'Twitter', url: import.meta.env.VITE_SOCIAL_TWITTER }
-].filter((item) => item.url?.trim());
+const socialLinks = getSocialLinks();
 
 const phoneVal = import.meta.env.VITE_PHONE?.trim();
 const emailVal = import.meta.env.VITE_EMAIL?.trim();
@@ -56,7 +48,7 @@ const FooterTopBar = React.memo(() => {
   if (!isVisible(footerConfig.FooterTopBar) || !topBarFeatures?.length) return null;
 
   return (
-    <div className={`grid-cols-${topBarFeatures.length} sm-grid-cols-1 gap-12`}>
+    <div className={`grid-cols-${topBarFeatures.length} sm-grid-cols-1 gap-12 mb-20`}>
       {topBarFeatures.map((item, index) => {
         const isLast = index === topBarFeatures.length - 1;
         const cardStyle = {
