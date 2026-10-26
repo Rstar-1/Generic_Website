@@ -1,8 +1,9 @@
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 
 import Icon from '../../../components/common/Icon';
 import Heading from '../../../components/layout/generic/Heading';
 import ContactForm from '../../../components/forms/sections/ContactForm';
+import { getCmsData } from '../../../utils/utils';
 
 const env = import.meta.env;
 const location = (env.VITE_LOCATION || env.VITE_ADDRESS)?.trim();
@@ -64,17 +65,22 @@ const ContactItem = memo(({ icon, title, desc, link, sub }) => (
 
 ContactItem.displayName = 'ContactItem';
 
-const Enquiry = memo(() => (
-    <div className="flex sm-grid-cols-1 items-start gap-12 py-60">
-        <div className="w-60 sm-w-full pr-20 sm-pr-1 bordr">
-            <Heading
-                version="v2"
-                tag="GET IN TOUCH"
-                tagIcon="Phone"
-                title="Connect With Us"
-                subtitle="Have a project in mind, need technical consultation, or have an inquiry? Reach out to our team."
-                className="mb-20"
-            />
+const Enquiry = memo(({ cms: passedCms }) => {
+    const cms = useMemo(() => getCmsData('ConnectSection', passedCms), [passedCms]);
+    const tag = cms.getText('Conn004', 'GET IN TOUCH');
+    const subtitle = cms.getText('Conn005', 'Have a project in mind, need technical consultation, or have an inquiry? Reach out to our team.');
+
+    return (
+        <div className="flex sm-grid-cols-1 items-start gap-12 py-60">
+            <div className="w-60 sm-w-full pr-20 sm-pr-1 bordr">
+                <Heading
+                    version="v2"
+                    tag={tag}
+                    tagIcon="Phone"
+                    title="Connect With Us"
+                    subtitle={subtitle}
+                    className="mb-20"
+                />
             <div className="w-80 sm-w-full">
                 <ContactForm />
             </div>
@@ -95,7 +101,8 @@ const Enquiry = memo(() => (
             </div>
         </div>
     </div>
-));
+);
+});
 
 Enquiry.displayName = 'Enquiry';
 

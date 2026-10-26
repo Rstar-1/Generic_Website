@@ -6,7 +6,8 @@ import Container from "../../components/common/Container";
 import SEO from "../../seo";
 
 import { resolveImagePath } from "../../utils/imageResolver";
-import { SectionFallback } from "../../utils/utils";
+import { SectionFallback, getCmsData } from "../../utils/utils";
+import { cmsMap } from "../../utils/apiData";
 
 const HeroBanner = React.lazy(() => import("./sections/HeroBanner"));
 const CategorySection = React.lazy(() => import("./sections/CategorySection"));
@@ -17,42 +18,15 @@ const PatchSection = React.lazy(() => import("./sections/PatchSection"));
 const OfferSection = React.lazy(() => import("./sections/OfferSection"));
 
 const ecomSections = [
-    {
-        id: "hero",
-        Component: HeroBanner,
-        minHeight: "500px",
-        isContainer: false
-    },
-    {
-        id: "category",
-        Component: CategorySection,
-        minHeight: "300px"
-    },
-    {
-        id: "product",
-        Component: ProductSection,
-        minHeight: "400px",
-        containerStyle: { background: "var(--forth)" },
-    },
-    {
-        id: "about",
-        Component: AboutSection,
-        minHeight: "400px",
-        containerStyle: { background: "var(--forth)" },
-    },
-    {
-        id: "feature",
-        Component: ServiceSection,
-        minHeight: "400px",
-        containerStyle: { background: "var(--forth)" },
-    },
-    {
-        id: "offer",
-        Component: OfferSection,
-        minHeight: "300px"
-    },
+    { id: "hero", cmsKey: "HeroBanner", Component: HeroBanner, minHeight: "500px", isContainer: false },
+    { id: "category", cmsKey: "CategorySection", Component: CategorySection, minHeight: "300px" },
+    { id: "product", cmsKey: "ProductSection", Component: ProductSection, minHeight: "400px", containerStyle: { background: "var(--forth)" } },
+    { id: "about", cmsKey: "AboutSection", Component: AboutSection, minHeight: "400px", containerStyle: { background: "var(--forth)" } },
+    { id: "feature", cmsKey: "ServiceSection", Component: ServiceSection, minHeight: "400px", containerStyle: { background: "var(--forth)" } },
+    { id: "offer", cmsKey: "OfferSection", Component: OfferSection, minHeight: "300px" },
     {
         id: "patch",
+        cmsKey: "PatchSection",
         Component: PatchSection,
         minHeight: "300px",
         containerClass: "relative z-10",
@@ -70,8 +44,9 @@ const Home = () => (
     <>
         <SEO page="home" />
 
-        {ecomSections?.map(({
+        {ecomSections.map(({
             id,
+            cmsKey,
             Component,
             minHeight,
             isEager = false,
@@ -80,10 +55,10 @@ const Home = () => (
             containerStyle,
         }) => {
             const fallback = <SectionFallback minHeight={minHeight} />;
-
+            const cms = getCmsData(cmsKey, cmsMap?.[cmsKey]);
             const section = (
                 <React.Suspense fallback={fallback}>
-                    <Component />
+                    <Component {...cms} cms={cms} />
                 </React.Suspense>
             );
 
@@ -98,10 +73,7 @@ const Home = () => (
                     {isEager ? (
                         content
                     ) : (
-                        <LazySection
-                            placeholderHeight={minHeight}
-                            placeholder={fallback}
-                        >
+                        <LazySection placeholderHeight={minHeight} placeholder={fallback}>
                             {content}
                         </LazySection>
                     )}

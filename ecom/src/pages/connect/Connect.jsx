@@ -1,26 +1,27 @@
-import React, { lazy, Suspense, memo } from 'react';
+import React, { lazy, Suspense, memo, useMemo } from 'react';
 import LazySection from '../../components/common/LazySection';
 import Container from '../../components/common/Container';
 import Banner from '../../components/layout/generic/Banner';
 import SEO from '../../seo';
-import { resolveImagePath } from '../../utils/imageResolver';
-import { SectionFallback } from '../../utils/utils';
+import { SectionFallback, getCmsData, resolveImagePath } from '../../utils/utils';
+import { cmsMap } from '../../utils/apiData';
 
 const Enquiry = lazy(() => import('./sections/Enquiry'));
 const PatchSection = lazy(() => import('../home/sections/PatchSection'));
 
 const patchBannerBg = resolveImagePath('Patch1.jpg');
-const connectBannerBg = resolveImagePath('Banner.jpg');
 
 const connectSections = [
     {
         id: 'enquiry',
+        cmsKey: 'ConnectSection',
         Component: Enquiry,
         minHeight: '500px',
         isContainer: true
     },
     {
         id: 'patch',
+        cmsKey: 'PatchSection',
         Component: PatchSection,
         minHeight: '300px',
         isContainer: true,
@@ -41,19 +42,26 @@ const BREADCRUMBS = [
 ];
 
 const Connect = () => {
+    const cms = useMemo(() => getCmsData('ConnectSection', cmsMap?.ConnectSection), []);
+
+    const title = cms.getText('Conn001', 'Connect Us');
+    const desc = cms.getText('Conn002', 'Get In Touch With Us');
+    const bgImage = cms.getImage('Conn003');
+    const bannerBg = resolveImagePath(bgImage?.url || 'Banner.jpg');
+
     return (
         <>
             <SEO page="connect" breadcrumbs={BREADCRUMBS} />
             <Banner
-                title="Connect Us"
-                desc="Get In Touch With Us"
+                title={title}
+                desc={desc}
                 breadcrumbs={BREADCRUMBS}
-                bgImage={connectBannerBg}
+                bgImage={bannerBg}
             />
-            {connectSections.map(({ id, Component, isEager, minHeight, isContainer, containerClass, containerStyle }) => {
+            {connectSections.map(({ id, cmsKey, Component, isEager, minHeight, isContainer, containerClass, containerStyle }) => {
                 const SectionContent = (
                     <Suspense fallback={<SectionFallback minHeight={minHeight} />}>
-                        <Component />
+                        <Component {...getCmsData(cmsKey, cmsMap?.[cmsKey])} cms={getCmsData(cmsKey, cmsMap?.[cmsKey])} />
                     </Suspense>
                 );
 

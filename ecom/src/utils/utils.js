@@ -1,10 +1,10 @@
 import React, { memo } from "react";
-import { configData } from "./apiData";
+import { configData, cmsData } from "./apiData";
 import { slugify } from "./slugify";
 import { resolveImagePath } from "./imageResolver";
 import { formatDate } from "./formatDate";
 
-export { slugify, resolveImagePath, formatDate };
+export { slugify, resolveImagePath, formatDate, cmsData };
 
 export const getStickyTop = (config = configData) => {
   const headerConfig = Array.isArray(config?.Header)
@@ -155,3 +155,64 @@ export const SectionFallback = memo(({ minHeight = "100px" }) =>
 );
 SectionFallback.displayName = "SectionFallback";
 export const Fallback = SectionFallback;
+
+const cmsCache = new Map();
+
+export const getCmsData = (sectionName, data = cmsData) => {
+  if (data && typeof data.getText === "function") return data;
+
+  const cacheKey = !data || data === cmsData ? sectionName : null;
+  if (cacheKey && cmsCache.has(cacheKey)) {
+    return cmsCache.get(cacheKey);
+  }
+
+  let section = null;
+  if (data && Array.isArray(data.cms)) {
+    section = data;
+  } else {
+    const list = Array.isArray(data) ? data : Object.values(data || {});
+    section = list.find((item) =>
+      item?.section?.toLowerCase() === sectionName?.toLowerCase() ||
+      item?._id?.toLowerCase() === sectionName?.toLowerCase()
+    ) || null;
+  }
+  const items = section?.cms || [];
+
+  const getText = (idOrLabel, fallback = "") =>
+    items.find((i) => i.cmsId === idOrLabel || i.label?.toLowerCase() === String(idOrLabel).toLowerCase())?.text ?? fallback;
+
+  const getImage = (idOrLabel, fallback = null) => {
+    const item = items.find((i) => i.cmsId === idOrLabel || i.label?.toLowerCase() === String(idOrLabel).toLowerCase());
+    return item?.image || (typeof item?.url === "string" ? item : fallback);
+  };
+
+  const getArray = (idOrLabel, fallback = []) =>
+    items.find((i) => i.cmsId === idOrLabel || i.label?.toLowerCase() === String(idOrLabel).toLowerCase())?.data ?? fallback;
+
+  const getButton = (idOrLabel = "Buttons", fallbackText = "", fallbackLink = "") => {
+    const btn = items.find((i) => i.cmsId === idOrLabel || i.label?.toLowerCase().includes("button"));
+    const arr = btn?.data || [];
+    const text = arr.find((b) => b.label?.toLowerCase().includes("text") || b.cmsId?.toLowerCase().includes("001"))?.text || btn?.text || fallbackText;
+    const link = arr.find((b) => b.label?.toLowerCase().includes("link") || b.cmsId?.toLowerCase().includes("002"))?.text || btn?.link || fallbackLink || "/product";
+    return { text, link };
+  };
+
+  const dataMap = {};
+  items.forEach((i) => {
+    if (!i.cmsId) return;
+    if (i.type === "text") {
+      dataMap[i.cmsId] = i.text ?? "";
+    } else if (i.type === "image") {
+      dataMap[i.cmsId] = i.image || (typeof i.url === "string" ? i : null);
+    } else if (i.type === "array") {
+      const isBtn = i.label?.toLowerCase().includes("button") || i.cmsId?.toLowerCase().includes("btn") || i.cmsId?.toLowerCase().includes("005");
+      dataMap[i.cmsId] = isBtn ? getButton(i.cmsId) : i.data;
+    }
+  });
+
+  const result = { section, items, getText, getImage, getArray, getButton, ...dataMap };
+  if (cacheKey) {
+    cmsCache.set(cacheKey, result);
+  }
+  return result;
+};

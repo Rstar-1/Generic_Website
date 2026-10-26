@@ -12,11 +12,11 @@ import Heading from '../../../components/layout/generic/Heading';
 import { categoriesData, configData } from '../../../utils/apiData';
 import productcategoryData from '../../../data/productcategory.json';
 import { resolveImagePath } from '../../../utils/imageResolver';
-import { navigateToCategory } from '../../../utils/utils';
+import { navigateToCategory, getCmsData } from '../../../utils/utils';
 
 const categories = productcategoryData || categoriesData || [];
 
-const ViewMoreButton = () => {
+const ViewMoreButton = ({ text, link }) => {
     const navigate = useNavigate();
 
     return (
@@ -24,12 +24,12 @@ const ViewMoreButton = () => {
             <Button
                 version="v2"
                 variant="outline"
-                text="View All"
+                text={text || "View All"}
                 icon="ArrowRight"
                 iconPosition="right"
                 iconWidth="12"
                 iconHeight="12"
-                onClick={() => navigate('/category')}
+                onClick={() => navigate(link || '/category')}
             />
         </div>
     );
@@ -341,9 +341,13 @@ const VERSION_COMPONENTS = {
     4: CategoryVersion4
 };
 
-const CategorySection = memo(() => {
+const CategorySection = memo(({ cms: passedCms }) => {
     const navigate = useNavigate();
     const categoryVersion = configData?.Category?.[0]?.CategoryVersion ?? 3;
+
+    const cms = useMemo(() => getCmsData('CategorySection', passedCms), [passedCms]);
+    const tag = cms.getText('Cat001', 'WHAT WE PROVIDE');
+    const title = cms.getText('Cat002', 'Expert Innovative And Deliver Exceptional For NOT Solution Now.');
 
     const handleCategoryClick = useCallback((cat) => {
         navigateToCategory(navigate, cat);
@@ -355,8 +359,8 @@ const CategorySection = memo(() => {
         <div className="w-full py-50">
             <Heading
                 version="v1"
-                tag="WHAT WE PROVIDE"
-                title="Expert Innovative And Deliver Exceptional For NOT Solution Now."
+                tag={tag}
+                title={title}
             />
             <ActiveVersionComponent items={categories} onCategoryClick={handleCategoryClick} />
         </div>

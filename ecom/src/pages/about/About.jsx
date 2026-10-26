@@ -4,7 +4,8 @@ import Container from '../../components/common/Container';
 import Banner from '../../components/layout/generic/Banner';
 import SEO from '../../seo';
 import { resolveImagePath } from '../../utils/imageResolver';
-import { SectionFallback } from '../../utils/utils';
+import { SectionFallback, getCmsData } from '../../utils/utils';
+import { cmsMap } from '../../utils/apiData';
 
 const DetailSection = lazy(() => import('./sections/DetailSection'));
 const OfferSection = lazy(() => import('../home/sections/OfferSection'));
@@ -15,27 +16,12 @@ const patchBanner = resolveImagePath('Patch1.jpg');
 const aboutBanner = resolveImagePath('Banner.jpg');
 
 const aboutSections = [
-    {
-        id: 'about',
-        Component: DetailSection,
-        minHeight: '400px',
-        isContainer: true,
-    },
-    {
-        id: 'feature',
-        Component: FeatureSection,
-        minHeight: '400px',
-        isContainer: true,
-        containerStyle: { background: 'var(--forth)' }
-    },
-    {
-        id: 'offer',
-        Component: OfferSection,
-        minHeight: '300px',
-        isContainer: true
-    },
+    { id: 'about', cmsKey: 'DetailSection', Component: DetailSection, minHeight: '400px', isContainer: true },
+    { id: 'feature', Component: FeatureSection, minHeight: '400px', isContainer: true, containerStyle: { background: 'var(--forth)' } },
+    { id: 'offer', cmsKey: 'OfferSection', Component: OfferSection, minHeight: '300px', isContainer: true },
     {
         id: 'patch',
+        cmsKey: 'PatchSection',
         Component: PatchSection,
         minHeight: '300px',
         isContainer: true,
@@ -66,10 +52,10 @@ const About = () => {
                 image={aboutBanner}
                 version="1"
             />
-            {aboutSections.map(({ id, Component, isEager, minHeight, isContainer = true, containerClass, containerStyle }) => {
+            {aboutSections.map(({ id, cmsKey, Component, isEager, minHeight, isContainer = true, containerClass, containerStyle }) => {
                 const SectionContent = (
                     <Suspense fallback={<SectionFallback minHeight={minHeight} />}>
-                        <Component />
+                        <Component {...getCmsData(cmsKey, cmsMap?.[cmsKey])} cms={getCmsData(cmsKey, cmsMap?.[cmsKey])} />
                     </Suspense>
                 );
 

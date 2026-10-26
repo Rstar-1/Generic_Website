@@ -1,7 +1,7 @@
 import headerData from "../data/header.json";
-import footer from "../data/footer.json";
+import footerData from "../data/footer.json";
 import cmsData from "../data/cms.json";
-import rawConfigData from "../data/config.json";
+import rawConfig from "../data/config.json";
 import productsData from "../data/product.json";
 import categoriesData from "../data/productcategory.json";
 import blogData from "../data/blog.json";
@@ -11,38 +11,38 @@ import chatbotData from "../data/chatbot.json";
 import supplierData from "../data/supplier.json";
 import filterData from "../data/filter.json";
 
-const header = {
+const norm = (arr, extra = {}) =>
+  Array.isArray(arr) ? Object.assign([...arr], arr[0], extra) : arr;
+
+export const header = {
   ...headerData,
-  navLinks: headerData.navLinks?.filter(
-    (item) => item.ecomOnly === undefined || item.ecomOnly === true,
-  ),
+  navLinks: headerData.navLinks?.filter((i) => i.ecomOnly !== false),
 };
 
-const configData = {
-  ...rawConfigData,
-  Header: Array.isArray(rawConfigData.Header)
-    ? Object.assign([...rawConfigData.Header], rawConfigData.Header[0], {
-        HeaderSticky: rawConfigData.Header[0]?.HeaderSticky,
-      })
-    : rawConfigData.Header,
-  HeaderSticky:
-    rawConfigData.Header?.[0]?.HeaderSticky ??
-    rawConfigData.HeaderSticky ??
-    false,
-  About: Array.isArray(rawConfigData.About)
-    ? Object.assign([...rawConfigData.About], rawConfigData.About[0], {
-        AboutVersion: rawConfigData.About[0]?.AboutVersion,
-      })
-    : rawConfigData.About,
-  Footer: Array.isArray(rawConfigData.Footer)
-    ? Object.assign([...rawConfigData.Footer], rawConfigData.Footer[0], {
-        FooterVersion: rawConfigData.Footer[0]?.FooterVersion,
-        FooterSocial: rawConfigData.Footer[0]?.FooterSocial,
-        FooterTopBar: rawConfigData.Footer[0]?.FooterTopBar,
-        FooterBottomBar: rawConfigData.Footer[0]?.FooterBottomBar,
-      })
-    : rawConfigData.Footer,
+export const configData = {
+  ...rawConfig,
+  Header: norm(rawConfig.Header, { HeaderSticky: rawConfig.Header?.[0]?.HeaderSticky }),
+  HeaderSticky: rawConfig.Header?.[0]?.HeaderSticky ?? rawConfig.HeaderSticky ?? false,
+  About: norm(rawConfig.About, { AboutVersion: rawConfig.About?.[0]?.AboutVersion }),
+  Footer: norm(rawConfig.Footer, {
+    FooterVersion: rawConfig.Footer?.[0]?.FooterVersion,
+    FooterSocial: rawConfig.Footer?.[0]?.FooterSocial,
+    FooterTopBar: rawConfig.Footer?.[0]?.FooterTopBar,
+    FooterBottomBar: rawConfig.Footer?.[0]?.FooterBottomBar,
+  }),
 };
+
+export const cmsMap = (Array.isArray(cmsData) ? cmsData : []).reduce(
+  (acc, curr) => {
+    if (curr?.section) {
+      acc[curr.section] = curr;
+      if (curr.section === "HeroBanner") acc.HeroSections = curr;
+      if (curr.section === "AboutSection") acc.AboutSections = curr;
+    }
+    return acc;
+  },
+  typeof cmsData === "object" && !Array.isArray(cmsData) ? { ...cmsData } : {}
+);
 
 export const {
   HeroSections: heroCMS,
@@ -51,15 +51,13 @@ export const {
   FeedSection: feedCMS,
   BlogSection: blogCMS,
   PatchSection: patchCMS,
-} = cmsData;
+} = cmsMap;
 
 export {
-  header,
   headerData,
-  footer,
-  footer as footerData,
+  footerData as footer,
+  footerData,
   cmsData,
-  configData,
   productsData,
   productsData as products,
   categoriesData,
@@ -81,21 +79,16 @@ export {
 
 export default {
   header,
-  footer,
+  footer: footerData,
   cmsData,
+  cmsMap,
   configData,
   productsData,
   categoriesData,
   blogData,
   blogCategoriesData,
-  blogCategories: blogCategoriesData,
   seoData,
-  seo: seoData,
-  seoConfig: seoData,
   chatbotData,
-  chatbot: chatbotData,
   supplierData,
-  supplier: supplierData,
   filterData,
-  filter: filterData,
 };

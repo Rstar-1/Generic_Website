@@ -6,10 +6,15 @@ import SlideLayout from '../../../components/layout/sections/SlideLayout';
 import CardLayout from '../../../components/layout/sections/CardLayout';
 
 import { productsData } from '../../../utils/apiData';
-import { navigateToProduct, navigateToCategory } from '../../../utils/utils';
+import { navigateToProduct, navigateToCategory, getCmsData } from '../../../utils/utils';
 
-const ProductSection = () => {
+const ProductSection = ({ cms: passedCms }) => {
     const navigate = useNavigate();
+    const cms = useMemo(() => getCmsData('ProductSection', passedCms), [passedCms]);
+
+    const tag = cms.getText('Prod001', 'SPECIAL OFFERS FOR YOU');
+    const title = cms.getText('Prod002', 'Featured Products & Popular Designs');
+    const { text: actionText, link: actionLink } = cms.getButton('Prod003');
 
     const allProducts = useMemo(() => {
         return productsData.filter((p) => !p.isBanner);
@@ -33,10 +38,10 @@ const ProductSection = () => {
         <div className="w-full py-50">
             <Heading
                 version="v2"
-                tag="SPECIAL OFFERS FOR YOU"
-                title="Featured Products & Popular Designs"
-                actionText="Shop All Products"
-                actionLink="/products"
+                tag={tag}
+                title={title}
+                actionText={actionText || "Shop All Products"}
+                actionLink={actionLink || "/products"}
             />
 
             <SlideLayout

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Container from '../../../components/common/Container';
@@ -6,58 +6,63 @@ import Image from '../../../components/common/Image';
 import Button from '../../../components/common/Button';
 
 import { configData } from '../../../utils/apiData';
+import { getCmsData } from '../../../utils/utils';
 
 const HEIGHT_MAP = {
     sticky: { 1: 'h-800 sm-h-550', 2: 'h-700 sm-h-550' },
     normal: { 1: 'h-700 sm-h-550', 2: 'h-550' }
 };
 
-const HeroBackground = React.memo(() => (
-    <div className='absolute top-0 left-0 w-full h-full z-10'>
-        <Image
-            src={import.meta.env.VITE_IMAGE + "Hero1.mp4"}
-            alt="Agency Hero Background Video"
-            className='w-full h-full flex object-cover'
-        />
-        <div
-            className='absolute w-full h-full top-0 left-0'
-            style={{
-                background: 'radial-gradient(ellipse 85% 75% at 70% 0%, rgba(255, 175, 40, 0.28) 0%, rgba(0, 0, 0, 0.5) 90%, rgba(10, 10, 10, 0.95) 100%), linear-gradient(180deg, rgba(10, 10, 10, 0.6) 90%, rgba(10, 10, 10, 0.9) 100%)',
-            }}
-        />
-    </div>
-));
+const HeroBackground = React.memo(({ bgImage }) => {
+    const isPlaceholder = !bgImage?.url || bgImage.url.includes('example.com');
+    const mediaSrc = isPlaceholder ? (import.meta.env.VITE_IMAGE + "Hero1.mp4") : bgImage.url;
 
-const HeroContent = React.memo(({ onGetInTouch, isHeaderSticky, heroVersion }) => (
+    return (
+        <div className='absolute top-0 left-0 w-full h-full z-10'>
+            <Image
+                src={mediaSrc}
+                alt={bgImage?.alt}
+                className='w-full h-full flex object-cover'
+            />
+            <div
+                className='absolute w-full h-full top-0 left-0'
+                style={{
+                    background: 'radial-gradient(ellipse 85% 75% at 70% 0%, rgba(255, 175, 40, 0.28) 0%, rgba(0, 0, 0, 0.5) 90%, rgba(10, 10, 10, 0.95) 100%), linear-gradient(180deg, rgba(10, 10, 10, 0.6) 90%, rgba(10, 10, 10, 0.9) 100%)',
+                }}
+            />
+        </div>
+    );
+});
+
+const HeroContent = React.memo(({ subtitle, title, description, btnText, onAction, isHeaderSticky, heroVersion }) => (
     <div className={`w-full ${isHeaderSticky
         ? 'pb-100'
         : [1, 2].includes(heroVersion)
             ? 'pb-100 sm-pb-30'
             : 'pb-60'
         } relative z-20`}>
-        <h1 className='largemid-text text-white font-600'>
-            A ERA IN
-            <br />
-            <span className='text-primary'>COMMUNICATION</span>
+        <h1 className='largemid-text text-white font-600 uppercase'>
+            <span className='text-primary'>{subtitle}</span><br /> {title}
         </h1>
-        <p className='text-white headpara-text text-muted font-300 sm-mt-6 mt-12'>
-            Are You Struggling To Turn Your <br />Ideas Into Something Users Love? Pixelr Designs Digital Products.
+        <p className='text-white headpara-text text-muted font-300 sm-mt-6 mt-12 max-w-2xl'>
+            {description}
         </p>
         <Button
-            text="Get In Touch"
+            text={btnText}
             icon="ArrowUpRight"
             iconPosition="right"
             iconWidth="16"
             iconHeight="16"
             version="v1"
             className="rounded-20 mt-18"
-            onClick={onGetInTouch}
+            onClick={onAction}
         />
     </div>
 ));
 
 const BreadcrumbTab = React.memo(({ isMobile, heroVersion }) => {
     if (heroVersion !== 2) return null;
+    const maskUrl = `url(${import.meta.env.VITE_IMAGE + "Mask3.png"})`;
 
     return (
         <div
@@ -69,11 +74,11 @@ const BreadcrumbTab = React.memo(({ isMobile, heroVersion }) => {
                 bottom: '-5px',
                 left: '50%',
                 transform: 'translateX(-50%)',
-                WebkitMaskImage: `url(${import.meta.env.VITE_IMAGE + "Mask3.png"})`,
+                WebkitMaskImage: maskUrl,
                 WebkitMaskSize: '100% 100%',
                 WebkitMaskRepeat: 'no-repeat',
                 WebkitMaskPosition: 'bottom center',
-                maskImage: `url(${import.meta.env.VITE_IMAGE + "Mask3.png"})`,
+                maskImage: maskUrl,
                 maskSize: '100% 100%',
                 maskRepeat: 'no-repeat',
                 maskPosition: 'bottom center',
@@ -82,7 +87,13 @@ const BreadcrumbTab = React.memo(({ isMobile, heroVersion }) => {
     );
 });
 
-const HeroBanner = React.memo(() => {
+const HeroBanner = React.memo(({
+    Hero001: title,
+    Hero0011: subtitle,
+    Hero002: description,
+    Hero003: bgImage,
+    Hero005: { text: btnText, link: btnLink } = {}
+} = getCmsData('HeroBanner')) => {
     const navigate = useNavigate();
     const [isMobile, setIsMobile] = React.useState(false);
 
@@ -97,9 +108,9 @@ const HeroBanner = React.memo(() => {
         setIsMobile(window.innerWidth <= 768);
     }, []);
 
-    const handleGetInTouch = React.useCallback(() => {
-        navigate('/connect');
-    }, [navigate]);
+    const handleAction = React.useCallback(() => {
+        navigate(btnLink || '/products');
+    }, [navigate, btnLink]);
 
     React.useEffect(() => {
         handleResize();
@@ -112,13 +123,14 @@ const HeroBanner = React.memo(() => {
     const containerStyle = React.useMemo(() => {
         if (heroVersion === 1) {
             const maskSize = isMobile ? '260% 100%' : '110% 100%';
+            const maskUrl = `url(${import.meta.env.VITE_IMAGE + "Mask1.png"})`;
             return {
-                WebkitMaskImage: `url(${import.meta.env.VITE_IMAGE + "Mask1.png"})`,
+                WebkitMaskImage: maskUrl,
                 WebkitMaskSize: maskSize,
                 WebkitMaskRepeat: 'no-repeat',
                 WebkitMaskPosition: 'center',
                 position: 'relative',
-                maskImage: `url(${import.meta.env.VITE_IMAGE + "Mask1.png"})`,
+                maskImage: maskUrl,
                 maskSize,
                 maskRepeat: 'no-repeat',
                 maskPosition: 'center',
@@ -135,8 +147,16 @@ const HeroBanner = React.memo(() => {
         <Container className={`${heightClass} ${[1].includes(heroVersion) ? 'flex items-center' : 'flex items-end'}`}
             style={containerStyle}
         >
-            <HeroBackground />
-            <HeroContent isHeaderSticky={isHeaderSticky} heroVersion={heroVersion} onGetInTouch={handleGetInTouch} />
+            <HeroBackground bgImage={bgImage} />
+            <HeroContent
+                title={title}
+                subtitle={subtitle}
+                description={description}
+                btnText={btnText}
+                onAction={handleAction}
+                isHeaderSticky={isHeaderSticky}
+                heroVersion={heroVersion}
+            />
             <BreadcrumbTab isMobile={isMobile} heroVersion={heroVersion} />
         </Container>
     );

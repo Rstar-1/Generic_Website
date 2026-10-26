@@ -1,18 +1,14 @@
-import React from 'react';
+import React, { useMemo, useCallback } from 'react';
 
 import Icon from '../../../components/common/Icon';
-
 import Heading from '../../../components/layout/generic/Heading';
 import SlideLayout from '../../../components/layout/sections/SlideLayout';
 import CardLayout from '../../../components/layout/sections/CardLayout';
+import { getCmsData } from '../../../utils/utils';
 
-const BADGES = [
-    'All Eco-Certified',
-    'Make It Yours',
-    'Unique Tailored'
-];
+const DEFAULT_BADGES = ['All Eco-Certified', 'Make It Yours', 'Unique Tailored'];
 
-const SERVICES = [
+const DEFAULT_SERVICES = [
     {
         id: 1,
         title: 'Comfortable',
@@ -22,7 +18,7 @@ const SERVICES = [
     {
         id: 2,
         title: 'Price transparency',
-        description: 'Fair pricing ensures you know exactly what you\'re paying for, with no hidden costs or markups.',
+        description: "Fair pricing ensures you know exactly what you're paying for, with no hidden costs or markups.",
         image: 'https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=600&q=80'
     },
     {
@@ -39,8 +35,25 @@ const SERVICES = [
     }
 ];
 
-const ServiceSection = () => {
-    const renderItem = React.useCallback((item) => (
+const ServiceSection = ({ cms: passedCms }) => {
+    const cms = useMemo(() => getCmsData('ServiceSection', passedCms), [passedCms]);
+
+    const tag = cms.getText('Serv001', 'Our Specification');
+    const title = cms.getText('Serv002', 'This approach resulted in the beautiful structure');
+
+    const badges = useMemo(() => {
+        const raw = cms.getArray('Serv003');
+        return raw.length ? raw.map((b) => (typeof b === 'object' ? b.text : b)) : DEFAULT_BADGES;
+    }, [cms]);
+
+    const services = useMemo(() => {
+        const raw = cms.getArray('Serv004');
+        return raw.length
+            ? raw.map((s, idx) => ({ id: s.id || idx + 1, ...s }))
+            : DEFAULT_SERVICES;
+    }, [cms]);
+
+    const renderItem = useCallback((item) => (
         <CardLayout key={item.id} version="feature2" item={item} />
     ), []);
 
@@ -48,12 +61,12 @@ const ServiceSection = () => {
         <div className="w-full py-60">
             <Heading
                 version="v1"
-                tag="Our Specification"
-                title="This approach resulted in the beautiful structure"
+                tag={tag}
+                title={title}
             />
 
             <div className="flex items-center justify-center gap-10 flex-wrap mt-20 mb-40">
-                {BADGES.map((badge, idx) => (
+                {badges.map((badge, idx) => (
                     <p
                         key={idx}
                         className="small-text text-white bg-primary w-max px-14 py-4 rounded-20 flex items-center gap-8 font-500 uppercase mb-8"
@@ -69,7 +82,7 @@ const ServiceSection = () => {
                 col={4}
                 gap="16"
                 className="w-85 sm-w-full mx-auto"
-                items={SERVICES}
+                items={services}
                 renderItem={renderItem}
             />
         </div>
