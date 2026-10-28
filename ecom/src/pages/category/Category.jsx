@@ -4,7 +4,8 @@ import Container from '../../components/common/Container';
 import Banner from '../../components/layout/generic/Banner';
 import SEO from '../../seo';
 import { resolveImagePath } from '../../utils/imageResolver';
-import { SectionFallback } from '../../utils/utils';
+import { SectionFallback, getCmsData } from '../../utils/utils';
+import { cmsMap } from '../../utils/apiData';
 
 const CatSection = lazy(() => import('./sections/CatSection'));
 const OfferSection = lazy(() => import('../home/sections/OfferSection'));
@@ -13,6 +14,39 @@ const PatchSection = lazy(() => import('../home/sections/PatchSection'));
 
 const patchBanner = resolveImagePath('Patch1.jpg');
 const catBanner = resolveImagePath('Banner.jpg');
+
+const getSectionCms = (section) =>
+    getCmsData(section, cmsMap?.[section]);
+
+const {
+    CatB001: bannerTitle,
+    CatB002: bannerDesc,
+    CatB003: bannerBgImage,
+} = getSectionCms("CategoryBanner");
+
+const {
+    Offer001: offerTitle,
+    Offer002: offerDescription,
+    Offer003: offerBannerImage,
+    Offer004: { text: offerBtnText, link: offerBtnLink } = {},
+    Offer005: offerTrending,
+} = getSectionCms("OfferSection");
+
+const {
+    Patch001: patchBadge,
+    Patch002: patchTitle,
+    Patch003: patchDescription,
+} = getSectionCms("PatchSection");
+
+const patchBackground = {
+    backgroundImage: `linear-gradient(90deg, rgba(10, 15, 25, 0.94) 0%, rgba(10, 15, 25, 0.82) 50%, rgba(10, 15, 25, 0.45) 100%), url(${patchBanner})`,
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundAttachment: 'fixed'
+};
+
+const bannerBg = resolveImagePath(bannerBgImage?.url || catBanner);
 
 const categorySections = [
     {
@@ -32,7 +66,15 @@ const categorySections = [
         id: 'offer',
         Component: OfferSection,
         minHeight: '300px',
-        isContainer: true
+        isContainer: true,
+        props: {
+            title: offerTitle,
+            description: offerDescription,
+            bannerImage: offerBannerImage,
+            btnText: offerBtnText,
+            btnLink: offerBtnLink,
+            rawTrending: offerTrending,
+        },
     },
     {
         id: 'patch',
@@ -40,13 +82,12 @@ const categorySections = [
         minHeight: '300px',
         isContainer: true,
         containerClass: 'relative z-10',
-        containerStyle: {
-            backgroundImage: `linear-gradient(90deg, rgba(10, 15, 25, 0.94) 0%, rgba(10, 15, 25, 0.82) 50%, rgba(10, 15, 25, 0.45) 100%), url(${patchBanner})`,
-            backgroundPosition: 'center',
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-            backgroundAttachment: 'fixed'
-        }
+        containerStyle: patchBackground,
+        props: {
+            badge: patchBadge,
+            title: patchTitle,
+            description: patchDescription,
+        },
     },
 ];
 
@@ -60,16 +101,16 @@ const Category = () => {
         <>
             <SEO page="collection" breadcrumbs={BREADCRUMBS} />
             <Banner
-                title="Categories"
-                desc="Explore Our Wide Range of Products"
+                title={bannerTitle || "Categories"}
+                desc={bannerDesc || "Explore Our Wide Range of Products"}
                 breadcrumbs={BREADCRUMBS}
-                image={catBanner}
+                image={bannerBg}
                 version="1"
             />
-            {categorySections.map(({ id, Component, isEager, minHeight, isContainer = true, containerClass, containerStyle }) => {
+            {categorySections.map(({ id, Component, props = {}, isEager, minHeight, isContainer = true, containerClass, containerStyle }) => {
                 const SectionContent = (
                     <Suspense fallback={<SectionFallback minHeight={minHeight} />}>
-                        <Component />
+                        <Component {...props} />
                     </Suspense>
                 );
 

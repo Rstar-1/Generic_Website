@@ -4,7 +4,8 @@ import Container from '../../components/common/Container';
 import Banner from '../../components/layout/generic/Banner';
 import SEO from '../../seo';
 import { resolveImagePath } from '../../utils/imageResolver';
-import { SectionFallback } from '../../utils/utils';
+import { SectionFallback, getCmsData } from '../../utils/utils';
+import { cmsMap } from '../../utils/apiData';
 
 const DetailSection = lazy(() => import('./sections/DetailSection'));
 const FeatureSection = lazy(() => import('../home/sections/FeatureSection'));
@@ -13,6 +14,39 @@ const PatchSection = lazy(() => import('../home/sections/PatchSection'));
 
 const patchBanner = resolveImagePath('Patch1.jpg');
 const supplierBanner = resolveImagePath('Banner.jpg');
+
+const getSectionCms = (section) =>
+    getCmsData(section, cmsMap?.[section]);
+
+const {
+    Supp001: bannerTitle,
+    Supp002: bannerDesc,
+    Supp003: bannerBgImage,
+} = getSectionCms("SupplierSection");
+
+const {
+    Offer001: offerTitle,
+    Offer002: offerDescription,
+    Offer003: offerBannerImage,
+    Offer004: { text: offerBtnText, link: offerBtnLink } = {},
+    Offer005: offerTrending,
+} = getSectionCms("OfferSection");
+
+const {
+    Patch001: patchBadge,
+    Patch002: patchTitle,
+    Patch003: patchDescription,
+} = getSectionCms("PatchSection");
+
+const patchBackground = {
+    backgroundImage: `linear-gradient(90deg, rgba(10, 15, 25, 0.94) 0%, rgba(10, 15, 25, 0.82) 50%, rgba(10, 15, 25, 0.45) 100%), url(${patchBanner})`,
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundAttachment: 'fixed'
+};
+
+const bannerBg = resolveImagePath(bannerBgImage?.url || supplierBanner);
 
 const supplierSections = [
     {
@@ -32,7 +66,15 @@ const supplierSections = [
         id: 'offer',
         Component: OfferSection,
         minHeight: '300px',
-        isContainer: true
+        isContainer: true,
+        props: {
+            title: offerTitle,
+            description: offerDescription,
+            bannerImage: offerBannerImage,
+            btnText: offerBtnText,
+            btnLink: offerBtnLink,
+            rawTrending: offerTrending,
+        },
     },
     {
         id: 'patch',
@@ -40,13 +82,12 @@ const supplierSections = [
         minHeight: '300px',
         isContainer: true,
         containerClass: 'relative z-10',
-        containerStyle: {
-            backgroundImage: `linear-gradient(90deg, rgba(10, 15, 25, 0.94) 0%, rgba(10, 15, 25, 0.82) 50%, rgba(10, 15, 25, 0.45) 100%), url(${patchBanner})`,
-            backgroundPosition: 'center',
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-            backgroundAttachment: 'fixed'
-        }
+        containerStyle: patchBackground,
+        props: {
+            badge: patchBadge,
+            title: patchTitle,
+            description: patchDescription,
+        },
     },
 ];
 
@@ -56,11 +97,11 @@ const BREADCRUMBS = [
 ];
 
 const Supplier = () => {
-    const renderSection = useCallback(({ id, Component, isEager, minHeight, isContainer = true, containerClass, containerStyle }) => {
+    const renderSection = useCallback(({ id, Component, props = {}, isEager, minHeight, isContainer = true, containerClass, containerStyle }) => {
         const fallback = <SectionFallback minHeight={minHeight} />;
         const SectionContent = (
             <Suspense fallback={fallback}>
-                <Component />
+                <Component {...props} />
             </Suspense>
         );
 
@@ -91,10 +132,10 @@ const Supplier = () => {
         <>
             <SEO page="supplier" breadcrumbs={BREADCRUMBS} />
             <Banner
-                title="Find A Store"
-                desc="Authorized Suppliers & Store Locations"
+                title={bannerTitle || "Find A Store"}
+                desc={bannerDesc || "Authorized Suppliers & Store Locations"}
                 breadcrumbs={BREADCRUMBS}
-                image={supplierBanner}
+                image={bannerBg}
                 version="1"
             />
             {supplierSections.map(renderSection)}

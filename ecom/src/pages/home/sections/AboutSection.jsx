@@ -1,23 +1,20 @@
-import React, { memo, useCallback, useMemo } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Image from '../../../components/common/Image';
 import Button from '../../../components/common/Button';
-import { getCmsData, resolveImagePath } from '../../../utils/utils';
+import { resolveImagePath } from '../../../utils/utils';
 
-const AboutSection = memo(({ cms: passedCms }) => {
+const AboutSection = React.memo(({
+    title,
+    description,
+    aboutImage,
+    btnText,
+    btnLink
+}) => {
     const navigate = useNavigate();
-    const cms = useMemo(() => getCmsData('AboutSection', passedCms), [passedCms]);
 
-    const title = cms.getText('About001', "Precision PVC Strip Curtains Engineered For Industrial Excellence");
-    const description = cms.getText(
-        'About002',
-        "For over 15 years, Ashmita Vinyls has stood as an industry-leading importer and manufacturer of high-grade PVC strip curtain rolls, magnetic barrier curtains, and heavy-duty stainless steel mounting hardware. Trusted by premier warehouses, cold storages, clean rooms, and commercial facilities across India."
-    );
-    const aboutImage = cms.getImage('About003');
-    const { text: btnText, link: btnLink } = cms.getButton('About005');
-
-    const handleExplore = useCallback(() => {
+    const handleExplore = React.useCallback(() => {
         navigate(btnLink || '/product');
     }, [navigate, btnLink]);
 
@@ -38,7 +35,7 @@ const AboutSection = memo(({ cms: passedCms }) => {
                     </p>
 
                     <Button
-                        text={btnText || "Explore Catalog"}
+                        text={btnText}
                         version="v1"
                         bg="primary"
                         color="white"
@@ -47,7 +44,6 @@ const AboutSection = memo(({ cms: passedCms }) => {
                     />
                 </div>
 
-                {/* Right Image Column */}
                 <div className="relative rounded-10 overflow-hidden h-500 sm-h-360 w-full sm-mt-12">
                     <Image
                         src={imgSrc}

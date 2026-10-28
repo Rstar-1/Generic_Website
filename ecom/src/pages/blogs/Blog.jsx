@@ -4,13 +4,39 @@ import Container from '../../components/common/Container';
 import Banner from '../../components/layout/generic/Banner';
 import SEO from '../../seo';
 import { resolveImagePath } from '../../utils/imageResolver';
-import { getStickyTop, Fallback } from '../../utils/utils';
+import { getStickyTop, Fallback, getCmsData } from '../../utils/utils';
+import { cmsMap } from '../../utils/apiData';
 
 const BlogSection = lazy(() => import('./sections/BlogSection'));
 const PatchSection = lazy(() => import('../home/sections/PatchSection'));
 
 const patchBannerBg = resolveImagePath('Patch1.jpg');
 const blogBannerBg = resolveImagePath('Banner.jpg');
+
+const getSectionCms = (section) =>
+    getCmsData(section, cmsMap?.[section]);
+
+const {
+    Blog001: bannerTitle,
+    Blog002: bannerDesc,
+    Blog003: bannerBgImage,
+} = getSectionCms("BlogSection");
+
+const {
+    Patch001: patchBadge,
+    Patch002: patchTitle,
+    Patch003: patchDescription,
+} = getSectionCms("PatchSection");
+
+const patchBackground = {
+    backgroundImage: `linear-gradient(90deg, rgba(10, 15, 25, 0.94) 0%, rgba(10, 15, 25, 0.82) 50%, rgba(10, 15, 25, 0.45) 100%), url(${patchBannerBg})`,
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundAttachment: 'fixed'
+};
+
+const bannerBg = resolveImagePath(bannerBgImage?.url || blogBannerBg);
 
 const blogSections = [
     { id: 'blog', Component: BlogSection, minHeight: '600px', isContainer: true },
@@ -20,13 +46,12 @@ const blogSections = [
         minHeight: '300px',
         isContainer: true,
         containerClass: 'relative z-10',
-        containerStyle: {
-            backgroundImage: `linear-gradient(90deg, rgba(10, 15, 25, 0.94) 0%, rgba(10, 15, 25, 0.82) 50%, rgba(10, 15, 25, 0.45) 100%), url(${patchBannerBg})`,
-            backgroundPosition: 'center',
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-            backgroundAttachment: 'fixed'
-        }
+        containerStyle: patchBackground,
+        props: {
+            badge: patchBadge,
+            title: patchTitle,
+            description: patchDescription,
+        },
     },
 ];
 
@@ -41,14 +66,19 @@ const Blog = () => {
     return (
         <>
             <SEO page="blog" breadcrumbs={BREADCRUMBS} />
-            <Banner title="News & Articles" desc="News & Media" breadcrumbs={BREADCRUMBS} bgImage={blogBannerBg} />
-            {blogSections.map(({ id, Component, isEager, minHeight, isContainer = true, containerClass, containerStyle }) => {
+            <Banner
+                title={bannerTitle || "News & Articles"}
+                desc={bannerDesc || "News & Media"}
+                breadcrumbs={BREADCRUMBS}
+                bgImage={bannerBg}
+            />
+            {blogSections.map(({ id, Component, props = {}, isEager, minHeight, isContainer = true, containerClass, containerStyle }) => {
                 const el = isContainer ? (
                     <Container className={containerClass} style={containerStyle}>
-                        <Component stickyTop={stickyTop} />
+                        <Component stickyTop={stickyTop} {...props} />
                     </Container>
                 ) : (
-                    <Component stickyTop={stickyTop} />
+                    <Component stickyTop={stickyTop} {...props} />
                 );
 
                 const content = <Suspense fallback={<Fallback minHeight={minHeight} />}>{el}</Suspense>;

@@ -156,9 +156,6 @@
   {
     "_id": "cms_003",
     "section": "PatchSection",
-    "badge": "PREMIER MANUFACTURER",
-    "title": "Delivering High-Performance Industrial PVC Strip Curtains & Hardware Across India.",
-    "description": "Ashmita Vinyls combines direct importing, certified quality, and factory pricing to equip warehouses, cold storages, clean rooms, and industrial plants nationwide.",
     "cms": [
       {
         "cmsId": "Patch001",
@@ -507,6 +504,146 @@
         "image": {
           "url": "Banner.jpg",
           "alt": "Connect Us",
+          "storageType": "url"
+        }
+      }
+    ]
+  },
+  {
+    "_id": "cms_010",
+    "section": "BlogSection",
+    "cms": [
+      {
+        "cmsId": "Blog001",
+        "type": "text",
+        "label": "Blog Banner Title",
+        "text": "News & Articles"
+      },
+      {
+        "cmsId": "Blog002",
+        "type": "text",
+        "label": "Blog Banner Description",
+        "text": "News & Media"
+      },
+      {
+        "cmsId": "Blog003",
+        "type": "image",
+        "label": "Blog Banner Background",
+        "image": {
+          "url": "Banner.jpg",
+          "alt": "News & Articles",
+          "storageType": "url"
+        }
+      }
+    ]
+  },
+  {
+    "_id": "cms_011",
+    "section": "AboutBanner",
+    "cms": [
+      {
+        "cmsId": "AboutB001",
+        "type": "text",
+        "label": "About Banner Title",
+        "text": "About Us"
+      },
+      {
+        "cmsId": "AboutB002",
+        "type": "text",
+        "label": "About Banner Description",
+        "text": "We Love Finishing What You Start We Love Finishing What You Start"
+      },
+      {
+        "cmsId": "AboutB003",
+        "type": "image",
+        "label": "About Banner Background",
+        "image": {
+          "url": "Banner.jpg",
+          "alt": "About Us",
+          "storageType": "url"
+        }
+      }
+    ]
+  },
+  {
+    "_id": "cms_012",
+    "section": "SupplierSection",
+    "cms": [
+      {
+        "cmsId": "Supp001",
+        "type": "text",
+        "label": "Supplier Banner Title",
+        "text": "Find A Store"
+      },
+      {
+        "cmsId": "Supp002",
+        "type": "text",
+        "label": "Supplier Banner Description",
+        "text": "Authorized Suppliers & Store Locations"
+      },
+      {
+        "cmsId": "Supp003",
+        "type": "image",
+        "label": "Supplier Banner Background",
+        "image": {
+          "url": "Banner.jpg",
+          "alt": "Find A Store",
+          "storageType": "url"
+        }
+      }
+    ]
+  },
+  {
+    "_id": "cms_013",
+    "section": "ProductBanner",
+    "cms": [
+      {
+        "cmsId": "ProdB001",
+        "type": "text",
+        "label": "Product Banner Title",
+        "text": "Products Collection"
+      },
+      {
+        "cmsId": "ProdB002",
+        "type": "text",
+        "label": "Product Banner Description",
+        "text": "Products"
+      },
+      {
+        "cmsId": "ProdB003",
+        "type": "image",
+        "label": "Product Banner Background",
+        "image": {
+          "url": "Banner.jpg",
+          "alt": "Products Collection",
+          "storageType": "url"
+        }
+      }
+    ]
+  },
+  {
+    "_id": "cms_014",
+    "section": "CategoryBanner",
+    "cms": [
+      {
+        "cmsId": "CatB001",
+        "type": "text",
+        "label": "Category Banner Title",
+        "text": "Categories"
+      },
+      {
+        "cmsId": "CatB002",
+        "type": "text",
+        "label": "Category Banner Description",
+        "text": "Explore Our Wide Range of Products"
+      },
+      {
+        "cmsId": "CatB003",
+        "type": "image",
+        "label": "Category Banner Background",
+        "image": {
+          "url": "Banner.jpg",
+          "alt": "Categories",
           "storageType": "url"
         }
       }

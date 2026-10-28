@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Heading from '../../../components/layout/generic/Heading';
@@ -6,31 +6,31 @@ import SlideLayout from '../../../components/layout/sections/SlideLayout';
 import CardLayout from '../../../components/layout/sections/CardLayout';
 
 import { productsData } from '../../../utils/apiData';
-import { navigateToProduct, navigateToCategory, getCmsData } from '../../../utils/utils';
+import { navigateToProduct, navigateToCategory } from '../../../utils/utils';
 
-const ProductSection = ({ cms: passedCms }) => {
+const ProductSection = ({
+    tag = 'SPECIAL OFFERS FOR YOU',
+    title = 'Featured Products & Popular Designs',
+    actionText = 'Shop All Products',
+    actionLink = '/products'
+}) => {
     const navigate = useNavigate();
-    const cms = useMemo(() => getCmsData('ProductSection', passedCms), [passedCms]);
 
-    const tag = cms.getText('Prod001', 'SPECIAL OFFERS FOR YOU');
-    const title = cms.getText('Prod002', 'Featured Products & Popular Designs');
-    const { text: actionText, link: actionLink } = cms.getButton('Prod003');
-
-    const allProducts = useMemo(() => {
+    const allProducts = React.useMemo(() => {
         return productsData.filter((p) => !p.isBanner);
     }, []);
 
-    const firstRowProducts = useMemo(() => allProducts.slice(0, 6), [allProducts]);
-    const secondRowProducts = useMemo(
+    const firstRowProducts = React.useMemo(() => allProducts.slice(0, 6), [allProducts]);
+    const secondRowProducts = React.useMemo(
         () => (allProducts.length > 6 ? allProducts.slice(6, 12) : allProducts.slice(0, 6)),
         [allProducts]
     );
 
-    const handleProductClick = useCallback((item) => {
+    const handleProductClick = React.useCallback((item) => {
         navigateToProduct(navigate, item);
     }, [navigate]);
 
-    const handleCategoryClick = useCallback((cat) => {
+    const handleCategoryClick = React.useCallback((cat) => {
         navigateToCategory(navigate, cat);
     }, [navigate]);
 

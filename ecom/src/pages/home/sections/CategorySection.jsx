@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, memo } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
@@ -12,7 +12,7 @@ import Heading from '../../../components/layout/generic/Heading';
 import { categoriesData, configData } from '../../../utils/apiData';
 import productcategoryData from '../../../data/productcategory.json';
 import { resolveImagePath } from '../../../utils/imageResolver';
-import { navigateToCategory, getCmsData } from '../../../utils/utils';
+import { navigateToCategory } from '../../../utils/utils';
 
 const categories = productcategoryData || categoriesData || [];
 
@@ -35,7 +35,7 @@ const ViewMoreButton = ({ text, link }) => {
     );
 };
 
-const CategoryVersion1 = memo(({ items, onCategoryClick }) => (
+const CategoryVersion1 = React.memo(({ items, onCategoryClick }) => (
     <>
         <div className="grid-cols-6 sm-grid-cols-3 mt-30 border-ec">
             {items?.slice(0, 6)?.map((item, index) => {
@@ -71,7 +71,7 @@ const CategoryVersion1 = memo(({ items, onCategoryClick }) => (
 
 CategoryVersion1.displayName = 'CategoryVersion1';
 
-const CategoryVersion2 = memo(({ items, onCategoryClick }) => (
+const CategoryVersion2 = React.memo(({ items, onCategoryClick }) => (
     <>
         <div className="grid-cols-6 sm-grid-cols-2 mt-30 gap-12">
             {items?.slice(0, 6)?.map((cat, idx) => (
@@ -104,7 +104,7 @@ const CategoryVersion2 = memo(({ items, onCategoryClick }) => (
 
 CategoryVersion2.displayName = 'CategoryVersion2';
 
-const CategoryVersion3 = memo(({ items, onCategoryClick }) => (
+const CategoryVersion3 = React.memo(({ items, onCategoryClick }) => (
     <>
         <style>{`
             .category-card {
@@ -177,7 +177,7 @@ const CategoryVersion3 = memo(({ items, onCategoryClick }) => (
 
 CategoryVersion3.displayName = 'CategoryVersion3';
 
-const CategoryCard = memo(({ item, onClick }) => {
+const CategoryCard = React.memo(({ item, onClick }) => {
     const imgSrc = resolveImagePath(item.icon || item.image);
 
     return (
@@ -225,12 +225,12 @@ const CategoryCard = memo(({ item, onClick }) => {
 
 CategoryCard.displayName = 'CategoryCard';
 
-const CategoryVersion4 = memo(({ items, onCategoryClick }) => {
+const CategoryVersion4 = React.memo(({ items, onCategoryClick }) => {
     const navigate = useNavigate();
-    const [swiper, setSwiper] = useState(null);
-    const [activeIndex, setActiveIndex] = useState(0);
+    const [swiper, setSwiper] = React.useState(null);
+    const [activeIndex, setActiveIndex] = React.useState(0);
 
-    const handleCategoryClick = useCallback(
+    const handleCategoryClick = React.useCallback(
         (cat) => {
             if (onCategoryClick) {
                 onCategoryClick(cat);
@@ -241,7 +241,7 @@ const CategoryVersion4 = memo(({ items, onCategoryClick }) => {
         [navigate, onCategoryClick]
     );
 
-    const categoryItems = useMemo(() => {
+    const categoryItems = React.useMemo(() => {
         return (items && items.length > 0) ? items : categories;
     }, [items]);
 
@@ -341,15 +341,14 @@ const VERSION_COMPONENTS = {
     4: CategoryVersion4
 };
 
-const CategorySection = memo(({ cms: passedCms }) => {
+const CategorySection = React.memo(({
+    tag,
+    title
+}) => {
     const navigate = useNavigate();
     const categoryVersion = configData?.Category?.[0]?.CategoryVersion ?? 3;
 
-    const cms = useMemo(() => getCmsData('CategorySection', passedCms), [passedCms]);
-    const tag = cms.getText('Cat001', 'WHAT WE PROVIDE');
-    const title = cms.getText('Cat002', 'Expert Innovative And Deliver Exceptional For NOT Solution Now.');
-
-    const handleCategoryClick = useCallback((cat) => {
+    const handleCategoryClick = React.useCallback((cat) => {
         navigateToCategory(navigate, cat);
     }, [navigate]);
 

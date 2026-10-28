@@ -1,21 +1,12 @@
-import React, { memo, useMemo } from 'react';
+import React from 'react';
 
 import Badge from '../../../components/common/Badge';
-import { getCmsData } from '../../../utils/utils';
 
-const PatchSection = ({ cms: passedCms }) => {
-    const cms = useMemo(() => getCmsData('PatchSection', passedCms), [passedCms]);
-
-    const badge = cms.getText('Patch001', passedCms?.badge || 'PREMIER MANUFACTURER');
-    const title = cms.getText(
-        'Patch002',
-        passedCms?.title || 'Delivering High-Performance Industrial PVC Strip Curtains & Hardware Across India.'
-    );
-    const description = cms.getText(
-        'Patch003',
-        passedCms?.description ||
-            'Ashmita Vinyls combines direct importing, certified quality, and factory pricing to equip warehouses, cold storages, clean rooms, and industrial plants nationwide.'
-    );
+const PatchSection = ({
+    badge,
+    title,
+    description
+}) => {
 
     return (
         <div className="w-full py-90 sm-py-40">
@@ -42,4 +33,4 @@ const PatchSection = ({ cms: passedCms }) => {
     );
 };
 
-export default memo(PatchSection);
+export default React.memo(PatchSection);

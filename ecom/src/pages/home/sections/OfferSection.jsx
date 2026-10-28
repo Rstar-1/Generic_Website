@@ -1,9 +1,9 @@
-import React, { useMemo, useCallback } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Image from '../../../components/common/Image';
 import Button from '../../../components/common/Button';
-import { getCmsData, resolveImagePath } from '../../../utils/utils';
+import { resolveImagePath } from '../../../utils/utils';
 
 const DEFAULT_TRENDING = [
     {
@@ -32,31 +32,28 @@ const DEFAULT_TRENDING = [
     }
 ];
 
-const OfferSection = ({ cms: passedCms }) => {
+const OfferSection = ({
+    title,
+    description,
+    bannerImage,
+    btnText,
+    btnLink,
+    rawTrending
+}) => {
     const navigate = useNavigate();
-    const cms = useMemo(() => getCmsData('OfferSection', passedCms), [passedCms]);
-
-    const title = cms.getText('Offer001', 'Difference in the Details');
-    const description = cms.getText(
-        'Offer002',
-        'Highlighting the unique touches that set every piece apart, crafted to elevate your style effortlessly.'
-    );
-    const bannerImage = cms.getImage('Offer003');
-    const { text: btnText, link: btnLink } = cms.getButton('Offer004');
-
     const bannerSrc = resolveImagePath(bannerImage?.url || 'Banner.jpg');
 
-    const trending = useMemo(() => {
-        const raw = cms.getArray('Offer005');
-        return (raw.length ? raw : DEFAULT_TRENDING).map((item, idx) => ({
+    const trending = React.useMemo(() => {
+        const raw = Array.isArray(rawTrending) && rawTrending.length ? rawTrending : DEFAULT_TRENDING;
+        return raw.map((item, idx) => ({
             id: item.id || idx + 1,
             title: item.title,
             subtitle: item.subtitle,
             image: resolveImagePath(item.image)
         }));
-    }, [cms]);
+    }, [rawTrending]);
 
-    const handleAction = useCallback(() => {
+    const handleAction = React.useCallback(() => {
         navigate(btnLink || '/products');
     }, [navigate, btnLink]);
 

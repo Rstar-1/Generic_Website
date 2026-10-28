@@ -6,7 +6,6 @@ import Image from '../../../components/common/Image';
 import Button from '../../../components/common/Button';
 
 import { configData } from '../../../utils/apiData';
-import { getCmsData } from '../../../utils/utils';
 
 const HEIGHT_MAP = {
     sticky: { 1: 'h-800 sm-h-550', 2: 'h-700 sm-h-550' },
@@ -88,12 +87,13 @@ const BreadcrumbTab = React.memo(({ isMobile, heroVersion }) => {
 });
 
 const HeroBanner = React.memo(({
-    Hero001: title,
-    Hero0011: subtitle,
-    Hero002: description,
-    Hero003: bgImage,
-    Hero005: { text: btnText, link: btnLink } = {}
-} = getCmsData('HeroBanner')) => {
+    title,
+    subtitle,
+    description,
+    bgImage,
+    btnText,
+    btnLink
+}) => {
     const navigate = useNavigate();
     const [isMobile, setIsMobile] = React.useState(false);
 

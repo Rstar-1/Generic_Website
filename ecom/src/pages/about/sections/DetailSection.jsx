@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import Image from '../../../components/common/Image';
 import Badge from '../../../components/common/Badge';
-import { getCmsData, resolveImagePath } from '../../../utils/utils';
+import { resolveImagePath } from '../../../utils/utils';
 
 const DEFAULT_THUMBNAILS = [
     {
@@ -23,28 +23,24 @@ const DEFAULT_THUMBNAILS = [
     }
 ];
 
-const DetailSection = React.memo(({ cms: passedCms }) => {
+const DetailSection = React.memo(({
+    badgeText = 'Feature Collections',
+    title = 'Delivering Innovative Businesses.',
+    description = 'We are a results-driven team helping businesses unlock efficiency, scale operations, and improve customer experience.',
+    showcaseImage,
+    rawThumbnails = DEFAULT_THUMBNAILS
+}) => {
     const navigate = useNavigate();
-    const cms = useMemo(() => getCmsData('DetailSection', passedCms), [passedCms]);
-
-    const badgeText = cms.getText('Detail001', 'Feature Collections');
-    const title = cms.getText('Detail002', 'Delivering Innovative Businesses.');
-    const description = cms.getText(
-        'Detail003',
-        'We are a results-driven team helping businesses unlock efficiency, scale operations, and improve customer experience.'
-    );
-    const showcaseImage = cms.getImage('Detail004');
-
     const showcaseSrc = resolveImagePath(showcaseImage?.url || 'blog/Blog4.jpg');
 
     const thumbnails = useMemo(() => {
-        const raw = cms.getArray('Detail005');
-        return (raw.length ? raw : DEFAULT_THUMBNAILS).map((item, idx) => ({
+        const raw = Array.isArray(rawThumbnails) && rawThumbnails.length ? rawThumbnails : DEFAULT_THUMBNAILS;
+        return raw.map((item, idx) => ({
             id: item.id || idx + 1,
             title: item.title,
             image: resolveImagePath(item.image)
         }));
-    }, [cms]);
+    }, [rawThumbnails]);
 
     return (
         <div className="py-60 sm-py-40 w-full">
