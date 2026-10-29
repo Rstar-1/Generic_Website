@@ -10,6 +10,8 @@ import { resolveImagePath } from '../../../utils/imageResolver';
 import { useCart } from '../../../feature/cartSlice';
 import { formatPrice } from '../../../utils/utils';
 
+const isPrice = String(import.meta.env.VITE_PRICE).toLowerCase() === 'true';
+
 export const FeatureCard = React.memo(({
     item,
     onClick,
@@ -287,7 +289,7 @@ export const ProductCard = React.memo(({
     if (item.isBanner) {
         return (
             <div
-                className="overflow-hidden rounded-5 relative cursor-pointer sm-h-350"
+                className="overflow-hidden rounded-5 relative sm-h-350"
                 style={{
                     ...(!isFluid ? { minWidth, maxWidth } : {}),
                     height: '386px',
@@ -391,18 +393,20 @@ export const ProductCard = React.memo(({
                 {item.name}
             </h3>
 
-            <div className="flex items-center gap-6 mt-2">
-                <p className="mini-text text-danger font-600">
-                    {price}
-                </p>
-                {originalPrice && (
-                    <p className="mini-text text-gray font-400 line-through">
-                        {originalPrice}
+            {isPrice && (
+                <div className="flex items-center gap-6 mt-2">
+                    <p className="mini-text text-danger font-600">
+                        {price}
                     </p>
-                )}
-            </div>
+                    {originalPrice && (
+                        <p className="mini-text text-gray font-400 line-through">
+                            {originalPrice}
+                        </p>
+                    )}
+                </div>
+            )}
 
-            {/* {item.colors && item.colors.length > 0 && (
+            {item.colors && item.colors.length > 0 && (
                 <div className="flex items-center gap-8 mt-6">
                     {item.colors.map((color, cIdx) => (
                         <span
@@ -417,7 +421,7 @@ export const ProductCard = React.memo(({
                         />
                     ))}
                 </div>
-            )} */}
+            )}
         </div>
     );
 });
@@ -534,32 +538,34 @@ export const ProductCard2 = React.memo(({
                     className="mt-5"
                 />
 
-                <div className="flex items-center gap-6 mt-4 flex-wrap">
-                    <p
-                        className={`small-text font-600 ${oldPrice
-                            ? 'text-danger'
-                            : 'text-dark'
-                            }`}
-                    >
-                        {price}
-                    </p>
-
-                    {oldPrice && (
-                        <p className="mini-text text-gray line-through font-400">
-                            {oldPrice}
+                {isPrice && (
+                    <div className="flex items-center gap-6 mt-4 flex-wrap">
+                        <p
+                            className={`small-text font-600 ${oldPrice
+                                ? 'text-danger'
+                                : 'text-dark'
+                                }`}
+                        >
+                            {price}
                         </p>
-                    )}
 
-                    {item.discount && (
-                        <Badge
-                            text={item.discount}
-                            color="danger"
-                            size="xs"
-                            shape="rounded"
-                            className="font-500"
-                        />
-                    )}
-                </div>
+                        {oldPrice && (
+                            <p className="mini-text text-gray line-through font-400">
+                                {oldPrice}
+                            </p>
+                        )}
+
+                        {item.discount && (
+                            <Badge
+                                text={item.discount}
+                                color="danger"
+                                size="xs"
+                                shape="rounded"
+                                className="font-500"
+                            />
+                        )}
+                    </div>
+                )}
 
                 {item.images?.length > 0 && (
                     <div className="flex items-center gap-6 mt-8">

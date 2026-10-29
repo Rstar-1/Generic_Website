@@ -1,20 +1,82 @@
-import React, { useState, useMemo, useCallback, useEffect, memo } from 'react';
+import React from 'react';
 import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
 
 import Button from '../../../components/common/Button';
 import Fields from '../../../components/forms/Fields';
 import Modal from '../../../components/common/Modal';
+
 import ProductCard from '../../../components/layout/sections/CardLayout';
+
 import { products, categories, filterData } from '../../../utils/apiData';
-import { getItemSlug, getStickyTop, findCategory, navigateToProduct } from '../../../utils/utils';
+import { getStickyTop, findCategory, navigateToProduct } from '../../../utils/utils';
 
-const SORT_OPTIONS = filterData.sortOptions || [
-    { label: 'Trending', value: 'trending' },
-    { label: 'Price: Low to High', value: 'price-low' },
-    { label: 'Price: High to Low', value: 'price-high' },
-];
+const isPrice = String(import.meta.env.VITE_PRICE).toLowerCase() === 'true';
+const isPriceFilterEnabled = isPrice && Boolean(filterData?.price);
 
-const FilterTopBar = memo(({
+const SORT_OPTIONS = (filterData?.sortOptions || []).filter(
+    (opt) => isPriceFilterEnabled || !opt.value?.includes('price')
+);
+
+const realProducts = (products || []).filter((p) => !p.isBanner);
+const categoryMap = new Map((categories || []).map((c) => [String(c.id), c]));
+
+const maxPriceLimit = (() => {
+    if (!isPriceFilterEnabled) return 300;
+    const defaultMax = filterData.price?.max || 300;
+    const prices = realProducts.map((p) => p.price).filter((p) => typeof p === 'number');
+    const maxVal = prices.length ? Math.max(...prices, defaultMax) : defaultMax;
+    return Math.ceil(maxVal / 50) * 50;
+})();
+
+const categoryOptions = (categories || []).map((cat) => {
+    const count = realProducts.filter(
+        (p) => String(p.categoryId) === String(cat.id) || p.category === cat.name || p.category === cat.title
+    ).length;
+    return {
+        label: `${cat.name || cat.title}${count ? ` (${count})` : ''}`,
+        value: String(cat.id)
+    };
+});
+
+const brandOptions = (() => {
+    const counts = {};
+    realProducts.forEach((p) => {
+        const b = p.brand || p.vendor || 'Others';
+        counts[b] = (counts[b] || 0) + 1;
+    });
+    return (filterData.brands?.options || []).map((b) => ({
+        label: `${b.label || b.value} (${counts[b.value] || 0})`,
+        value: b.value
+    }));
+})();
+
+const availabilityOptions = (() => {
+    const inStock = realProducts.filter((p) => p.inStock).length;
+    return (filterData.availability?.options || []).map((opt) => ({
+        label: `${opt.label} (${opt.value === 'in-stock' ? inStock : realProducts.length - inStock})`,
+        value: opt.value
+    }));
+})();
+
+const colorFilters = (() => {
+    const counts = {};
+    realProducts.forEach((p) => {
+        if (Array.isArray(p.colors)) {
+            p.colors.forEach((hex) => {
+                if (hex) {
+                    const key = hex.toLowerCase().trim();
+                    counts[key] = (counts[key] || 0) + 1;
+                }
+            });
+        }
+    });
+    return (filterData.colors?.options || []).map((c) => ({
+        ...c,
+        count: counts[c.color.toLowerCase()] || 0
+    }));
+})();
+
+const FilterTopBar = React.memo(({
     isFilterVisible,
     totalCount,
     activeCount,
@@ -64,27 +126,27 @@ const FilterTopBar = memo(({
 ));
 FilterTopBar.displayName = 'FilterTopBar';
 
-const FilterSidebarContent = memo(({
+const FilterSidebarContent = React.memo(({
     priceMax,
-    maxPriceLimit,
     onPriceChange,
     checkboxSections,
-    colorFilters,
     selectedColors,
     onToggleColor
 }) => (
     <div className="pr-10 pl-5 pb-50 sm-pb-5">
-        <div className="bordb pb-20">
-            <h4 className="headmini-text font-500 text-dark mb-12">{filterData.price?.title || 'Price Range'}</h4>
-            <Fields
-                type="slider"
-                min={filterData.price?.min || 0}
-                max={maxPriceLimit}
-                step={filterData.price?.step || 10}
-                value={priceMax}
-                onChange={onPriceChange}
-            />
-        </div>
+        {isPriceFilterEnabled && filterData.price && (
+            <div className="bordb pb-20">
+                <h4 className="headmini-text font-500 text-dark mb-12">{filterData.price?.title || 'Price Range'}</h4>
+                <Fields
+                    type="slider"
+                    min={filterData.price?.min || 0}
+                    max={maxPriceLimit}
+                    step={filterData.price?.step || 10}
+                    value={priceMax}
+                    onChange={onPriceChange}
+                />
+            </div>
+        )}
 
         {checkboxSections.map(({ title, options, value, onChange }) => (
             <div key={title} className="bordb py-20">
@@ -127,10 +189,11 @@ const FilterSidebarContent = memo(({
 ));
 FilterSidebarContent.displayName = 'FilterSidebarContent';
 
-const ProductGrid = memo(({ productsList, isFilterVisible, onProductClick }) => (
+const ProductGrid = React.memo(({ productsList, isFilterVisible, onProductClick }) => (
     <div className={`${isFilterVisible ? 'grid-cols-4' : 'grid-cols-5'} sm-grid-cols-2 gap-12`}>
         {productsList.map((item) => (
             <ProductCard
+                version='product1'
                 key={item.id}
                 item={item}
                 onProductClick={onProductClick}
@@ -146,26 +209,17 @@ const FilterSection = ({ stickyTop = getStickyTop() }) => {
     const [searchParams] = useSearchParams();
     const location = useLocation();
 
-    const maxPriceLimit = useMemo(() => {
-        const defaultMax = filterData.price?.max || 300;
-        const maxVal = Math.max(
-            ...products.filter((p) => !p.isBanner && typeof p.price === 'number').map((p) => p.price),
-            defaultMax
-        );
-        return Math.ceil(maxVal / 50) * 50;
-    }, []);
+    const [compareEnabled, setCompareEnabled] = React.useState(false);
+    const [sortBy, setSortBy] = React.useState('trending');
+    const [priceMax, setPriceMax] = React.useState(maxPriceLimit);
+    const [selectedCategories, setSelectedCategories] = React.useState([]);
+    const [selectedBrands, setSelectedBrands] = React.useState([]);
+    const [selectedColors, setSelectedColors] = React.useState([]);
+    const [availability, setAvailability] = React.useState([]);
+    const [isFilterVisible, setIsFilterVisible] = React.useState(false);
+    const [isMobileFilterOpen, setIsMobileFilterOpen] = React.useState(false);
 
-    const [compareEnabled, setCompareEnabled] = useState(false);
-    const [sortBy, setSortBy] = useState('trending');
-    const [priceMax, setPriceMax] = useState(maxPriceLimit);
-    const [selectedCategories, setSelectedCategories] = useState([]);
-    const [selectedBrands, setSelectedBrands] = useState([]);
-    const [selectedColors, setSelectedColors] = useState([]);
-    const [availability, setAvailability] = useState([]);
-    const [isFilterVisible, setIsFilterVisible] = useState(false);
-    const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
-
-    useEffect(() => {
+    React.useEffect(() => {
         const catQuery =
             searchParams.get('category') ||
             searchParams.get('categoryId') ||
@@ -180,99 +234,51 @@ const FilterSection = ({ stickyTop = getStickyTop() }) => {
         }
     }, [searchParams, location.state]);
 
-    const categoryOptions = useMemo(() => {
-        return (categories || []).map((cat) => {
-            const count = products.filter(
-                (p) => !p.isBanner && (String(p.categoryId) === String(cat.id) || p.category === cat.name || p.category === cat.title)
-            ).length;
-            return {
-                label: `${cat.name || cat.title}${count ? ` (${count})` : ''}`,
-                value: String(cat.id)
-            };
-        });
-    }, []);
-
-    const brandOptions = useMemo(() => {
-        const counts = {};
-        products.forEach((p) => {
-            if (!p.isBanner) {
-                const b = p.brand || p.vendor || 'Others';
-                counts[b] = (counts[b] || 0) + 1;
-            }
-        });
-        return (filterData.brands?.options || []).map((b) => ({
-            label: `${b.label || b.value} (${counts[b.value] || 0})`,
-            value: b.value
-        }));
-    }, []);
-
-    const availabilityOptions = useMemo(() => {
-        const inStockCount = products.filter((p) => !p.isBanner && p.inStock).length;
-        const outOfStockCount = products.filter((p) => !p.isBanner && !p.inStock).length;
-        return (filterData.availability?.options || []).map((opt) => ({
-            label: `${opt.label} (${opt.value === 'in-stock' ? inStockCount : outOfStockCount})`,
-            value: opt.value
-        }));
-    }, []);
-
-    const colorFilters = useMemo(() => {
-        const counts = {};
-        products.forEach((p) => {
-            if (!p.isBanner && Array.isArray(p.colors)) {
-                p.colors.forEach((hex) => {
-                    if (hex) counts[hex.toLowerCase().trim()] = (counts[hex.toLowerCase().trim()] || 0) + 1;
-                });
-            }
-        });
-        return (filterData.colors?.options || []).map((c) => ({
-            ...c,
-            count: counts[c.color.toLowerCase()] || 0
-        }));
-    }, []);
-
-    const handleToggleFilter = useCallback(() => {
+    const handleToggleFilter = React.useCallback(() => {
         if (window.innerWidth <= 768) setIsMobileFilterOpen(true);
         else setIsFilterVisible((prev) => !prev);
     }, []);
 
-    const handleToggleColor = useCallback((color) => {
+    const handleToggleColor = React.useCallback((color) => {
         setSelectedColors((prev) =>
             prev.includes(color) ? prev.filter((c) => c !== color) : [...prev, color]
         );
     }, []);
 
-    const handleResetFilters = useCallback(() => {
+    const handlePriceChange = React.useCallback((val) => setPriceMax(Number(val) || 0), []);
+
+    const handleResetFilters = React.useCallback(() => {
         setPriceMax(maxPriceLimit);
         setSelectedCategories([]);
         setSelectedBrands([]);
         setSelectedColors([]);
         setAvailability([]);
-    }, [maxPriceLimit]);
+    }, []);
 
-    const handleProductClick = useCallback((item) => {
+    const handleProductClick = React.useCallback((item) => {
         navigateToProduct(navigate, item);
     }, [navigate]);
 
-    const filteredProducts = useMemo(() => {
+    const filteredProducts = React.useMemo(() => {
         return products
             .filter((item) => {
                 if (item.isBanner) return true;
                 if (availability.length === 1 && item.inStock !== (availability[0] === 'in-stock')) return false;
 
                 if (selectedCategories.length > 0) {
-                    const match = selectedCategories.some((catVal) => {
-                        const catObj = categories.find((c) => String(c.id) === String(catVal) || c.name === catVal);
+                    const match = selectedCategories.some((catId) => {
+                        const cat = categoryMap.get(catId);
                         return (
-                            String(item.categoryId) === String(catVal) ||
-                            item.category === catVal ||
-                            (catObj && (item.category === catObj.name || item.category === catObj.title || String(item.categoryId) === String(catObj.id)))
+                            String(item.categoryId) === catId ||
+                            item.category === catId ||
+                            (cat && (item.category === cat.name || item.category === cat.title || String(item.categoryId) === String(cat.id)))
                         );
                     });
                     if (!match) return false;
                 }
 
                 if (selectedBrands.length > 0 && !selectedBrands.includes(item.brand || item.vendor || 'Others')) return false;
-                if (typeof item.price === 'number' && item.price > priceMax) return false;
+                if (isPriceFilterEnabled && typeof item.price === 'number' && item.price > priceMax) return false;
                 if (selectedColors.length > 0 && !item.colors?.some((c) => selectedColors.includes(c.toLowerCase()))) return false;
 
                 return true;
@@ -280,34 +286,31 @@ const FilterSection = ({ stickyTop = getStickyTop() }) => {
             .sort((a, b) => {
                 if (a.isBanner || b.isBanner) return 0;
                 if (sortBy === 'trending') return Boolean(b.trending) - Boolean(a.trending) || (a.id || 0) - (b.id || 0);
-                if (sortBy === 'price-low') return (a.price || 0) - (b.price || 0);
-                if (sortBy === 'price-high') return (b.price || 0) - (a.price || 0);
+                if (isPriceFilterEnabled && sortBy === 'price-low') return (a.price || 0) - (b.price || 0);
+                if (isPriceFilterEnabled && sortBy === 'price-high') return (b.price || 0) - (a.price || 0);
                 return 0;
             });
     }, [availability, selectedCategories, selectedBrands, priceMax, selectedColors, sortBy]);
 
-    const totalProductCount = useMemo(() => filteredProducts.filter((p) => !p.isBanner).length, [filteredProducts]);
+    const totalProductCount = React.useMemo(() => filteredProducts.filter((p) => !p.isBanner).length, [filteredProducts]);
 
-    const activeFiltersCount = useMemo(() => (
+    const activeFiltersCount =
         selectedCategories.length +
         selectedBrands.length +
         selectedColors.length +
         availability.length +
-        (priceMax < maxPriceLimit ? 1 : 0)
-    ), [selectedCategories, selectedBrands, selectedColors, availability, priceMax, maxPriceLimit]);
+        (isPriceFilterEnabled && priceMax < maxPriceLimit ? 1 : 0);
 
-    const checkboxSections = useMemo(() => [
+    const checkboxSections = React.useMemo(() => [
         { title: filterData.availability?.title || 'Availability', options: availabilityOptions, value: availability, onChange: setAvailability },
         { title: filterData.category?.title || 'Category', options: categoryOptions, value: selectedCategories, onChange: setSelectedCategories },
         { title: filterData.brands?.title || 'Brand', options: brandOptions, value: selectedBrands, onChange: setSelectedBrands }
-    ], [availabilityOptions, availability, categoryOptions, selectedCategories, brandOptions, selectedBrands]);
+    ], [availability, selectedCategories, selectedBrands]);
 
     const filterProps = {
         priceMax,
-        maxPriceLimit,
-        onPriceChange: (val) => setPriceMax(Number(val) || 0),
+        onPriceChange: handlePriceChange,
         checkboxSections,
-        colorFilters,
         selectedColors,
         onToggleColor: handleToggleColor,
     };
@@ -361,4 +364,4 @@ const FilterSection = ({ stickyTop = getStickyTop() }) => {
     );
 };
 
-export default memo(FilterSection);
+export default React.memo(FilterSection);

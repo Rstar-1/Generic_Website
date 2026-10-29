@@ -16,13 +16,14 @@ import { resolveImagePath } from "../../utils/imageResolver";
 import { ALL_LANGUAGES, changeWebsiteLanguage, getSavedLanguage } from "../../utils/i18n";
 
 import { useCart } from "../../feature/cartSlice";
+import { getItemSlug } from "../../utils/utils";
 
 const formatMegaProduct = (p) => ({
   id: p.id,
   title: p.name,
   name: p.name,
   image: resolveImagePath(p.image),
-  href: `/product/${p.id}`,
+  href: `/product/${getItemSlug(p) || p.id}`,
   badge: p.badge?.text,
   price: p.priceFormatted || (p.price ? `₹${p.price}` : null),
 });

@@ -127,8 +127,8 @@ export const navigateToCategory = (navigate, cat) => {
 
 export const navigateToProduct = (navigate, item) => {
   if (!navigate || !item) return;
-  const id = typeof item === "object" ? (item.id || item.slug) : item;
-  navigate(`/product/${id}`, typeof item === "object" ? { state: { product: item } } : undefined);
+  const slug = typeof item === "object" ? (getItemSlug(item) || item.id) : item;
+  navigate(`/product/${slug}`, typeof item === "object" ? { state: { product: item } } : undefined);
 };
 
 export const scrollToTop = (behavior = "smooth") => {

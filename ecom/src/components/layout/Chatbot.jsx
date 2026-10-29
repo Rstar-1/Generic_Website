@@ -8,6 +8,7 @@ import Fields from '../forms/Fields';
 
 import { productsData, chatbotData } from '../../utils/apiData';
 import { resolveImagePath } from '../../utils/imageResolver';
+import { getItemSlug } from '../../utils/utils';
 
 const {
     teaser = {},
@@ -65,18 +66,18 @@ const generateBotReply = (userText) => {
 const ProductItem = React.memo(({ product, onSelect }) => (
     <div
         onClick={() => onSelect(product)}
-        className="flex items-center gap-12 p-8 bordb cursor-pointer hover:bg-forth transition-all"
+        className="flex items-center gap-8 p-8 bordb cursor-pointer"
     >
-        <div className="rounded-6 overflow-hidden flex-shrink-0 bg-forth border-ec" style={{ width: '56px', height: '56px' }}>
+        <div className="rounded-5 overflow-hidden bg-forth" style={{ width: '56px', height: '56px' }}>
             <Image
-                src={resolveImagePath(product.image || product.images?.[0] || 'product/Product4.jpg')}
+                src={resolveImagePath(product.image)}
                 alt={product.name}
-                className="w-full h-full object-contain p-2"
+                className="w-full h-full object-cover"
             />
         </div>
-        <div className="flex-1 min-w-0">
-            <h5 className="headmini-text font-600 text-dark line-clamp1 m-0">{product.name}</h5>
-            <p className="mini-text text-gray font-500 m-0 mt-2">
+        <div className="w-80">
+            <h5 className="headmini-text font-600 text-dark line-clamp1">{product.name}</h5>
+            <p className="mini-text text-gray font-500 mt-2">
                 Brand: <span className="font-600 text-dark">{product.brand || product.vendor?.split(' ')[0]}</span> • <span className="font-600 text-danger">{product.priceFormatted || (product.price != null ? `₹${product.price}` : 'Factory Pricing')}</span>
             </p>
         </div>
@@ -141,7 +142,7 @@ const ProductSearch = ({ query, onQueryChange, onSelect, onBack }) => {
                 </div>
             </div>
 
-            <div className="overflow-auto px-8 h-350 bg-white">
+            <div className="overflow-auto px-8 h-300 bg-white">
                 {products.length > 0 ? (
                     products.map((p) => <ProductItem key={p.id} product={p} onSelect={onSelect} />)
                 ) : (
@@ -165,7 +166,7 @@ const ChatTeaser = ({ onOpen, onDismiss }) => (
     >
         <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-6 text-primary">
-                <Icon name={teaser.icon || 'Shield'} width="16" height="16" stroke="currentColor" />
+                <Icon name={teaser.icon} width="16" height="16" stroke="currentColor" />
                 <p className="small-text font-600 text-dark uppercase tracking-wider">{teaser.badge || 'CUSTOMER DESK'}</p>
             </div>
             <Button
@@ -183,7 +184,7 @@ const ChatTeaser = ({ onOpen, onDismiss }) => (
             />
         </div>
         <p className="mini-text text-dark font-500 m-0 leading-tight">
-            {teaser.message || "Hi! 👋 Need help? Let's chat!"}
+            {teaser.message}
         </p>
     </div>
 );
@@ -491,7 +492,7 @@ const Chatbot = () => {
                         <ProductSearch
                             query={searchQuery}
                             onQueryChange={setSearchQuery}
-                            onSelect={(p) => handleNavigate(`/product/${p.id}`)}
+                            onSelect={(p) => handleNavigate(`/product/${getItemSlug(p) || p.id}`)}
                             onBack={() => { setIsSearchMode(false); setSearchQuery(''); }}
                         />
                     ) : (
@@ -505,7 +506,7 @@ const Chatbot = () => {
                                         isTyping={isTyping}
                                         onReset={() => setMessages([])}
                                         onCtaClick={handleNavigate}
-                                        onSelectProduct={(p) => handleNavigate(`/product/${p.id}`)}
+                                        onSelectProduct={(p) => handleNavigate(`/product/${getItemSlug(p) || p.id}`)}
                                         endRef={endRef}
                                     />
                                 )}

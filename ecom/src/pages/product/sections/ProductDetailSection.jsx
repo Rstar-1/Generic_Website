@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 
 import Container from '../../../components/common/Container';
@@ -10,14 +10,16 @@ import Fields from '../../../components/forms/Fields';
 import Badge from '../../../components/common/Badge';
 import Magnify from '../../../components/common/Magnify';
 import Modal from '../../../components/common/Modal';
+
 import EnquiryModal from '../../../components/layout/generic/Enquiy';
 
 import { useCart } from '../../../feature/cartSlice';
 import { resolveImagePath } from '../../../utils/imageResolver';
 import { productsData, categoriesData } from '../../../utils/apiData';
-import { getItemSlug, matchBySlugOrId, shareContent } from '../../../utils/utils';
+import { getItemSlug, matchBySlugOrId, shareContent, formatPrice } from '../../../utils/utils';
 
 const isMagnifyEnabled = import.meta.env.VITE_MAGNIFY === 'true' || import.meta.env.VITE_MAGNIFY === true;
+const isPrice = String(import.meta.env.VITE_PRICE).toLowerCase() === 'true';
 
 const defaultImages = ['Product1.jpg'];
 
@@ -45,45 +47,51 @@ const ProductDetailContent = ({ currentProduct, category }) => {
     const navigate = useNavigate();
     const { addToCart } = useCart();
 
-    const [selectedImgIdx, setSelectedImgIdx] = useState(0);
-    const [selectedColor, setSelectedColor] = useState('Default');
-    const [quantity, setQuantity] = useState(1);
-    const [isEnquiryOpen, setIsEnquiryOpen] = useState(false);
-    const [isPackagingModalOpen, setIsPackagingModalOpen] = useState(false);
+    const [selectedImgIdx, setSelectedImgIdx] = React.useState(0);
+    const [selectedColor, setSelectedColor] = React.useState('Default');
+    const [quantity, setQuantity] = React.useState(1);
+    const [isEnquiryOpen, setIsEnquiryOpen] = React.useState(false);
+    const [isPackagingModalOpen, setIsPackagingModalOpen] = React.useState(false);
 
-    const handleOpenEnquiry = useCallback(() => setIsEnquiryOpen(true), []);
-    const handleCloseEnquiry = useCallback(() => setIsEnquiryOpen(false), []);
+    const handleOpenEnquiry = React.useCallback(() => setIsEnquiryOpen(true), []);
+    const handleCloseEnquiry = React.useCallback(() => setIsEnquiryOpen(false), []);
+    const handleEnquiryQuantityChange = React.useCallback((_, val) => setQuantity(Math.max(1, Number(val) || 1)), []);
 
-    const handleEnquiryQuantityChange = useCallback((_, val) => {
-        setQuantity(Math.max(1, Number(val) || 1));
-    }, []);
-
-    const product = useMemo(() => {
+    const product = React.useMemo(() => {
         let baseProduct = currentProduct || location.state?.product;
         if (baseProduct && baseProduct.id) {
-            const fresh = productsData.find((x) => String(x.id) === String(baseProduct.id));
+            const fresh = (productsData || []).find((x) => String(x.id) === String(baseProduct.id));
             if (fresh) {
                 return { ...fresh, ...baseProduct, specifications: fresh.specifications || baseProduct.specifications };
             }
             return baseProduct;
         }
         if (id) {
-            const found = productsData.find((x) => matchBySlugOrId(x, id));
+            const found = (productsData || []).find((x) => matchBySlugOrId(x, id));
             if (found) return found;
         }
-        return productsData.find((p) => !p.isBanner) || productsData[0];
+        return (productsData || []).find((p) => !p.isBanner) || productsData?.[0];
     }, [currentProduct, id, location.state]);
 
-    const activeCategory = useMemo(() => {
+    const productSlug = React.useMemo(() => getItemSlug(product), [product]);
+
+    // Automatically rewrite numeric ID URLs (e.g. /product/67) to slugified URLs (e.g. /product/magnetic-strip-curtain-roll)
+    React.useEffect(() => {
+        if (productSlug && id && id !== productSlug) {
+            navigate(`/product/${productSlug}`, { replace: true, state: location.state });
+        }
+    }, [id, productSlug, navigate, location.state]);
+
+    const activeCategory = React.useMemo(() => {
         if (category) return category;
         if (!product) return null;
         if (product.categoryId) {
-            return categoriesData.find((c) => c.id === product.categoryId) || null;
+            return (categoriesData || []).find((c) => c.id === product.categoryId) || null;
         }
-        return categoriesData.find((c) => c.name.toLowerCase() === product.category?.toLowerCase()) || null;
+        return (categoriesData || []).find((c) => c.name.toLowerCase() === product.category?.toLowerCase()) || null;
     }, [category, product]);
 
-    const isPvcStripCurtains = useMemo(() => {
+    const isPvcStripCurtains = React.useMemo(() => {
         const slug = activeCategory?.slug || '';
         const catName = (product?.category || activeCategory?.name || '').toLowerCase();
         return (
@@ -95,14 +103,14 @@ const ProductDetailContent = ({ currentProduct, category }) => {
         );
     }, [activeCategory, product]);
 
-    const productImages = useMemo(() => {
+    const productImages = React.useMemo(() => {
         if (!product) return defaultImages;
         if (product.images && product.images.length) return product.images;
         if (product.image) return [product.image];
         return defaultImages;
     }, [product]);
 
-    useEffect(() => {
+    React.useEffect(() => {
         setSelectedImgIdx(0);
         if (product?.colors && product.colors.length) {
             setSelectedColor(product.colors[0]);
@@ -124,13 +132,13 @@ const ProductDetailContent = ({ currentProduct, category }) => {
         });
     };
 
-    const trendingProducts = useMemo(() => {
-        return productsData
+    const trendingProducts = React.useMemo(() => {
+        return (productsData || [])
             .filter((p) => !p.isBanner && p.id !== product?.id)
             .slice(0, 3);
-    }, [product]);
+    }, [product?.id]);
 
-    const enquiryItems = useMemo(() => {
+    const enquiryItems = React.useMemo(() => {
         if (!product) return [];
         return [
             {
@@ -144,13 +152,16 @@ const ProductDetailContent = ({ currentProduct, category }) => {
         ];
     }, [product, activeCategory, quantity, productImages, selectedImgIdx]);
 
-    const handleShare = useCallback((platform) => {
+    const handleShare = React.useCallback((platform) => {
         shareContent({
             platform,
-            url: `${window.location.origin}/product/${product?.id || ''}`,
+            url: `${window.location.origin}/product/${productSlug}`,
             title: product?.name || product?.title || 'Check out this product'
         });
-    }, [product]);
+    }, [product, productSlug]);
+
+    const price = formatPrice(product?.priceFormatted || product?.price);
+    const originalPrice = product?.originalPrice ? formatPrice(product.originalPriceFormatted || product.originalPrice) : null;
 
     return (
         <Container>
@@ -216,9 +227,18 @@ const ProductDetailContent = ({ currentProduct, category }) => {
                     <p className='text-gray mini-text font-400'>
                         Vendor: <span className='text-primary font-600'>{import.meta.env.VITE_SITE_NAME}</span> | Brand: <span className='text-primary font-600'>{product?.brand || 'Others'}</span>
                     </p>
-                    <p className='text-dark headpara-text font-700 mt-12'>
-                        {product?.priceFormatted || (product?.price ? `$${product.price}` : '$0.00')}
-                    </p>
+                    {isPrice && (
+                        <div className="flex items-center gap-6 mt-2">
+                            <p className="mini-text text-danger font-600">
+                                {price}
+                            </p>
+                            {originalPrice && (
+                                <p className="mini-text text-gray font-400 line-through">
+                                    {originalPrice}
+                                </p>
+                            )}
+                        </div>
+                    )}
 
                     <div className='mt-16 flex items-center gap-12'>
                         <p className='mini-text text-primary border-primary w-max px-14 py-4 rounded-20 flex items-center gap-8 font-500 uppercase mb-8'>

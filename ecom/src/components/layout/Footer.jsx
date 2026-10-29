@@ -8,7 +8,7 @@ import NewsletterForm from '../forms/sections/NewsletterForm';
 import { showToast } from '../common/Toast';
 import { sendEmail } from '../../utils/emailsend';
 import { footer, footerData, configData, productsData } from '../../utils/apiData';
-import { isVisible, getSocialLinks } from '../../utils/utils';
+import { isVisible, getSocialLinks, getItemSlug } from '../../utils/utils';
 
 const footerConfig = configData?.Footer?.[0] || configData?.Footer || {};
 const socialLinks = getSocialLinks();
@@ -252,7 +252,7 @@ const Footer = () => {
           seen.add(p.name);
           list.push({
             label: p.name,
-            url: `/product/${p.id}`,
+            url: `/product/${getItemSlug(p) || p.id}`,
             fullTitle: p.name
           });
           if (list.length >= limit) break;
