@@ -141,7 +141,7 @@ const ProductSearch = ({ query, onQueryChange, onSelect, onBack }) => {
                 </div>
             </div>
 
-            <div className="overflow-auto p-8 flex-1 bg-white">
+            <div className="overflow-auto px-8 h-350 bg-white">
                 {products.length > 0 ? (
                     products.map((p) => <ProductItem key={p.id} product={p} onSelect={onSelect} />)
                 ) : (
@@ -271,13 +271,13 @@ const ChatWelcome = ({ onActionClick }) => (
 const ChatMessages = ({ messages, isTyping, onReset, onCtaClick, onSelectProduct, endRef }) => (
     <div className="h-350" data-no-cursor="true">
         <Button
-            text={msgTexts.backToTopics || 'Back to topics'}
+            text={msgTexts.backToTopics}
             icon="ChevronLeft"
             version="none"
             bg="transparent"
             color="primary"
             onClick={onReset}
-            className="p-1 font-500 w-max mb-8"
+            className="font-500 w-max mb-8"
         />
 
         {messages.map((msg, idx) => {

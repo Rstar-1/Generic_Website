@@ -5,18 +5,24 @@ import Heading from '../../../components/layout/generic/Heading';
 import ContactForm from '../../../components/forms/sections/ContactForm';
 
 const env = import.meta.env;
-const location = (env.VITE_LOCATION || env.VITE_ADDRESS)?.trim();
+const gst = env.VITE_GST?.trim();
+const address = env.VITE_ADDRESS?.trim();
 const phone = env.VITE_PHONE?.trim();
 const email = env.VITE_EMAIL?.trim();
 const hours = env.VITE_WORKING_HOURS?.trim();
 const weekend = env.VITE_WEEKEND_HOURS?.trim();
 
 const CONTACT_ITEMS = [
-    location && {
+    gst && {
+        icon: 'ShieldCheck',
+        title: 'GST',
+        desc: gst,
+    },
+    address && {
         icon: 'MapPin',
-        title: 'ADDRESS',
-        desc: location,
-        link: `https://maps.google.com/?q=${encodeURIComponent(location)}`
+        title: 'Office Address',
+        desc: address,
+        link: `https://maps.google.com/?q=${encodeURIComponent(address)}`
     },
     phone && {
         icon: 'Phone',
@@ -80,27 +86,27 @@ const Enquiry = memo(({
                     subtitle={subtitle}
                     className="mb-20"
                 />
-            <div className="w-80 sm-w-full">
-                <ContactForm />
+                <div className="w-80 sm-w-full">
+                    <ContactForm />
+                </div>
             </div>
-        </div>
 
-        <div className="w-40 sm-w-full pl-20 sm-pl-1 sm-mt-16">
-            <Heading
-                version="v2"
-                tag=""
-                title="Need Help"
-                subtitle="Reach out to us directly through any of our official communication channels or visit our distribution hub."
-                className="mb-20"
-            />
-            <div className="grid-cols-1 gap-12 mt-20">
-                {CONTACT_ITEMS.map((item, idx) => (
-                    <ContactItem key={idx} {...item} />
-                ))}
+            <div className="w-40 sm-w-full pl-20 sm-pl-1 sm-mt-16">
+                <Heading
+                    version="v2"
+                    tag=""
+                    title="Need Help"
+                    subtitle="Reach out to us directly through any of our official communication channels or visit our distribution hub."
+                    className="mb-20"
+                />
+                <div className="grid-cols-1 gap-12 mt-20">
+                    {CONTACT_ITEMS.map((item, idx) => (
+                        <ContactItem key={idx} {...item} />
+                    ))}
+                </div>
             </div>
         </div>
-    </div>
-);
+    );
 });
 
 Enquiry.displayName = 'Enquiry';

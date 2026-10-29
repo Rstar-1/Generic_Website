@@ -15,7 +15,7 @@ const socialLinks = getSocialLinks();
 
 const phoneVal = import.meta.env.VITE_PHONE?.trim();
 const emailVal = import.meta.env.VITE_EMAIL?.trim();
-const locationVal = (import.meta.env.VITE_LOCATION || import.meta.env.VITE_ADDRESS)?.trim();
+const addressVal = import.meta.env.VITE_ADDRESS?.trim();
 const hoursVal = import.meta.env.VITE_WORKING_HOURS?.trim();
 
 const topBarFeatures = [
@@ -36,11 +36,11 @@ const topBarFeatures = [
     text: emailVal,
     link: `mailto:${emailVal}`
   },
-  locationVal && {
+  addressVal && {
     icon: 'MapPin',
     title: 'Distribution Hubs',
-    text: locationVal,
-    link: `https://maps.google.com/?q=${encodeURIComponent(locationVal)}`
+    text: addressVal,
+    link: `https://maps.google.com/?q=${encodeURIComponent(addressVal)}`
   }
 ].filter(Boolean);
 

@@ -152,7 +152,7 @@ const getIconColor = (isHeaderWhite) => (!isStickyConfig || isHeaderWhite ? "#16
 
 const HeaderTopBar = React.memo(() => {
   if (configData?.Header?.[0]?.HeaderTopBar === false) return null;
-  const loc = import.meta.env.VITE_LOCATION;
+  const loc = import.meta.env.VITE_ADDRESS;
   const email = import.meta.env.VITE_EMAIL;
   const timing = import.meta.env.VITE_WORKING_HOURS;
 
@@ -648,7 +648,7 @@ const MegaMenu = React.memo(
               <div key={currentCategory?.id || "category-grid"} className="grid-cols-4 sm-grid-cols-2 gap-12">
                 {currentCategory?.items?.slice(0, 4)?.map((item, idx) => (
                   <NavLink
-                    key={`${currentCategory?.id || "cat"}-${item.title || item.href || idx}`}
+                    key={`${currentCategory?.id || "cat"}-${item.id ?? item.title ?? "item"}-${idx}`}
                     to={item.href || "/products"}
                     onClick={onClose}
                   >
@@ -835,7 +835,7 @@ const MobileMenu = React.memo(({ isMobileOpen, pathname, onClose, onNavigate }) 
           <div className="px-18">
             {menuView.items?.map((item, idx) => (
               <div
-                key={item.title || item.href || idx}
+                key={`${item.id ?? item.title ?? "item"}-${idx}`}
                 onClick={() => {
                   onClose();
                   onNavigate(item.href || `/products?type=${item.title?.toLowerCase().replace(/\s+/g, "-")}`);
