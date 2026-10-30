@@ -62,6 +62,7 @@ const aboutSections = [
         Component: DetailSection,
         minHeight: '400px',
         isContainer: true,
+        isEager: true,
         props: {
             badgeText: detailBadge,
             title: detailTitle,

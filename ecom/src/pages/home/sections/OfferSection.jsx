@@ -64,6 +64,8 @@ const OfferSection = ({
                     <Image
                         src={bannerSrc}
                         alt={bannerImage?.alt || title}
+                        loading="lazy"
+                        decoding="async"
                         className='h-full w-full object-cover flex filter-b5'
                     />
                     <div className='absolute bottom-0 left-0 p-20'>
@@ -95,6 +97,8 @@ const OfferSection = ({
                             <Image
                                 src={item.image}
                                 alt={item.title}
+                                loading="lazy"
+                                decoding="async"
                                 className='h-full w-full object-contain flex'
                                 style={{ objectPosition: '50% -50%' }}
                             />

@@ -14,14 +14,18 @@ const HEIGHT_MAP = {
 
 const HeroBackground = React.memo(({ bgImage }) => {
     const isPlaceholder = !bgImage?.url || bgImage.url.includes('example.com');
-    const mediaSrc = isPlaceholder ? (import.meta.env.VITE_IMAGE + "Hero1.mp4") : bgImage.url;
+    const mediaSrc = isPlaceholder ? (import.meta.env.VITE_IMAGE + "Banner.jpg") : bgImage.url;
 
     return (
         <div className='absolute top-0 left-0 w-full h-full z-10'>
             <Image
                 src={mediaSrc}
-                alt={bgImage?.alt}
+                alt={bgImage?.alt || 'Ashmita Vinyls PVC Curtain Banner'}
                 className='w-full h-full flex object-cover'
+                loading='eager'
+                fetchPriority='high'
+                width={1920}
+                height={700}
             />
             <div
                 className='absolute w-full h-full top-0 left-0'
@@ -139,7 +143,8 @@ const HeroBanner = React.memo(({
         return {
             position: 'relative',
             overflow: 'hidden',
-            borderRadius: '0 0 25px 25px'
+            borderRadius: '0 0 25px 25px',
+            minHeight: '550px',
         };
     }, [isMobile, heroVersion]);
 

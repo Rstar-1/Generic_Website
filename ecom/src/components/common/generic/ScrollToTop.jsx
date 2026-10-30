@@ -27,7 +27,6 @@ const ScrollToTop = React.memo(() => {
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 

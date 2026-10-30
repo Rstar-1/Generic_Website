@@ -1,4 +1,6 @@
+import React, { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
+import Loader from '../common/generic/Loader';
 
 import Header from './Header';
 import Footer from './Footer';
@@ -15,7 +17,9 @@ const Layout = () => (
         <Header />
 
         <main className="w-full">
-            <Outlet />
+            <Suspense fallback={null}>
+                <Outlet />
+            </Suspense>
         </main>
 
         {socialLinks?.length > 0 && (

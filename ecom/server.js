@@ -1,5 +1,12 @@
 import fs from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import express from 'express';
+import compression from 'compression';
+
+// File & directory paths
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Constants
 const isProduction = process.env.NODE_ENV === 'production';
@@ -8,10 +15,10 @@ const base = process.env.BASE || '/';
 
 // Cached production assets
 const templateHtml = isProduction
-    ? await fs.readFile('./dist/client/index.html', 'utf-8')
+    ? await fs.readFile(path.join(__dirname, 'dist/client/index.html'), 'utf-8').catch(() => '')
     : '';
 const ssrManifest = isProduction
-    ? await fs.readFile('./dist/client/.vite/ssr-manifest.json', 'utf-8').then(JSON.parse).catch(() => undefined)
+    ? await fs.readFile(path.join(__dirname, 'dist/client/.vite/ssr-manifest.json'), 'utf-8').then(JSON.parse).catch(() => undefined)
     : undefined;
 
 // Create Express app
@@ -27,7 +34,56 @@ function escapeHtml(value = '') {
     })[char]);
 }
 
-// Add Vite or respective production middlewares
+// Pre-load machine-readable discovery assets into memory
+const catalogJson = await fs.readFile(path.join(__dirname, 'public/.well-known/ai-catalog.json'), 'utf-8').catch(() => '{}');
+const llmsTxt = await fs.readFile(path.join(__dirname, 'public/llms.txt'), 'utf-8').catch(() => '');
+const llmsFullTxt = await fs.readFile(path.join(__dirname, 'public/llms-full.txt'), 'utf-8').catch(() => '');
+
+// -------------------------------------------------------------
+// 1. High-Priority AI Agent Discovery & Machine-readable Endpoints
+// (Must be registered FIRST to ensure they are never intercepted by SSR HTML)
+// -------------------------------------------------------------
+app.all(['/.well-known/ai-catalog.json', '/ai-catalog.json', '/.well-known/ard.json', '/ard.json'], (req, res) => {
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', '*');
+    res.setHeader('Cache-Control', 'public, max-age=86400');
+    if (req.method === 'OPTIONS') return res.status(204).end();
+    if (req.method === 'HEAD') return res.status(200).end();
+    res.status(200).send(catalogJson);
+});
+
+app.all(['/llms.txt', '/llms-full.txt'], (req, res) => {
+    const isFull = req.path.includes('full');
+    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', '*');
+    res.setHeader('Cache-Control', 'public, max-age=86400');
+    if (req.method === 'OPTIONS') return res.status(204).end();
+    if (req.method === 'HEAD') return res.status(200).end();
+    res.status(200).send(isFull ? llmsFullTxt : llmsTxt);
+});
+
+app.all('/robots.txt', (req, res) => {
+    const host = req.get('host') || `localhost:${port}`;
+    const protocol = req.protocol || 'http';
+    const origin = `${protocol}://${host}`;
+    const content = `User-agent: *\nAllow: /\n\nAgentmap: ${origin}/.well-known/ai-catalog.json\nSitemap: ${origin}/sitemap.xml\n`;
+
+    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS');
+    res.setHeader('Cache-Control', 'public, max-age=86400');
+    if (req.method === 'OPTIONS') return res.status(204).end();
+    if (req.method === 'HEAD') return res.status(200).end();
+    res.status(200).send(content);
+});
+
+// -------------------------------------------------------------
+// 2. Vite Middleware (Dev) or Sirv Static (Prod)
+// -------------------------------------------------------------
 let vite;
 if (!isProduction) {
     const { createServer } = await import('vite');
@@ -44,23 +100,58 @@ if (!isProduction) {
     });
     app.use(vite.middlewares);
 } else {
-    const compression = (await import('compression')).default;
-    const sirv = (await import('sirv')).default;
     app.use(compression());
-    app.use(base, sirv('./dist/client', { extensions: [], gzip: true }));
+    const sirv = (await import('sirv')).default;
+    app.use(
+        base,
+        sirv(path.join(__dirname, 'dist/client'), {
+            extensions: [],
+            gzip: true,
+            dot: true,
+            maxAge: 31536000,
+            immutable: true,
+            setHeaders(res, pathname) {
+                if (pathname.startsWith('/assets/') || /\.(png|jpe?g|webp|svg|gif|ico|woff2?|css|js)$/i.test(pathname)) {
+                    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+                }
+            },
+        })
+    );
 }
 
-// Serve SSR HTML
+// -------------------------------------------------------------
+// 4. Server-Side Rendering (SSR) & HTML Delivery
+// -------------------------------------------------------------
+const ssrCache = new Map();
+const CACHE_TTL_MS = 5 * 60 * 1000;
+
 app.use(async (req, res, next) => {
     try {
         const rawUrl = req.originalUrl || '/';
         const url = rawUrl.startsWith(base) ? rawUrl.slice(base.length - 1) : rawUrl;
+        const cacheKey = url.split('?')[0];
+
+        // Never render SPA HTML for missing static assets or files with extensions
+        if (/\.[a-zA-Z0-9]+$/.test(cacheKey)) {
+            return res.status(404).end();
+        }
+
+        if (isProduction && ssrCache.has(cacheKey)) {
+            const cached = ssrCache.get(cacheKey);
+            if (Date.now() - cached.timestamp < CACHE_TTL_MS) {
+                res.status(200).set({
+                    'Content-Type': 'text/html; charset=utf-8',
+                    'Cache-Control': 'public, max-age=60, stale-while-revalidate=300'
+                }).send(cached.html);
+                return;
+            }
+        }
 
         let template;
         let render;
 
         if (!isProduction) {
-            template = await fs.readFile('./index.html', 'utf-8');
+            template = await fs.readFile(path.join(__dirname, 'index.html'), 'utf-8');
             template = await vite.transformIndexHtml(url, template);
             render = (await vite.ssrLoadModule('/src/entry-server.jsx')).render;
         } else {
@@ -74,7 +165,7 @@ app.use(async (req, res, next) => {
         const description = rendered.seo?.description || 'Discover our products and services.';
         const headTags = rendered.head ?? '';
 
-        const html = template
+        let html = template
             .replace('<!--app-title-->', escapeHtml(title))
             .replace(
                 '<meta name="description" content="<!--app-description-->">',
@@ -84,7 +175,27 @@ app.use(async (req, res, next) => {
             .replace('<!--app-head-->', headTags)
             .replace('<!--app-html-->', appHtml);
 
-        res.status(200).set({ 'Content-Type': 'text/html' }).send(html);
+        // Move stylesheet link to the top of <head> before anything else so browser blocks paint until styles are ready
+        const cssLinkMatch = html.match(/<link[^>]+rel="stylesheet"[^>]+assets\/style-[^>]+>/i);
+        if (cssLinkMatch) {
+            const hrefMatch = cssLinkMatch[0].match(/href="([^"]+)"/);
+            const preloadTag = hrefMatch ? `<link rel="preload" as="style" href="${hrefMatch[1]}">\n    ` : '';
+            html = html.replace(cssLinkMatch[0], '');
+            html = html.replace('<head>', `<head>\n    ${preloadTag}${cssLinkMatch[0]}`);
+        }
+
+        // Set Link header for AI Agent Discoverability
+        res.setHeader('Link', [
+            `</.well-known/ai-catalog.json>; rel="agentmap"`,
+            `</.well-known/ard.json>; rel="ard"`,
+            `</llms.txt>; rel="describedby"`
+        ].join(', '));
+
+        if (isProduction) {
+            ssrCache.set(cacheKey, { html, timestamp: Date.now() });
+        }
+
+        res.status(200).set({ 'Content-Type': 'text/html; charset=utf-8' }).send(html);
     } catch (error) {
         if (!isProduction && vite) {
             vite.ssrFixStacktrace(error);

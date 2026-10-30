@@ -194,9 +194,12 @@ const HeaderLogo = React.memo(({ isHeaderWhite, onCloseMobile }) => (
   <NavLink to="/home" className={LogoClass} onClick={onCloseMobile}>
     <Image
       src={resolveImagePath(!isStickyConfig || isHeaderWhite ? "sobo_logo.png" : "sobo_white.png")}
-      alt="Infitech Logo"
+      alt="Ashmita Vinyls Logo"
+      width={180}
+      height={60}
+      aspectRatio="3 / 1"
       className="object-contain w-90 sm-w-50"
-      style={{ height: "60px" }}
+      style={{ height: "60px", width: "auto" }}
     />
   </NavLink>
 ));

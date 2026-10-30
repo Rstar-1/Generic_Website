@@ -24,6 +24,40 @@ const Cursor = () => {
             );
         };
 
+        let rafId = null;
+        let isLooping = false;
+
+        const animate = () => {
+            const dx = mouseRef.current.x - ringPosRef.current.x;
+            const dy = mouseRef.current.y - ringPosRef.current.y;
+
+            ringPosRef.current.x += dx * 0.18;
+            ringPosRef.current.y += dy * 0.18;
+
+            const scaleRing = isHoveredRef.current ? 1.5 : 1;
+            const scaleDot = isHoveredRef.current ? 0.6 : 1;
+
+            if (ringRef.current) {
+                ringRef.current.style.transform = `translate3d(${ringPosRef.current.x}px, ${ringPosRef.current.y}px, 0) translate(-50%, -50%) scale(${scaleRing})`;
+            }
+            if (dotRef.current) {
+                dotRef.current.style.transform = `translate3d(${mouseRef.current.x}px, ${mouseRef.current.y}px, 0) translate(-50%, -50%) scale(${scaleDot})`;
+            }
+
+            if (Math.abs(dx) > 0.15 || Math.abs(dy) > 0.15) {
+                rafId = requestAnimationFrame(animate);
+            } else {
+                isLooping = false;
+            }
+        };
+
+        const startAnimate = () => {
+            if (!isLooping) {
+                isLooping = true;
+                rafId = requestAnimationFrame(animate);
+            }
+        };
+
         const onMouseMove = (e) => {
             if (isExcluded(e.target)) {
                 if (isVisible) setIsVisible(false);
@@ -31,6 +65,7 @@ const Cursor = () => {
             }
             mouseRef.current = { x: e.clientX, y: e.clientY };
             if (!isVisible) setIsVisible(true);
+            startAnimate();
         };
 
         const onMouseOver = (e) => {
@@ -64,33 +99,13 @@ const Cursor = () => {
         document.addEventListener('mouseleave', onMouseLeave);
         document.addEventListener('mouseenter', onMouseEnter);
 
-        let rafId;
-        const animate = () => {
-            ringPosRef.current.x += (mouseRef.current.x - ringPosRef.current.x) * 0.18;
-            ringPosRef.current.y += (mouseRef.current.y - ringPosRef.current.y) * 0.18;
-
-            const scaleRing = isHoveredRef.current ? 1.5 : 1;
-            const scaleDot = isHoveredRef.current ? 0.6 : 1;
-
-            if (ringRef.current) {
-                ringRef.current.style.transform = `translate3d(${ringPosRef.current.x}px, ${ringPosRef.current.y}px, 0) translate(-50%, -50%) scale(${scaleRing})`;
-            }
-            if (dotRef.current) {
-                dotRef.current.style.transform = `translate3d(${mouseRef.current.x}px, ${mouseRef.current.y}px, 0) translate(-50%, -50%) scale(${scaleDot})`;
-            }
-
-            rafId = requestAnimationFrame(animate);
-        };
-
-        rafId = requestAnimationFrame(animate);
-
         return () => {
             window.removeEventListener('mousemove', onMouseMove);
             window.removeEventListener('mouseover', onMouseOver);
             window.removeEventListener('keydown', onKeyDown);
             document.removeEventListener('mouseleave', onMouseLeave);
             document.removeEventListener('mouseenter', onMouseEnter);
-            cancelAnimationFrame(rafId);
+            if (rafId) cancelAnimationFrame(rafId);
         };
     }, [isVisible]);
 

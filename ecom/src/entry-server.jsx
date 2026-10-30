@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { Writable } from 'node:stream';
 import { store } from './app/server/store';
 import App from './app/App.jsx';
+import { resolveImagePath } from './utils/imageResolver';
 import { buildMetadata } from './seo/metadata';
 import { buildGraphJsonLd } from './seo/jsonLd';
 
@@ -28,6 +29,12 @@ export function buildHeadTags(url) {
     const meta = buildMetadata({ path: pathname });
     const graph = buildGraphJsonLd({ meta });
 
+    const defaultBanner = resolveImagePath('Banner.jpg');
+    const rawLcp = (pathname === '/' || pathname === '/home')
+        ? defaultBanner
+        : (meta.image && !meta.image.includes('hospital_ward') ? meta.image : defaultBanner);
+    const lcpImage = resolveImagePath(rawLcp);
+
     const tags = [
         meta.keywords ? `<meta name="keywords" content="${escapeHtml(meta.keywords)}" />` : '',
         `<meta name="robots" content="${escapeHtml(meta.robots)}" />`,
@@ -43,6 +50,7 @@ export function buildHeadTags(url) {
         `<meta name="twitter:title" content="${escapeHtml(meta.title)}" />`,
         `<meta name="twitter:description" content="${escapeHtml(meta.description)}" />`,
         meta.image ? `<meta name="twitter:image" content="${escapeHtml(meta.image)}" />` : '',
+        lcpImage ? `<link rel="preload" as="image" href="${escapeHtml(lcpImage)}" fetchpriority="high" />` : '',
         `<script id="site-seo-jsonld" type="application/ld+json">${JSON.stringify(graph).replace(/</g, '\\u003c')}</script>`,
     ].filter(Boolean).join('\n    ');
 
@@ -69,13 +77,11 @@ export async function render(url, ssrManifest) {
         });
 
         const { pipe } = renderToPipeableStream(
-            <React.StrictMode>
-                <Provider store={store}>
-                    <StaticRouter location={url}>
-                        <App />
-                    </StaticRouter>
-                </Provider>
-            </React.StrictMode>,
+            <Provider store={store}>
+                <StaticRouter location={url}>
+                    <App />
+                </StaticRouter>
+            </Provider>,
             {
                 onAllReady() {
                     pipe(writable);

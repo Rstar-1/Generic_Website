@@ -6,7 +6,7 @@ import SEO from '../../seo';
 import { SectionFallback, getCmsData, resolveImagePath } from '../../utils/utils';
 import { cmsMap } from '../../utils/apiData';
 
-const Enquiry = lazy(() => import('./sections/Enquiry'));
+import Enquiry from './sections/Enquiry';
 const PatchSection = lazy(() => import('../home/sections/PatchSection'));
 
 const patchBannerBg = resolveImagePath('Patch1.jpg');
@@ -44,6 +44,7 @@ const connectSections = [
         Component: Enquiry,
         minHeight: '500px',
         isContainer: true,
+        isEager: true,
         props: {
             tag: enquiryTag,
             subtitle: enquirySubtitle,

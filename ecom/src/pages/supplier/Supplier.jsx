@@ -54,6 +54,7 @@ const supplierSections = [
         Component: DetailSection,
         minHeight: '500px',
         isContainer: true,
+        isEager: true,
     },
     {
         id: 'feature',

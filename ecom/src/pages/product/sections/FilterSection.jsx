@@ -4,6 +4,7 @@ import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
 import Button from '../../../components/common/Button';
 import Fields from '../../../components/forms/Fields';
 import Modal from '../../../components/common/Modal';
+import Pagination from '../../../components/common/Pagination';
 
 import ProductCard from '../../../components/layout/sections/CardLayout';
 
@@ -191,7 +192,7 @@ FilterSidebarContent.displayName = 'FilterSidebarContent';
 
 const ProductGrid = React.memo(({ productsList, isFilterVisible, onProductClick }) => (
     <div className={`${isFilterVisible ? 'grid-cols-4' : 'grid-cols-5'} sm-grid-cols-2 gap-12`}>
-        {productsList.map((item) => (
+        {productsList.map((item, index) => (
             <ProductCard
                 version='product1'
                 key={item.id}
@@ -218,6 +219,8 @@ const FilterSection = ({ stickyTop = getStickyTop() }) => {
     const [availability, setAvailability] = React.useState([]);
     const [isFilterVisible, setIsFilterVisible] = React.useState(false);
     const [isMobileFilterOpen, setIsMobileFilterOpen] = React.useState(false);
+    const [currentPage, setCurrentPage] = React.useState(1);
+    const ITEMS_PER_PAGE = 12;
 
     React.useEffect(() => {
         const catQuery =
@@ -294,6 +297,15 @@ const FilterSection = ({ stickyTop = getStickyTop() }) => {
 
     const totalProductCount = React.useMemo(() => filteredProducts.filter((p) => !p.isBanner).length, [filteredProducts]);
 
+    React.useEffect(() => {
+        setCurrentPage(1);
+    }, [selectedCategories, selectedBrands, selectedColors, availability, priceMax, sortBy]);
+
+    const paginatedProducts = React.useMemo(() => {
+        const start = (currentPage - 1) * ITEMS_PER_PAGE;
+        return filteredProducts.slice(start, start + ITEMS_PER_PAGE);
+    }, [filteredProducts, currentPage]);
+
     const activeFiltersCount =
         selectedCategories.length +
         selectedBrands.length +
@@ -337,10 +349,27 @@ const FilterSection = ({ stickyTop = getStickyTop() }) => {
 
                 <div className={isFilterVisible ? 'w-80 sm-w-full' : 'w-full'}>
                     <ProductGrid
-                        productsList={filteredProducts}
+                        productsList={paginatedProducts}
                         isFilterVisible={isFilterVisible}
                         onProductClick={handleProductClick}
                     />
+
+                    {filteredProducts.length > ITEMS_PER_PAGE && (
+                        <div className="mt-30 w-full flex justify-center">
+                            <Pagination
+                                page={currentPage}
+                                totalItems={filteredProducts.length}
+                                itemsPerPage={ITEMS_PER_PAGE}
+                                onPageChange={(p) => {
+                                    setCurrentPage(p);
+                                    if (typeof window !== 'undefined') {
+                                        window.scrollTo({ top: 350, behavior: 'smooth' });
+                                    }
+                                }}
+                                itemName="products"
+                            />
+                        </div>
+                    )}
                 </div>
             </div>
 

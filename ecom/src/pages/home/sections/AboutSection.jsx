@@ -49,7 +49,8 @@ const AboutSection = React.memo(({
                         src={imgSrc}
                         alt={aboutImage?.alt || title}
                         className="w-full h-full object-cover flex"
-                        loading="eager"
+                        loading="lazy"
+                        decoding="async"
                     />
                 </div>
             </div>

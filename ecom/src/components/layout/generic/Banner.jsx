@@ -62,6 +62,7 @@ const Banner = memo(({
             style={{
                 background,
                 padding: sticky ? "120px 0 80px" : "60px 0",
+                minHeight: "260px",
                 ...style,
             }}
         >

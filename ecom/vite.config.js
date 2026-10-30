@@ -4,6 +4,10 @@ import { defineConfig } from 'vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  build: {
+    cssCodeSplit: false,
+    chunkSizeWarningLimit: 1000,
+  },
   ssr: {
     resolve: {
       conditions: ['import', 'default'],

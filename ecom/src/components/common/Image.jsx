@@ -6,11 +6,14 @@ const isVideoSrc = (url) => {
   return /\.(mp4|webm|ogg)($|\?|#)/i.test(url);
 };
 
+const DEFAULT_FALLBACK =
+  "data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='100%25' height='100%25' fill='%23f8fafc'/%3E%3C/svg%3E";
+
 export const Image = React.memo(
   ({
     src,
     alt = "",
-    fallback = "/images/fallback.webp",
+    fallback = DEFAULT_FALLBACK,
     className = "",
     loading = "lazy",
     width,
@@ -18,7 +21,7 @@ export const Image = React.memo(
     aspectRatio,
     style,
     decoding,
-    preload = "metadata",
+    preload = "none",
     ...props
   }) => {
     const resolved = resolveImagePath(src);
@@ -45,6 +48,7 @@ export const Image = React.memo(
       return (
         <video
           src={resolved}
+          poster={props.poster || resolveImagePath("Banner.jpg")}
           className={className}
           style={{
             aspectRatio,
@@ -91,14 +95,14 @@ export const ImageDiv = React.memo(
     (
       {
         image,
-        fallback = "/images/fallback.webp",
+        fallback = DEFAULT_FALLBACK,
         children,
         className = "",
         innerClassName = "",
         overlay = false,
         overlayClass = "",
         innerRef,
-        preload = "metadata",
+        preload = "none",
         ...props
       },
       ref
@@ -124,6 +128,7 @@ export const ImageDiv = React.memo(
             <video
               ref={innerRef}
               src={bgImage}
+              poster={props.poster || resolveImagePath("Banner.jpg")}
               className={`${innerClassName} absolute inset-0 w-full h-full object-cover`}
               style={{ zIndex: 0 }}
               autoPlay

@@ -8,7 +8,7 @@ import { resolveImagePath } from "../../utils/imageResolver";
 import { SectionFallback, getCmsData } from "../../utils/utils";
 import { cmsMap } from "../../utils/apiData";
 
-const HeroBanner = React.lazy(() => import("./sections/HeroBanner"));
+import HeroBanner from "./sections/HeroBanner";
 const CategorySection = React.lazy(() => import("./sections/CategorySection"));
 const ServiceSection = React.lazy(() => import("./sections/ServiceSection"));
 const ProductSection = React.lazy(() => import("./sections/ProductSection"));
@@ -78,6 +78,7 @@ const ecomSections = [
         Component: HeroBanner,
         minHeight: "500px",
         isContainer: false,
+        isEager: true,
         props: {
             title: heroTitle,
             subtitle: heroSubtitle,
@@ -173,7 +174,9 @@ const Home = () => (
         }) => {
             const fallback = <SectionFallback minHeight={minHeight} />;
 
-            const section = (
+            const section = isEager ? (
+                <Component {...props} />
+            ) : (
                 <React.Suspense fallback={fallback}>
                     <Component {...props} />
                 </React.Suspense>

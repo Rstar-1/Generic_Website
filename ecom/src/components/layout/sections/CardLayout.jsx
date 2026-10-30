@@ -49,28 +49,6 @@ export const FeatureCard = React.memo(({
             className={`h-350 sm-h-350 rounded-10 relative overflow-hidden cursor-pointer feature-card ${!isFluid ? 'flex-shrink-0' : 'w-full'}`}
             style={!isFluid ? { minWidth, maxWidth } : undefined}
         >
-            <style>{`
-                .feature-card .feature-info {
-                    transform: translateY(73px);
-                    transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
-                    will-change: transform;
-                }
-                .feature-card:hover .feature-info {
-                    transform: translateY(0);
-                }
-                .feature-card:hover .feature-data {
-                    opacity: 0;
-                    transition: opacity 0.3s ease;
-                }
-                .feature-card:hover .feature-div {
-                    opacity: 1;
-                }
-                .feature-card:hover > img {
-                    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-                    will-change: transform;
-                    transform: scale(1.06);
-                }
-            `}</style>
             <Image
                 src={resolveImagePath(item.image)}
                 alt={title}
@@ -192,30 +170,6 @@ export const FeatureCard3 = React.memo(({
             style={style}
             className={`feed-card relative rounded-10 overflow-hidden h-400 cursor-pointer w-full ${minWidth || maxWidth ? 'flex-shrink-0' : ''} ${className}`.trim()}
         >
-            <style>{`
-                .feed-card .shop-look-btn-wrapper {
-                    max-height: 0;
-                    opacity: 0;
-                    visibility: hidden;
-                    margin-top: 0;
-                    overflow: hidden;
-                    transform: translateY(12px);
-                    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), margin-top 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.3s;
-                }
-                .feed-card:hover .shop-look-btn-wrapper {
-                    max-height: 55px;
-                    opacity: 1;
-                    visibility: visible;
-                    margin-top: 10px;
-                    transform: translateY(0);
-                }
-                .feed-card .feed-img {
-                    transition: transform 0.5s ease;
-                }
-                .feed-card:hover .feed-img {
-                    transform: scale(1.04);
-                }
-            `}</style>
             <Image
                 src={resolveImagePath(activeImage || item.image)}
                 alt={item.title || item.name || "Instagram Feed Post"}
@@ -318,26 +272,7 @@ export const ProductCard = React.memo(({
             className={`cursor-pointer ${!isFluid ? 'flex-shrink-0' : 'w-full'}`}
             style={!isFluid ? { minWidth, maxWidth } : undefined}
         >
-            <style>{`
-                .product-card .product-btn {
-                    opacity: 0;
-                    visibility: hidden;
-                    transform: translateY(12px);
-                    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.3s;
-                }
-                .product-card:hover .product-btn {
-                    opacity: 1;
-                    visibility: visible;
-                    transform: translateY(0);
-                }
-                .product-card img {
-                    transition: transform 0.5s ease;
-                }
-                .product-card:hover img {
-                    transform: scale(1.04);
-                }
-            `}</style>
-            <div className="h-300 sm-h-250 w-full overflow-hidden rounded-10 relative product-card">
+            <div className="w-full overflow-hidden rounded-10 relative product-card" style={{ aspectRatio: '1 / 1' }}>
                 {badge && (
                     <div className="top-0 left-0 absolute z-2">
                         <Badge
@@ -353,6 +288,11 @@ export const ProductCard = React.memo(({
                 <Image
                     src={resolveImagePath(item.image)}
                     alt={item.name}
+                    width={300}
+                    height={300}
+                    loading="lazy"
+                    decoding="async"
+                    aspectRatio="1 / 1"
                     className="flex w-full h-full object-cover"
                 />
                 <div className="product-btn w-full absolute bottom-0 left-0 z-2">
@@ -458,26 +398,7 @@ export const ProductCard2 = React.memo(({
             className={`cursor-pointer ${!isFluid ? 'flex-shrink-0' : 'w-full'}`}
             style={!isFluid ? { minWidth, maxWidth } : undefined}
         >
-            <style>{`
-                .product-card .product-btn {
-                    opacity: 0;
-                    visibility: hidden;
-                    transform: translateY(10px);
-                    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.3s;
-                }
-                .product-card:hover .product-btn {
-                    opacity: 1;
-                    visibility: visible;
-                    transform: translateY(0);
-                }
-                .product-card img {
-                    transition: transform 0.5s ease;
-                }
-                .product-card:hover img {
-                    transform: scale(1.04);
-                }
-            `}</style>
-            <div className="w-full h-300 rounded-5 relative overflow-hidden product-card">
+            <div className="w-full rounded-5 relative overflow-hidden product-card" style={{ aspectRatio: '1 / 1' }}>
                 <div className="absolute top-0 right-0 m-10 z-2">
                     <Badge
                         text="In stock"
@@ -491,6 +412,11 @@ export const ProductCard2 = React.memo(({
                 <Image
                     src={resolveImagePath(activeImage)}
                     alt={item.name}
+                    width={300}
+                    height={300}
+                    loading="lazy"
+                    decoding="async"
+                    aspectRatio="1 / 1"
                     className="h-full w-full object-cover flex"
                 />
 
@@ -617,10 +543,16 @@ export const BlogCard = React.memo(({
             <div
                 onClick={() => handleClick?.(blog)}
                 className={`w-full ${imageHeight} rounded-10 overflow-hidden mb-20 sm-mb-12 cursor-pointer`}
+                style={{ aspectRatio: '16 / 9' }}
             >
                 <Image
                     src={resolveImagePath(blog.image)}
                     alt={blog.title}
+                    width={800}
+                    height={450}
+                    aspectRatio="16 / 9"
+                    loading="lazy"
+                    decoding="async"
                     className="flex object-cover h-full w-full"
                 />
             </div>

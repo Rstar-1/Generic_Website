@@ -3,18 +3,21 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import Button from '../../../components/common/Button';
 import Modal from '../../../components/common/Modal';
+import Pagination from '../../../components/common/Pagination';
 import CardLayout from '../../../components/layout/sections/CardLayout';
 import { getItemSlug, getStickyTop, findCategory } from '../../../utils/utils';
 import blogData from '../../../data/blog.json';
 import blogCategoriesData from '../../../data/blogcategory.json';
 
 const FilterSection = lazy(() => import('./FilterSection'));
+const ITEMS_PER_PAGE = 5;
 
 const BlogSection = memo(({ stickyTop = getStickyTop() }) => {
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
     const [searchQuery, setSearchQuery] = useState('');
     const [isMobileCategoryOpen, setIsMobileCategoryOpen] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
 
     const paramCategory = searchParams.get('category');
     const [selectedCategory, setSelectedCategory] = useState(paramCategory || null);
@@ -22,6 +25,7 @@ const BlogSection = memo(({ stickyTop = getStickyTop() }) => {
     useEffect(() => {
         if (paramCategory !== null) {
             setSelectedCategory(paramCategory);
+            setCurrentPage(1);
         }
     }, [paramCategory]);
 
@@ -57,6 +61,11 @@ const BlogSection = memo(({ stickyTop = getStickyTop() }) => {
         });
     }, [blogsList, searchQuery, selectedCategory, activeCategory]);
 
+    const paginatedPosts = useMemo(() => {
+        const start = (currentPage - 1) * ITEMS_PER_PAGE;
+        return filteredPosts.slice(start, start + ITEMS_PER_PAGE);
+    }, [filteredPosts, currentPage]);
+
     const handleBlogClick = useCallback((post) => {
         setIsMobileCategoryOpen(false);
         navigate(`/blog/${getItemSlug(post)}`, { state: { blog: post } });
@@ -64,6 +73,7 @@ const BlogSection = memo(({ stickyTop = getStickyTop() }) => {
 
     const handleSelectCategory = useCallback((catId) => {
         setSelectedCategory(catId);
+        setCurrentPage(1);
         setIsMobileCategoryOpen(false);
         if (catId) {
             setSearchParams({ category: String(catId) });
@@ -74,12 +84,18 @@ const BlogSection = memo(({ stickyTop = getStickyTop() }) => {
 
     const handleClearCategory = useCallback(() => {
         setSelectedCategory(null);
+        setCurrentPage(1);
         setSearchParams({});
     }, [setSearchParams]);
 
+    const handleSearchChange = useCallback((val) => {
+        setSearchQuery(val);
+        setCurrentPage(1);
+    }, []);
+
     const categoryProps = {
         searchQuery,
-        onSearchChange: setSearchQuery,
+        onSearchChange: handleSearchChange,
         selectedCategory,
         onSelectCategory: handleSelectCategory,
         onBlogClick: handleBlogClick,
@@ -127,14 +143,28 @@ const BlogSection = memo(({ stickyTop = getStickyTop() }) => {
                             <p className="para-text text-gray capitalize mt-6">Try adjusting your search query or category filter.</p>
                         </div>
                     ) : (
-                        filteredPosts.map((post) => (
-                            <CardLayout
-                                key={post.id}
-                                version="blog"
-                                post={post}
-                                onClick={handleBlogClick}
-                            />
-                        ))
+                        <>
+                            {paginatedPosts.map((post) => (
+                                <CardLayout
+                                    key={post.id}
+                                    version="blog"
+                                    post={post}
+                                    onClick={handleBlogClick}
+                                />
+                            ))}
+
+                            {filteredPosts.length > ITEMS_PER_PAGE && (
+                                <div className="flex justify-center mt-30">
+                                    <Pagination
+                                        page={currentPage}
+                                        totalItems={filteredPosts.length}
+                                        itemsPerPage={ITEMS_PER_PAGE}
+                                        onPageChange={setCurrentPage}
+                                        itemName="articles"
+                                    />
+                                </div>
+                            )}
+                        </>
                     )}
                 </div>
 

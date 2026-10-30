@@ -433,6 +433,7 @@ const ProductDetailContent = ({ currentProduct, category }) => {
                 <div className="rounded-10 overflow-hidden bg-dark">
                     <Image
                         src="Packaging.mp4"
+                        preload="none"
                         controls
                         autoPlay
                         className="w-full h-400 sm-h-250 object-contain"

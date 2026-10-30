@@ -47,7 +47,9 @@ export const changeWebsiteLanguage = (code = "en") => {
   localStorage.setItem("i18nextLng", code);
   i18n.changeLanguage(code);
 
-  const select = document.querySelector(".goog-te-combo");
+  if (code !== "en") {
+    initGoogleTranslate();
+  }
 
   if (select) {
     select.value = code;
@@ -103,7 +105,10 @@ i18n
   });
 
 if (typeof window !== "undefined") {
-  initGoogleTranslate();
+  const saved = getSavedLanguage();
+  if (saved && saved !== "en") {
+    initGoogleTranslate();
+  }
 }
 
 export default i18n;

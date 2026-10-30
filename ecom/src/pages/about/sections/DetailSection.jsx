@@ -69,11 +69,16 @@ const DetailSection = React.memo(({
                             <div
                                 key={item.id}
                                 className='w-full h-250 rounded-5 bg-forth overflow-hidden cursor-pointer'
-                                onClick={() => navigate('/products')}
+                                onClick={() => navigate('/product')}
                             >
                                 <Image
                                     src={item.image}
                                     alt={item.title}
+                                    width={200}
+                                    height={250}
+                                    aspectRatio="4 / 5"
+                                    loading="lazy"
+                                    decoding="async"
                                     className="w-full h-full object-cover flex"
                                 />
                             </div>
@@ -85,6 +90,11 @@ const DetailSection = React.memo(({
                     <Image
                         src={showcaseSrc}
                         alt={showcaseImage?.alt || title}
+                        width={600}
+                        height={550}
+                        aspectRatio="12 / 11"
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover flex"
                     />
                 </div>

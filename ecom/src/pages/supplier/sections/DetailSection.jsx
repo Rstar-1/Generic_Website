@@ -7,6 +7,7 @@ import Button from '../../../components/common/Button';
 import Tab from '../../../components/common/Tab';
 import Table from '../../../components/common/Table';
 import Modal from '../../../components/common/Modal';
+import Pagination from '../../../components/common/Pagination';
 import CardLayout from '../../../components/layout/sections/CardLayout';
 import { productsData, supplierData } from '../../../utils/apiData';
 import { getStickyTop, navigateToProduct, navigateToCategory } from '../../../utils/utils';
@@ -100,7 +101,9 @@ const DetailSection = ({ supplierName }) => {
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState('catalog');
     const [searchQuery, setSearchQuery] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
     const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
+    const ITEMS_PER_PAGE = 12;
 
     const brandKey = (brandName || 'supplier').toLowerCase().replace(/[^a-z0-9]/g, '');
 
@@ -165,6 +168,11 @@ const DetailSection = ({ supplierName }) => {
         );
     }, [validProducts, searchQuery]);
 
+    const paginatedProducts = useMemo(() => {
+        const start = (currentPage - 1) * ITEMS_PER_PAGE;
+        return displayedProducts.slice(start, start + ITEMS_PER_PAGE);
+    }, [displayedProducts, currentPage, ITEMS_PER_PAGE]);
+
     const specData = useMemo(() => [
         { id: 1, field: factsheetFields.companyName, value: supplierInfo.name },
         { id: 2, field: factsheetFields.natureOfBusiness, value: supplierInfo.natureOfBusiness },
@@ -227,7 +235,10 @@ const DetailSection = ({ supplierName }) => {
                                         type="text"
                                         placeholder={labels.searchPlaceholder}
                                         value={searchQuery}
-                                        onChange={(e) => setSearchQuery(e?.target?.value ?? e ?? '')}
+                                        onChange={(e) => {
+                                            setSearchQuery(e?.target?.value ?? e ?? '');
+                                            setCurrentPage(1);
+                                        }}
                                         icon="Search"
                                         iconPosition="left"
                                         version="v1"
@@ -239,18 +250,32 @@ const DetailSection = ({ supplierName }) => {
                             </div>
 
                             {displayedProducts.length > 0 ? (
-                                <div className="grid-cols-4 sm-grid-cols-2 gap-12">
-                                    {displayedProducts.map((product) => (
-                                        <CardLayout
-                                            key={product.id}
-                                            version="product"
-                                            item={product}
-                                            isFluid={true}
-                                            onClick={() => navigateToProduct(navigate, product)}
-                                            onCategoryClick={(cat) => navigateToCategory(navigate, cat)}
-                                        />
-                                    ))}
-                                </div>
+                                <>
+                                    <div className="grid-cols-4 sm-grid-cols-2 gap-12">
+                                        {paginatedProducts.map((product) => (
+                                            <CardLayout
+                                                key={product.id}
+                                                version="product"
+                                                item={product}
+                                                isFluid={true}
+                                                onClick={() => navigateToProduct(navigate, product)}
+                                                onCategoryClick={(cat) => navigateToCategory(navigate, cat)}
+                                            />
+                                        ))}
+                                    </div>
+
+                                    {displayedProducts.length > ITEMS_PER_PAGE && (
+                                        <div className="flex justify-center mt-30">
+                                            <Pagination
+                                                page={currentPage}
+                                                totalItems={displayedProducts.length}
+                                                itemsPerPage={ITEMS_PER_PAGE}
+                                                onPageChange={setCurrentPage}
+                                                itemName="products"
+                                            />
+                                        </div>
+                                    )}
+                                </>
                             ) : (
                                 <div className="bg-white py-40 rounded-5 border-ec">
                                     <p className="small-text text-gray text-center capitalize font-500">{labels.noMatch}</p>

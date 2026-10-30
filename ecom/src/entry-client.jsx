@@ -35,4 +35,3 @@ if (container && container.hasChildNodes()) {
         </StrictMode>
     );
 }
-

@@ -22,13 +22,16 @@ export const SlideLayout = memo(({
     btnClass = 'rounded-30',
 }) => {
     const scrollRef = useRef(null);
-    const [scrollProgress, setScrollProgress] = useState(100);
+    const [scrollProgress, setScrollProgress] = useState(25);
     const [canScrollLeft, setCanScrollLeft] = useState(false);
-    const [canScrollRight, setCanScrollRight] = useState(false);
+    const [canScrollRight, setCanScrollRight] = useState(true);
 
     const updateScrollState = useCallback(() => {
         if (!scrollRef.current) return;
-        const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+        const el = scrollRef.current;
+        const scrollLeft = el.scrollLeft;
+        const scrollWidth = el.scrollWidth;
+        const clientWidth = el.clientWidth;
         const maxScroll = scrollWidth - clientWidth;
 
         if (maxScroll <= 1) {
@@ -46,21 +49,19 @@ export const SlideLayout = memo(({
     useEffect(() => {
         if (version === 'grid') return;
 
-        updateScrollState();
-        const handleResize = () => updateScrollState();
-        window.addEventListener('resize', handleResize);
+        // Defer initial layout measurement until after initial paint to prevent forced reflow
+        const timer = setTimeout(() => {
+            updateScrollState();
+        }, 300);
 
-        let resizeObserver;
-        if (typeof ResizeObserver !== 'undefined' && scrollRef.current) {
-            resizeObserver = new ResizeObserver(() => updateScrollState());
-            resizeObserver.observe(scrollRef.current);
-        }
+        const handleResize = () => updateScrollState();
+        window.addEventListener('resize', handleResize, { passive: true });
 
         return () => {
+            clearTimeout(timer);
             window.removeEventListener('resize', handleResize);
-            if (resizeObserver) resizeObserver.disconnect();
         };
-    }, [version, items, children, updateScrollState]);
+    }, [version, updateScrollState]);
 
     const scroll = useCallback((direction) => {
         if (scrollRef.current) {

@@ -7,7 +7,7 @@ import { resolveImagePath } from '../../utils/imageResolver';
 import { getStickyTop, Fallback, getCmsData } from '../../utils/utils';
 import { cmsMap } from '../../utils/apiData';
 
-const FilterSection = lazy(() => import('./sections/FilterSection'));
+import FilterSection from './sections/FilterSection';
 const PatchSection = lazy(() => import('../home/sections/PatchSection'));
 
 const patchBannerBg = resolveImagePath('Patch1.jpg');
@@ -87,7 +87,7 @@ const Product = () => {
                     <Component stickyTop={stickyTop} {...props} />
                 );
 
-                const content = <Suspense fallback={<Fallback minHeight={minHeight} />}>{el}</Suspense>;
+                const content = isEager ? el : <Suspense fallback={<Fallback minHeight={minHeight} />}>{el}</Suspense>;
                 return isEager ? (
                     <React.Fragment key={id}>{content}</React.Fragment>
                 ) : (
