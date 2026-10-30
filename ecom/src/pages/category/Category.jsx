@@ -92,14 +92,14 @@ const categorySections = [
 ];
 
 const BREADCRUMBS = [
-    { label: 'Home', path: '/home' },
+    { label: 'Home', path: '/' },
     { label: 'Category', path: '/category' }
 ];
 
 const Category = () => {
     return (
         <>
-            <SEO page="collection" breadcrumbs={BREADCRUMBS} />
+            <SEO page="category" breadcrumbs={BREADCRUMBS} />
             <Banner
                 title={bannerTitle || "Categories"}
                 desc={bannerDesc || "Explore Our Wide Range of Products"}

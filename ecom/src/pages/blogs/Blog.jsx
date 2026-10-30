@@ -56,7 +56,7 @@ const blogSections = [
 ];
 
 const BREADCRUMBS = [
-    { label: 'Home', path: '/home' },
+    { label: 'Home', path: '/' },
     { label: 'News & Media', path: '/blog' }
 ];
 

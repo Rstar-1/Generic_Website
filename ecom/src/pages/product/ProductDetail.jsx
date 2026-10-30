@@ -55,7 +55,7 @@ const ProductDetail = () => {
     const productSlug = getItemSlug(product) || productId;
 
     const breadcrumbs = useMemo(() => [
-        { label: 'Home', path: '/home' },
+        { label: 'Home', path: '/' },
         { label: categoryName, path: `/product?category=${encodeURIComponent(categoryName)}` },
         { label: productName, path: `/product/${productSlug}` }
     ], [categoryName, productName, productSlug]);

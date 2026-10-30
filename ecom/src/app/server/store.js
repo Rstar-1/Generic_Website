@@ -2,8 +2,9 @@ import { configureStore } from "@reduxjs/toolkit";
 import cartReducer from "../../feature/cartSlice";
 
 // Safe persistence loader
-const loadState = () => {
+export const loadState = () => {
   try {
+    if (typeof window === "undefined" || typeof localStorage === "undefined") return undefined;
     const data = localStorage.getItem("appState");
     if (!data) return undefined;
     return JSON.parse(data);
@@ -13,8 +14,9 @@ const loadState = () => {
 };
 
 // Safe persistence saver
-const saveState = (state) => {
+export const saveState = (state) => {
   try {
+    if (typeof window === "undefined" || typeof localStorage === "undefined") return;
     if (state?.cart) {
       localStorage.setItem("appState", JSON.stringify({ cart: state.cart }));
     }
@@ -23,21 +25,25 @@ const saveState = (state) => {
   }
 };
 
-export const store = configureStore({
+export const createStore = (preloadedState) => configureStore({
   reducer: {
     cart: cartReducer,
   },
-  preloadedState: loadState(),
-  devTools: import.meta.env.DEV,
+  preloadedState: preloadedState !== undefined ? preloadedState : loadState(),
+  devTools: import.meta.env?.DEV,
 });
 
-// Debounced persistence
-let timeout;
-store.subscribe(() => {
-  clearTimeout(timeout);
-  timeout = setTimeout(() => {
-    saveState(store.getState());
-  }, 300);
-});
+export const store = createStore();
+
+// Debounced persistence (browser-only)
+if (typeof window !== "undefined") {
+  let timeout;
+  store.subscribe(() => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      saveState(store.getState());
+    }, 300);
+  });
+}
 
 export default store;

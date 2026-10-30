@@ -4,20 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>%VITE_SEO_TITLE%</title>
-    <meta name="description" content="%VITE_SEO_DESCRIPTION%" />
-    <meta name="keywords" content="%VITE_SEO_KEYWORDS%" />
-    <meta name="robots" content="%VITE_SEO_ROBOTS%" />
-    <link rel="canonical" href="%VITE_SITE_URL%" />
+    <title><!--app-title--></title>
+    <meta name="description" content="<!--app-description-->" />
+    <!--app-head-->
 
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="%VITE_SEO_TITLE%" />
-    <meta property="og:description" content="%VITE_SEO_DESCRIPTION%" />
-    <meta property="og:url" content="%VITE_SITE_URL%" />
-    <meta property="og:image" content="%VITE_SEO_IMAGE%" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="%VITE_SEO_TITLE%" />
-    <meta name="twitter:description" content="%VITE_SEO_DESCRIPTION%" />
+    <link rel="stylesheet" href="/src/styles/theme.scss?direct" />
+    <link rel="stylesheet" href="/src/styles/structure.scss?direct" />
+    <link rel="stylesheet" href="/src/styles/global.scss?direct" />
 
     <meta name="geo.region" content="IN-DL" />
     <meta name="geo.placename" content="Delhi, Mumbai" />
@@ -44,7 +37,7 @@
   </head>
 
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/app/main.jsx"></script>
+    <div id="root"><!--app-html--></div>
+    <script type="module" src="/src/entry-client.jsx"></script>
   </body>
 </html>

@@ -92,7 +92,7 @@ const supplierSections = [
 ];
 
 const BREADCRUMBS = [
-    { label: 'Home', path: '/home' },
+    { label: 'Home', path: '/' },
     { label: 'Find A Store', path: '/supplier' }
 ];
 

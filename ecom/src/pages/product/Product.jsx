@@ -62,7 +62,7 @@ const productSections = [
 ];
 
 const BREADCRUMBS = [
-    { label: 'Home', path: '/home' },
+    { label: 'Home', path: '/' },
     { label: 'Products', path: '/product' }
 ];
 

@@ -4,14 +4,20 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "dev": "node --watch server.js",
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "vite build --ssrManifest --outDir dist/client",
+    "build:server": "vite build --ssr src/entry-server.jsx --outDir dist/server",
+    "preview": "cross-env NODE_ENV=production node server.js",
+    "serve": "cross-env NODE_ENV=production node server.js",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@emailjs/browser": "^5.0.3",
     "@reduxjs/toolkit": "^2.13.0",
+    "compression": "^1.8.2",
+    "cross-env": "^10.1.0",
+    "express": "^5.3.0",
     "i18next": "^26.4.5",
     "i18next-browser-languagedetector": "^8.2.1",
     "react": "^19.2.8",
@@ -20,6 +26,7 @@
     "react-redux": "^9.3.0",
     "react-router-dom": "^7.18.4",
     "sass": "^1.105.1",
+    "sirv": "^3.0.2",
     "swiper": "^14.3.0"
   },
   "devDependencies": {

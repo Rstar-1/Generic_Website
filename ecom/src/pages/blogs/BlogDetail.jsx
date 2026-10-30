@@ -56,7 +56,7 @@ const BlogDetail = () => {
     const path = blogSlug ? `/blog/${blogSlug}` : '/blog';
 
     const breadcrumbs = useMemo(() => [
-        { label: 'Home', path: '/home' },
+        { label: 'Home', path: '/' },
         { label: categoryName, path: `/blog?category=${encodeURIComponent(categoryName)}` },
         { label: title, path: `/blog/${blogSlug}` }
     ], [categoryName, title, blogSlug]);

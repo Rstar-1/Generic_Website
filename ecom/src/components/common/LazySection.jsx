@@ -11,7 +11,7 @@ const LazySection = memo(
     once = true,
   }) => {
     const containerRef = useRef(null);
-    const [isVisible, setIsVisible] = useState(false);
+    const [isVisible, setIsVisible] = useState(true);
 
     const placeholderStyle = useMemo(
       () => ({

@@ -107,7 +107,7 @@ const aboutSections = [
 ];
 
 const BREADCRUMBS = [
-    { label: 'Home', path: '/home' },
+    { label: 'Home', path: '/' },
     { label: 'About Us', path: '/about' }
 ];
 

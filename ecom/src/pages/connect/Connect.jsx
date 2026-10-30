@@ -65,7 +65,7 @@ const connectSections = [
 ];
 
 const BREADCRUMBS = [
-    { label: 'Home', path: '/home' },
+    { label: 'Home', path: '/' },
     { label: 'Connect Us', path: '/connect' }
 ];
 

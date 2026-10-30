@@ -23,29 +23,19 @@ function AppRoutes() {
             <Routes>
                 <Route path="/" element={<Layout />}>
                     <Route index element={<Home />} />
-                    <Route path="home" element={<Home />} />
                     <Route path="about" element={<About />} />
                     <Route path="blog" element={<Blog />} />
                     <Route path="blog/:id" element={<BlogDetail />} />
-                    <Route path="blog-detail" element={<BlogDetail />} />
-                    <Route path="blog-detail/:id" element={<BlogDetail />} />
                     <Route path="supplier" element={<Supplier />} />
                     <Route path="supplier/:brandName" element={<Supplier />} />
                     <Route path="product" element={<Product />} />
-                    <Route path="products" element={<Product />} />
                     <Route path="product/:id" element={<ProductDetail />} />
-                    <Route path="product-detail" element={<ProductDetail />} />
-                    <Route path="product-detail/:id" element={<ProductDetail />} />
                     <Route path="category" element={<Category />} />
-                    <Route path="categories" element={<Category />} />
-                    <Route path="collection" element={<Product />} />
-                    <Route path="collections" element={<Product />} />
                     <Route path="connect" element={<Connect />} />
-                    <Route path="connect-us" element={<Connect />} />
                     <Route path="faq" element={<Faq />} />
-                    <Route path="faqs" element={<Faq />} />
                     <Route path="terms" element={<Terms />} />
                     <Route path="privacy" element={<Privacy />} />
+                    <Route path="home" element={<Navigate to="/" replace />} />
                 </Route>
                 <Route path="*" element={<h2 style={{ textAlign: 'center', padding: '100px 20px' }}>404 - Page Not Found</h2>} />
             </Routes>

@@ -1,52 +1,13 @@
-import { seoData as config } from "../utils/apiData";
+import seoData from "../data/seo.json";
 
-const env = import.meta.env || {};
+const { siteInfo = {}, pages = {}, faqs = [] } = seoData;
 
-export const SITE_NAME = env.VITE_SITE_NAME || config.siteInfo?.name;
+export const SITE_NAME = siteInfo.name;
+export const SITE_URL = siteInfo.url.replace(/\/+$/, "");
+export const DEFAULT_IMAGE = siteInfo.image;
 
-export const SITE_URL = (
-  env.VITE_SITE_URL ||
-  config.siteInfo?.url ||
-  ""
-).replace(/\/$/, "");
-
-export const DEFAULT_IMAGE = env.VITE_SEO_IMAGE || config.siteInfo?.image || "";
-
-export const siteInfo = {
-  name: SITE_NAME,
-  url: SITE_URL,
-  description: env.VITE_SEO_DESCRIPTION || config.siteInfo?.description || "",
-  phone: env.VITE_PHONE || config.siteInfo?.phone || "",
-  email: env.VITE_EMAIL || config.siteInfo?.email || "",
-  address: {
-    ...config.siteInfo?.address,
-    ...(env.VITE_ADDRESS
-      ? { fullAddress: env.VITE_ADDRESS }
-      : {}),
-  },
-  geo: config.siteInfo?.geo || {},
-  sameAs: [
-    env.VITE_SOCIAL_INSTAGRAM,
-    env.VITE_SOCIAL_YOUTUBE,
-    env.VITE_SOCIAL_FACEBOOK,
-    env.VITE_SOCIAL_LINKEDIN,
-    env.VITE_SOCIAL_WHATSAPP,
-  ].filter(Boolean),
-};
-
-export const pageSeoData = Object.fromEntries(
-  Object.entries(config.pages || {}).map(([key, page]) => [
-    key,
-    {
-      ...page,
-      ...(key === "home" && env.VITE_SEO_TITLE
-        ? { title: env.VITE_SEO_TITLE }
-        : {}),
-    },
-  ]),
-);
-
-export const aeoFAQs = config.faqs || [];
+export const aeoFAQs = faqs;
+export const pageSeoData = pages;
 
 export const getUrl = (path = "/") => {
   if (!path) return SITE_URL;
@@ -54,69 +15,52 @@ export const getUrl = (path = "/") => {
   return `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
 };
 
-export const getImageUrl = (image) => getUrl(image || DEFAULT_IMAGE);
+export const getImageUrl = (image) =>
+  image ? getUrl(image) : getUrl(DEFAULT_IMAGE);
 
-const normalizeKey = (key = "") =>
-  String(key)
+// Direct canonical route & key resolver
+export const getPageSeo = (identifier = "") => {
+  const norm = String(identifier)
     .toLowerCase()
     .replace(/[^a-z0-9]/g, "");
-
-// Fast normalized aliases for user routes
-const aliasMap = {
-  home: "home",
-  about: "about",
-  aboutus: "about",
-  blog: "blog",
-  blogs: "blog",
-  blogdetail: "blogDetail",
-  supplier: "supplier",
-  suppliers: "supplier",
-  connect: "connect",
-  connectus: "connect",
-  faq: "faq",
-  faqs: "faq",
-  privacy: "privacy",
-  privacypolicy: "privacy",
-  terms: "terms",
-  termscondition: "terms",
-  termsconditions: "terms",
-  termsandcondition: "terms",
-  termsandconditions: "terms",
-  collection: "collection",
-  collections: "collection",
-  product: "product",
-  products: "products",
-  productdetail: "productDetail",
-  quality: "quality",
-};
-
-/**
- * Enhanced helper to resolve page SEO by key, friendly title, or route path
- */
-export const getPageSeo = (identifier = "") => {
-  if (!identifier) return pageSeoData.home || {};
+  if (!norm || norm === "home") return pageSeoData.home || {};
   if (pageSeoData[identifier]) return pageSeoData[identifier];
 
-  const norm = normalizeKey(identifier);
-  if (aliasMap[norm] && pageSeoData[aliasMap[norm]]) {
-    return pageSeoData[aliasMap[norm]];
-  }
-
-  const cleanPath = identifier.startsWith("/")
+  const clean = identifier.startsWith("/")
     ? identifier.toLowerCase()
     : `/${identifier}`.toLowerCase();
+
+  // Dynamic route prefix matching
+  if (clean.startsWith("/product/"))
+    return pageSeoData.productDetail || pageSeoData.product || {};
+  if (clean.startsWith("/blog/"))
+    return pageSeoData.blogDetail || pageSeoData.blog || {};
+  if (clean.startsWith("/supplier/")) return pageSeoData.supplier || {};
 
   return (
     Object.values(pageSeoData).find(
       (p) =>
-        p.path?.toLowerCase() === cleanPath ||
-        normalizeKey(p.path) === norm ||
-        normalizeKey(p.title) === norm,
+        p.path?.toLowerCase() === clean ||
+        String(p.path).replace(/[^a-z0-9]/g, "") === norm,
     ) ||
     pageSeoData.home ||
     {}
   );
 };
 
-export { default } from "./SEO";
-export { default as SEO } from "./SEO";
+const seoConfig = {
+  siteName: SITE_NAME,
+  siteUrl: SITE_URL,
+  defaultTitle: pageSeoData.home?.title || SITE_NAME,
+  defaultDescription:
+    pageSeoData.home?.description || siteInfo.description || "",
+  defaultKeywords: pageSeoData.home?.keywords || "",
+  defaultImage: DEFAULT_IMAGE,
+  language: "en_IN",
+  siteInfo,
+  pages: pageSeoData,
+  faqs: aeoFAQs,
+};
+
+export { siteInfo, seoConfig };
+export default seoConfig;
