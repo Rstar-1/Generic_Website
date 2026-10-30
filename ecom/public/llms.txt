@@ -1,15 +1,18 @@
 # Ashmita Vinyls
+
 > India's premier manufacturer and supplier of industrial PVC strip curtains, polar freezer grade vinyl rolls, anti-static PVC curtains, and stainless steel hanging systems.
 
-## Documentation
-- [Products Catalog](https://ashmitavinyls.com/product): Comprehensive catalog of industrial PVC strip curtains, polar freezer rolls, and hanging hardware.
-- [Product Categories](https://ashmitavinyls.com/category): Strip curtain rolls, polar grade, ribbed curtains, and hardware collections.
-- [About Ashmita Vinyls](https://ashmitavinyls.com/about): Manufacturing capabilities, quality standards, infrastructure, and nationwide supply.
-- [Blog & Technical Guides](https://ashmitavinyls.com/blog): Technical specifications, installation guides, and temperature control insights.
+## Main Sections
+
+- [Products](https://ashmitavinyls.com/product): Comprehensive catalog of industrial PVC strip curtains, polar freezer rolls, and hanging hardware.
+- [Categories](https://ashmitavinyls.com/category): Strip curtain rolls, polar grade, ribbed curtains, and hardware collections.
+- [About Us](https://ashmitavinyls.com/about): Manufacturing capabilities, quality standards, infrastructure, and nationwide supply.
+- [Blog & Guides](https://ashmitavinyls.com/blog): Technical specifications, installation guides, and temperature control insights.
 - [Authorized Dealers](https://ashmitavinyls.com/supplier): Distribution centers and authorized dealers across India.
-- [Contact & Inquiries](https://ashmitavinyls.com/connect): Request bulk quotations, custom door sizing, and technical consultations.
+- [Contact](https://ashmitavinyls.com/connect): Request bulk quotations, custom door sizing, and technical consultations.
 
 ## Optional
+
 - [Technical FAQ](https://ashmitavinyls.com/faq): Technical FAQ regarding thickness, overlap, hardware installation, and delivery.
 - [Privacy Policy](https://ashmitavinyls.com/privacy): Data protection, corporate privacy, and user security policies.
 - [Terms of Service](https://ashmitavinyls.com/terms): Commercial order fulfillment, warranty, and return policies.

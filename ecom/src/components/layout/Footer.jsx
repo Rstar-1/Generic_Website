@@ -117,15 +117,15 @@ const FooterNewsletter = React.memo(
           <p className="mini-text text-gray font-400 mt-6">
             {d.prefix}
             {d.termsUrl?.startsWith('/') ? (
-              <Link to={d.termsUrl} className="mini-text text-primary">{d.termsLabel}</Link>
+              <Link to={d.termsUrl} className="mini-text text-dark">{d.termsLabel}</Link>
             ) : (
-              <a href={d.termsUrl || '#'} className="mini-text text-primary">{d.termsLabel}</a>
+              <a href={d.termsUrl || '#'} className="mini-text text-dark">{d.termsLabel}</a>
             )}
             {d.middle}
             {d.privacyUrl?.startsWith('/') ? (
-              <Link to={d.privacyUrl} className="mini-text text-primary">{d.privacyLabel}</Link>
+              <Link to={d.privacyUrl} className="mini-text text-dark">{d.privacyLabel}</Link>
             ) : (
-              <a href={d.privacyUrl || '#'} className="mini-text text-primary">{d.privacyLabel}</a>
+              <a href={d.privacyUrl || '#'} className="mini-text text-dark">{d.privacyLabel}</a>
             )}
             {d.suffix}
           </p>

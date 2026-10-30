@@ -1,9 +1,4 @@
 User-agent: *
 Allow: /
 
-# Agentic Resource Discovery (ARD)
-Agentmap: /.well-known/ai-catalog.json
-
-# Documentation for LLMs
-# https://llmstxt.org/
-# See /llms.txt
+Sitemap: https://ashmitavinyls.com/sitemap.xml

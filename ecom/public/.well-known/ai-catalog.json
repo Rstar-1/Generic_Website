@@ -1,4 +1,5 @@
 {
+  "$schema": "https://raw.githubusercontent.com/ards-project/ard-spec/main/spec/schemas/ai-catalog.schema.json",
   "specVersion": "1.0",
   "host": {
     "identifier": "did:web:ashmitavinyls.com",
@@ -8,9 +9,9 @@
   },
   "entries": [
     {
-      "identifier": "urn:air:ashmitavinyls.com:catalog:products",
+      "identifier": "urn:air:ashmitavinyls.com:services:catalog",
       "displayName": "Ashmita Vinyls Products Catalog",
-      "type": "application/mcp-server-card+json",
+      "type": "application/json",
       "url": "https://ashmitavinyls.com/product",
       "description": "Comprehensive catalog of industrial PVC strip curtains, polar freezer grade rolls, ribbed vinyl strips, and hanging brackets.",
       "version": "1.0.0",
@@ -28,7 +29,7 @@
     {
       "identifier": "urn:air:ashmitavinyls.com:services:quote",
       "displayName": "B2B Quotation Service",
-      "type": "application/mcp-server-card+json",
+      "type": "application/json",
       "url": "https://ashmitavinyls.com/connect",
       "description": "Custom dimension quotation request and bulk order support for commercial strip curtains and industrial doors.",
       "version": "1.0.0",

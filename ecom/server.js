@@ -8,8 +8,9 @@ import compression from 'compression';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Constants
-const isProduction = process.env.NODE_ENV === 'production';
+// Constants & Mode Detection
+const hasBuiltAssets = await fs.access(path.join(__dirname, 'dist/client/index.html')).then(() => true).catch(() => false);
+const isProduction = process.env.NODE_ENV === 'production' || (process.env.NODE_ENV !== 'development' && hasBuiltAssets);
 const port = process.env.PORT || 3000;
 const base = process.env.BASE || '/';
 
@@ -21,8 +22,9 @@ const ssrManifest = isProduction
     ? await fs.readFile(path.join(__dirname, 'dist/client/.vite/ssr-manifest.json'), 'utf-8').then(JSON.parse).catch(() => undefined)
     : undefined;
 
-// Create Express app
+// Create Express app & enable Gzip/Deflate compression for all responses
 const app = express();
+app.use(compression());
 
 function escapeHtml(value = '') {
     return String(value).replace(/[&<>"']/g, (char) => ({
@@ -35,15 +37,28 @@ function escapeHtml(value = '') {
 }
 
 // Pre-load machine-readable discovery assets into memory
-const catalogJson = await fs.readFile(path.join(__dirname, 'public/.well-known/ai-catalog.json'), 'utf-8').catch(() => '{}');
+const ardJson = await fs.readFile(path.join(__dirname, 'public/.well-known/ard.json'), 'utf-8').catch(() => '{}');
+const catalogJson = await fs.readFile(path.join(__dirname, 'public/.well-known/ai-catalog.json'), 'utf-8').catch(() => ardJson);
 const llmsTxt = await fs.readFile(path.join(__dirname, 'public/llms.txt'), 'utf-8').catch(() => '');
 const llmsFullTxt = await fs.readFile(path.join(__dirname, 'public/llms-full.txt'), 'utf-8').catch(() => '');
+const sitemapXml = await fs.readFile(path.join(__dirname, 'public/sitemap.xml'), 'utf-8').catch(() => '');
 
 // -------------------------------------------------------------
 // 1. High-Priority AI Agent Discovery & Machine-readable Endpoints
 // (Must be registered FIRST to ensure they are never intercepted by SSR HTML)
 // -------------------------------------------------------------
-app.all(['/.well-known/ai-catalog.json', '/ai-catalog.json', '/.well-known/ard.json', '/ard.json'], (req, res) => {
+app.all(['/.well-known/ard.json', '/ard.json'], (req, res) => {
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', '*');
+    res.setHeader('Cache-Control', 'public, max-age=86400');
+    if (req.method === 'OPTIONS') return res.status(204).end();
+    if (req.method === 'HEAD') return res.status(200).end();
+    res.status(200).send(ardJson);
+});
+
+app.all(['/.well-known/ai-catalog.json', '/ai-catalog.json'], (req, res) => {
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS');
@@ -66,11 +81,21 @@ app.all(['/llms.txt', '/llms-full.txt'], (req, res) => {
     res.status(200).send(isFull ? llmsFullTxt : llmsTxt);
 });
 
+app.all('/sitemap.xml', (req, res) => {
+    res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS');
+    res.setHeader('Cache-Control', 'public, max-age=86400');
+    if (req.method === 'OPTIONS') return res.status(204).end();
+    if (req.method === 'HEAD') return res.status(200).end();
+    res.status(200).send(sitemapXml);
+});
+
 app.all('/robots.txt', (req, res) => {
     const host = req.get('host') || `localhost:${port}`;
     const protocol = req.protocol || 'http';
     const origin = `${protocol}://${host}`;
-    const content = `User-agent: *\nAllow: /\n\nAgentmap: ${origin}/.well-known/ai-catalog.json\nSitemap: ${origin}/sitemap.xml\n`;
+    const content = `User-agent: *\nAllow: /\n\nSitemap: ${origin}/sitemap.xml\n`;
 
     res.setHeader('Content-Type', 'text/plain; charset=utf-8');
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -100,7 +125,6 @@ if (!isProduction) {
     });
     app.use(vite.middlewares);
 } else {
-    app.use(compression());
     const sirv = (await import('sirv')).default;
     app.use(
         base,
@@ -120,7 +144,7 @@ if (!isProduction) {
 }
 
 // -------------------------------------------------------------
-// 4. Server-Side Rendering (SSR) & HTML Delivery
+// 3. Server-Side Rendering (SSR) & HTML Delivery with In-Memory Caching
 // -------------------------------------------------------------
 const ssrCache = new Map();
 const CACHE_TTL_MS = 5 * 60 * 1000;
@@ -136,9 +160,16 @@ app.use(async (req, res, next) => {
             return res.status(404).end();
         }
 
+        const agentLinkHeader = [
+            `</.well-known/ard.json>; rel="ard"`,
+            `</.well-known/ai-catalog.json>; rel="ai-catalog"`,
+            `</llms.txt>; rel="describedby"`
+        ].join(', ');
+
         if (isProduction && ssrCache.has(cacheKey)) {
             const cached = ssrCache.get(cacheKey);
             if (Date.now() - cached.timestamp < CACHE_TTL_MS) {
+                res.setHeader('Link', agentLinkHeader);
                 res.status(200).set({
                     'Content-Type': 'text/html; charset=utf-8',
                     'Cache-Control': 'public, max-age=60, stale-while-revalidate=300'
@@ -185,17 +216,16 @@ app.use(async (req, res, next) => {
         }
 
         // Set Link header for AI Agent Discoverability
-        res.setHeader('Link', [
-            `</.well-known/ai-catalog.json>; rel="agentmap"`,
-            `</.well-known/ard.json>; rel="ard"`,
-            `</llms.txt>; rel="describedby"`
-        ].join(', '));
+        res.setHeader('Link', agentLinkHeader);
 
         if (isProduction) {
             ssrCache.set(cacheKey, { html, timestamp: Date.now() });
         }
 
-        res.status(200).set({ 'Content-Type': 'text/html; charset=utf-8' }).send(html);
+        res.status(200).set({
+            'Content-Type': 'text/html; charset=utf-8',
+            'Cache-Control': 'public, max-age=60, stale-while-revalidate=300'
+        }).send(html);
     } catch (error) {
         if (!isProduction && vite) {
             vite.ssrFixStacktrace(error);
@@ -206,5 +236,5 @@ app.use(async (req, res, next) => {
 });
 
 app.listen(port, () => {
-    console.log(`SSR server running at http://localhost:${port}`);
+    console.log(`SSR server running at http://localhost:${port} (${isProduction ? 'production' : 'development'})`);
 });
