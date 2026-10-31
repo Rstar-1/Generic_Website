@@ -5,8 +5,11 @@ import Heading from '../../../components/layout/generic/Heading';
 import SlideLayout from '../../../components/layout/sections/SlideLayout';
 import CardLayout from '../../../components/layout/sections/CardLayout';
 
-import { productsData } from '../../../utils/apiData';
-import { navigateToProduct, navigateToCategory } from '../../../utils/utils';
+import {
+  productsData,
+  navigateToProduct,
+  navigateToCategory
+} from '../../../utils';
 
 const ProductSection = ({
     tag = 'SPECIAL OFFERS FOR YOU',

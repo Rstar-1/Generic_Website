@@ -1,4 +1,4 @@
-import React, { createContext, useContext, memo } from "react";
+import React from 'react';
 
 export const THEMES = {
     light: { bg: "#e2e8f0", grad: "linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%)" },
@@ -29,10 +29,10 @@ export const SKELETON_ANIMATIONS = [
     { label: "None", value: "none" },
 ];
 
-const SkeletonContext = createContext(null);
+const SkeletonContext = React.createContext(null);
 
-const BaseSkeleton = memo(({ width, height, borderRadius, style = {}, className = "", theme, animation, ...props }) => {
-    const ctx = useContext(SkeletonContext);
+const BaseSkeleton = React.memo(({ width, height, borderRadius, style = {}, className = "", theme, animation, ...props }) => {
+    const ctx = React.useContext(SkeletonContext);
     const activeTheme = theme || ctx?.theme || "light";
     const activeAnim = animation || ctx?.animation || "shimmer";
     const active = THEMES[activeTheme] || THEMES.light;
@@ -62,7 +62,7 @@ const BaseSkeleton = memo(({ width, height, borderRadius, style = {}, className 
 
 BaseSkeleton.displayName = "BaseSkeleton";
 
-const Skeleton = memo(
+const Skeleton = React.memo(
     ({
         variant = "text",
         width,

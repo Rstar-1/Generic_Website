@@ -1,4 +1,4 @@
-import { StrictMode } from 'react';
+import React from 'react';
 import { hydrateRoot, createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -16,22 +16,22 @@ const container = document.getElementById('root');
 if (container && container.hasChildNodes()) {
     hydrateRoot(
         container,
-        <StrictMode>
+        <React.StrictMode>
             <Provider store={store}>
                 <BrowserRouter>
                     <App />
                 </BrowserRouter>
             </Provider>
-        </StrictMode>
+        </React.StrictMode>
     );
 } else if (container) {
     createRoot(container).render(
-        <StrictMode>
+        <React.StrictMode>
             <Provider store={store}>
                 <BrowserRouter>
                     <App />
                 </BrowserRouter>
             </Provider>
-        </StrictMode>
+        </React.StrictMode>
     );
 }

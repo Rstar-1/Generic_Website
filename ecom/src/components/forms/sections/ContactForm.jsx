@@ -1,7 +1,9 @@
-import React, { useState, useCallback, memo } from 'react';
+import React from 'react';
 import FormBuilder from '../FormBuilder';
 import { showToast } from '../../common/Toast';
-import { sendEmail } from '../../../utils/emailsend';
+import {
+  sendEmail
+} from '../../../utils';
 
 const DEFAULT_CONTACT_FIELDS = [
     {
@@ -45,10 +47,10 @@ const ContactForm = ({
     subject = 'New Contact Enquiry',
     className = ''
 }) => {
-    const [formKey, setFormKey] = useState(0);
-    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [formKey, setFormKey] = React.useState(0);
+    const [isSubmitting, setIsSubmitting] = React.useState(false);
 
-    const handleFormSubmit = useCallback(async (data) => {
+    const handleFormSubmit = React.useCallback(async (data) => {
         setIsSubmitting(true);
 
         if (onSubmit) {
@@ -104,4 +106,4 @@ const ContactForm = ({
     );
 };
 
-export default memo(ContactForm);
+export default React.memo(ContactForm);

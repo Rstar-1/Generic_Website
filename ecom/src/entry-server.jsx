@@ -5,7 +5,9 @@ import { Provider } from 'react-redux';
 import { Writable } from 'node:stream';
 import { store } from './app/server/store';
 import App from './app/App.jsx';
-import { resolveImagePath } from './utils/imageResolver';
+import {
+  resolveImagePath
+} from './utils';
 import { buildMetadata } from './seo/metadata';
 import { buildGraphJsonLd } from './seo/jsonLd';
 
@@ -51,6 +53,7 @@ export function buildHeadTags(url) {
         `<meta name="twitter:description" content="${escapeHtml(meta.description)}" />`,
         meta.image ? `<meta name="twitter:image" content="${escapeHtml(meta.image)}" />` : '',
         lcpImage ? `<link rel="preload" as="image" href="${escapeHtml(lcpImage)}" fetchpriority="high" />` : '',
+        `<link rel="preload" as="image" href="${escapeHtml(resolveImagePath('sobo_logo.png'))}" fetchpriority="high" />`,
         `<script id="site-seo-jsonld" type="application/ld+json">${JSON.stringify(graph).replace(/</g, '\\u003c')}</script>`,
     ].filter(Boolean).join('\n    ');
 

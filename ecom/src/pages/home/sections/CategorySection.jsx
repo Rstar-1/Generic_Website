@@ -9,10 +9,13 @@ import Image from '../../../components/common/Image';
 import Button from '../../../components/common/Button';
 import Heading from '../../../components/layout/generic/Heading';
 
-import { categoriesData, configData } from '../../../utils/apiData';
+import {
+  categoriesData,
+  configData,
+  resolveImagePath,
+  navigateToCategory
+} from '../../../utils';
 import productcategoryData from '../../../data/productcategory.json';
-import { resolveImagePath } from '../../../utils/imageResolver';
-import { navigateToCategory } from '../../../utils/utils';
 
 const categories = productcategoryData || categoriesData || [];
 

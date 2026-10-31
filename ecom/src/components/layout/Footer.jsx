@@ -6,9 +6,16 @@ import Icon from '../common/Icon';
 import NewsletterForm from '../forms/sections/NewsletterForm';
 
 import { showToast } from '../common/Toast';
-import { sendEmail } from '../../utils/emailsend';
-import { footer, footerData, configData, productsData } from '../../utils/apiData';
-import { isVisible, getSocialLinks, getItemSlug } from '../../utils/utils';
+import {
+  sendEmail,
+  footer,
+  footerData,
+  configData,
+  productsData,
+  isVisible,
+  getSocialLinks,
+  getItemSlug
+} from '../../utils';
 
 const footerConfig = configData?.Footer?.[0] || configData?.Footer || {};
 const socialLinks = getSocialLinks();

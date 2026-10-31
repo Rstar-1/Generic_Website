@@ -8,16 +8,45 @@ import compression from 'compression';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Prevent uncaught stream errors from crashing the process
+process.on('uncaughtException', (err) => {
+    if (err.code === 'ENOENT') {
+        console.warn('Handled stream ENOENT for static asset:', err.message);
+        return;
+    }
+    console.error('Uncaught Exception:', err);
+});
+
 // Constants & Mode Detection
 const hasBuiltAssets = await fs.access(path.join(__dirname, 'dist/client/index.html')).then(() => true).catch(() => false);
 const isProduction = process.env.NODE_ENV === 'production' || (process.env.NODE_ENV !== 'development' && hasBuiltAssets);
 const port = process.env.PORT || 3000;
 const base = process.env.BASE || '/';
 
-// Cached production assets
-const templateHtml = isProduction
-    ? await fs.readFile(path.join(__dirname, 'dist/client/index.html'), 'utf-8').catch(() => '')
-    : '';
+// Dynamic production template loader with mtime cache-invalidation
+let cachedTemplateHtml = '';
+let cachedTemplateMtime = 0;
+
+async function getTemplateHtml() {
+    if (!isProduction) {
+        return await fs.readFile(path.join(__dirname, 'index.html'), 'utf-8');
+    }
+    const htmlPath = path.join(__dirname, 'dist/client/index.html');
+    try {
+        const stat = await fs.stat(htmlPath);
+        if (stat.mtimeMs !== cachedTemplateMtime) {
+            cachedTemplateHtml = await fs.readFile(htmlPath, 'utf-8');
+            cachedTemplateMtime = stat.mtimeMs;
+            ssrCache.clear();
+        }
+    } catch {
+        if (!cachedTemplateHtml) {
+            cachedTemplateHtml = await fs.readFile(htmlPath, 'utf-8').catch(() => '');
+        }
+    }
+    return cachedTemplateHtml;
+}
+
 const ssrManifest = isProduction
     ? await fs.readFile(path.join(__dirname, 'dist/client/.vite/ssr-manifest.json'), 'utf-8').then(JSON.parse).catch(() => undefined)
     : undefined;
@@ -115,6 +144,7 @@ let vite;
 if (!isProduction) {
     const { createServer } = await import('vite');
     vite = await createServer({
+        root: __dirname,
         server: { middlewareMode: true },
         appType: 'custom',
         base,
@@ -127,22 +157,24 @@ if (!isProduction) {
     });
     app.use(vite.middlewares);
 } else {
-    const sirv = (await import('sirv')).default;
     app.use(
         base,
-        sirv(path.join(__dirname, 'dist/client'), {
-            extensions: [],
-            gzip: true,
-            dot: true,
-            maxAge: 31536000,
+        express.static(path.join(__dirname, 'dist/client'), {
+            maxAge: '1y',
             immutable: true,
-            setHeaders(res, pathname) {
-                if (pathname.startsWith('/assets/') || /\.(png|jpe?g|webp|svg|gif|ico|woff2?|css|js)$/i.test(pathname)) {
+            index: false,
+            fallthrough: true,
+            setHeaders(res, filePath) {
+                if (filePath.includes('assets') || /\.(png|jpe?g|webp|svg|gif|ico|woff2?|css|js)$/i.test(filePath)) {
                     res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
                 }
             },
         })
     );
+    // Explicit 404 for missing hashed assets to prevent falling through to SSR HTML or stream errors
+    app.use('/assets', (req, res) => {
+        res.status(404).end();
+    });
 }
 
 // -------------------------------------------------------------
@@ -174,7 +206,7 @@ app.use(async (req, res, next) => {
                 res.setHeader('Link', agentLinkHeader);
                 res.status(200).set({
                     'Content-Type': 'text/html; charset=utf-8',
-                    'Cache-Control': 'public, max-age=3600, stale-while-revalidate=86400'
+                    'Cache-Control': 'no-cache, no-store, must-revalidate'
                 }).send(cached.html);
                 return;
             }
@@ -184,11 +216,11 @@ app.use(async (req, res, next) => {
         let render;
 
         if (!isProduction) {
-            template = await fs.readFile(path.join(__dirname, 'index.html'), 'utf-8');
+            template = await getTemplateHtml();
             template = await vite.transformIndexHtml(url, template);
             render = (await vite.ssrLoadModule('/src/entry-server.jsx')).render;
         } else {
-            template = templateHtml;
+            template = await getTemplateHtml();
             render = (await import('./dist/server/entry-server.js')).render;
         }
 
@@ -211,10 +243,8 @@ app.use(async (req, res, next) => {
         // Move stylesheet link to the top of <head> before anything else so browser blocks paint until styles are ready
         const cssLinkMatch = html.match(/<link[^>]+rel="stylesheet"[^>]+assets\/style-[^>]+>/i);
         if (cssLinkMatch) {
-            const hrefMatch = cssLinkMatch[0].match(/href="([^"]+)"/);
-            const preloadTag = hrefMatch ? `<link rel="preload" as="style" href="${hrefMatch[1]}">\n    ` : '';
             html = html.replace(cssLinkMatch[0], '');
-            html = html.replace('<head>', `<head>\n    ${preloadTag}${cssLinkMatch[0]}`);
+            html = html.replace('<head>', `<head>\n    ${cssLinkMatch[0]}`);
         }
 
         // Set Link header for AI Agent Discoverability
@@ -226,7 +256,7 @@ app.use(async (req, res, next) => {
 
         res.status(200).set({
             'Content-Type': 'text/html; charset=utf-8',
-            'Cache-Control': 'public, max-age=3600, stale-while-revalidate=86400'
+            'Cache-Control': 'no-cache, no-store, must-revalidate'
         }).send(html);
     } catch (error) {
         if (!isProduction && vite) {
@@ -250,7 +280,8 @@ async function warmSsrCache() {
                 const description = rendered.seo?.description || 'Discover our products and services.';
                 const headTags = rendered.head ?? '';
 
-                let html = templateHtml
+                const currentTemplate = await getTemplateHtml();
+                let html = currentTemplate
                     .replace('<!--app-title-->', escapeHtml(title))
                     .replace(
                         '<meta name="description" content="<!--app-description-->">',
@@ -262,10 +293,8 @@ async function warmSsrCache() {
 
                 const cssLinkMatch = html.match(/<link[^>]+rel="stylesheet"[^>]+assets\/style-[^>]+>/i);
                 if (cssLinkMatch) {
-                    const hrefMatch = cssLinkMatch[0].match(/href="([^"]+)"/);
-                    const preloadTag = hrefMatch ? `<link rel="preload" as="style" href="${hrefMatch[1]}">\n    ` : '';
                     html = html.replace(cssLinkMatch[0], '');
-                    html = html.replace('<head>', `<head>\n    ${preloadTag}${cssLinkMatch[0]}`);
+                    html = html.replace('<head>', `<head>\n    ${cssLinkMatch[0]}`);
                 }
 
                 ssrCache.set(route, { html, timestamp: Date.now() });

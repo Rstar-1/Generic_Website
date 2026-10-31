@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -96,12 +96,12 @@ export const useCart = () => {
   const subtotal = useSelector(selectCartSubtotal);
   const isCartOpen = useSelector(selectIsCartOpen);
 
-  const addToCart = useCallback((product) => dispatch(addToCartAction(product)), [dispatch]);
-  const removeFromCart = useCallback((id) => dispatch(removeFromCartAction(id)), [dispatch]);
-  const updateQuantity = useCallback((id, quantity) => dispatch(updateQuantityAction({ id, quantity })), [dispatch]);
-  const setIsCartOpen = useCallback((isOpen) => dispatch(setIsCartOpenAction(isOpen)), [dispatch]);
-  const toggleCart = useCallback(() => dispatch(toggleCartAction()), [dispatch]);
-  const clearCart = useCallback(() => dispatch(clearCartAction()), [dispatch]);
+  const addToCart = React.useCallback((product) => dispatch(addToCartAction(product)), [dispatch]);
+  const removeFromCart = React.useCallback((id) => dispatch(removeFromCartAction(id)), [dispatch]);
+  const updateQuantity = React.useCallback((id, quantity) => dispatch(updateQuantityAction({ id, quantity })), [dispatch]);
+  const setIsCartOpen = React.useCallback((isOpen) => dispatch(setIsCartOpenAction(isOpen)), [dispatch]);
+  const toggleCart = React.useCallback(() => dispatch(toggleCartAction()), [dispatch]);
+  const clearCart = React.useCallback(() => dispatch(clearCartAction()), [dispatch]);
 
   return {
     cartItems,

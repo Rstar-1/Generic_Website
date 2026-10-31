@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom';
 
 import Image from '../../../components/common/Image';
 import Button from '../../../components/common/Button';
-import { resolveImagePath } from '../../../utils/utils';
+import {
+  resolveImagePath
+} from '../../../utils';
 
 const DEFAULT_TRENDING = [
     {

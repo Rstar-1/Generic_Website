@@ -1,4 +1,4 @@
-import { useMemo, useCallback } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Icon from '../../common/Icon';
 import Badge from '../../common/Badge';
@@ -19,12 +19,12 @@ const Heading = ({
 }) => {
     const navigate = useNavigate();
 
-    const handleActionClick = useCallback(() => {
+    const handleActionClick = React.useCallback(() => {
         if (onActionClick) onActionClick();
         else if (actionLink) navigate(actionLink);
     }, [onActionClick, actionLink, navigate]);
 
-    const renderTag = useCallback((extraClass = "") => tag ? (
+    const renderTag = React.useCallback((extraClass = "") => tag ? (
         <Badge
             text={tag}
             icon={tagIcon}
@@ -41,7 +41,7 @@ const Heading = ({
         />
     ) : null, [tag, tagIcon, tagProps]);
 
-    const renderedHeading = useMemo(() => {
+    const renderedHeading = React.useMemo(() => {
         switch (version) {
             case "v2":
                 return (

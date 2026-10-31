@@ -1,4 +1,4 @@
-import { memo } from "react";
+import React from 'react';
 import Icon from "./Icon";
 
 export const getBadgeTheme = (val) => {
@@ -90,7 +90,7 @@ export const getColorTheme = getBadgeTheme;
 
 const isColorCode = (str) => typeof str === "string" && (str.startsWith("#") || str.startsWith("rgb"));
 
-export const Badge = memo(({
+export const Badge = React.memo(({
     text = "",
     children,
     color,
@@ -207,7 +207,7 @@ export const Badge = memo(({
 });
 Badge.displayName = "Badge";
 
-export const BadgeList = memo(({
+export const BadgeList = React.memo(({
     items = [],
     color = "primary",
     shape = "rounded",

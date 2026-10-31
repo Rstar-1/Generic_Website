@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, useEffect, memo } from 'react';
+import React from 'react';
 import { useNavigate, useLocation, useParams, useSearchParams } from 'react-router-dom';
 
 import Container from '../../../components/common/Container';
@@ -8,44 +8,48 @@ import Image from '../../../components/common/Image';
 import Icon from '../../../components/common/Icon';
 import Fields from '../../../components/forms/Fields';
 import Badge from '../../../components/common/Badge';
-import { resolveImagePath } from '../../../utils/imageResolver';
-import { getItemSlug, matchBySlugOrId, shareContent } from '../../../utils/utils';
+import {
+  resolveImagePath,
+  getItemSlug,
+  matchBySlugOrId,
+  shareContent
+} from '../../../utils';
 import blogData from '../../../data/blog.json';
 
 import FilterSection from './FilterSection';
 
-const BlogDetailSection = memo(() => {
+const BlogDetailSection = React.memo(() => {
     const navigate = useNavigate();
     const location = useLocation();
     const { id } = useParams();
     const [searchParams] = useSearchParams();
-    const [isMobileCategoryOpen, setIsMobileCategoryOpen] = useState(false);
+    const [isMobileCategoryOpen, setIsMobileCategoryOpen] = React.useState(false);
 
-    const blogsList = useMemo(() => blogData || [], []);
+    const blogsList = React.useMemo(() => blogData || [], []);
 
-    const currentBlog = useMemo(() => {
+    const currentBlog = React.useMemo(() => {
         if (location.state?.blog) return location.state.blog;
         const target = id || searchParams.get('id') || searchParams.get('slug');
         return (target ? blogsList.find((b) => matchBySlugOrId(b, target)) : null) || blogsList[0] || null;
     }, [location.state, id, searchParams, blogsList]);
 
-    const [comments, setComments] = useState([]);
+    const [comments, setComments] = React.useState([]);
 
-    useEffect(() => {
+    React.useEffect(() => {
         setComments(currentBlog?.reviews || []);
     }, [currentBlog]);
 
-    const handleBlogClick = useCallback((post) => {
+    const handleBlogClick = React.useCallback((post) => {
         setIsMobileCategoryOpen(false);
         navigate(`/blog/${getItemSlug(post)}`, { state: { blog: post } });
     }, [navigate]);
 
-    const handleSelectCategory = useCallback((catId) => {
+    const handleSelectCategory = React.useCallback((catId) => {
         setIsMobileCategoryOpen(false);
         navigate(`/blog?category=${catId}`);
     }, [navigate]);
 
-    const handleShare = useCallback((platform) => {
+    const handleShare = React.useCallback((platform) => {
         const blogSlug = getItemSlug(currentBlog);
         shareContent({
             platform,

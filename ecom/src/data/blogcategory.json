@@ -2,25 +2,21 @@
   {
     "id": 1,
     "name": "Buying & Selection Guide",
-    "slug": "buying-selection-guide",
     "description": "Essential buying guides, material specifications, and selection criteria for industrial PVC curtains."
   },
   {
     "id": 2,
     "name": "Cold Storage & Energy",
-    "slug": "cold-storage-energy",
     "description": "Thermal barrier insights, sub-zero polar grade vinyl, and energy efficiency for refrigeration facilities."
   },
   {
     "id": 3,
     "name": "Industrial & Warehousing",
-    "slug": "industrial-warehousing",
     "description": "Heavy-duty partition solutions, acoustic dampening, operational safety, and maintenance best practices."
   },
   {
     "id": 4,
     "name": "Hygiene & Pest Control",
-    "slug": "hygiene-pest-control",
     "description": "Anti-insect amber strip curtains, food safety compliance, and hygienic sanitation barrier guides."
   }
 ]

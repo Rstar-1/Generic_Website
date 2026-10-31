@@ -5,9 +5,12 @@ import Container from '../../components/common/Container';
 import Banner from '../../components/layout/generic/Banner';
 import SEO from '../../seo';
 
-import { resolveImagePath } from '../../utils/imageResolver';
-import { getStickyTop, getCmsData } from '../../utils/utils';
-import { cmsMap } from '../../utils/apiData';
+import {
+  resolveImagePath,
+  getStickyTop,
+  getCmsData,
+  cmsMap
+} from '../../utils';
 
 import FilterSection from './sections/FilterSection';
 import PatchSection from '../home/sections/PatchSection';

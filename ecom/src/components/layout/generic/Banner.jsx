@@ -1,17 +1,19 @@
 
-import React, { memo } from "react";
+import React from 'react';
 import Container from "../../common/Container";
 import Breadcrumb from "../../common/Breadcrumb";
 import Skeleton from "../../common/Skeleton";
-import { resolveImagePath } from "../../../utils/imageResolver";
-import { configData } from "../../../utils/apiData";
+import {
+  resolveImagePath,
+  configData
+} from '../../../utils';
 
 const OVERLAY =
     "linear-gradient(rgba(20,8,1,.72),rgba(15,20,23,.82))";
 const GRADIENT =
     "linear-gradient(rgba(20,8,1,.72),rgba(148,51,6,.82))";
 
-const Banner = memo(({
+const Banner = React.memo(({
     title = "Banner",
     desc,
     position = "center",

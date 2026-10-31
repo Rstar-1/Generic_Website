@@ -1,3 +1,4 @@
+import React from 'react';
 import AppRoutes from '../routes/index';
 
 import ScrollToTop from '../components/common/generic/ScrollToTop';

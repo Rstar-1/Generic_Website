@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React from 'react';
 import { useLocation } from "react-router-dom";
 import { buildMetadata } from "./metadata.js";
 import { buildGraphJsonLd, productJsonLd } from "./jsonLd.js";
@@ -20,7 +20,7 @@ export default function SEO({
   const location = useLocation();
   const currentPath = path || location?.pathname || "/";
 
-  const meta = useMemo(
+  const meta = React.useMemo(
     () =>
       buildMetadata({
         title,
@@ -50,13 +50,13 @@ export default function SEO({
     ]
   );
 
-  const finalJsonLd = useMemo(() => {
+  const finalJsonLd = React.useMemo(() => {
     if (jsonLd) return jsonLd;
     if (product) return productJsonLd(product);
     return buildGraphJsonLd({ meta, product, breadcrumbs, faqs });
   }, [jsonLd, product, meta, breadcrumbs, faqs]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (typeof document === "undefined") return;
 
     if (meta.title) {

@@ -1,11 +1,17 @@
-import React, { memo, useMemo } from 'react';
+import React from 'react';
 import { useLocation, useParams, useSearchParams } from 'react-router-dom';
 
 import Container from '../../components/common/Container';
 import Banner from '../../components/layout/generic/Banner';
 import SEO from '../../seo';
-import { getItemSlug, matchBySlugOrId, findCategory, resolveImagePath } from '../../utils/utils';
-import { blogData, blogCategoriesData } from '../../utils/apiData';
+import {
+  getItemSlug,
+  matchBySlugOrId,
+  findCategory,
+  resolveImagePath,
+  blogData,
+  blogCategoriesData
+} from '../../utils';
 
 import BlogDetailSection from './sections/BlogDetailSection';
 import PatchSection from '../home/sections/PatchSection';
@@ -26,13 +32,13 @@ const BlogDetail = () => {
     const { id } = useParams();
     const [searchParams] = useSearchParams();
 
-    const currentBlog = useMemo(() => {
+    const currentBlog = React.useMemo(() => {
         if (location.state?.blog) return location.state.blog;
         const targetId = id || searchParams.get('id') || searchParams.get('slug');
         return (targetId ? (blogData || []).find((b) => matchBySlugOrId(b, targetId)) : null) || blogData?.[0] || null;
     }, [location.state, id, searchParams]);
 
-    const category = useMemo(() => {
+    const category = React.useMemo(() => {
         if (!currentBlog) return null;
         return findCategory(blogCategoriesData, currentBlog);
     }, [currentBlog]);
@@ -44,7 +50,7 @@ const BlogDetail = () => {
     const description = currentBlog?.excerpt || currentBlog?.content?.slice(0, 160) || 'Read our latest blog post.';
     const path = blogSlug ? `/blog/${blogSlug}` : '/blog';
 
-    const breadcrumbs = useMemo(() => [
+    const breadcrumbs = React.useMemo(() => [
         { label: 'Home', path: '/' },
         { label: categoryName, path: `/blog?category=${encodeURIComponent(categoryName)}` },
         { label: title, path: `/blog/${blogSlug}` }
@@ -77,4 +83,4 @@ const BlogDetail = () => {
     );
 };
 
-export default memo(BlogDetail);
+export default React.memo(BlogDetail);

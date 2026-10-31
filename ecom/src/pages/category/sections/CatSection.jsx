@@ -1,16 +1,18 @@
-import React, { useCallback, memo } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Icon from '../../../components/common/Icon';
 import Image from '../../../components/common/Image';
-import { categoriesData } from '../../../utils/apiData';
-import { resolveImagePath } from '../../../utils/imageResolver';
-import { navigateToCategory } from '../../../utils/utils';
+import {
+  categoriesData,
+  resolveImagePath,
+  navigateToCategory
+} from '../../../utils';
 
-const CatSection = memo(({ items = categoriesData }) => {
+const CatSection = React.memo(({ items = categoriesData }) => {
     const navigate = useNavigate();
 
-    const handleCategoryClick = useCallback((cat) => {
+    const handleCategoryClick = React.useCallback((cat) => {
         navigateToCategory(navigate, cat);
     }, [navigate]);
 

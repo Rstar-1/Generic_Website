@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, Suspense } from 'react';
+import React from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 
 import Layout from '../components/layout/Layout';
@@ -19,12 +19,12 @@ import Category from '../pages/category/Category';
 
 function AppRoutes() {
     const location = useLocation();
-    const prevPathRef = useRef(location.pathname);
-    const [routeLoading, setRouteLoading] = useState(false);
-    const [routeFading, setRouteFading] = useState(false);
+    const prevPathRef = React.useRef(location.pathname);
+    const [routeLoading, setRouteLoading] = React.useState(false);
+    const [routeFading, setRouteFading] = React.useState(false);
 
     // Route transition effect on navigation
-    useEffect(() => {
+    React.useEffect(() => {
         if (prevPathRef.current === location.pathname) return;
         prevPathRef.current = location.pathname;
 
@@ -51,7 +51,7 @@ function AppRoutes() {
             {routeLoading && (
                 <Loader isFading={routeFading} />
             )}
-            <Suspense fallback={null}>
+            <React.Suspense fallback={null}>
                 <Routes>
                     <Route path="/" element={<Layout />}>
                         <Route index element={<Home />} />
@@ -71,7 +71,7 @@ function AppRoutes() {
                     </Route>
                     <Route path="*" element={<h2 style={{ textAlign: 'center', padding: '100px 20px' }}>404 - Page Not Found</h2>} />
                 </Routes>
-            </Suspense>
+            </React.Suspense>
         </>
     );
 }

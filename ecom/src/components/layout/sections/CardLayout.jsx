@@ -6,9 +6,11 @@ import Badge from '../../common/Badge';
 import Icon from '../../common/Icon';
 import Fields from '../../forms/Fields';
 
-import { resolveImagePath } from '../../../utils/imageResolver';
+import {
+  resolveImagePath,
+  formatPrice
+} from '../../../utils';
 import { useCart } from '../../../feature/cartSlice';
-import { formatPrice } from '../../../utils/utils';
 
 const isPrice = String(import.meta.env.VITE_PRICE).toLowerCase() === 'true';
 

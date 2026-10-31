@@ -11,12 +11,19 @@ import Badge from "../common/Badge";
 import Fields from "../forms/Fields";
 import EnquiryModal from "./generic/Enquiy";
 
-import { header, configData, productsData, categoriesData } from "../../utils/apiData";
-import { resolveImagePath } from "../../utils/imageResolver";
-import { ALL_LANGUAGES, changeWebsiteLanguage, getSavedLanguage } from "../../utils/i18n";
+import {
+  header,
+  configData,
+  productsData,
+  categoriesData,
+  resolveImagePath,
+  getItemSlug,
+  ALL_LANGUAGES,
+  changeWebsiteLanguage,
+  getSavedLanguage
+} from '../../utils';
 
 import { useCart } from "../../feature/cartSlice";
-import { getItemSlug } from "../../utils/utils";
 
 const formatMegaProduct = (p) => ({
   id: p.id,
@@ -195,13 +202,21 @@ const HeaderTopBar = React.memo(() => {
 HeaderTopBar.displayName = "HeaderTopBar";
 
 const HeaderLogo = React.memo(({ isHeaderWhite, onCloseMobile }) => (
-  <NavLink to="/home" className={LogoClass} onClick={onCloseMobile}>
+  <NavLink
+    to="/home"
+    className={LogoClass}
+    onClick={onCloseMobile}
+    style={{ minWidth: "180px", height: "60px", display: "inline-flex", alignItems: "center", flexShrink: 0 }}
+  >
     <Image
       src={resolveImagePath(!isStickyConfig || isHeaderWhite ? "sobo_logo.png" : "sobo_white.png")}
       alt="Ashmita Vinyls Logo"
       width={180}
       height={60}
       aspectRatio="3 / 1"
+      loading="eager"
+      fetchPriority="high"
+      decoding="sync"
       className="object-contain w-90 sm-w-50"
       style={{ height: "60px", width: "auto" }}
     />
@@ -897,7 +912,17 @@ const Header = () => {
   } = useCart();
 
   React.useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    let ticking = false;
+    const updateScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+      ticking = false;
+    };
+    const handleScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(updateScroll);
+      }
+    };
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);

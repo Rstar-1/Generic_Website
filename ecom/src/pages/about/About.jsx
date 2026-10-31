@@ -1,10 +1,12 @@
-import React, { memo } from 'react';
+import React from 'react';
 import Container from '../../components/common/Container';
 import Banner from '../../components/layout/generic/Banner';
 import SEO from '../../seo';
-import { resolveImagePath } from '../../utils/imageResolver';
-import { getCmsData } from '../../utils/utils';
-import { cmsMap } from '../../utils/apiData';
+import {
+  resolveImagePath,
+  getCmsData,
+  cmsMap
+} from '../../utils';
 
 import DetailSection from './sections/DetailSection';
 import OfferSection from '../home/sections/OfferSection';
@@ -103,4 +105,4 @@ const About = () => {
     );
 };
 
-export default memo(About);
+export default React.memo(About);

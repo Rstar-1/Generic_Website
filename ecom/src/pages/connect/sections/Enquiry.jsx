@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from 'react';
+import React from 'react';
 
 import Icon from '../../../components/common/Icon';
 import Heading from '../../../components/layout/generic/Heading';
@@ -44,7 +44,7 @@ const CONTACT_ITEMS = [
     }
 ].filter(Boolean);
 
-const ContactItem = memo(({ icon, title, desc, link, sub }) => (
+const ContactItem = React.memo(({ icon, title, desc, link, sub }) => (
     <div className="flex gap-12 items-start mb-16">
         <div className="icon-lg border-dark rounded-full center-div flex-shrink-0">
             <Icon name={icon} width="16" height="16" stroke="currentColor" />
@@ -70,7 +70,7 @@ const ContactItem = memo(({ icon, title, desc, link, sub }) => (
 
 ContactItem.displayName = 'ContactItem';
 
-const Enquiry = memo(({
+const Enquiry = React.memo(({
     tag = 'GET IN TOUCH',
     subtitle = 'Have a project in mind, need technical consultation, or have an inquiry? Reach out to our team.'
 }) => {

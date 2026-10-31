@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
+import React from 'react';
 
 const CopyProtection = () => {
     const isPrivacy =
         String(import.meta.env.PRIVACY ?? import.meta.env.VITE_PRIVACY).toLowerCase() === 'true';
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (!isPrivacy) return;
 
         const setPrivate = (e) => {

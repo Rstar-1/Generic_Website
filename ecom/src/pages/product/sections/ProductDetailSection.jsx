@@ -14,9 +14,15 @@ import Modal from '../../../components/common/Modal';
 import EnquiryModal from '../../../components/layout/generic/Enquiy';
 
 import { useCart } from '../../../feature/cartSlice';
-import { resolveImagePath } from '../../../utils/imageResolver';
-import { productsData, categoriesData } from '../../../utils/apiData';
-import { getItemSlug, matchBySlugOrId, shareContent, formatPrice } from '../../../utils/utils';
+import {
+  resolveImagePath,
+  productsData,
+  categoriesData,
+  getItemSlug,
+  matchBySlugOrId,
+  shareContent,
+  formatPrice
+} from '../../../utils';
 
 const isMagnifyEnabled = import.meta.env.VITE_MAGNIFY === 'true' || import.meta.env.VITE_MAGNIFY === true;
 const isPrice = String(import.meta.env.VITE_PRICE).toLowerCase() === 'true';

@@ -5,8 +5,11 @@ import Container from '../../components/common/Container';
 import Banner from '../../components/layout/generic/Banner';
 import SEO from '../../seo';
 
-import { getCmsData, resolveImagePath } from '../../utils/utils';
-import { cmsMap } from '../../utils/apiData';
+import {
+  getCmsData,
+  resolveImagePath,
+  cmsMap
+} from '../../utils';
 
 import Enquiry from './sections/Enquiry';
 import PatchSection from '../home/sections/PatchSection';

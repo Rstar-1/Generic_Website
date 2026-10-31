@@ -2,8 +2,7 @@
   {
     "id": 1,
     "name": "PVC strip Curtain Rolls",
-    "slug": "pvc-strip-curtain-rolls",
-    "icon": "product/Product3.jpg",
+    "image": "product/Product3.jpg",
     "iconName": "Layers",
     "bgColor": "#EFF6FF",
     "accentColor": "#2563EB",
@@ -30,8 +29,7 @@
   {
     "id": 2,
     "name": "PVC Magnetic strip Curtain Rolls",
-    "slug": "pvc-magnetic-strip-curtain-rolls",
-    "icon": "product/Product4.jpg",
+    "image": "product/Product4.jpg",
     "iconName": "Shield",
     "bgColor": "#ECFDF5",
     "accentColor": "#059669",
@@ -46,8 +44,7 @@
   {
     "id": 3,
     "name": "Brackets",
-    "slug": "brackets",
-    "icon": "product/Product7.jpg",
+    "image": "product/Product7.jpg",
     "iconName": "Box",
     "bgColor": "#FEF2F2",
     "accentColor": "#DC2626",

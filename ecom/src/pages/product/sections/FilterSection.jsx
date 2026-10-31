@@ -8,8 +8,14 @@ import Pagination from '../../../components/common/Pagination';
 
 import ProductCard from '../../../components/layout/sections/CardLayout';
 
-import { products, categories, filterData } from '../../../utils/apiData';
-import { getStickyTop, findCategory, navigateToProduct } from '../../../utils/utils';
+import {
+  products,
+  categories,
+  filterData,
+  getStickyTop,
+  findCategory,
+  navigateToProduct
+} from '../../../utils';
 
 const isPrice = String(import.meta.env.VITE_PRICE).toLowerCase() === 'true';
 const isPriceFilterEnabled = isPrice && Boolean(filterData?.price);

@@ -1,4 +1,4 @@
-import React, { forwardRef, memo } from "react";
+import React from 'react';
 
 const VERSION_CLASSES = {
   v0: "w-full",
@@ -8,8 +8,8 @@ const VERSION_CLASSES = {
   v4: "p-10",
 };
 
-const Container = memo(
-  forwardRef(
+const Container = React.memo(
+  React.forwardRef(
     (
       {
         children,

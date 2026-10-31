@@ -6,9 +6,12 @@ import Icon from '../common/Icon';
 import Image from '../common/Image';
 import Fields from '../forms/Fields';
 
-import { productsData, chatbotData } from '../../utils/apiData';
-import { resolveImagePath } from '../../utils/imageResolver';
-import { getItemSlug } from '../../utils/utils';
+import {
+  productsData,
+  chatbotData,
+  resolveImagePath,
+  getItemSlug
+} from '../../utils';
 
 const {
     teaser = {},

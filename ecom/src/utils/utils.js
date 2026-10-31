@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React from "react";
 import { configData, cmsData } from "./apiData";
 import { slugify } from "./slugify";
 import { resolveImagePath } from "./imageResolver";
@@ -150,7 +150,7 @@ export const getSocialLinks = () => {
   ].filter((item) => item.url?.trim());
 };
 
-export const SectionFallback = memo(({ minHeight = "100px" }) =>
+export const SectionFallback = React.memo(({ minHeight = "100px" }) =>
   React.createElement("div", { className: "w-full", style: { minHeight } })
 );
 SectionFallback.displayName = "SectionFallback";

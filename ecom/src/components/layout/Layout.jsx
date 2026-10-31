@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Loader from '../common/generic/Loader';
 
@@ -8,7 +8,10 @@ import Chatbot from './Chatbot';
 
 import Button from '../common/Button';
 import { ToastContainer } from '../common/Toast';
-import { getSocialLinks, openExternalLink } from '../../utils/utils';
+import {
+  getSocialLinks,
+  openExternalLink
+} from '../../utils';
 
 const socialLinks = getSocialLinks();
 
@@ -17,9 +20,9 @@ const Layout = () => (
         <Header />
 
         <main className="w-full">
-            <Suspense fallback={null}>
+            <React.Suspense fallback={null}>
                 <Outlet />
-            </Suspense>
+            </React.Suspense>
         </main>
 
         {socialLinks?.length > 0 && (

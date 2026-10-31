@@ -1,10 +1,13 @@
-import React, { memo, useMemo } from 'react';
+import React from 'react';
 import Container from '../../components/common/Container';
 import Banner from '../../components/layout/generic/Banner';
 import SEO from '../../seo';
-import { resolveImagePath } from '../../utils/imageResolver';
-import { getStickyTop, getCmsData } from '../../utils/utils';
-import { cmsMap } from '../../utils/apiData';
+import {
+  resolveImagePath,
+  getStickyTop,
+  getCmsData,
+  cmsMap
+} from '../../utils';
 
 import BlogSection from './sections/BlogSection';
 import PatchSection from '../home/sections/PatchSection';
@@ -43,7 +46,7 @@ const BREADCRUMBS = [
 ];
 
 const Blog = () => {
-    const stickyTop = useMemo(() => getStickyTop(), []);
+    const stickyTop = React.useMemo(() => getStickyTop(), []);
 
     return (
         <>
@@ -68,4 +71,4 @@ const Blog = () => {
     );
 };
 
-export default memo(Blog);
+export default React.memo(Blog);

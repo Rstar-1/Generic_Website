@@ -1,16 +1,16 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React from 'react';
 
 const Cursor = () => {
-    const [isHovered, setIsHovered] = useState(false);
-    const [isVisible, setIsVisible] = useState(false);
+    const [isHovered, setIsHovered] = React.useState(false);
+    const [isVisible, setIsVisible] = React.useState(false);
 
-    const ringRef = useRef(null);
-    const dotRef = useRef(null);
-    const mouseRef = useRef({ x: -100, y: -100 });
-    const ringPosRef = useRef({ x: -100, y: -100 });
-    const isHoveredRef = useRef(false);
+    const ringRef = React.useRef(null);
+    const dotRef = React.useRef(null);
+    const mouseRef = React.useRef({ x: -100, y: -100 });
+    const ringPosRef = React.useRef({ x: -100, y: -100 });
+    const isHoveredRef = React.useRef(false);
 
-    useEffect(() => {
+    React.useEffect(() => {
         const checkMobile = () => typeof window !== 'undefined' && (
             window.matchMedia('(hover: none), (pointer: coarse)').matches || window.innerWidth <= 1024
         );

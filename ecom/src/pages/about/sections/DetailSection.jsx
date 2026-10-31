@@ -1,9 +1,11 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Image from '../../../components/common/Image';
 import Badge from '../../../components/common/Badge';
-import { resolveImagePath } from '../../../utils/utils';
+import {
+  resolveImagePath
+} from '../../../utils';
 
 const DEFAULT_THUMBNAILS = [
     {
@@ -33,7 +35,7 @@ const DetailSection = React.memo(({
     const navigate = useNavigate();
     const showcaseSrc = resolveImagePath(showcaseImage?.url || 'blog/Blog4.jpg');
 
-    const thumbnails = useMemo(() => {
+    const thumbnails = React.useMemo(() => {
         const raw = Array.isArray(rawThumbnails) && rawThumbnails.length ? rawThumbnails : DEFAULT_THUMBNAILS;
         return raw.map((item, idx) => ({
             id: item.id || idx + 1,

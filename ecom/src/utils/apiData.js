@@ -3,13 +3,25 @@ import footerData from "../data/footer.json";
 import cmsData from "../data/cms.json";
 import rawConfig from "../data/config.json";
 import productsData from "../data/product.json";
-import categoriesData from "../data/productcategory.json";
+import rawCategoriesData from "../data/productcategory.json";
 import blogData from "../data/blog.json";
-import blogCategoriesData from "../data/blogcategory.json";
+import rawBlogCategoriesData from "../data/blogcategory.json";
 import seoData from "../data/seo.json";
 import chatbotData from "../data/chatbot.json";
 import supplierData from "../data/supplier.json";
 import filterData from "../data/filter.json";
+import { slugify } from "./slugify";
+
+export const categoriesData = rawCategoriesData.map((c) => ({
+  ...c,
+  slug: slugify(c.name),
+  image: c.image || c.icon,
+}));
+
+export const blogCategoriesData = rawBlogCategoriesData.map((c) => ({
+  ...c,
+  slug: slugify(c.name),
+}));
 
 const norm = (arr, extra = {}) =>
   Array.isArray(arr) ? Object.assign([...arr], arr[0], extra) : arr;
@@ -60,11 +72,9 @@ export {
   cmsData,
   productsData,
   productsData as products,
-  categoriesData,
   categoriesData as categories,
   blogData,
   blogData as blogs,
-  blogCategoriesData,
   blogCategoriesData as blogCategories,
   seoData,
   seoData as seo,

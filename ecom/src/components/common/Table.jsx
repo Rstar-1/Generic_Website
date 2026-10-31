@@ -1,12 +1,14 @@
-import React, { useState, useMemo, useCallback } from "react";
+import React from 'react';
 import Pagination from "./Pagination";
 import Icon from "./Icon";
-import { resolveImagePath } from "../../utils/imageResolver";
+import {
+  resolveImagePath,
+  formatDate
+} from '../../utils';
 import Image from "./Image";
 import Skeleton from "./Skeleton";
 import Button from "./Button";
 import Fields from "../forms/Fields";
-import { formatDate } from "../../utils/formatDate";
 import Badge, { BadgeList, BADGE_MAP } from "./Badge";
 
 const getNestedValue = (obj, path) => {
@@ -487,20 +489,20 @@ const Table = ({
     onSelectRow,
     onSelectAll,
 }) => {
-    const [expandedRowId, setExpandedRowId] = useState(null);
-    const [internalSelectedRowIds, setInternalSelectedRowIds] = useState(() => new Set());
+    const [expandedRowId, setExpandedRowId] = React.useState(null);
+    const [internalSelectedRowIds, setInternalSelectedRowIds] = React.useState(() => new Set());
 
-    const toggleRow = useCallback((id) => {
+    const toggleRow = React.useCallback((id) => {
         setExpandedRowId((prev) => (prev === id ? null : id));
     }, []);
 
     const subText = subtitle || headerSub;
 
     // Check if collapsing is active
-    const hasExplicitCollapsed = useMemo(() => columns.some((col) => col.collapsed !== undefined), [columns]);
+    const hasExplicitCollapsed = React.useMemo(() => columns.some((col) => col.collapsed !== undefined), [columns]);
     const shouldCollapse = collapsible || hasExplicitCollapsed || (columns.filter(c => c.accessor !== "checkbox" && c.accessor !== "actions").length > maxVisibleColumns && collapsible !== false);
 
-    const [displayHeaders, collapsedColumns] = useMemo(() => {
+    const [displayHeaders, collapsedColumns] = React.useMemo(() => {
         let main = columns;
         let collapsed = [];
         if (shouldCollapse) {
@@ -533,14 +535,14 @@ const Table = ({
     }, [columns, shouldCollapse, hasExplicitCollapsed, maxVisibleColumns]);
 
     // Checkbox selection handlers
-    const isRowSelected = useCallback((rowId, row) => {
+    const isRowSelected = React.useCallback((rowId, row) => {
         if (selectedRows !== undefined) {
             return Array.isArray(selectedRows) ? selectedRows.includes(rowId) : Boolean(selectedRows?.has?.(rowId));
         }
         return internalSelectedRowIds.has(rowId) || Boolean(row?.checked || row?.isSelected);
     }, [selectedRows, internalSelectedRowIds]);
 
-    const handleSelectRow = useCallback((rowId, row) => {
+    const handleSelectRow = React.useCallback((rowId, row) => {
         if (onSelectRow) {
             onSelectRow(rowId, row);
         } else {
@@ -553,12 +555,12 @@ const Table = ({
         }
     }, [onSelectRow]);
 
-    const isAllSelected = useMemo(() => {
+    const isAllSelected = React.useMemo(() => {
         if (!data.length) return false;
         return data.every((row, idx) => isRowSelected(row._id || row.id || idx, row));
     }, [data, isRowSelected]);
 
-    const handleSelectAll = useCallback(() => {
+    const handleSelectAll = React.useCallback(() => {
         if (onSelectAll) {
             onSelectAll();
         } else {
@@ -569,12 +571,12 @@ const Table = ({
         }
     }, [data, onSelectAll]);
 
-    const handleSearch = useCallback((val) => {
+    const handleSearch = React.useCallback((val) => {
         if (!onSearchChange) return;
         onSearchChange(typeof val === "string" ? val : val?.target?.value ?? "");
     }, [onSearchChange]);
 
-    const actionProps = useMemo(() => ({
+    const actionProps = React.useMemo(() => ({
         onEdit,
         onDelete,
         onView,

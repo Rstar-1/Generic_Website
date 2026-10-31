@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, memo } from 'react';
+import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import Icon from '../../../components/common/Icon';
@@ -9,11 +9,16 @@ import Table from '../../../components/common/Table';
 import Modal from '../../../components/common/Modal';
 import Pagination from '../../../components/common/Pagination';
 import CardLayout from '../../../components/layout/sections/CardLayout';
-import { productsData, supplierData } from '../../../utils/apiData';
-import { getStickyTop, navigateToProduct, navigateToCategory } from '../../../utils/utils';
+import {
+  productsData,
+  supplierData,
+  getStickyTop,
+  navigateToProduct,
+  navigateToCategory
+} from '../../../utils';
 
-const SupplierSidebarContent = memo(({ supplierInfo, labels, statsConfig, trustPoints, contactItemsConfig, onConnectClick }) => {
-    const contactItems = useMemo(() => {
+const SupplierSidebarContent = React.memo(({ supplierInfo, labels, statsConfig, trustPoints, contactItemsConfig, onConnectClick }) => {
+    const contactItems = React.useMemo(() => {
         return (contactItemsConfig || [])
             .map((item) => {
                 const val = supplierInfo[item.key];
@@ -99,24 +104,24 @@ SupplierSidebarContent.displayName = 'SupplierSidebarContent';
 const DetailSection = ({ supplierName }) => {
     const { brandName } = useParams();
     const navigate = useNavigate();
-    const [activeTab, setActiveTab] = useState('catalog');
-    const [searchQuery, setSearchQuery] = useState('');
-    const [currentPage, setCurrentPage] = useState(1);
-    const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
+    const [activeTab, setActiveTab] = React.useState('catalog');
+    const [searchQuery, setSearchQuery] = React.useState('');
+    const [currentPage, setCurrentPage] = React.useState(1);
+    const [isMobileModalOpen, setIsMobileModalOpen] = React.useState(false);
     const ITEMS_PER_PAGE = 12;
 
     const brandKey = (brandName || 'supplier').toLowerCase().replace(/[^a-z0-9]/g, '');
 
-    const labels = useMemo(() => supplierData?.labels || {}, []);
-    const statsConfig = useMemo(() => supplierData?.stats || [], []);
-    const contactItemsConfig = useMemo(() => supplierData?.contactItems || [], []);
-    const specColumns = useMemo(() => supplierData?.specColumns || [], []);
-    const factsheetFields = useMemo(() => supplierData?.factsheetFields || {}, []);
-    const highlights = useMemo(() => supplierData?.highlights || [], []);
+    const labels = React.useMemo(() => supplierData?.labels || {}, []);
+    const statsConfig = React.useMemo(() => supplierData?.stats || [], []);
+    const contactItemsConfig = React.useMemo(() => supplierData?.contactItems || [], []);
+    const specColumns = React.useMemo(() => supplierData?.specColumns || [], []);
+    const factsheetFields = React.useMemo(() => supplierData?.factsheetFields || {}, []);
+    const highlights = React.useMemo(() => supplierData?.highlights || [], []);
 
-    const stickyTop = useMemo(() => getStickyTop(), []);
+    const stickyTop = React.useMemo(() => getStickyTop(), []);
 
-    const supplierInfo = useMemo(() => {
+    const supplierInfo = React.useMemo(() => {
         const raw = supplierData || {};
         const env = import.meta.env;
         const displayName = supplierName || raw.name || (brandName ? brandName.charAt(0).toUpperCase() + brandName.slice(1) : raw.name);
@@ -145,12 +150,12 @@ const DetailSection = ({ supplierName }) => {
         };
     }, [brandName, supplierName]);
 
-    const trustPoints = useMemo(() => [
+    const trustPoints = React.useMemo(() => [
         `GST Registered: ${supplierInfo.gstin} (Input Tax Credit)`,
         ...(supplierData?.trustPoints || [])
     ], [supplierInfo.gstin]);
 
-    const validProducts = useMemo(() => {
+    const validProducts = React.useMemo(() => {
         const real = (productsData || []).filter((p) => !p.isBanner);
         if (!brandName) return real;
         const key = brandKey.toLowerCase();
@@ -158,7 +163,7 @@ const DetailSection = ({ supplierName }) => {
         return filtered.length > 0 ? filtered : real;
     }, [brandKey, brandName]);
 
-    const displayedProducts = useMemo(() => {
+    const displayedProducts = React.useMemo(() => {
         if (!searchQuery.trim()) return validProducts;
         const q = searchQuery.toLowerCase();
         return validProducts.filter((p) =>
@@ -168,12 +173,12 @@ const DetailSection = ({ supplierName }) => {
         );
     }, [validProducts, searchQuery]);
 
-    const paginatedProducts = useMemo(() => {
+    const paginatedProducts = React.useMemo(() => {
         const start = (currentPage - 1) * ITEMS_PER_PAGE;
         return displayedProducts.slice(start, start + ITEMS_PER_PAGE);
     }, [displayedProducts, currentPage, ITEMS_PER_PAGE]);
 
-    const specData = useMemo(() => [
+    const specData = React.useMemo(() => [
         { id: 1, field: factsheetFields.companyName, value: supplierInfo.name },
         { id: 2, field: factsheetFields.natureOfBusiness, value: supplierInfo.natureOfBusiness },
         { id: 3, field: factsheetFields.legalStatus, value: supplierInfo.legalStatus },
@@ -187,13 +192,13 @@ const DetailSection = ({ supplierName }) => {
         { id: 11, field: factsheetFields.dispatchedHub, value: `${supplierInfo.location} ${labels.dispatchHubSuffix}` }
     ], [supplierInfo, factsheetFields, labels]);
 
-    const tabs = useMemo(() => [
+    const tabs = React.useMemo(() => [
         { value: 'catalog', name: labels.catalogTab, count: displayedProducts.length },
         { value: 'profile', name: labels.profileTab }
     ], [displayedProducts.length, labels]);
 
-    const handleConnectClick = useCallback(() => navigate('/connect'), [navigate]);
-    const handleCloseMobileModal = useCallback(() => setIsMobileModalOpen(false), []);
+    const handleConnectClick = React.useCallback(() => navigate('/connect'), [navigate]);
+    const handleCloseMobileModal = React.useCallback(() => setIsMobileModalOpen(false), []);
 
     return (
         <div className="w-full">
@@ -340,4 +345,4 @@ const DetailSection = ({ supplierName }) => {
     );
 };
 
-export default memo(DetailSection);
+export default React.memo(DetailSection);

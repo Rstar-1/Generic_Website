@@ -5,7 +5,10 @@ import Container from '../../../components/common/Container';
 import Image from '../../../components/common/Image';
 import Button from '../../../components/common/Button';
 
-import { configData } from '../../../utils/apiData';
+import {
+  configData,
+  resolveImagePath
+} from '../../../utils';
 
 const HEIGHT_MAP = {
     sticky: { 1: 'h-800 sm-h-550', 2: 'h-700 sm-h-550' },
@@ -14,7 +17,7 @@ const HEIGHT_MAP = {
 
 const HeroBackground = React.memo(({ bgImage }) => {
     const isPlaceholder = !bgImage?.url || bgImage.url.includes('example.com');
-    const mediaSrc = isPlaceholder ? (import.meta.env.VITE_IMAGE + "Banner.jpg") : bgImage.url;
+    const mediaSrc = isPlaceholder ? resolveImagePath('Banner.jpg') : bgImage.url;
 
     return (
         <div className='absolute top-0 left-0 w-full h-full z-10'>
@@ -24,6 +27,7 @@ const HeroBackground = React.memo(({ bgImage }) => {
                 className='w-full h-full flex object-cover'
                 loading='eager'
                 fetchPriority='high'
+                decoding='sync'
                 width={1920}
                 height={700}
             />
@@ -63,16 +67,15 @@ const HeroContent = React.memo(({ subtitle, title, description, btnText, onActio
     </div>
 ));
 
-const BreadcrumbTab = React.memo(({ isMobile, heroVersion }) => {
+const BreadcrumbTab = React.memo(({ heroVersion }) => {
     if (heroVersion !== 2) return null;
-    const maskUrl = `url(${import.meta.env.VITE_IMAGE + "Mask3.png"})`;
+    const maskUrl = `url(${resolveImagePath('Mask3.png')})`;
 
     return (
         <div
-            className="absolute z-30 flex items-center justify-center"
+            className="absolute z-30 flex items-center justify-center w-450 sm-w-90"
             style={{
-                width: isMobile ? '90%' : '450px',
-                height: isMobile ? '56px' : '68px',
+                height: '68px',
                 backgroundColor: 'var(--white)',
                 bottom: '-5px',
                 left: '50%',
@@ -99,7 +102,6 @@ const HeroBanner = React.memo(({
     btnLink
 }) => {
     const navigate = useNavigate();
-    const [isMobile, setIsMobile] = React.useState(false);
 
     const heroVersion = configData?.HeroBanner?.[0]?.HeroBannerType ?? 1;
     const isHeaderSticky = Boolean(
@@ -108,34 +110,23 @@ const HeroBanner = React.memo(({
         configData?.Header?.[0]?.HeaderSticky
     );
 
-    const handleResize = React.useCallback(() => {
-        setIsMobile(window.innerWidth <= 768);
-    }, []);
-
     const handleAction = React.useCallback(() => {
         navigate(btnLink || '/products');
     }, [navigate, btnLink]);
-
-    React.useEffect(() => {
-        handleResize();
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, [handleResize]);
 
     const heightClass = HEIGHT_MAP[isHeaderSticky ? 'sticky' : 'normal']?.[heroVersion] || (isHeaderSticky ? 'h-650 sm-h-550' : 'h-550');
 
     const containerStyle = React.useMemo(() => {
         if (heroVersion === 1) {
-            const maskSize = isMobile ? '260% 100%' : '110% 100%';
-            const maskUrl = `url(${import.meta.env.VITE_IMAGE + "Mask1.png"})`;
+            const maskUrl = `url(${resolveImagePath('Mask1.png')})`;
             return {
                 WebkitMaskImage: maskUrl,
-                WebkitMaskSize: maskSize,
+                WebkitMaskSize: '100% 100%',
                 WebkitMaskRepeat: 'no-repeat',
                 WebkitMaskPosition: 'center',
                 position: 'relative',
                 maskImage: maskUrl,
-                maskSize,
+                maskSize: '100% 100%',
                 maskRepeat: 'no-repeat',
                 maskPosition: 'center',
             };
@@ -146,7 +137,7 @@ const HeroBanner = React.memo(({
             borderRadius: '0 0 25px 25px',
             minHeight: '550px',
         };
-    }, [isMobile, heroVersion]);
+    }, [heroVersion]);
 
     return (
         <Container className={`${heightClass} ${[1].includes(heroVersion) ? 'flex items-center' : 'flex items-end'}`}
@@ -162,7 +153,7 @@ const HeroBanner = React.memo(({
                 isHeaderSticky={isHeaderSticky}
                 heroVersion={heroVersion}
             />
-            <BreadcrumbTab isMobile={isMobile} heroVersion={heroVersion} />
+            <BreadcrumbTab heroVersion={heroVersion} />
         </Container>
     );
 });

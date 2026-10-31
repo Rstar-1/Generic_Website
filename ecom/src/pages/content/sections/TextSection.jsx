@@ -1,7 +1,7 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-const TextSection = memo(() => {
+const TextSection = React.memo(() => {
     return (
         <div className="py-50">
 

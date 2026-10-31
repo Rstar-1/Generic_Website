@@ -1,5 +1,7 @@
-import React, { useState, forwardRef, useCallback } from "react";
-import { resolveImagePath } from "../../utils/imageResolver";
+import React from 'react';
+import {
+  resolveImagePath
+} from '../../utils';
 
 const isVideoSrc = (url) => {
   if (!url || typeof url !== "string") return false;
@@ -25,8 +27,8 @@ export const Image = React.memo(
     ...props
   }) => {
     const resolved = resolveImagePath(src);
-    const [prevSrc, setPrevSrc] = useState(resolved);
-    const [imgSrc, setImgSrc] = useState(resolved);
+    const [prevSrc, setPrevSrc] = React.useState(resolved);
+    const [imgSrc, setImgSrc] = React.useState(resolved);
 
     if (resolved !== prevSrc) {
       setPrevSrc(resolved);
@@ -38,7 +40,7 @@ export const Image = React.memo(
       props.fetchPriority === "high" ||
       props.fetchpriority === "high";
 
-    const handleError = useCallback(() => {
+    const handleError = React.useCallback(() => {
       if (imgSrc !== fallback) {
         setImgSrc(fallback);
       }
@@ -67,6 +69,8 @@ export const Image = React.memo(
       );
     }
 
+    const computedRatio = aspectRatio || (width && height && !isNaN(Number(width)) && !isNaN(Number(height)) ? `${width} / ${height}` : undefined);
+
     return (
       <img
         src={imgSrc || fallback}
@@ -77,8 +81,8 @@ export const Image = React.memo(
         height={height}
         className={className}
         style={{
-          aspectRatio,
-          objectFit: aspectRatio ? "cover" : undefined,
+          aspectRatio: computedRatio,
+          objectFit: computedRatio ? "cover" : undefined,
           ...style,
         }}
         onError={handleError}
@@ -91,7 +95,7 @@ export const Image = React.memo(
 Image.displayName = "Image";
 
 export const ImageDiv = React.memo(
-  forwardRef(
+  React.forwardRef(
     (
       {
         image,
@@ -108,8 +112,8 @@ export const ImageDiv = React.memo(
       ref
     ) => {
       const resolved = resolveImagePath(image);
-      const [prevImage, setPrevImage] = useState(resolved);
-      const [bgImage, setBgImage] = useState(resolved);
+      const [prevImage, setPrevImage] = React.useState(resolved);
+      const [bgImage, setBgImage] = React.useState(resolved);
 
       if (resolved !== prevImage) {
         setPrevImage(resolved);

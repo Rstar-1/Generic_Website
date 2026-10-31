@@ -1,8 +1,8 @@
-import React, { useRef, useState, useCallback, useEffect, memo } from 'react';
+import React from 'react';
 import Button from '../../common/Button';
 import Heading from '../generic/Heading';
 
-export const SlideLayout = memo(({
+export const SlideLayout = React.memo(({
     version = 'slide',
     col = 4,
     items = [],
@@ -21,12 +21,12 @@ export const SlideLayout = memo(({
     actionLink,
     btnClass = 'rounded-30',
 }) => {
-    const scrollRef = useRef(null);
-    const [scrollProgress, setScrollProgress] = useState(25);
-    const [canScrollLeft, setCanScrollLeft] = useState(false);
-    const [canScrollRight, setCanScrollRight] = useState(true);
+    const scrollRef = React.useRef(null);
+    const [scrollProgress, setScrollProgress] = React.useState(25);
+    const [canScrollLeft, setCanScrollLeft] = React.useState(false);
+    const [canScrollRight, setCanScrollRight] = React.useState(true);
 
-    const updateScrollState = useCallback(() => {
+    const updateScrollState = React.useCallback(() => {
         if (!scrollRef.current) return;
         const el = scrollRef.current;
         const scrollLeft = el.scrollLeft;
@@ -46,7 +46,7 @@ export const SlideLayout = memo(({
         }
     }, []);
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (version === 'grid') return;
 
         // Defer initial layout measurement until after initial paint to prevent forced reflow
@@ -63,7 +63,7 @@ export const SlideLayout = memo(({
         };
     }, [version, updateScrollState]);
 
-    const scroll = useCallback((direction) => {
+    const scroll = React.useCallback((direction) => {
         if (scrollRef.current) {
             const amount = direction === 'left' ? -scrollStep : scrollStep;
             scrollRef.current.scrollBy({ left: amount, behavior: 'smooth' });

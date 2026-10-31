@@ -1,45 +1,49 @@
-import React, { useState, useMemo, useCallback, useEffect, memo } from 'react';
+import React from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import Button from '../../../components/common/Button';
 import Modal from '../../../components/common/Modal';
 import Pagination from '../../../components/common/Pagination';
 import CardLayout from '../../../components/layout/sections/CardLayout';
-import { getItemSlug, getStickyTop, findCategory } from '../../../utils/utils';
+import {
+  getItemSlug,
+  getStickyTop,
+  findCategory
+} from '../../../utils';
 import blogData from '../../../data/blog.json';
 import blogCategoriesData from '../../../data/blogcategory.json';
 
 import FilterSection from './FilterSection';
 const ITEMS_PER_PAGE = 5;
 
-const BlogSection = memo(({ stickyTop = getStickyTop() }) => {
+const BlogSection = React.memo(({ stickyTop = getStickyTop() }) => {
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
-    const [searchQuery, setSearchQuery] = useState('');
-    const [isMobileCategoryOpen, setIsMobileCategoryOpen] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
+    const [searchQuery, setSearchQuery] = React.useState('');
+    const [isMobileCategoryOpen, setIsMobileCategoryOpen] = React.useState(false);
+    const [currentPage, setCurrentPage] = React.useState(1);
 
     const paramCategory = searchParams.get('category');
-    const [selectedCategory, setSelectedCategory] = useState(paramCategory || null);
+    const [selectedCategory, setSelectedCategory] = React.useState(paramCategory || null);
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (paramCategory !== null) {
             setSelectedCategory(paramCategory);
             setCurrentPage(1);
         }
     }, [paramCategory]);
 
-    const blogsList = useMemo(() => blogData || [], []);
-    const categoriesList = useMemo(() => blogCategoriesData || [], []);
+    const blogsList = React.useMemo(() => blogData || [], []);
+    const categoriesList = React.useMemo(() => blogCategoriesData || [], []);
 
-    const activeCategory = useMemo(() => {
+    const activeCategory = React.useMemo(() => {
         if (!selectedCategory) return null;
         return findCategory(categoriesList, selectedCategory);
     }, [selectedCategory, categoriesList]);
 
     const activeCategoryLabel = activeCategory?.name || selectedCategory;
 
-    const filteredPosts = useMemo(() => {
+    const filteredPosts = React.useMemo(() => {
         const query = searchQuery.trim().toLowerCase();
         const cat = selectedCategory;
 
@@ -61,17 +65,17 @@ const BlogSection = memo(({ stickyTop = getStickyTop() }) => {
         });
     }, [blogsList, searchQuery, selectedCategory, activeCategory]);
 
-    const paginatedPosts = useMemo(() => {
+    const paginatedPosts = React.useMemo(() => {
         const start = (currentPage - 1) * ITEMS_PER_PAGE;
         return filteredPosts.slice(start, start + ITEMS_PER_PAGE);
     }, [filteredPosts, currentPage]);
 
-    const handleBlogClick = useCallback((post) => {
+    const handleBlogClick = React.useCallback((post) => {
         setIsMobileCategoryOpen(false);
         navigate(`/blog/${getItemSlug(post)}`, { state: { blog: post } });
     }, [navigate]);
 
-    const handleSelectCategory = useCallback((catId) => {
+    const handleSelectCategory = React.useCallback((catId) => {
         setSelectedCategory(catId);
         setCurrentPage(1);
         setIsMobileCategoryOpen(false);
@@ -82,13 +86,13 @@ const BlogSection = memo(({ stickyTop = getStickyTop() }) => {
         }
     }, [setSearchParams]);
 
-    const handleClearCategory = useCallback(() => {
+    const handleClearCategory = React.useCallback(() => {
         setSelectedCategory(null);
         setCurrentPage(1);
         setSearchParams({});
     }, [setSearchParams]);
 
-    const handleSearchChange = useCallback((val) => {
+    const handleSearchChange = React.useCallback((val) => {
         setSearchQuery(val);
         setCurrentPage(1);
     }, []);

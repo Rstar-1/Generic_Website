@@ -1,14 +1,16 @@
-import React, { useMemo, useCallback, memo } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Image from '../../../components/common/Image';
 import Fields from '../../../components/forms/Fields';
-import { resolveImagePath } from '../../../utils/imageResolver';
-import { getItemSlug } from '../../../utils/utils';
+import {
+  resolveImagePath,
+  getItemSlug
+} from '../../../utils';
 import blogData from '../../../data/blog.json';
 import blogCategoriesData from '../../../data/blogcategory.json';
 
-const FilterSection = memo(({
+const FilterSection = React.memo(({
     searchQuery = '',
     onSearchChange,
     selectedCategory = null,
@@ -17,10 +19,10 @@ const FilterSection = memo(({
     onBlogClick
 }) => {
     const navigate = useNavigate();
-    const blogsList = useMemo(() => blogData || [], []);
-    const categoriesList = useMemo(() => blogCategoriesData || [], []);
+    const blogsList = React.useMemo(() => blogData || [], []);
+    const categoriesList = React.useMemo(() => blogCategoriesData || [], []);
 
-    const categories = useMemo(() => {
+    const categories = React.useMemo(() => {
         return categoriesList.map((cat) => {
             const count = blogsList.filter(
                 (b) => b.categoryId === cat.id || String(b.categoryId) === String(cat.id) || b.category?.toLowerCase() === cat.name.toLowerCase()
@@ -29,16 +31,16 @@ const FilterSection = memo(({
         });
     }, [categoriesList, blogsList]);
 
-    const recentPosts = useMemo(() => {
+    const recentPosts = React.useMemo(() => {
         const filtered = excludeBlogId ? blogsList.filter((b) => b.id !== excludeBlogId) : blogsList;
         return filtered.slice(0, 3);
     }, [blogsList, excludeBlogId]);
 
-    const isCatActive = useCallback((cat) => (
+    const isCatActive = React.useCallback((cat) => (
         selectedCategory === cat.id || String(selectedCategory) === String(cat.id) || selectedCategory === cat.name
     ), [selectedCategory]);
 
-    const handleCategoryClick = useCallback((cat) => {
+    const handleCategoryClick = React.useCallback((cat) => {
         if (onSelectCategory) {
             onSelectCategory(isCatActive(cat) ? null : cat.id);
         } else {
@@ -46,7 +48,7 @@ const FilterSection = memo(({
         }
     }, [onSelectCategory, isCatActive, navigate]);
 
-    const handlePostClick = useCallback((post) => {
+    const handlePostClick = React.useCallback((post) => {
         if (onBlogClick) {
             onBlogClick(post);
         } else {
@@ -54,7 +56,7 @@ const FilterSection = memo(({
         }
     }, [onBlogClick, navigate]);
 
-    const handleSearch = useCallback((val) => {
+    const handleSearch = React.useCallback((val) => {
         if (onSearchChange) onSearchChange(val);
         else navigate('/blog');
     }, [onSearchChange, navigate]);

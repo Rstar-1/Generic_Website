@@ -1,12 +1,14 @@
-import React, { memo, useState, useCallback, useEffect } from "react";
+import React from 'react';
 import Modal from "../../common/Modal";
 import Image from "../../common/Image";
 import Icon from "../../common/Icon";
 import Fields from "../../forms/Fields";
 import FormBuilder from "../../forms/FormBuilder";
 import Loader from "../../common/generic/Loader";
-import { resolveImagePath } from "../../../utils/imageResolver";
-import { sendEmail } from "../../../utils/emailsend";
+import {
+  resolveImagePath,
+  sendEmail
+} from '../../../utils';
 import { useCart } from "../../../feature/cartSlice";
 
 const ENQUIRY_FIELDS = [
@@ -21,7 +23,7 @@ const ENQUIRY_FIELDS = [
     },
 ];
 
-const EnquiryModal = memo(
+const EnquiryModal = React.memo(
     ({
         isOpen = false,
         onClose,
@@ -33,13 +35,13 @@ const EnquiryModal = memo(
         subtitle = "Review your selected items before proceeding to checkout.",
     }) => {
         const { clearCart } = useCart();
-        const [formKey, setFormKey] = useState(0);
-        const [isLoading, setIsLoading] = useState(false);
-        const [isSubmitted, setIsSubmitted] = useState(false);
+        const [formKey, setFormKey] = React.useState(0);
+        const [isLoading, setIsLoading] = React.useState(false);
+        const [isSubmitted, setIsSubmitted] = React.useState(false);
 
         const displayItems = items || cartItems || [];
 
-        useEffect(() => {
+        React.useEffect(() => {
             if (!isOpen) {
                 setIsLoading(false);
                 setIsSubmitted(false);
@@ -47,21 +49,21 @@ const EnquiryModal = memo(
             }
         }, [isOpen]);
 
-        const handleQtyChange = useCallback(
+        const handleQtyChange = React.useCallback(
             (id, val) => {
                 onSetQuantity?.(id, val);
             },
             [onSetQuantity]
         );
 
-        const handleItemRemove = useCallback(
+        const handleItemRemove = React.useCallback(
             (id) => {
                 onRemove?.(id);
             },
             [onRemove]
         );
 
-        const handleSubmit = useCallback(
+        const handleSubmit = React.useCallback(
             async (data) => {
                 setIsLoading(true);
                 const rawPhone = data?.phone || "";

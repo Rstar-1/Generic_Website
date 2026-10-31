@@ -7,9 +7,14 @@ import Banner from '../../components/layout/generic/Banner';
 import SEO from '../../seo';
 import { SITE_NAME } from '../../seo/seoConfig';
 
-import { resolveImagePath } from '../../utils/imageResolver';
-import { productsData, categoriesData } from '../../utils/apiData';
-import { getItemSlug, matchBySlugOrId, findCategory } from '../../utils/utils';
+import {
+  resolveImagePath,
+  productsData,
+  categoriesData,
+  getItemSlug,
+  matchBySlugOrId,
+  findCategory
+} from '../../utils';
 
 import ProductDetailSection from './sections/ProductDetailSection';
 import PatchSection from '../home/sections/PatchSection';
