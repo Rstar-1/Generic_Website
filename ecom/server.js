@@ -47,26 +47,28 @@ const sitemapXml = await fs.readFile(path.join(__dirname, 'public/sitemap.xml'),
 // 1. High-Priority AI Agent Discovery & Machine-readable Endpoints
 // (Must be registered FIRST to ensure they are never intercepted by SSR HTML)
 // -------------------------------------------------------------
-app.all(['/.well-known/ard.json', '/ard.json'], (req, res) => {
-    res.setHeader('Content-Type', 'application/json; charset=utf-8');
+app.all(['/.well-known/ard.json', '/ard.json'], async (req, res) => {
+    const data = await fs.readFile(path.join(__dirname, 'public/.well-known/ard.json'), 'utf-8').catch(() => '{}');
+    res.setHeader('Content-Type', 'application/ai-catalog+json; charset=utf-8');
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', '*');
     res.setHeader('Cache-Control', 'public, max-age=86400');
     if (req.method === 'OPTIONS') return res.status(204).end();
     if (req.method === 'HEAD') return res.status(200).end();
-    res.status(200).send(ardJson);
+    res.status(200).send(data);
 });
 
-app.all(['/.well-known/ai-catalog.json', '/ai-catalog.json'], (req, res) => {
-    res.setHeader('Content-Type', 'application/json; charset=utf-8');
+app.all(['/.well-known/ai-catalog.json', '/ai-catalog.json'], async (req, res) => {
+    const data = await fs.readFile(path.join(__dirname, 'public/.well-known/ai-catalog.json'), 'utf-8').catch(() => '{}');
+    res.setHeader('Content-Type', 'application/ai-catalog+json; charset=utf-8');
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', '*');
     res.setHeader('Cache-Control', 'public, max-age=86400');
     if (req.method === 'OPTIONS') return res.status(204).end();
     if (req.method === 'HEAD') return res.status(200).end();
-    res.status(200).send(catalogJson);
+    res.status(200).send(data);
 });
 
 app.all(['/llms.txt', '/llms-full.txt'], (req, res) => {
@@ -147,7 +149,13 @@ if (!isProduction) {
 // 3. Server-Side Rendering (SSR) & HTML Delivery with In-Memory Caching
 // -------------------------------------------------------------
 const ssrCache = new Map();
-const CACHE_TTL_MS = 5 * 60 * 1000;
+const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
+
+const agentLinkHeader = [
+    `</.well-known/ard.json>; rel="ard"; type="application/ai-catalog+json"`,
+    `</.well-known/ai-catalog.json>; rel="ai-catalog"; type="application/ai-catalog+json"`,
+    `</llms.txt>; rel="describedby"; type="text/plain"`
+].join(', ');
 
 app.use(async (req, res, next) => {
     try {
@@ -160,19 +168,13 @@ app.use(async (req, res, next) => {
             return res.status(404).end();
         }
 
-        const agentLinkHeader = [
-            `</.well-known/ard.json>; rel="ard"`,
-            `</.well-known/ai-catalog.json>; rel="ai-catalog"`,
-            `</llms.txt>; rel="describedby"`
-        ].join(', ');
-
         if (isProduction && ssrCache.has(cacheKey)) {
             const cached = ssrCache.get(cacheKey);
             if (Date.now() - cached.timestamp < CACHE_TTL_MS) {
                 res.setHeader('Link', agentLinkHeader);
                 res.status(200).set({
                     'Content-Type': 'text/html; charset=utf-8',
-                    'Cache-Control': 'public, max-age=60, stale-while-revalidate=300'
+                    'Cache-Control': 'public, max-age=3600, stale-while-revalidate=86400'
                 }).send(cached.html);
                 return;
             }
@@ -224,7 +226,7 @@ app.use(async (req, res, next) => {
 
         res.status(200).set({
             'Content-Type': 'text/html; charset=utf-8',
-            'Cache-Control': 'public, max-age=60, stale-while-revalidate=300'
+            'Cache-Control': 'public, max-age=3600, stale-while-revalidate=86400'
         }).send(html);
     } catch (error) {
         if (!isProduction && vite) {
@@ -235,6 +237,50 @@ app.use(async (req, res, next) => {
     }
 });
 
-app.listen(port, () => {
+async function warmSsrCache() {
+    if (!isProduction) return;
+    try {
+        const { render } = await import('./dist/server/entry-server.js');
+        const routesToWarm = ['/', '/about', '/product', '/supplier', '/blog', '/connect', '/category'];
+        for (const route of routesToWarm) {
+            try {
+                const rendered = await render(route, ssrManifest);
+                const appHtml = rendered.html ?? (typeof rendered === 'string' ? rendered : '');
+                const title = rendered.seo?.title || 'Ashmita Vinyls';
+                const description = rendered.seo?.description || 'Discover our products and services.';
+                const headTags = rendered.head ?? '';
+
+                let html = templateHtml
+                    .replace('<!--app-title-->', escapeHtml(title))
+                    .replace(
+                        '<meta name="description" content="<!--app-description-->">',
+                        `<meta name="description" content="${escapeHtml(description)}">`
+                    )
+                    .replace('<!--app-description-->', escapeHtml(description))
+                    .replace('<!--app-head-->', headTags)
+                    .replace('<!--app-html-->', appHtml);
+
+                const cssLinkMatch = html.match(/<link[^>]+rel="stylesheet"[^>]+assets\/style-[^>]+>/i);
+                if (cssLinkMatch) {
+                    const hrefMatch = cssLinkMatch[0].match(/href="([^"]+)"/);
+                    const preloadTag = hrefMatch ? `<link rel="preload" as="style" href="${hrefMatch[1]}">\n    ` : '';
+                    html = html.replace(cssLinkMatch[0], '');
+                    html = html.replace('<head>', `<head>\n    ${preloadTag}${cssLinkMatch[0]}`);
+                }
+
+                ssrCache.set(route, { html, timestamp: Date.now() });
+            } catch (err) {
+                console.warn(`Failed warming route ${route}:`, err.message);
+            }
+        }
+    } catch (err) {
+        console.warn('Failed to pre-warm SSR cache:', err.message);
+    }
+}
+
+app.listen(port, async () => {
     console.log(`SSR server running at http://localhost:${port} (${isProduction ? 'production' : 'development'})`);
+    if (isProduction) {
+        await warmSsrCache();
+    }
 });

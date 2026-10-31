@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, useEffect, lazy, Suspense, memo } from 'react';
+import React, { useState, useMemo, useCallback, useEffect, memo } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import Button from '../../../components/common/Button';
@@ -9,7 +9,7 @@ import { getItemSlug, getStickyTop, findCategory } from '../../../utils/utils';
 import blogData from '../../../data/blog.json';
 import blogCategoriesData from '../../../data/blogcategory.json';
 
-const FilterSection = lazy(() => import('./FilterSection'));
+import FilterSection from './FilterSection';
 const ITEMS_PER_PAGE = 5;
 
 const BlogSection = memo(({ stickyTop = getStickyTop() }) => {
@@ -169,9 +169,7 @@ const BlogSection = memo(({ stickyTop = getStickyTop() }) => {
                 </div>
 
                 <div className="w-30 sm-hidden pl-10 overflow-auto h-550 sticky" style={{ top: stickyTop }}>
-                    <Suspense fallback={<div className="w-full h-300" />}>
-                        <FilterSection {...categoryProps} />
-                    </Suspense>
+                    <FilterSection {...categoryProps} />
                 </div>
             </div>
 
@@ -185,9 +183,7 @@ const BlogSection = memo(({ stickyTop = getStickyTop() }) => {
                 footer={null}
             >
                 <div className="py-10">
-                    <Suspense fallback={<div className="w-full h-300" />}>
-                        <FilterSection {...categoryProps} />
-                    </Suspense>
+                    <FilterSection {...categoryProps} />
                 </div>
             </Modal>
         </div>

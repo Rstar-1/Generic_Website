@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, useEffect, lazy, Suspense, memo } from 'react';
+import React, { useState, useMemo, useCallback, useEffect, memo } from 'react';
 import { useNavigate, useLocation, useParams, useSearchParams } from 'react-router-dom';
 
 import Container from '../../../components/common/Container';
@@ -12,7 +12,7 @@ import { resolveImagePath } from '../../../utils/imageResolver';
 import { getItemSlug, matchBySlugOrId, shareContent } from '../../../utils/utils';
 import blogData from '../../../data/blog.json';
 
-const FilterSection = lazy(() => import('./FilterSection'));
+import FilterSection from './FilterSection';
 
 const BlogDetailSection = memo(() => {
     const navigate = useNavigate();
@@ -57,14 +57,12 @@ const BlogDetailSection = memo(() => {
     if (!currentBlog) return null;
 
     const renderSidebar = () => (
-        <Suspense fallback={<div className="w-full h-300" />}>
-            <FilterSection
-                selectedCategory={currentBlog.categoryId}
-                onSelectCategory={handleSelectCategory}
-                excludeBlogId={currentBlog.id}
-                onBlogClick={handleBlogClick}
-            />
-        </Suspense>
+        <FilterSection
+            selectedCategory={currentBlog.categoryId}
+            onSelectCategory={handleSelectCategory}
+            excludeBlogId={currentBlog.id}
+            onBlogClick={handleBlogClick}
+        />
     );
 
     return (

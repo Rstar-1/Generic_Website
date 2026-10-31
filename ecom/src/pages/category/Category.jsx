@@ -1,16 +1,18 @@
-import React, { lazy, Suspense, memo } from 'react';
-import LazySection from '../../components/common/LazySection';
+import React from 'react';
+
 import Container from '../../components/common/Container';
+
 import Banner from '../../components/layout/generic/Banner';
 import SEO from '../../seo';
+
 import { resolveImagePath } from '../../utils/imageResolver';
-import { SectionFallback, getCmsData } from '../../utils/utils';
+import { getCmsData } from '../../utils/utils';
 import { cmsMap } from '../../utils/apiData';
 
-const CatSection = lazy(() => import('./sections/CatSection'));
-const OfferSection = lazy(() => import('../home/sections/OfferSection'));
-const FeatureSection = lazy(() => import('../home/sections/FeatureSection'));
-const PatchSection = lazy(() => import('../home/sections/PatchSection'));
+import CatSection from './sections/CatSection';
+import OfferSection from '../home/sections/OfferSection';
+import FeatureSection from '../home/sections/FeatureSection';
+import PatchSection from '../home/sections/PatchSection';
 
 const patchBanner = resolveImagePath('Patch1.jpg');
 const catBanner = resolveImagePath('Banner.jpg');
@@ -48,52 +50,9 @@ const patchBackground = {
 
 const bannerBg = resolveImagePath(bannerBgImage?.url || catBanner);
 
-const categorySections = [
-    {
-        id: 'category',
-        Component: CatSection,
-        minHeight: '400px',
-        isContainer: true,
-    },
-    {
-        id: 'feature',
-        Component: FeatureSection,
-        minHeight: '400px',
-        isContainer: true,
-        containerStyle: { background: 'var(--forth)' }
-    },
-    {
-        id: 'offer',
-        Component: OfferSection,
-        minHeight: '300px',
-        isContainer: true,
-        props: {
-            title: offerTitle,
-            description: offerDescription,
-            bannerImage: offerBannerImage,
-            btnText: offerBtnText,
-            btnLink: offerBtnLink,
-            rawTrending: offerTrending,
-        },
-    },
-    {
-        id: 'patch',
-        Component: PatchSection,
-        minHeight: '300px',
-        isContainer: true,
-        containerClass: 'relative z-10',
-        containerStyle: patchBackground,
-        props: {
-            badge: patchBadge,
-            title: patchTitle,
-            description: patchDescription,
-        },
-    },
-];
-
 const BREADCRUMBS = [
     { label: 'Home', path: '/' },
-    { label: 'Category', path: '/category' }
+    { label: 'Categories', path: '/category' }
 ];
 
 const Category = () => {
@@ -102,42 +61,36 @@ const Category = () => {
             <SEO page="category" breadcrumbs={BREADCRUMBS} />
             <Banner
                 title={bannerTitle || "Categories"}
-                desc={bannerDesc || "Explore Our Wide Range of Products"}
+                desc={bannerDesc || "Categories"}
                 breadcrumbs={BREADCRUMBS}
-                image={bannerBg}
+                bgImage={bannerBg}
                 version="1"
             />
-            {categorySections.map(({ id, Component, props = {}, isEager, minHeight, isContainer = true, containerClass, containerStyle }) => {
-                const SectionContent = (
-                    <Suspense fallback={<SectionFallback minHeight={minHeight} />}>
-                        <Component {...props} />
-                    </Suspense>
-                );
-
-                const Content = isContainer ? (
-                    <Container className={containerClass} style={containerStyle}>
-                        {SectionContent}
-                    </Container>
-                ) : (
-                    SectionContent
-                );
-
-                return isEager ? (
-                    <React.Fragment key={id}>
-                        {Content}
-                    </React.Fragment>
-                ) : (
-                    <LazySection
-                        key={id}
-                        placeholderHeight={minHeight}
-                        placeholder={<SectionFallback minHeight={minHeight} />}
-                    >
-                        {Content}
-                    </LazySection>
-                );
-            })}
+            <Container>
+                <CatSection />
+            </Container>
+            <Container style={{ background: 'var(--forth)' }}>
+                <FeatureSection />
+            </Container>
+            <Container>
+                <OfferSection
+                    title={offerTitle}
+                    description={offerDescription}
+                    bannerImage={offerBannerImage}
+                    btnText={offerBtnText}
+                    btnLink={offerBtnLink}
+                    rawTrending={offerTrending}
+                />
+            </Container>
+            <Container className="relative z-10" style={patchBackground}>
+                <PatchSection
+                    badge={patchBadge}
+                    title={patchTitle}
+                    description={patchDescription}
+                />
+            </Container>
         </>
     );
 };
 
-export default memo(Category);
+export default React.memo(Category);

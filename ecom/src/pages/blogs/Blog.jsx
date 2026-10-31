@@ -1,14 +1,13 @@
-import React, { lazy, Suspense, memo, useMemo } from 'react';
-import LazySection from '../../components/common/LazySection';
+import React, { memo, useMemo } from 'react';
 import Container from '../../components/common/Container';
 import Banner from '../../components/layout/generic/Banner';
 import SEO from '../../seo';
 import { resolveImagePath } from '../../utils/imageResolver';
-import { getStickyTop, Fallback, getCmsData } from '../../utils/utils';
+import { getStickyTop, getCmsData } from '../../utils/utils';
 import { cmsMap } from '../../utils/apiData';
 
-const BlogSection = lazy(() => import('./sections/BlogSection'));
-const PatchSection = lazy(() => import('../home/sections/PatchSection'));
+import BlogSection from './sections/BlogSection';
+import PatchSection from '../home/sections/PatchSection';
 
 const patchBannerBg = resolveImagePath('Patch1.jpg');
 const blogBannerBg = resolveImagePath('Banner.jpg');
@@ -38,23 +37,6 @@ const patchBackground = {
 
 const bannerBg = resolveImagePath(bannerBgImage?.url || blogBannerBg);
 
-const blogSections = [
-    { id: 'blog', Component: BlogSection, minHeight: '600px', isContainer: true },
-    {
-        id: 'patch',
-        Component: PatchSection,
-        minHeight: '300px',
-        isContainer: true,
-        containerClass: 'relative z-10',
-        containerStyle: patchBackground,
-        props: {
-            badge: patchBadge,
-            title: patchTitle,
-            description: patchDescription,
-        },
-    },
-];
-
 const BREADCRUMBS = [
     { label: 'Home', path: '/' },
     { label: 'News & Media', path: '/blog' }
@@ -72,22 +54,16 @@ const Blog = () => {
                 breadcrumbs={BREADCRUMBS}
                 bgImage={bannerBg}
             />
-            {blogSections.map(({ id, Component, props = {}, isEager, minHeight, isContainer = true, containerClass, containerStyle }) => {
-                const el = isContainer ? (
-                    <Container className={containerClass} style={containerStyle}>
-                        <Component stickyTop={stickyTop} {...props} />
-                    </Container>
-                ) : (
-                    <Component stickyTop={stickyTop} {...props} />
-                );
-
-                const content = <Suspense fallback={<Fallback minHeight={minHeight} />}>{el}</Suspense>;
-                return isEager ? (
-                    <React.Fragment key={id}>{content}</React.Fragment>
-                ) : (
-                    <LazySection key={id} placeholderHeight={minHeight} placeholder={<Fallback minHeight={minHeight} />}>{content}</LazySection>
-                );
-            })}
+            <Container>
+                <BlogSection stickyTop={stickyTop} />
+            </Container>
+            <Container className="relative z-10" style={patchBackground}>
+                <PatchSection
+                    badge={patchBadge}
+                    title={patchTitle}
+                    description={patchDescription}
+                />
+            </Container>
         </>
     );
 };

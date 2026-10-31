@@ -116,7 +116,11 @@ const categoryMenuItems = [
 ];
 
 const headerType = configData?.Header?.HeaderType ?? configData?.Header?.[0]?.HeaderType ?? 1;
-const isStickyConfig = Boolean(configData?.Header?.HeaderSticky);
+const isStickyConfig = Boolean(
+  configData?.HeaderSticky ??
+  configData?.Header?.HeaderSticky ??
+  configData?.Header?.[0]?.HeaderSticky
+);
 
 const LogoClass = {
   1: "w-25 sm-w-85",

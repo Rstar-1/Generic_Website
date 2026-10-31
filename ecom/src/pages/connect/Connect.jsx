@@ -1,13 +1,15 @@
-import React, { lazy, Suspense, memo, useMemo } from 'react';
-import LazySection from '../../components/common/LazySection';
+import React from 'react';
+
 import Container from '../../components/common/Container';
+
 import Banner from '../../components/layout/generic/Banner';
 import SEO from '../../seo';
-import { SectionFallback, getCmsData, resolveImagePath } from '../../utils/utils';
+
+import { getCmsData, resolveImagePath } from '../../utils/utils';
 import { cmsMap } from '../../utils/apiData';
 
 import Enquiry from './sections/Enquiry';
-const PatchSection = lazy(() => import('../home/sections/PatchSection'));
+import PatchSection from '../home/sections/PatchSection';
 
 const patchBannerBg = resolveImagePath('Patch1.jpg');
 
@@ -38,33 +40,6 @@ const patchBackground = {
 
 const bannerBg = resolveImagePath(bannerBgImage?.url || 'Banner.jpg');
 
-const connectSections = [
-    {
-        id: 'enquiry',
-        Component: Enquiry,
-        minHeight: '500px',
-        isContainer: true,
-        isEager: true,
-        props: {
-            tag: enquiryTag,
-            subtitle: enquirySubtitle,
-        },
-    },
-    {
-        id: 'patch',
-        Component: PatchSection,
-        minHeight: '300px',
-        isContainer: true,
-        containerClass: 'relative z-10',
-        containerStyle: patchBackground,
-        props: {
-            badge: patchBadge,
-            title: patchTitle,
-            description: patchDescription,
-        },
-    },
-];
-
 const BREADCRUMBS = [
     { label: 'Home', path: '/' },
     { label: 'Connect Us', path: '/connect' }
@@ -80,37 +55,18 @@ const Connect = () => {
                 breadcrumbs={BREADCRUMBS}
                 bgImage={bannerBg}
             />
-            {connectSections.map(({ id, Component, props = {}, isEager, minHeight, isContainer, containerClass, containerStyle }) => {
-                const SectionContent = (
-                    <Suspense fallback={<SectionFallback minHeight={minHeight} />}>
-                        <Component {...props} />
-                    </Suspense>
-                );
-
-                const Content = isContainer ? (
-                    <Container className={containerClass} style={containerStyle}>
-                        {SectionContent}
-                    </Container>
-                ) : (
-                    SectionContent
-                );
-
-                return isEager ? (
-                    <React.Fragment key={id}>
-                        {Content}
-                    </React.Fragment>
-                ) : (
-                    <LazySection
-                        key={id}
-                        placeholderHeight={minHeight}
-                        placeholder={<SectionFallback minHeight={minHeight} />}
-                    >
-                        {Content}
-                    </LazySection>
-                );
-            })}
+            <Container>
+                <Enquiry tag={enquiryTag} subtitle={enquirySubtitle} />
+            </Container>
+            <Container className="relative z-10" style={patchBackground}>
+                <PatchSection
+                    badge={patchBadge}
+                    title={patchTitle}
+                    description={patchDescription}
+                />
+            </Container>
         </>
     );
 };
 
-export default memo(Connect);
+export default React.memo(Connect);

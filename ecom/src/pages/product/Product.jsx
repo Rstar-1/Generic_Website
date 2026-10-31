@@ -1,14 +1,16 @@
-import React, { lazy, Suspense, memo, useMemo } from 'react';
-import LazySection from '../../components/common/LazySection';
+import React from 'react';
+
 import Container from '../../components/common/Container';
+
 import Banner from '../../components/layout/generic/Banner';
 import SEO from '../../seo';
+
 import { resolveImagePath } from '../../utils/imageResolver';
-import { getStickyTop, Fallback, getCmsData } from '../../utils/utils';
+import { getStickyTop, getCmsData } from '../../utils/utils';
 import { cmsMap } from '../../utils/apiData';
 
 import FilterSection from './sections/FilterSection';
-const PatchSection = lazy(() => import('../home/sections/PatchSection'));
+import PatchSection from '../home/sections/PatchSection';
 
 const patchBannerBg = resolveImagePath('Patch1.jpg');
 const productBannerBg = resolveImagePath('Banner.jpg');
@@ -38,36 +40,13 @@ const patchBackground = {
 
 const bannerBg = resolveImagePath(bannerBgImage?.url || productBannerBg);
 
-const productSections = [
-    {
-        id: 'filter',
-        Component: FilterSection,
-        minHeight: '600px',
-        isContainer: true,
-        isEager: true
-    },
-    {
-        id: 'patch',
-        Component: PatchSection,
-        minHeight: '300px',
-        isContainer: true,
-        containerClass: 'relative z-10',
-        containerStyle: patchBackground,
-        props: {
-            badge: patchBadge,
-            title: patchTitle,
-            description: patchDescription,
-        },
-    },
-];
-
 const BREADCRUMBS = [
     { label: 'Home', path: '/' },
     { label: 'Products', path: '/product' }
 ];
 
 const Product = () => {
-    const stickyTop = useMemo(() => getStickyTop(), []);
+    const stickyTop = React.useMemo(() => getStickyTop(), []);
 
     return (
         <>
@@ -78,24 +57,18 @@ const Product = () => {
                 breadcrumbs={BREADCRUMBS}
                 bgImage={bannerBg}
             />
-            {productSections.map(({ id, Component, props = {}, isEager, minHeight, isContainer = true, containerClass, containerStyle, version }) => {
-                const el = isContainer ? (
-                    <Container className={containerClass} style={containerStyle} version={version}>
-                        <Component stickyTop={stickyTop} {...props} />
-                    </Container>
-                ) : (
-                    <Component stickyTop={stickyTop} {...props} />
-                );
-
-                const content = isEager ? el : <Suspense fallback={<Fallback minHeight={minHeight} />}>{el}</Suspense>;
-                return isEager ? (
-                    <React.Fragment key={id}>{content}</React.Fragment>
-                ) : (
-                    <LazySection key={id} placeholderHeight={minHeight} placeholder={<Fallback minHeight={minHeight} />}>{content}</LazySection>
-                );
-            })}
+            <Container>
+                <FilterSection stickyTop={stickyTop} />
+            </Container>
+            <Container className="relative z-10" style={patchBackground}>
+                <PatchSection
+                    badge={patchBadge}
+                    title={patchTitle}
+                    description={patchDescription}
+                />
+            </Container>
         </>
     );
 };
 
-export default memo(Product);
+export default React.memo(Product);

@@ -15,8 +15,8 @@
       content="Ashmita Vinyls certified industrial PVC strip curtains, polar freezer rolls, and hanging hardware solutions"
     />
 
-    <link rel="ard" type="application/json" href="/.well-known/ard.json" />
-    <link rel="ai-catalog" type="application/json" href="/.well-known/ai-catalog.json" />
+    <link rel="ard" type="application/ai-catalog+json" href="/.well-known/ard.json" />
+    <link rel="ai-catalog" type="application/ai-catalog+json" href="/.well-known/ai-catalog.json" />
     <link rel="describedby" type="text/plain" href="/llms.txt" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -25,10 +25,15 @@
     <link rel="dns-prefetch" href="https://raw.githubusercontent.com" />
 
     <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Ubuntu:wght@300;400;500;700&display=swap"
+    />
+    <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Ubuntu:wght@300;400;500;700&display=swap"
       media="print"
-      onload="this.media = 'all'"
+      onload="this.media='all'"
     />
     <noscript>
       <link

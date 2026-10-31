@@ -1,20 +1,19 @@
 import React from "react";
 
-import LazySection from "../../components/common/LazySection";
 import Container from "../../components/common/Container";
 import SEO from "../../seo";
 
 import { resolveImagePath } from "../../utils/imageResolver";
-import { SectionFallback, getCmsData } from "../../utils/utils";
+import { getCmsData } from "../../utils/utils";
 import { cmsMap } from "../../utils/apiData";
 
 import HeroBanner from "./sections/HeroBanner";
-const CategorySection = React.lazy(() => import("./sections/CategorySection"));
-const ServiceSection = React.lazy(() => import("./sections/ServiceSection"));
-const ProductSection = React.lazy(() => import("./sections/ProductSection"));
-const AboutSection = React.lazy(() => import("./sections/AboutSection"));
-const PatchSection = React.lazy(() => import("./sections/PatchSection"));
-const OfferSection = React.lazy(() => import("./sections/OfferSection"));
+import CategorySection from "./sections/CategorySection";
+import ServiceSection from "./sections/ServiceSection";
+import ProductSection from "./sections/ProductSection";
+import AboutSection from "./sections/AboutSection";
+import PatchSection from "./sections/PatchSection";
+import OfferSection from "./sections/OfferSection";
 
 const getSectionCms = (section) =>
     getCmsData(section, cmsMap?.[section]);
@@ -76,9 +75,7 @@ const ecomSections = [
     {
         id: "hero",
         Component: HeroBanner,
-        minHeight: "500px",
         isContainer: false,
-        isEager: true,
         props: {
             title: heroTitle,
             subtitle: heroSubtitle,
@@ -91,13 +88,11 @@ const ecomSections = [
     {
         id: "category",
         Component: CategorySection,
-        minHeight: "300px",
         props: { tag: catTag, title: catTitle },
     },
     {
         id: "product",
         Component: ProductSection,
-        minHeight: "400px",
         containerStyle: { background: "var(--forth)" },
         props: {
             tag: prodTag,
@@ -109,7 +104,6 @@ const ecomSections = [
     {
         id: "about",
         Component: AboutSection,
-        minHeight: "400px",
         containerStyle: { background: "var(--forth)" },
         props: {
             title: aboutTitle,
@@ -122,7 +116,6 @@ const ecomSections = [
     {
         id: "feature",
         Component: ServiceSection,
-        minHeight: "400px",
         containerStyle: { background: "var(--forth)" },
         props: {
             tag: servTag,
@@ -134,7 +127,6 @@ const ecomSections = [
     {
         id: "offer",
         Component: OfferSection,
-        minHeight: "300px",
         props: {
             title: offerTitle,
             description: offerDescription,
@@ -147,7 +139,6 @@ const ecomSections = [
     {
         id: "patch",
         Component: PatchSection,
-        minHeight: "300px",
         containerClass: "relative z-10",
         containerStyle: patchBackground,
         props: {
@@ -166,39 +157,17 @@ const Home = () => (
             id,
             Component,
             props = {},
-            minHeight,
-            isEager = false,
             isContainer = true,
             containerClass,
             containerStyle,
         }) => {
-            const fallback = <SectionFallback minHeight={minHeight} />;
-
-            const section = isEager ? (
-                <Component {...props} />
-            ) : (
-                <React.Suspense fallback={fallback}>
-                    <Component {...props} />
-                </React.Suspense>
-            );
-
-            const content = isContainer ? (
-                <Container className={containerClass} style={containerStyle}>
+            const section = <Component {...props} />;
+            return isContainer ? (
+                <Container key={id} className={containerClass} style={containerStyle}>
                     {section}
                 </Container>
-            ) : section;
-
-            return (
-                <React.Fragment key={id}>
-                    {isEager ? content : (
-                        <LazySection
-                            placeholderHeight={minHeight}
-                            placeholder={fallback}
-                        >
-                            {content}
-                        </LazySection>
-                    )}
-                </React.Fragment>
+            ) : (
+                <React.Fragment key={id}>{section}</React.Fragment>
             );
         })}
     </>

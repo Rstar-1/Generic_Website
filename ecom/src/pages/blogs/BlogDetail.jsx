@@ -1,36 +1,25 @@
-import React, { lazy, Suspense, memo, useMemo } from 'react';
+import React, { memo, useMemo } from 'react';
 import { useLocation, useParams, useSearchParams } from 'react-router-dom';
 
-import LazySection from '../../components/common/LazySection';
 import Container from '../../components/common/Container';
 import Banner from '../../components/layout/generic/Banner';
 import SEO from '../../seo';
-import { getItemSlug, matchBySlugOrId, Fallback, findCategory, resolveImagePath } from '../../utils/utils';
+import { getItemSlug, matchBySlugOrId, findCategory, resolveImagePath } from '../../utils/utils';
 import { blogData, blogCategoriesData } from '../../utils/apiData';
 
-const BlogDetailSection = lazy(() => import('./sections/BlogDetailSection'));
-const PatchSection = lazy(() => import('../home/sections/PatchSection'));
+import BlogDetailSection from './sections/BlogDetailSection';
+import PatchSection from '../home/sections/PatchSection';
 
 const patchBannerBg = resolveImagePath('Patch1.jpg');
 const blogBannerBg = resolveImagePath('Banner.jpg');
 
-const blogDetailSections = [
-    { id: 'detail', Component: BlogDetailSection, minHeight: '600px', isContainer: false },
-    {
-        id: 'patch',
-        Component: PatchSection,
-        minHeight: '300px',
-        isContainer: true,
-        containerClass: 'relative z-10',
-        containerStyle: {
-            backgroundImage: `linear-gradient(90deg, rgba(10, 15, 25, 0.94) 0%, rgba(10, 15, 25, 0.82) 50%, rgba(10, 15, 25, 0.45) 100%), url(${patchBannerBg})`,
-            backgroundPosition: 'center',
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-            backgroundAttachment: 'fixed'
-        }
-    },
-];
+const patchBackground = {
+    backgroundImage: `linear-gradient(90deg, rgba(10, 15, 25, 0.94) 0%, rgba(10, 15, 25, 0.82) 50%, rgba(10, 15, 25, 0.45) 100%), url(${patchBannerBg})`,
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundAttachment: 'fixed'
+};
 
 const BlogDetail = () => {
     const location = useLocation();
@@ -80,22 +69,10 @@ const BlogDetail = () => {
                 breadcrumbs={breadcrumbs}
             />
             <Banner title="Blogs Overview" desc='' breadcrumbs={breadcrumbs} bgImage={blogBannerBg} />
-            {blogDetailSections.map(({ id: secId, Component, isEager, minHeight, isContainer, containerClass, containerStyle }) => {
-                const el = isContainer ? (
-                    <Container className={containerClass} style={containerStyle}>
-                        <Component />
-                    </Container>
-                ) : (
-                    <Component />
-                );
-
-                const content = <Suspense fallback={<Fallback minHeight={minHeight} />}>{el}</Suspense>;
-                return isEager ? (
-                    <React.Fragment key={secId}>{content}</React.Fragment>
-                ) : (
-                    <LazySection key={secId} placeholderHeight={minHeight} placeholder={<Fallback minHeight={minHeight} />}>{content}</LazySection>
-                );
-            })}
+            <BlogDetailSection />
+            <Container className="relative z-10" style={patchBackground}>
+                <PatchSection />
+            </Container>
         </>
     );
 };
