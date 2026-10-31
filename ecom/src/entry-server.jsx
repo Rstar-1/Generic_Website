@@ -32,10 +32,9 @@ export function buildHeadTags(url) {
     const graph = buildGraphJsonLd({ meta });
 
     const defaultBanner = resolveImagePath('Banner.jpg');
-    const rawLcp = (pathname === '/' || pathname === '/home')
-        ? defaultBanner
-        : (meta.image && !meta.image.includes('hospital_ward') ? meta.image : defaultBanner);
-    const lcpImage = resolveImagePath(rawLcp);
+    const rawLcp = (meta.image && !meta.image.includes('hospital_ward')) ? meta.image : defaultBanner;
+    const lcpImage = rawLcp ? resolveImagePath(rawLcp) : defaultBanner;
+    const isImageLcp = Boolean(lcpImage && !/\.(mp4|webm|ogg)($|\?|#)/i.test(lcpImage));
 
     const tags = [
         meta.keywords ? `<meta name="keywords" content="${escapeHtml(meta.keywords)}" />` : '',
@@ -52,7 +51,7 @@ export function buildHeadTags(url) {
         `<meta name="twitter:title" content="${escapeHtml(meta.title)}" />`,
         `<meta name="twitter:description" content="${escapeHtml(meta.description)}" />`,
         meta.image ? `<meta name="twitter:image" content="${escapeHtml(meta.image)}" />` : '',
-        lcpImage ? `<link rel="preload" as="image" href="${escapeHtml(lcpImage)}" fetchpriority="high" />` : '',
+        isImageLcp ? `<link rel="preload" as="image" href="${escapeHtml(lcpImage)}" fetchpriority="high" />` : '',
         `<link rel="preload" as="image" href="${escapeHtml(resolveImagePath('sobo_logo.png'))}" fetchpriority="high" />`,
         `<script id="site-seo-jsonld" type="application/ld+json">${JSON.stringify(graph).replace(/</g, '\\u003c')}</script>`,
     ].filter(Boolean).join('\n    ');

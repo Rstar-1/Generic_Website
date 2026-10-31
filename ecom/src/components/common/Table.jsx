@@ -98,7 +98,7 @@ const ProfileCell = React.memo(({ col, row }) => {
     const obj = (rawVal && typeof rawVal === "object") ? rawVal : {};
     const name = obj.fullname || obj.name || obj.username || (typeof rawVal === "string" ? rawVal : "") || row[col.nameKey || "createdByName"] || row.username || row.name || "";
     const subText = obj.mobile || obj.phone || obj.email || obj.sub || row[col.subKey || "sub"] || row[col.emailKey || "email"] || row.email || row.sub || "";
-    const rawImg = obj.image || obj.avatar || row[col.imageKey || "image"] || row.image || (Array.isArray(row.images) && row.images[0]) || row.avatar || "";
+    const rawImg = obj.image ?? obj.avatar ?? row[col.imageKey ?? "image"] ?? row.image ?? (Array.isArray(row.images) ? row.images[0] : "") ?? "";
     const imgUrl = resolveImagePath(rawImg);
     const favColor = row[col.colorKey || "favoriteColor"] || "#6366f1";
     const imgStyle = { width: "40px", height: "40px", flexShrink: 0, ...col.imgStyle, ...col.imageStyle };

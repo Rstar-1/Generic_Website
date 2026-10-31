@@ -5,17 +5,17 @@ import Layout from '../components/layout/Layout';
 import Loader from '../components/common/generic/Loader';
 
 import Home from '../pages/home/Home';
-import About from '../pages/about/About';
-import Blog from '../pages/blogs/Blog';
-import BlogDetail from '../pages/blogs/BlogDetail';
-import Supplier from '../pages/supplier/Supplier';
-import Product from '../pages/product/Product';
-import ProductDetail from '../pages/product/ProductDetail';
-import Connect from '../pages/connect/Connect';
-import Terms from '../pages/content/Terms';
-import Privacy from '../pages/content/Privacy';
-import Faq from '../pages/content/Faq';
-import Category from '../pages/category/Category';
+const About = React.lazy(() => import('../pages/about/About'));
+const Blog = React.lazy(() => import('../pages/blogs/Blog'));
+const BlogDetail = React.lazy(() => import('../pages/blogs/BlogDetail'));
+const Supplier = React.lazy(() => import('../pages/supplier/Supplier'));
+const Product = React.lazy(() => import('../pages/product/Product'));
+const ProductDetail = React.lazy(() => import('../pages/product/ProductDetail'));
+const Connect = React.lazy(() => import('../pages/connect/Connect'));
+const Terms = React.lazy(() => import('../pages/content/Terms'));
+const Privacy = React.lazy(() => import('../pages/content/Privacy'));
+const Faq = React.lazy(() => import('../pages/content/Faq'));
+const Category = React.lazy(() => import('../pages/category/Category'));
 
 function AppRoutes() {
     const location = useLocation();

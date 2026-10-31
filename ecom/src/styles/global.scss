@@ -270,3 +270,41 @@ body {
     background-color: transparent !important;
     box-shadow: none !important;
 }
+
+/* ======================= HeroBanner Responsive Styles ======================= */
+.hero-breadcrumb-tab {
+    position: absolute;
+    z-index: 30;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--white);
+    -webkit-mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: bottom center;
+    mask-size: 100% 100%;
+    mask-repeat: no-repeat;
+    mask-position: bottom center;
+    width: 450px;
+    height: 68px;
+
+    @media (max-width: 768px) {
+        width: 60%;
+        height: 50px;
+    }
+}
+
+.hero-banner-mask-v1 {
+    position: relative;
+    -webkit-mask-size: 110% 100%;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-size: 110% 100%;
+    mask-repeat: no-repeat;
+    mask-position: center;
+
+    @media (max-width: 768px) {
+        -webkit-mask-size: 260% 100%;
+        mask-size: 260% 100%;
+    }
+}

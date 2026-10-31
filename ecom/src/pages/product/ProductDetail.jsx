@@ -62,13 +62,13 @@ const ProductDetail = () => {
                 page="productDetail"
                 title={`${productName} | ${SITE_NAME || 'Ashmita Vinyls'}`}
                 description={product?.desc || product?.description || `Explore ${productName} by ${SITE_NAME || 'Ashmita Vinyls'}. Premium industrial PVC vinyl solutions.`}
-                image={product?.image || product?.images?.[0]}
+                image={product?.image}
                 path={`/product/${productSlug}`}
                 type="product"
                 product={{
                     name: productName,
                     description: product?.desc || product?.description,
-                    images: product?.images || (product?.image ? [product.image] : []),
+                    images: product?.images,
                     price: product?.price,
                     currency: 'INR',
                     stock: product?.inStock ? (product?.stockCount || 10) : 0,

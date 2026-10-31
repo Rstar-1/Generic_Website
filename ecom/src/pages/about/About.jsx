@@ -54,7 +54,7 @@ const patchBackground = {
     backgroundAttachment: 'fixed'
 };
 
-const bannerBg = resolveImagePath(bannerBgImage?.url || 'Banner.jpg');
+const bannerBg = resolveImagePath(bannerBgImage?.url);
 
 const BREADCRUMBS = [
     { label: 'Home', path: '/' },

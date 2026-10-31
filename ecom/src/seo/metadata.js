@@ -37,9 +37,9 @@ export function buildMetadata({
     keywords: keywords || defaults.keywords || seoConfig.defaultKeywords,
     canonical,
     image: getImageUrl(
-      image ||
-        defaults.image ||
-        (product?.images && product.images[0]) ||
+      image ??
+        defaults.image ??
+        (product?.images && product.images[0]) ??
         product?.image
     ),
     robots: noindex

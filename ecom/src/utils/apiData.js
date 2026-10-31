@@ -15,7 +15,7 @@ import { slugify } from "./slugify";
 export const categoriesData = rawCategoriesData.map((c) => ({
   ...c,
   slug: slugify(c.name),
-  image: c.image || c.icon,
+  image: c.image,
 }));
 
 export const blogCategoriesData = rawBlogCategoriesData.map((c) => ({

@@ -183,7 +183,7 @@ export const getCmsData = (sectionName, data = cmsData) => {
 
   const getImage = (idOrLabel, fallback = null) => {
     const item = items.find((i) => i.cmsId === idOrLabel || i.label?.toLowerCase() === String(idOrLabel).toLowerCase());
-    return item?.image || (typeof item?.url === "string" ? item : fallback);
+    return item?.image ?? (typeof item?.url === "string" ? item : fallback);
   };
 
   const getArray = (idOrLabel, fallback = []) =>
@@ -203,7 +203,7 @@ export const getCmsData = (sectionName, data = cmsData) => {
     if (i.type === "text") {
       dataMap[i.cmsId] = i.text ?? "";
     } else if (i.type === "image") {
-      dataMap[i.cmsId] = i.image || (typeof i.url === "string" ? i : null);
+      dataMap[i.cmsId] = i.image ?? (typeof i.url === "string" ? i : null);
     } else if (i.type === "array") {
       const isBtn = i.label?.toLowerCase().includes("button") || i.cmsId?.toLowerCase().includes("btn") || i.cmsId?.toLowerCase().includes("005");
       dataMap[i.cmsId] = isBtn ? getButton(i.cmsId) : i.data;

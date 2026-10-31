@@ -54,14 +54,14 @@ const CategoryVersion1 = React.memo(({ items, onCategoryClick }) => (
                         className="p-20 sm-p-14 grid-cols-1 cursor-pointer"
                     >
                         <Image
-                            src={resolveImagePath(item.icon || item.image)}
-                            alt={item.name || item.title}
+                            src={resolveImagePath(item.image)}
+                            alt={item.name}
                             width="116"
                             height="116"
                             className="rounded-full object-contain flex mx-auto"
                         />
                         <p className="small-text text-center text-dark font-500 line-clamp1 mt-12">
-                            {item.name || item.title}
+                            {item.name}
                         </p>
                     </div>
                 );
@@ -85,17 +85,16 @@ const CategoryVersion2 = React.memo(({ items, onCategoryClick }) => (
                 >
                     <div className="relative">
                         <Image
-                            src={resolveImagePath(cat.icon || cat.image)}
-                            alt={cat.name || cat.title}
+                            src={resolveImagePath(cat.image)}
+                            alt={cat.name}
                             width="110"
                             height="110"
-                            loading={idx < 3 ? "eager" : "lazy"}
-                            fetchPriority={idx < 3 ? "high" : undefined}
+                            loading="lazy"
                             className="flex object-cover rounded-full mx-auto"
                         />
                     </div>
                     <p className="text-dark font-500 small-text text-center line-clamp1 mt-12">
-                        {cat.name || cat.title}
+                        {cat.name}
                     </p>
                 </div>
             ))}
@@ -151,8 +150,8 @@ const CategoryVersion3 = React.memo(({ items, onCategoryClick }) => (
 
                     <div className="card-image-right w-50 sm-w-40 relative overflow-hidden rounded-5 h-200">
                         <Image
-                            src={resolveImagePath(cat.icon || cat.image)}
-                            alt={cat.name || cat.title}
+                            src={resolveImagePath(cat.image)}
+                            alt={cat.name}
                             className="card-image-element w-full h-full object-cover flex"
                             loading="lazy"
                         />
@@ -181,7 +180,7 @@ const CategoryVersion3 = React.memo(({ items, onCategoryClick }) => (
 CategoryVersion3.displayName = 'CategoryVersion3';
 
 const CategoryCard = React.memo(({ item, onClick }) => {
-    const imgSrc = resolveImagePath(item.icon || item.image);
+    const imgSrc = resolveImagePath(item.image);
 
     return (
         <div
@@ -192,7 +191,7 @@ const CategoryCard = React.memo(({ item, onClick }) => {
         >
             <Image
                 src={imgSrc}
-                alt={item.name || item.title}
+                alt={item.name}
                 className="card-bg-img w-full h-full object-cover filter-b5 flex"
                 loading="lazy"
             />

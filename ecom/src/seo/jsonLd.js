@@ -53,7 +53,7 @@ export function productJsonLd(product) {
 
   const id = product.id || product.slug || "product";
   const rawImage =
-    (Array.isArray(product.images) && product.images[0]) || product.image;
+    (Array.isArray(product.images) && product.images[0]) ?? product.image;
   const stock =
     typeof product.stock === "number"
       ? product.stock

@@ -4,7 +4,7 @@ import Loader from '../common/generic/Loader';
 
 import Header from './Header';
 import Footer from './Footer';
-import Chatbot from './Chatbot';
+const Chatbot = React.lazy(() => import('./Chatbot'));
 
 import Button from '../common/Button';
 import { ToastContainer } from '../common/Toast';
@@ -50,7 +50,9 @@ const Layout = () => (
             </aside>
         )}
 
-        <Chatbot />
+        <React.Suspense fallback={null}>
+            <Chatbot />
+        </React.Suspense>
         <ToastContainer />
 
         <Footer />

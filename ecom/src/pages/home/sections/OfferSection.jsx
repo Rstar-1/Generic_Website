@@ -43,7 +43,7 @@ const OfferSection = ({
     rawTrending
 }) => {
     const navigate = useNavigate();
-    const bannerSrc = resolveImagePath(bannerImage?.url || 'Banner.jpg');
+    const bannerSrc = resolveImagePath(bannerImage?.url);
 
     const trending = React.useMemo(() => {
         const raw = Array.isArray(rawTrending) && rawTrending.length ? rawTrending : DEFAULT_TRENDING;
@@ -65,7 +65,7 @@ const OfferSection = ({
                 <div className='overflow-hidden bg-forth rounded-10 relative sm-h-400' style={{ height: '612px' }}>
                     <Image
                         src={bannerSrc}
-                        alt={bannerImage?.alt || title}
+                        alt={bannerImage?.alt}
                         loading="lazy"
                         decoding="async"
                         className='h-full w-full object-cover flex filter-b5'

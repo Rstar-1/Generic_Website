@@ -164,7 +164,7 @@ const FooterNavigation = React.memo(({ columns }) => {
                   </Link>
                 ) : (
                   <a
-                    href={link.url || '#'}
+                    href={link.url ?? '#'}
                     title={link.fullTitle || link.label}
                     className="text-gray font-400 small-text line-clamp1 hover:underline"
                   >
@@ -226,7 +226,7 @@ const FooterBottomBar = React.memo(({ bottom }) => {
                   {item.label}
                 </Link>
               ) : (
-                <a key={item.label} href={item.url || '#'} className="mini-text text-gray">
+                <a key={item.label} href={item.url ?? '#'} className="mini-text text-gray">
                   {item.label}
                 </a>
               )

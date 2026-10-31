@@ -33,7 +33,7 @@ const DetailSection = React.memo(({
     rawThumbnails = DEFAULT_THUMBNAILS
 }) => {
     const navigate = useNavigate();
-    const showcaseSrc = resolveImagePath(showcaseImage?.url || 'blog/Blog4.jpg');
+    const showcaseSrc = resolveImagePath(showcaseImage?.url);
 
     const thumbnails = React.useMemo(() => {
         const raw = Array.isArray(rawThumbnails) && rawThumbnails.length ? rawThumbnails : DEFAULT_THUMBNAILS;
@@ -91,7 +91,7 @@ const DetailSection = React.memo(({
                 <div className="w-full h-550 sm-h-350 rounded-10 overflow-hidden">
                     <Image
                         src={showcaseSrc}
-                        alt={showcaseImage?.alt || title}
+                        alt={showcaseImage?.alt}
                         width={600}
                         height={550}
                         aspectRatio="12 / 11"

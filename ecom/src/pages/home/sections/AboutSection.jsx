@@ -20,9 +20,7 @@ const AboutSection = React.memo(({
         navigate(btnLink || '/product');
     }, [navigate, btnLink]);
 
-    const imgSrc = aboutImage?.url && !aboutImage.url.includes('example.com')
-        ? resolveImagePath(aboutImage.url)
-        : resolveImagePath('Banner.jpg');
+    const imgSrc = resolveImagePath(aboutImage?.url);
 
     return (
         <div className="w-full py-60">
@@ -49,7 +47,7 @@ const AboutSection = React.memo(({
                 <div className="relative rounded-10 overflow-hidden h-500 sm-h-360 w-full sm-mt-12">
                     <Image
                         src={imgSrc}
-                        alt={aboutImage?.alt || title}
+                        alt={aboutImage?.alt}
                         className="w-full h-full object-cover flex"
                         loading="lazy"
                         decoding="async"

@@ -48,7 +48,7 @@ const CatSection = React.memo(({ items = categoriesData }) => {
                                 >
                                     <Icon name={cat.iconName || 'Layers'} width="22" height="22" stroke={cat.accentColor || '#2563EB'} />
                                 </div>
-                                <h3 className="mid-text text-dark font-600 pt-8">{cat.name || cat.title}</h3>
+                                <h3 className="mid-text text-dark font-600 pt-8">{cat.name}</h3>
                                 <p className="text-gray mini-text line-clamp3 mt-4">
                                     {cat.description}
                                 </p>
@@ -60,8 +60,8 @@ const CatSection = React.memo(({ items = categoriesData }) => {
 
                         <div className="card-image-right w-50 sm-w-40 relative overflow-hidden rounded-5 h-200">
                             <Image
-                                src={resolveImagePath(cat.icon || cat.image)}
-                                alt={cat.name || cat.title}
+                                src={resolveImagePath(cat.image)}
+                                alt={cat.name}
                                 className="card-image-element w-full h-full object-cover flex"
                                 loading="lazy"
                             />

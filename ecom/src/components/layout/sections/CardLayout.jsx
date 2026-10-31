@@ -40,7 +40,7 @@ export const FeatureCard = React.memo(({
             id: item.id,
             name: productName?.replace('...', ''),
             price: item.price,
-            image: item.thumb || item.image
+            image: item.image
         });
         handleCardClick?.(item);
     };
@@ -69,7 +69,7 @@ export const FeatureCard = React.memo(({
                 <div className="rounded-5 p-14 flex items-center justify-between bg-gray feature-div">
                     <div className="flex items-center gap-8 w-60">
                         <Image
-                            src={resolveImagePath(item.thumb || item.image)}
+                            src={resolveImagePath(item.image)}
                             alt={productName}
                             height="45px"
                             className="flex object-cover rounded-5 w-30"
@@ -120,7 +120,7 @@ export const FeatureCard2 = React.memo(({
         >
             <Image
                 src={resolveImagePath(item.image)}
-                alt={title || 'feature'}
+                alt={title}
                 className={`w-full ${imageHeight} object-cover flex rounded-10`}
             />
             <h3 className="mid-text text-dark text-center font-600 uppercase mt-16">
@@ -149,7 +149,7 @@ export const FeatureCard3 = React.memo(({
     const handleCardClick = onClick;
     if (!item) return null;
 
-    const productImages = item.products || item.images?.slice(0, 2) || (item.image ? [item.image] : []);
+    const productImages = item.products ?? item.images?.slice(0, 2) ?? (item.image ? [item.image] : []);
     const [activeImage, setActiveImage] = React.useState(item.image);
 
     React.useEffect(() => {
@@ -173,8 +173,8 @@ export const FeatureCard3 = React.memo(({
             className={`feed-card relative rounded-10 overflow-hidden h-400 cursor-pointer w-full ${minWidth || maxWidth ? 'flex-shrink-0' : ''} ${className}`.trim()}
         >
             <Image
-                src={resolveImagePath(activeImage || item.image)}
-                alt={item.title || item.name || "Instagram Feed Post"}
+                src={resolveImagePath(activeImage)}
+                alt={item.title}
                 className="feed-img w-full h-full object-cover flex"
                 onClick={() => handleCardClick?.(item)}
             />
@@ -384,7 +384,7 @@ export const ProductCard2 = React.memo(({
 
     if (!item) return null;
 
-    const activeImage = item.variants?.[selectedVariant] || item.image;
+    const activeImage = item.variants?.[selectedVariant] ?? item.image;
     const price = typeof item.price === 'number'
         ? `$${item.price.toFixed(2)}`
         : (item.priceFormatted || item.price || '$0.00');

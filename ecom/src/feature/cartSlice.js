@@ -38,7 +38,7 @@ export const cartSlice = createSlice({
           price,
           priceFormatted: product.priceFormatted || `$${price.toFixed(2)}`,
           quantity,
-          image: product.image || '',
+          image: product.image,
           color: product.color || null,
         });
       }

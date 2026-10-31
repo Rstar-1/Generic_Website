@@ -50,7 +50,7 @@ export const Image = React.memo(
       return (
         <video
           src={resolved}
-          poster={props.poster || resolveImagePath("Banner.jpg")}
+          poster={props.poster}
           className={className}
           style={{
             aspectRatio,
@@ -132,7 +132,7 @@ export const ImageDiv = React.memo(
             <video
               ref={innerRef}
               src={bgImage}
-              poster={props.poster || resolveImagePath("Banner.jpg")}
+              poster={props.poster}
               className={`${innerClassName} absolute inset-0 w-full h-full object-cover`}
               style={{ zIndex: 0 }}
               autoPlay
