@@ -26,7 +26,7 @@
         "type": "image",
         "label": "Hero Background",
         "image": {
-          "url": "Banner.jpg",
+          "url": "Hero1.mp4",
           "alt": "PVC strip curtain rolls",
           "storageType": "url"
         }

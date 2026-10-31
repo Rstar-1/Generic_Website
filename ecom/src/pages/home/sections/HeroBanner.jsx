@@ -6,8 +6,8 @@ import Image from '../../../components/common/Image';
 import Button from '../../../components/common/Button';
 
 import {
-  configData,
-  resolveImagePath
+    configData,
+    resolveImagePath
 } from '../../../utils';
 
 const HEIGHT_MAP = {
@@ -16,8 +16,8 @@ const HEIGHT_MAP = {
 };
 
 const HeroBackground = React.memo(({ bgImage }) => {
-    const isPlaceholder = !bgImage?.url || bgImage.url.includes('example.com');
-    const mediaSrc = isPlaceholder ? resolveImagePath('Banner.jpg') : bgImage.url;
+    const isPlaceholder = !bgImage?.url;
+    const mediaSrc = isPlaceholder ? resolveImagePath('Hero1.mp4') : bgImage.url;
 
     return (
         <div className='absolute top-0 left-0 w-full h-full z-10'>
